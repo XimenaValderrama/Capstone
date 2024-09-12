@@ -12,3 +12,8 @@ def inicio_sesion(request):
 def perfil(request):
 
     return render(request, "perfil.html")
+
+
+def tenencia_responsable(request):
+
+    return render(request, "tenencia_responsable.html")
