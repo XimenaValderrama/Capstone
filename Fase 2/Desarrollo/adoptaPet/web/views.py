@@ -8,3 +8,7 @@ def inicio(request):
 def inicio_sesion(request):    
 
     return render(request, "login.html") 
+
+def perfil(request):
+
+    return render(request, "perfil.html")
