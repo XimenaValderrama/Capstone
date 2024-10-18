@@ -37,39 +37,86 @@
                   <p class="mb-0">Ingresa tus datos</p>
                 </div>
                 <div class="card-body">
-                  <form role="form">
-                    <div class="col-md-6">
-                      <p class="mb-0">Nombre</p>
-                      <div class="mb-3">
+                  <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Nombre" aria-label="Nombre">
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <p class="mb-0">Apellido paterno</p>
-                        <div class="mb-3">
-                          <input type="text" class="form-control form-control-lg" placeholder="Apellido paterno" aria-label="Apellido paterno">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <p class="mb-0">Apellido materno</p>
-                        <div class="mb-3">
-                          <input type="text" class="form-control form-control-lg" placeholder="Apellido materno" aria-label="Apellido materno">
-                        </div>
+                      <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Apellido" aria-label="Apellido">
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6">
-                        <p class="mb-0">Correo</p>
-                        <div class="mb-3">
-                          <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="email">
-                        </div>
+                      <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Rut" aria-label="Rut">
                       </div>
-                      <div class="col-md-6">
-                        <p class="mb-0">Contraseña</p>
-                        <div class="mb-3">
-                          <input type="Password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Password">
-                        </div>
+                      <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Teléfono" aria-label="Teléfono">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Correo electrónico" aria-label="Correo electrónico">
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <input type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Contraseña">
+                      </div>
+                    </div>
+
+                    <!-- Últimos 7 campos select -->
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" aria-label="Select 1">
+                          <option selected disabled>Comuna</option>
+                          <option value="1">Opción 1</option>
+                          <option value="2">Opción 2</option>
+                          <option value="3">Opción 3</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" aria-label="Select 2">
+                          <option selected disabled>Ciudad</option>
+                          <option value="1">Opción 1</option>
+                          <option value="2">Opción 2</option>
+                          <option value="3">Opción 3</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" aria-label="Select 3">
+                          <option selected disabled>Region</option>
+                          <option value="1">Opción 1</option>
+                          <option value="2">Opción 2</option>
+                          <option value="3">Opción 3</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" aria-label="Select 4">
+                          <option selected disabled>Pais</option>
+                          <option value="1">Opción 1</option>
+                          <option value="2">Opción 2</option>
+                          <option value="3">Opción 3</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" aria-label="Select 5">
+                          <option selected disabled>Genero</option>
+                          <option value="1">Opción 1</option>
+                          <option value="2">Opción 2</option>
+                          <option value="3">Opción 3</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" aria-label="Select 6">
+                          <option selected disabled>Estado economico</option>
+                          <option value="1">Opción 1</option>
+                          <option value="2">Opción 2</option>
+                          <option value="3">Opción 3</option>
+                        </select>
                       </div>
                     </div>
                     
