@@ -36,92 +36,109 @@
                   <h4 class="font-weight-bolder">Registrate</h4>
                   <p class="mb-0">Ingresa tus datos</p>
                 </div>
+                {% if messages %}
+                  <ul>
+                    {% for message in messages %}
+                      <li>{{ message }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
                 <div class="card-body">
-                  <form action="" method="POST">
+                  <form method="POST">
                     {% csrf_token %}
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Nombre" aria-label="Nombre">
+                        <input type="text" class="form-control form-control-lg" placeholder="Nombre" name="nombre" aria-label="Nombre" required>
+                        
                       </div>
                       <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Apellido" aria-label="Apellido">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Rut" aria-label="Rut">
-                      </div>
-                      <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Teléfono" aria-label="Teléfono">
+                        <input type="text" class="form-control form-control-lg" placeholder="Apellido" name="apellido" aria-label="Apellido" required>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Correo electrónico" aria-label="Correo electrónico">
+                        <input type="text" class="form-control form-control-lg" id="rut" oninput="this.value = formatRUT(this.value)" placeholder="Rut" name="rut" aria-label="Rut" required>
                       </div>
                       <div class="col-md-6 mb-3">
-                        <input type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Contraseña">
+                        <input type="text" class="form-control form-control-lg" placeholder="Teléfono" name="telefono" aria-label="Teléfono" required>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Correo electrónico" name="email" aria-label="Correo electrónico" required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <input type="password" class="form-control form-control-lg" placeholder="Contraseña" name="password1" aria-label="Contraseña" required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <input type="password" class="form-control form-control-lg" placeholder="Confirma contraseña" name="password2" aria-label="Contraseña" required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Calle" name="calle" aria-label="Calle" required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Numero de calle" name="numero" aria-label="Numero" required>
                       </div>
                     </div>
 
                     <!-- Últimos 7 campos select -->
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" aria-label="Select 1">
+                        <select class="form-control form-control-lg" name="comuna" aria-label="Select 1" required>
                           <option selected disabled>Comuna</option>
-                          <option value="1">Opción 1</option>
-                          <option value="2">Opción 2</option>
-                          <option value="3">Opción 3</option>
+                          {% for comuna in comunas %}
+                            <option value="{{ comuna.id }}">{{ comuna.nombre }}</option>
+                          {% endfor %}
                         </select>
                       </div>
                       <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" aria-label="Select 2">
-                          <option selected disabled>Ciudad</option>
-                          <option value="1">Opción 1</option>
-                          <option value="2">Opción 2</option>
-                          <option value="3">Opción 3</option>
+                        <select class="form-control form-control-lg" name="provincia" aria-label="Select 2" required>
+                          <option selected disabled>Provincia</option>
+                          {% for provincia in provincias %}
+                            <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
+                          {% endfor %}
                         </select>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" aria-label="Select 3">
+                        <select class="form-control form-control-lg" name="region" aria-label="Select 3" required>
                           <option selected disabled>Region</option>
-                          <option value="1">Opción 1</option>
-                          <option value="2">Opción 2</option>
-                          <option value="3">Opción 3</option>
+                          {% for region in regiones %}
+                            <option value="{{ region.id }}">{{ region.nombre }}</option>
+                          {% endfor %}
                         </select>
                       </div>
                       <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" aria-label="Select 4">
+                        <select class="form-control form-control-lg" name="pais" aria-label="Select 4" required>
                           <option selected disabled>Pais</option>
-                          <option value="1">Opción 1</option>
-                          <option value="2">Opción 2</option>
-                          <option value="3">Opción 3</option>
+                          {% for pais in paises %}
+                            <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                          {% endfor %}
                         </select>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" aria-label="Select 5">
+                        <select class="form-control form-control-lg" name="genero" aria-label="Select 5" required>
                           <option selected disabled>Genero</option>
-                          <option value="1">Opción 1</option>
-                          <option value="2">Opción 2</option>
-                          <option value="3">Opción 3</option>
+                          {% for genero in generos %}
+                            <option value="{{ genero.id }}">{{ genero.get_descripcion_display }}</option>
+                          {% endfor %}
                         </select>
                       </div>
                       <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" aria-label="Select 6">
+                        <select class="form-control form-control-lg" name="estado_economico" aria-label="Select 6" required>
                           <option selected disabled>Estado economico</option>
-                          <option value="1">Opción 1</option>
-                          <option value="2">Opción 2</option>
-                          <option value="3">Opción 3</option>
+                          {% for estadoeconomico in estadoseconomicos %}
+                            <option value="{{ estadoeconomico.id }}">{{ estadoeconomico.descripcion }}</option>
+                          {% endfor %}
                         </select>
                       </div>
                     </div>
                     
                     <div class="text-center">
-                      <a type="button" href="/inicio/" class="btn btn-lg btn-primary btn-lg w-50 mt-4 mb-0">Registrarse</a>
+                      <button type="submit"  class="btn btn-lg btn-primary btn-lg w-50 mt-4 mb-0">Registrarse</button>
                     </div>
                   </form>
                 </div>
@@ -136,7 +153,6 @@
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
               <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('{% static "img/illustrations/amigos.png" %}'); background-size: cover; background-position-x: center; background-position-y: center; background-size: 700px;  background-repeat: no-repeat;">
               </div>
-            
           </div>
       </div>
       </div>
@@ -161,6 +177,37 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/argon-dashboard.min.js?v=2.0.4"></script>
-</body>
+  <script>
+    function formatRUT(rut) {
+  // Eliminar puntos y guiones existentes
+      rut = rut.replace(/\./g, '').replace(/-/g, '');
 
+  // Verificar que el RUT tenga al menos dos caracteres (cuerpo y dígito verificador)
+      if (rut.length < 2) {
+        return rut;
+      }
+
+  // Separar el dígito verificador del cuerpo del RUT
+      const cuerpo = rut.slice(0, -1);
+      const dv = rut.slice(-1);
+
+  // Formatear el cuerpo del RUT con puntos cada tres dígitos
+      let cuerpoFormateado = '';
+      let contador = 0;
+
+      for (let i = cuerpo.length - 1; i >= 0; i--) {
+        cuerpoFormateado = cuerpo[i] + cuerpoFormateado;
+        contador++;
+        if (contador % 3 === 0 && i !== 0) {
+          cuerpoFormateado = '.' + cuerpoFormateado;
+        } 
+      }
+
+  // Retornar el RUT formateado
+      return `${cuerpoFormateado}-${dv}`;
+}
+
+
+  </script>
+</body>
 </html>
