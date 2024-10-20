@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="422AAE5B-9D85-6473-FD5F-63819E4C2DD0" name="tipo_mascota">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>581C6C23-5517-1CA4-809C-589E1F8FE916</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_tipo_masc" id="CF389A0B-89F8-FD75-5893-63060DE3627F">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>BBBB4BC5-382C-C902-2A06-066750FC5D41</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="descripcion" id="C23214BD-ECE3-21AA-BC29-5EFC2D63704C">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>FA006524-F103-9C24-195E-8065753E2292</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="mascota_id_mascota" id="D0A48CA4-A49C-2A19-9005-971A2D9227E0">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>1BC81DEC-901B-3DB8-BE9D-3C52924A7D2F</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="25E42B17-F94C-A208-63D5-8D71051C468E" referredColumn="61B19999-9F17-50AC-B30D-7436B593B912"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="820EC006-6120-6FDE-68B9-41E239BB6A66" name="tipo_mascota_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>86259AF1-653A-F2E7-8B11-B00DDCB9EC68</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CF389A0B-89F8-FD75-5893-63060DE3627F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="11AA698C-A6E0-D2C3-AC7F-2BD857C44CC5" name="tipo_mascota__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>B5C993B2-5205-DBF4-4ADC-0DE257CE6BB2</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="D0A48CA4-A49C-2A19-9005-971A2D9227E0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="59E9DDDE-6018-FBBE-013A-9EEF6DB5EF54" name="tipo_mascota_mascota_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>B5C993B2-5205-DBF4-4ADC-0DE257CE6BB2</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D0A48CA4-A49C-2A19-9005-971A2D9227E0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

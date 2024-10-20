@@ -1,0 +1,207 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E4E6D221-CB74-BCC5-0D5F-280E61CE81BE" name="ficha_medica">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>ED6BCE0C-54D8-B574-DFF2-89966A3C220A</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_ficha_medica" id="429DDC71-0E1F-215A-6514-DCAEBD700390">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>941BA6C1-61ED-D322-0423-4C60F698717E</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="fecha_medica" id="3BFBD5CF-2D56-29C4-B0CF-7E23B5099F1D">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>6D3E6518-9ABE-2715-99A2-A85544E8BAB1</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="prox_consulta" id="468D6745-B09B-44A7-2103-2B8A13F562E4">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>48331B7F-E042-65AE-DB8F-CA276EBA2E46</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="esterilizacion_id_esterilizacion" id="3689AD92-761B-6734-B86A-AEB57C03B66B">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>21C590ED-12BF-BC82-F244-92C1A1E07746</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="671D6898-EF85-D9B0-EA02-46D1255D62EB" referredColumn="F9D884A6-F853-7E50-A43D-C7E04B3706A6"/>
+</associations>
+</Column>
+<Column name="desparacitacion_id_desparacitacion" id="8E3D635E-DBC5-AA5C-36A5-FBB863855D4A">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>E7B85F84-EAC8-CDF3-690A-C46D0086058E</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5ED250CD-166B-3679-A1C2-8A5892693974" referredColumn="244E4DE7-F113-17FE-ECD4-B2893EB44989"/>
+</associations>
+</Column>
+<Column name="mascota_id_mascota" id="0FEBD880-D279-97D0-4677-262BF52129F2">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>3A6067B6-1728-82AB-D49A-FEA2DF8C89BC</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EED17F11-8B13-58C6-67F2-B131C2599DB8" referredColumn="61B19999-9F17-50AC-B30D-7436B593B912"/>
+</associations>
+</Column>
+<Column name="tipo_alimento_id_alimento" id="37C6F8C3-B6C2-99AE-8DAB-9FD0A0F18999">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>3CE13D16-126A-E9EA-E95B-72AFF7878E10</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2E228939-BB12-88FD-1FF9-4E45585F5751" referredColumn="CF8942E2-4DA6-CA11-A6C3-4705E2DDCDE5"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="82343E14-322C-3F07-16B6-BB3A7982733B" name="ficha_medica_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>0EFDD95B-87D4-9152-3A51-1AE349EC58CC</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="429DDC71-0E1F-215A-6514-DCAEBD700390"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B0D38EF2-5957-9441-123B-E715A3B93A89" name="ficha_medica__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>EE395799-66B1-C2F4-1F08-BF9FFF40EBA5</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="37C6F8C3-B6C2-99AE-8DAB-9FD0A0F18999"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B7535ABF-EC7A-CE6C-2F09-9764DED64D80" name="ficha_medica__IDXv1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>66E831B6-3748-0CC6-3BE4-962F53FA6436</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="8E3D635E-DBC5-AA5C-36A5-FBB863855D4A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="ECA1B62D-1ADD-44C7-A0AD-A03E636A12DD" name="ficha_medica__IDXv2">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>0FE76E00-A035-AC81-9262-E67CC699EB2A</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="3689AD92-761B-6734-B86A-AEB57C03B66B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C220138A-2A83-BEA6-FB79-1F997650FE65" name="ficha_medica__IDXv3">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>1B4BC061-4B5E-A66E-3134-411EDE193AC1</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="0FEBD880-D279-97D0-4677-262BF52129F2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="59E41AFE-0AA6-AEB4-B6E8-FFD86C23FFFF" name="ficha_medica_tipo_alimento_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>EE395799-66B1-C2F4-1F08-BF9FFF40EBA5</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="37C6F8C3-B6C2-99AE-8DAB-9FD0A0F18999"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="28955AA4-6754-4C4B-3A99-A604977E5FC5" name="ficha_medica_mascota_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>1B4BC061-4B5E-A66E-3134-411EDE193AC1</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0FEBD880-D279-97D0-4677-262BF52129F2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="24B1B627-AF40-5030-AA4D-D0BF09DEC515" name="ficha_medica_desparacitacion_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:15 UTC</createdTime>
+<generatorID>66E831B6-3748-0CC6-3BE4-962F53FA6436</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8E3D635E-DBC5-AA5C-36A5-FBB863855D4A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="473B2017-E506-A022-7C03-DEB6FCABC0FC" name="ficha_medica_esterilizacion_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:15 UTC</createdTime>
+<generatorID>0FE76E00-A035-AC81-9262-E67CC699EB2A</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3689AD92-761B-6734-B86A-AEB57C03B66B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

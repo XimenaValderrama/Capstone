@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="86960F1C-AAF6-6EE2-FD5C-6290B13043B8" name="estado_mascota">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>A78C6C17-21E0-8E83-CF72-C32277AC99A4</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_estado_masc" id="76E2E4AE-46CA-071A-AB74-B89409DCABE4">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>6BC55EFF-E8C8-19CC-0D57-508FCA9FFA99</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="descripcion" id="90668F83-D2B6-2AEE-60A1-1A17A8CFAFD2">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>93E24C55-EAB7-83E0-6EB1-371D6A03881A</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="mascota_id_mascota" id="B805F74C-DD03-939C-5156-4BECB31751EF">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>1FF9607D-E08C-C1EE-36AF-4FE906235935</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6363BFE1-9F2C-F661-684C-BF59600F53CC" referredColumn="61B19999-9F17-50AC-B30D-7436B593B912"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2863CD99-BED9-9D08-6DF9-B5E9D23BC647" name="estado_mascota_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>E96DBFD7-8DBE-9CC7-8325-B024A3DCFE84</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="76E2E4AE-46CA-071A-AB74-B89409DCABE4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3CD10FE3-1322-795A-E463-1B5BC45D8A5B" name="estado_mascota__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>970049AB-1EDB-7B03-5AD3-7349C8E59E2B</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="B805F74C-DD03-939C-5156-4BECB31751EF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="88DB3F07-FEA5-A4FE-03A8-A563B24BB0AF" name="estado_mascota_mascota_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>970049AB-1EDB-7B03-5AD3-7349C8E59E2B</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B805F74C-DD03-939C-5156-4BECB31751EF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

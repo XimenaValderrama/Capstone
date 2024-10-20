@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="99180626-F958-8DF7-26FF-7BEF0B5A57C5" containerWithKeyObject="59B6F393-19EA-070D-51C8-FA01590FD75F" localFKIndex="8B6C4027-BE77-1E0A-4439-5CB46E4602AD" name="estado_formulario_formulario_adopcion_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:15 UTC</createdTime>
+<generatorID>4198C232-1FCD-0B9B-D172-E49C01F625F9</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<referredTableLongName>formulario_adopcion</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>32A56A0D-1A68-9C5F-5100-AE119C0B9AF6</referredTableID>
+<keyObject>FF9C043A-3386-4C55-6C08-CEBB2583957F</keyObject>
+<referredKeyID>FF9C043A-3386-4C55-6C08-CEBB2583957F</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_form</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="CCF15E97-6BBA-D2AA-62E5-6291E35F292E" containerWithKeyObject="28348719-BFAD-51DC-5EB7-9C5C0419875D" localFKIndex="F803F891-E1FD-A878-E4DD-ACE9A27C70BB" name="vacuna_ficha_medica_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>864EA36A-7689-BCDF-A094-C6F0E54CDEFA</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<referredTableLongName>ficha_medica</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>E4E6D221-CB74-BCC5-0D5F-280E61CE81BE</referredTableID>
+<keyObject>82343E14-322C-3F07-16B6-BB3A7982733B</keyObject>
+<referredKeyID>82343E14-322C-3F07-16B6-BB3A7982733B</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_ficha_medica</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

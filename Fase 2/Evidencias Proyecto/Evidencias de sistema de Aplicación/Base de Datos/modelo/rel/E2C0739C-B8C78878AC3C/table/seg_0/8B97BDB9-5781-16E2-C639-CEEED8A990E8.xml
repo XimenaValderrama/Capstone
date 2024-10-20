@@ -1,0 +1,123 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8B97BDB9-5781-16E2-C639-CEEED8A990E8" name="region_masc">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>4E9846B6-D5E1-2F13-D9E3-C610771754F3</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_region_masc" id="BCFABBA3-D5C7-3610-D13E-D03409CA0030">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>7B1B89C8-4A61-B70B-85C5-01C8C39DFD97</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="6D1A3C54-7BD9-208C-B770-73FB074209AA">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>D4F7274E-F150-7C09-BFBE-093B4B5AFDD4</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="provincia_masc_id_provincia_masc" id="25D0F8D9-DE00-D028-53DA-99CDE504D218">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>FD1084FA-BFFA-5689-91A1-4F68EAAAAEA3</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="19819444-014D-FB33-5FEB-7761F1F8402C" referredColumn="1A9BD7DC-6BD7-303F-5792-CB25F86A8B85"/>
+</associations>
+</Column>
+<Column name="pais_masc_id_pais_masc" id="59A068E3-93E2-997F-D501-6923BF969997">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>50B5DACC-00F2-4372-4778-96DC69B083DA</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A42B0364-4C15-081B-57E5-F1E9E05A4E29" referredColumn="4DDCD407-2A2C-447A-F440-4AAB96D84B7A"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="EE557D8D-5980-C10E-BE8B-46C21423794F" name="region_masc_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>5A011812-B30C-A527-16C9-2E9259DE259D</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BCFABBA3-D5C7-3610-D13E-D03409CA0030"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BB5B0598-AF11-A903-CB20-6B6A006E9050" name="region_masc__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>35E2692A-5E36-DA18-52FC-3CEAA351ED5B</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="25D0F8D9-DE00-D028-53DA-99CDE504D218"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2C5964AD-FE47-26EF-5824-23478AB5404C" name="region_masc__IDXv1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>53F66D18-FE90-202D-D860-1B72FBD7C1F9</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="59A068E3-93E2-997F-D501-6923BF969997"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="01A2ACD0-855F-8E70-72CD-50A309C35117" name="region_masc_provincia_masc_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:15 UTC</createdTime>
+<generatorID>35E2692A-5E36-DA18-52FC-3CEAA351ED5B</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="25D0F8D9-DE00-D028-53DA-99CDE504D218"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7CBD517A-EDBF-8974-D0E2-3CC2482F802C" name="region_masc_pais_masc_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>53F66D18-FE90-202D-D860-1B72FBD7C1F9</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="59A068E3-93E2-997F-D501-6923BF969997"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

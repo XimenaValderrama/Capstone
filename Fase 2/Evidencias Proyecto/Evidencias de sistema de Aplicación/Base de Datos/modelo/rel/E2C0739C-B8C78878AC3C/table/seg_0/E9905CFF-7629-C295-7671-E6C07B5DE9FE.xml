@@ -1,0 +1,253 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E9905CFF-7629-C295-7671-E6C07B5DE9FE" name="usuario">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>A3542E01-6997-C293-0754-065ADB234DCE</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_usuario" id="B384C4A6-B4F2-8BD3-E970-9E97701B5A93">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>7ED67552-D103-7870-41DC-89C03F2C5646</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="6F58281D-EBB1-E4A6-5A41-DEA212CE3B7C">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>5DF03D4A-BAC4-739E-41EA-90E30E31D354</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="appaterno" id="ABC3056E-8951-1E1B-F689-B46CC8E67DEF">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>240120B0-2CAD-535B-FA99-740CE33C9D11</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="apmaterno" id="3F57DE2C-9A04-6A97-A829-4232E9EA8C21">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>6DEC7DAB-EA1F-EF51-5D01-664448A893F0</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rut" id="6400FA48-E82E-BE72-E83C-4A41EB03E9E0">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>72F27849-B9D8-612D-AF37-D0AAB952B4FF</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="telefono" id="5125080B-B06F-A35F-14EF-D447AEC447D2">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>25BA118D-4005-9EDB-EEEA-5F81F0E05EF0</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="correo" id="20329162-69BB-090D-59F2-4DD0545964A7">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>5E1CD136-D82C-4E94-5618-5AA7EAF7B98D</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="contrasena" id="E2DB63DD-FB34-49F9-F58D-521A4522AF0A">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>8A1290FE-7030-00FA-DA5E-9B57BC9BA38C</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="genero_id_genero" id="102FF565-DA33-FE05-7C1E-46EB05835634">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>CECB39DC-1214-5D47-9436-9E3406BEE842</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="50E784BD-E9A9-1BB2-068A-E66D7FC027AC" referredColumn="7F1D397A-9D11-8DF7-CA43-C40A0A4819CC"/>
+</associations>
+</Column>
+<Column name="direccion_usuario_id_direccion" id="B9559F02-185C-F6E1-4CB5-152A236F80C8">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>BD0A39BC-3F60-6FD6-1750-A58E223A5716</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="795835B8-FB3D-C502-0EF9-26069DD432F0" referredColumn="86CEF762-5A62-B904-F9DA-FA2BDC6322D7"/>
+</associations>
+</Column>
+<Column name="estado_economico_id_est_eco" id="30E724AD-E95F-7574-BA2B-E97863FF400A">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>E75BFE2E-84CC-296C-0877-AE93623DB09F</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FB399971-C4EF-CD1B-F705-8B6D53C8CE7D" referredColumn="4C8F389F-0011-0659-F68B-33A110086FEE"/>
+</associations>
+</Column>
+<Column name="tipo_usuario_id_tipo_usuario" id="4BE1A885-4FAA-76B5-85AD-866DB6E91D3F">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>136B513D-1508-0EE5-99A7-7A4D741561C3</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="4DA031F8-C6EE-C489-C72D-AD327B803B7E" name="usuario_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>D3004F37-F756-4632-E5DF-7F993C760E1A</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B384C4A6-B4F2-8BD3-E970-9E97701B5A93"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4BC72C3C-976C-78F2-C425-44DA71E2D058" name="usuario__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>69C31D72-ADBF-BA21-8794-A578592FD5BE</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="B9559F02-185C-F6E1-4CB5-152A236F80C8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="94D323AA-C127-D759-A38F-C5E07B20CE90" name="usuario__IDXv1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>95BE4535-735C-3125-A5FA-3F51F09539D4</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="30E724AD-E95F-7574-BA2B-E97863FF400A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B09B616B-DABB-5F10-D957-A622CAB335D3" name="usuario__IDXv2">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>5153E2BA-3406-8FC5-A644-6B4040C57CEC</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="102FF565-DA33-FE05-7C1E-46EB05835634"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B273787D-CDD4-F754-1ABE-5F7553A6CEC4" name="usuario__IDXv3">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>F58EFEEE-6E53-586F-3E51-2C069F88DD7C</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="4BE1A885-4FAA-76B5-85AD-866DB6E91D3F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9A4791B7-7E28-2B4E-A715-F2060737972B" name="usuario_direccion_usuario_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>69C31D72-ADBF-BA21-8794-A578592FD5BE</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B9559F02-185C-F6E1-4CB5-152A236F80C8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B9BA66A5-570E-CA94-F70D-9DC3383333A1" name="usuario_estado_economico_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>95BE4535-735C-3125-A5FA-3F51F09539D4</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="30E724AD-E95F-7574-BA2B-E97863FF400A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="95F96648-1DD1-8558-1D45-7C462D882E64" name="usuario_genero_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>5153E2BA-3406-8FC5-A644-6B4040C57CEC</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="102FF565-DA33-FE05-7C1E-46EB05835634"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

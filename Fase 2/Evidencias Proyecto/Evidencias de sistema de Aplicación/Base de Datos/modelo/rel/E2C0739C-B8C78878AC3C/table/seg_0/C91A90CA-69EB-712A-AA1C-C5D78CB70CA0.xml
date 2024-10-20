@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C91A90CA-69EB-712A-AA1C-C5D78CB70CA0" name="estado_economico">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>FD81AC0D-7879-D17F-0FB3-EF1751F09058</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_est_eco" id="4C8F389F-0011-0659-F68B-33A110086FEE">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>D62E406D-26B7-5703-334F-91CC183EAE3A</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="descripcion" id="A3F4FE41-4972-DDAA-1E1D-60E8572BED28">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>D34CBFD7-A719-3A18-2C8C-9488CBC04A3D</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="usuario_id_usuario" id="473A27C4-CD5D-A29C-7CC7-1046E2B200B9">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>1ADDF1E2-B859-C841-B15B-B9C77DEA661C</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E7C8ACA4-7120-1744-F21C-896DB3FBB0B3" referredColumn="B384C4A6-B4F2-8BD3-E970-9E97701B5A93"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="12E90C85-ABCC-AA95-40BC-1978133C1BD4" name="estado_economico_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>C1375246-5BC7-A88F-BAEC-292E30A4CD27</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4C8F389F-0011-0659-F68B-33A110086FEE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="72B68080-07E5-D4E6-52FE-54EFB39EFCE7" name="estado_economico__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>95BE4535-735C-3125-A5FA-3F51F09539D4</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="473A27C4-CD5D-A29C-7CC7-1046E2B200B9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0C388546-E097-D168-C6E2-B4504ECCABB1" name="estado_economico_usuario_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>95BE4535-735C-3125-A5FA-3F51F09539D4</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="473A27C4-CD5D-A29C-7CC7-1046E2B200B9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

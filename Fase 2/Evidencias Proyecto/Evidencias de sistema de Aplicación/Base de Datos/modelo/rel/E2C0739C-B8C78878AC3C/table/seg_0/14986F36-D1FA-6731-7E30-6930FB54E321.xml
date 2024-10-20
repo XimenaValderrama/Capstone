@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="14986F36-D1FA-6731-7E30-6930FB54E321" name="provincia">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>725CD18F-741D-2D3B-F443-4DF546AE6940</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<ordsAlias>ciudad</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_provincia" id="64CC0394-F0B2-EC3D-B685-FA4688DADCDF">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>BBBBE427-381F-161E-C99F-4012255A11A4</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="6B0DA10A-F1F8-C24D-C156-D7AEA0F16817">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>C7E86EB1-EE26-C94F-132F-397FC0FADC7C</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="region_id_region" id="209E7E5A-CED7-2BC7-AE0B-FECD1D75B2B4">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>2A368F6A-681A-AFD2-6F1F-FD9BBDE31712</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B29E1DF2-DF1A-D267-3A30-EB20B27A6497" referredColumn="CF99FB2F-26EB-0051-212D-A96938A915F2"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="EC9D7C6F-5323-2639-0FE1-0781B3F4CB66" name="provincia_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>78813606-2287-247D-8562-36733E548B16</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="64CC0394-F0B2-EC3D-B685-FA4688DADCDF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6873B9C6-9644-B9CF-922F-56140D4602FD" name="provincia_region_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>4288CDDD-BC63-27C9-F46B-32EE2DCD4908</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="209E7E5A-CED7-2BC7-AE0B-FECD1D75B2B4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

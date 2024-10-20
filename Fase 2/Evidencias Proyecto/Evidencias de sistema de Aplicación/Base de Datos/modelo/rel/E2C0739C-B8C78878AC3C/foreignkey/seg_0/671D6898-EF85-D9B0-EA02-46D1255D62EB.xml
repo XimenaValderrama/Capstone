@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="671D6898-EF85-D9B0-EA02-46D1255D62EB" containerWithKeyObject="E4E6D221-CB74-BCC5-0D5F-280E61CE81BE" localFKIndex="473B2017-E506-A022-7C03-DEB6FCABC0FC" name="ficha_medica_esterilizacion_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:15 UTC</createdTime>
+<generatorID>0FE76E00-A035-AC81-9262-E67CC699EB2A</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<referredTableLongName>esterilizacion</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>64E2B534-E977-F1E7-8DDC-CC578753D668</referredTableID>
+<keyObject>77BF4005-830B-38EE-BF4D-8BC570A1002B</keyObject>
+<referredKeyID>77BF4005-830B-38EE-BF4D-8BC570A1002B</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_esterilizacion</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

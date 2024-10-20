@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5241C768-47E4-3255-FA6C-B804BFF4813C" name="genero">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>ADDF7247-0A31-8C9F-F9E0-23FBEDC72BB0</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_genero" id="7F1D397A-9D11-8DF7-CA43-C40A0A4819CC">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>4FD2ADF8-B765-2B08-2D93-10272F06E9BE</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="descripcion" id="B408943F-94F5-70E2-BCC8-6143026064D6">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>0417F887-AE0D-8639-7EB2-63069022BF6A</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="usuario_id_usuario" id="F7465FEA-7530-3A3A-F1C9-52077D24204F">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>9D520CDF-75EB-1243-63EC-D44091B942C2</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DD5591F2-2201-F60E-A9C4-103B1313FDF9" referredColumn="B384C4A6-B4F2-8BD3-E970-9E97701B5A93"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9E154315-6A88-9F08-0569-097F2C01DC1C" name="genero_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>17416A5E-0468-C11E-54C4-ED479ED34AAC</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7F1D397A-9D11-8DF7-CA43-C40A0A4819CC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AB5914B0-CF47-0216-7783-AC17D8133189" name="genero__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>5153E2BA-3406-8FC5-A644-6B4040C57CEC</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="F7465FEA-7530-3A3A-F1C9-52077D24204F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7E6C44B7-B985-CBF1-28F2-5D49D2DB70DE" name="genero_usuario_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>5153E2BA-3406-8FC5-A644-6B4040C57CEC</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F7465FEA-7530-3A3A-F1C9-52077D24204F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

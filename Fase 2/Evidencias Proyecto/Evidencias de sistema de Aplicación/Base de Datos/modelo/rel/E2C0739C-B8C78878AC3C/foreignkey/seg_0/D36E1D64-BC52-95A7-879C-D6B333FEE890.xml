@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="D36E1D64-BC52-95A7-879C-D6B333FEE890" containerWithKeyObject="9DDC2894-D05A-3D4D-771D-536FD4EEB0F9" localFKIndex="30A93B0C-C4AF-DEA2-966C-FA2504C95D2F" name="desparacitacion_ficha_medica_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:15 UTC</createdTime>
+<generatorID>66E831B6-3748-0CC6-3BE4-962F53FA6436</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<referredTableLongName>ficha_medica</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>E4E6D221-CB74-BCC5-0D5F-280E61CE81BE</referredTableID>
+<keyObject>82343E14-322C-3F07-16B6-BB3A7982733B</keyObject>
+<referredKeyID>82343E14-322C-3F07-16B6-BB3A7982733B</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_ficha_medica</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

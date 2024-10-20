@@ -1,0 +1,87 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5BAABD2C-AEB3-80B6-0A9D-42F869371981" name="veterinaria">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>E54CF58A-3FA9-DC7E-1F61-B95911F81303</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_veterinaria" id="7FCE4ED8-97F5-523F-3500-AC3734BF0B55">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>91ED9BDF-0282-35CE-FDEE-608AAA2F9959</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="EF3F8588-A009-5521-220E-8E5634E16D19">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>B370DF43-B611-33A2-3FB6-0FDB86D6CC69</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ficha_medica_id_ficha_medica" id="89355FE0-4711-E197-6CD7-44D324ACC1D8">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>FA4E5957-C360-25F8-A520-EB836857152C</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DD65358A-910A-E49B-49EF-CD4FDD3FF23B" referredColumn="429DDC71-0E1F-215A-6514-DCAEBD700390"/>
+</associations>
+</Column>
+<Column name="direccion" id="C7D528D4-A282-9FAE-062B-B356A1A2143C">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:13:25 UTC</createdTime>
+<generatorID>3DB3E6A0-AAE0-D60E-D034-A934166860FD</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="82678DBB-9333-5F19-9D91-F363D572135F" name="veterinaria_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>22A5CADA-AA85-B904-A53D-8EB2F91156AA</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7FCE4ED8-97F5-523F-3500-AC3734BF0B55"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5D66F9FF-E02D-DCBC-7A27-7B7989F524F9" name="veterinaria_ficha_medica_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>EF224AC7-E28A-702E-08B5-8CB295370C1C</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="89355FE0-4711-E197-6CD7-44D324ACC1D8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

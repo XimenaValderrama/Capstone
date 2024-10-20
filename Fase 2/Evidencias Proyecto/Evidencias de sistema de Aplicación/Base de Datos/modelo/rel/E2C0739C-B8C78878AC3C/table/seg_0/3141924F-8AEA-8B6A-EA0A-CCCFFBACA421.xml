@@ -1,0 +1,109 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3141924F-8AEA-8B6A-EA0A-CCCFFBACA421" name="chip">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>9FDD271D-2D85-4AD8-F632-EF69C0DA3C31</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_chip" id="3DBEB752-6DB9-A917-D66F-DB70BF338C53">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>CD2BC851-49E6-0AEF-422D-59D3F06EF6F0</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="conf_chip" id="6D296ED3-4721-5386-1980-40182231CCA9">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>66CBA51C-EE7E-9F31-AAD7-54BA90B9B439</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ficha_medica_id_ficha_medica" id="2747CB64-1DB2-C40B-9F0C-0C6FE1BA17D8">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>B4EBC4D5-C991-AC68-917D-D2A1E30746EB</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9C84411A-C05D-7F95-2ECA-456AA997C8A1" referredColumn="429DDC71-0E1F-215A-6514-DCAEBD700390"/>
+</associations>
+</Column>
+<Column name="fecha_colocacion" id="5F09E36E-B3A1-1D54-79D7-8FAFC79258B0">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:13:25 UTC</createdTime>
+<generatorID>E968D60A-DFFA-116E-1D8D-206AAECCEFC2</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="lugar_colocacion" id="B73DDB27-0B4F-49C7-70D9-3F8F6B81D4F1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:13:25 UTC</createdTime>
+<generatorID>DDB079C6-D3BD-1A98-7EE8-797998C4AC10</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="93BD2668-941D-F652-CD2E-5A3D2F06F440" name="chip_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>D5102320-68C7-FC00-1DDB-3F7A5317783C</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3DBEB752-6DB9-A917-D66F-DB70BF338C53"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="82D84291-9B84-0070-8163-E2454E2F5653" name="chip__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>77C03992-AF8C-0124-81ED-78CB70F16CFA</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="2747CB64-1DB2-C40B-9F0C-0C6FE1BA17D8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CACF3FB4-7573-5454-3CC2-09C2A232773A" name="chip_ficha_medica_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>77C03992-AF8C-0124-81ED-78CB70F16CFA</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2747CB64-1DB2-C40B-9F0C-0C6FE1BA17D8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

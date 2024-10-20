@@ -1,0 +1,118 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="58496DDC-27B4-EDC9-09D7-E4FC3A4010A2" name="tipo_alimento">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>FA077DAF-C220-A9D9-CD32-BA0E8B185BAF</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<ordsAlias>alimento</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_alimento" id="CF8942E2-4DA6-CA11-A6C3-4705E2DDCDE5">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>EB163366-BC62-8C9E-F2F9-B9D1EFA5B261</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="B9035234-DAEB-C019-F50B-FEC7B3304562">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>7FA99FBA-4563-3613-E2F6-65656CAB3FDF</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="descripcion" id="2732F7FE-C52E-D993-7314-2DDE6ED19D25">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:09:44 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tipo_alimento_id_tipo_alimento2" id="E6038ADA-5310-A0B9-E7A0-4212F50663EC">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>95CEDA52-6C0D-F8A0-1C44-A3BF59245C7B</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tipo_alimento_id_tipo_alimento" id="AD7328DB-7428-7C84-E434-BB0E3CD11B5F">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>97DAE815-675D-53E6-0A2D-7F865FF76160</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="descripcion2" id="C53EE362-E411-14B9-F8EC-31E1A4F196DC">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:13:25 UTC</createdTime>
+<generatorID>EA4C225F-1331-B869-154F-8532171BBF5B</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="E692E01D-5925-889D-1ECC-C17FE56ACADF" name="tipo_alimento_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>E5D952E1-7054-5699-2A91-E408E3717BBC</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CF8942E2-4DA6-CA11-A6C3-4705E2DDCDE5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="71F45A98-7328-DC41-29F8-B013227600D6" name="Alimento__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>9F2D52A4-A647-FECD-04EE-6434A86B44F8</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="AD7328DB-7428-7C84-E434-BB0E3CD11B5F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3176A3BB-FDF6-78D1-C8CD-D99216B54A72" name="Alimento__IDXv1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>EF730045-C1F3-D178-4EB6-3DD5457CE6D2</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="E6038ADA-5310-A0B9-E7A0-4212F50663EC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

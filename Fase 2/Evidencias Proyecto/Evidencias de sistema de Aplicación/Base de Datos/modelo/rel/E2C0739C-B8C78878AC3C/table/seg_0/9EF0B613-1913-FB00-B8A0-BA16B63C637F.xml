@@ -1,0 +1,321 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9EF0B613-1913-FB00-B8A0-BA16B63C637F" name="mascota">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>053D3995-4E96-7D7D-98D0-217AFF9F19F1</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_mascota" id="61B19999-9F17-50AC-B30D-7436B593B912">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>D65CF7A2-0E4A-8552-83ED-1D07C6C9040D</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="D874BD0B-B760-1CA1-A930-022B85E14CA1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>92E8E66E-D7DC-9429-387A-325B29728EC0</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>60</dataTypeSize>
+<ownDataTypeParameters>60,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="edad" id="8F01E4A1-7951-0E62-3B21-B93BD116E7FF">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>A56C27AC-F3E7-8AFA-1C5B-B928216B362A</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="imagen" id="39C666D6-BED4-D8AF-07D8-D86B3719B401">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>1E2A5F21-EC2E-3D40-3B7F-5A2B4541426E</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT010</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="apellido" id="0C8D7730-FD12-A796-4A3B-B39516B27CC2">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>1E048FA7-5265-793E-675D-2C9D71162666</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="usuario_id_usuario" id="66EBF2F0-5743-33B2-0E4F-7D903EC42FC1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>B59CEBDE-E795-80F0-B74C-8ED721E6EAB0</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C9BD5326-14E7-9459-52FE-B2ACF3137223" referredColumn="B384C4A6-B4F2-8BD3-E970-9E97701B5A93"/>
+</associations>
+</Column>
+<Column name="estado_mascota_id_estado_masc" id="6F30335A-90DA-BEF7-5A76-0F688FC83E03">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>5AA290A6-891D-98F7-C9DE-908A24A71AF1</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="157F7CEA-B09A-D088-F460-B7A8904FB77A" referredColumn="76E2E4AE-46CA-071A-AB74-B89409DCABE4"/>
+</associations>
+</Column>
+<Column name="raza_id_raza" id="D5F75946-242E-2634-BC6D-14492DEEC010">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>95C3B574-F191-DB7E-8EB4-C14792478053</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FF281B5F-2476-28EB-561A-ED0597DA442F" referredColumn="5267DB04-1CE3-C024-5F63-6BA05781549F"/>
+</associations>
+</Column>
+<Column name="fundacion_id_fundacion" id="B85ABFA0-2202-0EBC-2BC0-A8B1FDD3D82E">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>7C6C716F-59EC-4755-8679-340710586C9B</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E4C14E83-2F97-94E3-AE96-B437136F4FFB" referredColumn="12602ABD-3403-1941-251E-789107A64019"/>
+</associations>
+</Column>
+<Column name="tipo_mascota_id_tipo_masc" id="BE09297E-CBFA-8701-F820-195DA2D844D7">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>C0406949-2FDC-3895-BD29-D892DC951113</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3996F07E-8F57-8806-00F3-B34738045FEB" referredColumn="CF389A0B-89F8-FD75-5893-63060DE3627F"/>
+</associations>
+</Column>
+<Column name="direccion_mascota_id_direccion_masc" id="2C7C1FD8-3D73-E2A4-DA34-96C64048F124">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>70F18ED3-5FB3-C1C5-FE92-CFA02D3D685A</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DF329FD5-2D0A-A803-13FB-E53811B3A6E3" referredColumn="96DC8487-1E10-6798-8E49-0BC785ED6536"/>
+</associations>
+</Column>
+<Column name="genero_masc_id_genero_masc" id="B75D69C6-FED0-B09C-0A29-63CDA2311E9D">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>6EF76084-71A9-32D6-086F-BE6095B0C715</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="57F5C0A7-F2F1-0C1C-7C83-62399F8871B9" referredColumn="1CE3A8BD-139E-DADB-8504-284719DCE5DA"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="19742E17-6E75-3FC2-9023-C925E5DC45F2" name="mascota_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>681958DD-2B2B-CC9B-24EF-AC60E056A517</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="61B19999-9F17-50AC-B30D-7436B593B912"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7381775A-3DC2-9F0D-B425-64E67C6D96DB" name="mascota__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>69074CB9-EC71-44A6-E7E3-D0E0B8B8A4C6</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="2C7C1FD8-3D73-E2A4-DA34-96C64048F124"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F122BDB2-BB1F-DE61-6EBD-4FA403E0A983" name="mascota__IDXv1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>970049AB-1EDB-7B03-5AD3-7349C8E59E2B</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="6F30335A-90DA-BEF7-5A76-0F688FC83E03"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1BE20468-054A-89C3-4462-E13C0AFE663B" name="mascota__IDXv2">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>92C31EBF-E35C-676B-04D8-F1C23F1399B7</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="B75D69C6-FED0-B09C-0A29-63CDA2311E9D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="00881495-D31D-60FB-7E5B-41E7618F6CBC" name="mascota__IDXv3">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>3EEA64CA-364B-173A-442E-A7B324134A96</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="D5F75946-242E-2634-BC6D-14492DEEC010"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="23B57936-4BF3-269E-3667-30F79D7A4FE2" name="mascota__IDXv4">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>B5C993B2-5205-DBF4-4ADC-0DE257CE6BB2</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="BE09297E-CBFA-8701-F820-195DA2D844D7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C0674A63-ECFB-7F03-CD41-2C6CD2CDAB10" name="mascota_fundacion_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>91793FFC-2377-3275-60C1-776D2322180C</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B85ABFA0-2202-0EBC-2BC0-A8B1FDD3D82E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="ADF35116-7FE1-E179-9193-988A03C10232" name="mascota_usuario_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>3C852CED-41DD-7FEE-9732-27DC9DC9EC8F</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="66EBF2F0-5743-33B2-0E4F-7D903EC42FC1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6E0BDDCF-139F-72BB-AB91-CB74FBD03141" name="mascota_direccion_mascota_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:15 UTC</createdTime>
+<generatorID>69074CB9-EC71-44A6-E7E3-D0E0B8B8A4C6</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2C7C1FD8-3D73-E2A4-DA34-96C64048F124"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D1D24D9F-7B98-F1FF-68EB-D9D9FA42B995" name="mascota_estado_mascota_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>970049AB-1EDB-7B03-5AD3-7349C8E59E2B</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6F30335A-90DA-BEF7-5A76-0F688FC83E03"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="469FA183-33A4-82FE-22C7-3A76C3CF3CF3" name="mascota_genero_masc_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>92C31EBF-E35C-676B-04D8-F1C23F1399B7</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B75D69C6-FED0-B09C-0A29-63CDA2311E9D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F9200F19-1209-F61D-DE4F-6680D5677AEB" name="mascota_raza_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>3EEA64CA-364B-173A-442E-A7B324134A96</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D5F75946-242E-2634-BC6D-14492DEEC010"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E8174592-0A63-4E00-4BD4-E3697B55E2ED" name="mascota_tipo_mascota_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:16 UTC</createdTime>
+<generatorID>B5C993B2-5205-DBF4-4ADC-0DE257CE6BB2</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BE09297E-CBFA-8701-F820-195DA2D844D7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="2E228939-BB12-88FD-1FF9-4E45585F5751" containerWithKeyObject="E4E6D221-CB74-BCC5-0D5F-280E61CE81BE" localFKIndex="59E41AFE-0AA6-AEB4-B6E8-FFD86C23FFFF" name="ficha_medica_tipo_alimento_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>EE395799-66B1-C2F4-1F08-BF9FFF40EBA5</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<referredTableLongName>tipo_alimento</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>58496DDC-27B4-EDC9-09D7-E4FC3A4010A2</referredTableID>
+<keyObject>E692E01D-5925-889D-1ECC-C17FE56ACADF</keyObject>
+<referredKeyID>E692E01D-5925-889D-1ECC-C17FE56ACADF</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_alimento</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

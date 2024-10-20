@@ -1,0 +1,112 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D699E492-90A0-B449-8261-CDA9CC9A1CDF" name="comuna">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>45767603-4CB3-BD5C-0152-2A20D3276F54</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_comuna" id="805A49BC-DA0B-1037-FE07-534B72CBB7B3">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>142A69A7-4CF1-4EAE-F923-3B5B185613AF</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="87054DF3-C560-D9EC-70B3-1D9B50892BF9">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>95E427F5-E38F-2EE2-7DD7-0CCFB1A20BA2</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="direccion_usuario_id_direccion" id="C6C622E8-EC26-9756-80CC-2ED47A854D28">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>53180E8E-1F46-6FD4-3AA9-A3E3798B2F19</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6A2838A0-2EC1-95BD-9351-D775AC0EEDE3" referredColumn="86CEF762-5A62-B904-F9DA-FA2BDC6322D7"/>
+</associations>
+</Column>
+<Column name="provincia_id_provincia" id="791DCA58-0A36-8F1A-F916-AC4D08B3AE4C">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>14F84579-8F4A-3FA4-5956-CF0B87502E27</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="ECF123BB-90E1-517E-FD87-2B19CEC23D14" referredColumn="64CC0394-F0B2-EC3D-B685-FA4688DADCDF"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B9BF8E8B-1C34-22F9-B414-AF39C3300927" name="comuna_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>DDB06CCF-D2D2-AB0A-16AD-082E302B6F00</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="805A49BC-DA0B-1037-FE07-534B72CBB7B3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="61D9A20B-75CD-8EDC-E7AF-72BAEEEB1C0B" name="comuna__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>317C3C8D-71B3-0C5C-D5C7-F382CC03A3B9</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="C6C622E8-EC26-9756-80CC-2ED47A854D28"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="469E98CA-C078-BE2A-8F24-10E2A82E4CA8" name="comuna_provincia_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>4BF41DCB-974C-025E-BD5C-1DA8FE49B451</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="791DCA58-0A36-8F1A-F916-AC4D08B3AE4C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EB0FB105-A94C-DF22-D951-0C47CBDDA735" name="comuna_direccion_usuario_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:15 UTC</createdTime>
+<generatorID>317C3C8D-71B3-0C5C-D5C7-F382CC03A3B9</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C6C622E8-EC26-9756-80CC-2ED47A854D28"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

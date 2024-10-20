@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="D7B49070-3345-2009-4D9F-7715FC1237BB" containerWithKeyObject="32A56A0D-1A68-9C5F-5100-AE119C0B9AF6" localFKIndex="F27119B9-8586-CF85-EC34-50C4E5FFAE7A" name="formulario_adopcion_usuario_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>2330AAEB-93D5-12C5-7A87-86EC25E3C9BE</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<referredTableLongName>usuario</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>E9905CFF-7629-C295-7671-E6C07B5DE9FE</referredTableID>
+<keyObject>4DA031F8-C6EE-C489-C72D-AD327B803B7E</keyObject>
+<referredKeyID>4DA031F8-C6EE-C489-C72D-AD327B803B7E</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_usuario</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

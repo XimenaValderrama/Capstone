@@ -1,0 +1,137 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="32A56A0D-1A68-9C5F-5100-AE119C0B9AF6" name="formulario_adopcion">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>8E976D40-6D7B-A540-7BA3-172175A87EBB</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_form" id="EC78F847-2B7C-B0F7-253B-F3CA310C72A7">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>9CEFCAA3-4D07-E433-D9FA-6B634FD32BA2</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="comentarios" id="BF3C8996-0C93-7650-9932-E9B5AC9EDDCB">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>E9F951A0-F6F9-92D5-A957-C10BEF2FAFAA</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="estado_formulario_id_est_form" id="48E3B208-F661-E91B-0B56-1DF0911B5984">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>61124B44-96D7-6E73-1729-F75C94F4F8F5</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3EB115EC-9020-C277-911D-5247F336F25F" referredColumn="4DF0B88D-4191-F718-26B1-2425039647DA"/>
+</associations>
+</Column>
+<Column name="usuario_id_usuario" id="D28A6188-A024-0510-1AD6-11C898FE322B">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>38F03587-A022-8260-02BA-A6C66F0BB275</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D7B49070-3345-2009-4D9F-7715FC1237BB" referredColumn="B384C4A6-B4F2-8BD3-E970-9E97701B5A93"/>
+</associations>
+</Column>
+<Column name="mascota_id_mascota" id="38DEF28E-C390-C8D1-4C0A-5F8A7E70F09C">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:13:25 UTC</createdTime>
+<generatorID>B456274D-C024-5F8C-A604-D32D2E7C3B1F</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7A9B54F8-012E-F6FE-E8E6-C934F152DE9F" referredColumn="61B19999-9F17-50AC-B30D-7436B593B912"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="FF9C043A-3386-4C55-6C08-CEBB2583957F" name="formulario_adopcion_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>CF20786E-1B19-DE6F-B0C0-84D1B4DE542D</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EC78F847-2B7C-B0F7-253B-F3CA310C72A7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CA38C3CC-9FD7-FD28-ECBE-38AE69B48E4D" name="formulario_adopcion__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>4198C232-1FCD-0B9B-D172-E49C01F625F9</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="48E3B208-F661-E91B-0B56-1DF0911B5984"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F27119B9-8586-CF85-EC34-50C4E5FFAE7A" name="formulario_adopcion_usuario_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>2330AAEB-93D5-12C5-7A87-86EC25E3C9BE</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D28A6188-A024-0510-1AD6-11C898FE322B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A73BF734-F418-6C77-634A-D9047A9EC4A4" name="formulario_adopcion_mascota_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:13:25 UTC</createdTime>
+<generatorID>A6A5CA21-579D-0A15-E624-0F36DEC173B4</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="38DEF28E-C390-C8D1-4C0A-5F8A7E70F09C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C52A8D44-DEA7-77FB-1CBA-99C337E7691D" name="formulario_adopcion_estado_formulario_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:15 UTC</createdTime>
+<generatorID>4198C232-1FCD-0B9B-D172-E49C01F625F9</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="48E3B208-F661-E91B-0B56-1DF0911B5984"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

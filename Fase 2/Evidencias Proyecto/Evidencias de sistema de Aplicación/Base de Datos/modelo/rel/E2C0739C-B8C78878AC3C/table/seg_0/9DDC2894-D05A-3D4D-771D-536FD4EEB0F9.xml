@@ -1,0 +1,97 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9DDC2894-D05A-3D4D-771D-536FD4EEB0F9" name="desparacitacion">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>C4CB477A-26F0-9C69-736D-F9A55D98CAAA</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_desparacitacion" id="244E4DE7-F113-17FE-ECD4-B2893EB44989">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>25A47015-A9C1-5F03-B0CB-5CE84B8CBB47</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="conf_desparacitacion" id="81C59BC8-1B52-1F6C-313F-B8678072A145">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>2C0CF712-3766-61CC-A05C-EF3CB9B0E277</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="fecha_desparacitacion" id="F2D38F3F-612D-7CA0-2C00-8BE3F8CFCB60">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>EE178DB1-95D6-DD74-03BC-1831DD3742E0</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ficha_medica_id_ficha_medica" id="746149AA-4CEA-FABB-E247-A6CB9E5115A6">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>F51AE1F7-1495-03B3-398C-DD0BE1E8685B</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D36E1D64-BC52-95A7-879C-D6B333FEE890" referredColumn="429DDC71-0E1F-215A-6514-DCAEBD700390"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="CBBC9AF2-6EFB-829E-E56A-29875B973950" name="desparacitacion_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<generatorID>83A119A8-E779-BD7A-5C17-B1075D699480</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="244E4DE7-F113-17FE-ECD4-B2893EB44989"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B420F4FE-631C-43B9-FD44-73E9FD4D7024" name="desparacitacion__IDX">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>66E831B6-3748-0CC6-3BE4-962F53FA6436</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="746149AA-4CEA-FABB-E247-A6CB9E5115A6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="30A93B0C-C4AF-DEA2-966C-FA2504C95D2F" name="desparacitacion_ficha_medica_FK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:14:15 UTC</createdTime>
+<generatorID>66E831B6-3748-0CC6-3BE4-962F53FA6436</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="746149AA-4CEA-FABB-E247-A6CB9E5115A6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
