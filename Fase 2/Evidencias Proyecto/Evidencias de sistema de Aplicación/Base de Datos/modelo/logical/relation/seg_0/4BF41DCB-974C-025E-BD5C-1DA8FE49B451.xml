@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="comuna provincia FK" directorySegmentName="seg_0" id="4BF41DCB-974C-025E-BD5C-1DA8FE49B451">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:19:18 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>78813606-2287-247D-8562-36733E548B16</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>725CD18F-741D-2D3B-F443-4DF546AE6940</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>45767603-4CB3-BD5C-0152-2A20D3276F54</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

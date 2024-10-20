@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="usuario estado economico FK" directorySegmentName="seg_0" id="95BE4535-735C-3125-A5FA-3F51F09539D4">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:34:26 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>D3004F37-F756-4632-E5DF-7F993C760E1A</sourcePk>
+<targetPk>C1375246-5BC7-A88F-BAEC-292E30A4CD27</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>A3542E01-6997-C293-0754-065ADB234DCE</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>FD81AC0D-7879-D17F-0FB3-EF1751F09058</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="direccion usuario comuna FK" directorySegmentName="seg_0" id="317C3C8D-71B3-0C5C-D5C7-F382CC03A3B9">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:17:49 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>DDB06CCF-D2D2-AB0A-16AD-082E302B6F00</sourcePk>
+<targetPk>AF1DD5A8-7426-AD6B-8017-2A9292C1F0CA</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>45767603-4CB3-BD5C-0152-2A20D3276F54</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>54868111-2FC3-7A63-4545-E4CC24FE5879</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

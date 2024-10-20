@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="EC668293-73D9-9BEB-6284-8BAC4070272E" name="raza">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:18:55 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id raza" id="FA93208E-EBD0-47EA-95C2-46A669F35DE8">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:18:59 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="6347ACF5-F310-5F07-F9FB-1AB5A6AE41FE">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:19:08 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="mascota id mascota" id="9FD09D6C-3F3B-12BA-DE20-7CFFD9F4A5C4">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:39:52 UTC</createdTime>
+<generatorID>3EEA64CA-364B-173A-442E-A7B324134A96</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>D65CF7A2-0E4A-8552-83ED-1D07C6C9040D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="43A954A8-D044-C065-BC4F-4C6CDEF5E57B" name="raza PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:19:08 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>FA93208E-EBD0-47EA-95C2-46A669F35DE8</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

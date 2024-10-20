@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="tipo cirugia cirugias FK" directorySegmentName="seg_0" id="238FE569-FAF4-D0B2-2514-2EEE2052354A">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:37:36 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>2F374A0A-8CB0-DBC5-CC4A-029F6B970A7A</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>152BE56B-A502-308E-5665-AE1E0E3A2059</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>B56D3B8A-9CC9-E425-711C-E9BC33A0CDFD</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

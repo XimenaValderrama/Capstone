@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="mascota usuario FK" directorySegmentName="seg_0" id="3C852CED-41DD-7FEE-9732-27DC9DC9EC8F">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:36:39 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>D3004F37-F756-4632-E5DF-7F993C760E1A</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>A3542E01-6997-C293-0754-065ADB234DCE</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>053D3995-4E96-7D7D-98D0-217AFF9F19F1</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

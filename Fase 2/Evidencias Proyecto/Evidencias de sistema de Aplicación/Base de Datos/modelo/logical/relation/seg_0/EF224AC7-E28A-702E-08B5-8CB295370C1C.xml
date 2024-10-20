@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="veterinaria ficha medica FK" directorySegmentName="seg_0" id="EF224AC7-E28A-702E-08B5-8CB295370C1C">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:37:19 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>0EFDD95B-87D4-9152-3A51-1AE349EC58CC</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>ED6BCE0C-54D8-B574-DFF2-89966A3C220A</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>E54CF58A-3FA9-DC7E-1F61-B95911F81303</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

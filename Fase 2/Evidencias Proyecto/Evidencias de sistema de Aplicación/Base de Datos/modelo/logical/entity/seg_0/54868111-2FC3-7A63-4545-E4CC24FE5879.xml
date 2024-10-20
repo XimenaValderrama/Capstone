@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="54868111-2FC3-7A63-4545-E4CC24FE5879" name="direccion usuario">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:07:40 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id direccion" id="63C796B0-8DE8-FCCF-970A-A538154644CE">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:07:56 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="calle" id="C47C1C69-5677-4BC9-B2EB-0275E427322D">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:08:09 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="numero" id="846C4F4F-5596-0A26-6197-58B38CFF578E">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:08:21 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="usuario id usuario" id="68563E7C-CA15-D271-13B1-6C8DED0F4B76">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:34:16 UTC</createdTime>
+<generatorID>69C31D72-ADBF-BA21-8794-A578592FD5BE</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>7ED67552-D103-7870-41DC-89C03F2C5646</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="comuna id comuna" id="655F4AB2-FF96-011F-FA83-1A124A09AC25">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:17:49 UTC</createdTime>
+<generatorID>317C3C8D-71B3-0C5C-D5C7-F382CC03A3B9</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>142A69A7-4CF1-4EAE-F923-3B5B185613AF</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="AF1DD5A8-7426-AD6B-8017-2A9292C1F0CA" name="direccion_usuario_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:08:08 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>63C796B0-8DE8-FCCF-970A-A538154644CE</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

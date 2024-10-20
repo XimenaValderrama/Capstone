@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="formulario adopcion usuario FK" directorySegmentName="seg_0" id="2330AAEB-93D5-12C5-7A87-86EC25E3C9BE">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:19:55 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>D3004F37-F756-4632-E5DF-7F993C760E1A</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>A3542E01-6997-C293-0754-065ADB234DCE</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>8E976D40-6D7B-A540-7BA3-172175A87EBB</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

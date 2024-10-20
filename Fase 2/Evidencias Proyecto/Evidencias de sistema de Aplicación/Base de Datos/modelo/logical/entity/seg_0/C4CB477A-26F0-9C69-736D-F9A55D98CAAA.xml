@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C4CB477A-26F0-9C69-736D-F9A55D98CAAA" name="desparacitacion">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:27:10 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id desparacitacion" id="25A47015-A9C1-5F03-B0CB-5CE84B8CBB47">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:27:16 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="conf desparacitacion" id="2C0CF712-3766-61CC-A05C-EF3CB9B0E277">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:27:28 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="fecha desparacitacion" id="EE178DB1-95D6-DD74-03BC-1831DD3742E0">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:27:57 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ficha medica id ficha medica" id="F51AE1F7-1495-03B3-398C-DD0BE1E8685B">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:37:07 UTC</createdTime>
+<generatorID>66E831B6-3748-0CC6-3BE4-962F53FA6436</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>941BA6C1-61ED-D322-0423-4C60F698717E</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="83A119A8-E779-BD7A-5C17-B1075D699480" name="desparacitacion PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:27:27 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>25A47015-A9C1-5F03-B0CB-5CE84B8CBB47</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

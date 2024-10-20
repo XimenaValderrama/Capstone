@@ -1,0 +1,87 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="EA56CB66-6848-A3E7-53B7-6EFB5E9A3417" name="provincia masc">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:13:05 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id provincia masc" id="308FCE1B-9A71-F491-6BF0-35B363BA8DED">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:13:12 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="3D9C9F35-C51B-5C3F-5EF5-AE17E5028CB4">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:13:20 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="comuna masc id comuna masc" id="258FE219-E938-8B62-79B6-56F87C817860">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:14:51 UTC</createdTime>
+<generatorID>2C23B54A-BC5F-93C1-B677-F51D3AAF8829</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>8F0E5485-079D-F845-BF5D-75561D28E4B0</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="region masc id region masc" id="E81733A9-D421-E590-6715-0109678B9BB5">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:01 UTC</createdTime>
+<generatorID>35E2692A-5E36-DA18-52FC-3CEAA351ED5B</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>7B1B89C8-4A61-B70B-85C5-01C8C39DFD97</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="E052F2E5-A529-AD91-17B9-74C2FAB0C9F3" name="ciudad_masc_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:13:19 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>308FCE1B-9A71-F491-6BF0-35B363BA8DED</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

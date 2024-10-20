@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="mascota genero masc FK" directorySegmentName="seg_0" id="92C31EBF-E35C-676B-04D8-F1C23F1399B7">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:32:37 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>681958DD-2B2B-CC9B-24EF-AC60E056A517</sourcePk>
+<targetPk>C653FA5F-C264-981B-9911-C6194F5D5D49</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>053D3995-4E96-7D7D-98D0-217AFF9F19F1</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>82AE0F66-1B16-8CE8-355D-7BEC1566FA76</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

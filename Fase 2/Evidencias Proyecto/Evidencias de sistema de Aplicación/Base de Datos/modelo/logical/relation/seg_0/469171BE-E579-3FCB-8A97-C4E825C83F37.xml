@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="region pais FK" directorySegmentName="seg_0" id="469171BE-E579-3FCB-8A97-C4E825C83F37">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:22:08 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>4140430C-80C1-414D-E24A-CF5045DE3C23</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>81D5997D-E4EE-686C-FED0-B68947B12931</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>9356119F-FDCF-F4A3-7F91-6BFCB52AADDF</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

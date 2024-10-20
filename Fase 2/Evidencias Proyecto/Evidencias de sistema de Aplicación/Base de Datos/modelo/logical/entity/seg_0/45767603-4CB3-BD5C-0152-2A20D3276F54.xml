@@ -1,0 +1,87 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="45767603-4CB3-BD5C-0152-2A20D3276F54" name="comuna">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:12:10 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id comuna" id="142A69A7-4CF1-4EAE-F923-3B5B185613AF">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:12:14 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="95E427F5-E38F-2EE2-7DD7-0CCFB1A20BA2">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:12:16 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="direccion usuario id direccion" id="53180E8E-1F46-6FD4-3AA9-A3E3798B2F19">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:17:52 UTC</createdTime>
+<generatorID>317C3C8D-71B3-0C5C-D5C7-F382CC03A3B9</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>63C796B0-8DE8-FCCF-970A-A538154644CE</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="provincia id provincia" id="14F84579-8F4A-3FA4-5956-CF0B87502E27">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:19:18 UTC</createdTime>
+<generatorID>4BF41DCB-974C-025E-BD5C-1DA8FE49B451</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>BBBBE427-381F-161E-C99F-4012255A11A4</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="DDB06CCF-D2D2-AB0A-16AD-082E302B6F00" name="comuna PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:12:29 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>142A69A7-4CF1-4EAE-F923-3B5B185613AF</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

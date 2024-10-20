@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="mascota direccion mascota FK" directorySegmentName="seg_0" id="69074CB9-EC71-44A6-E7E3-D0E0B8B8A4C6">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:23:16 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>681958DD-2B2B-CC9B-24EF-AC60E056A517</sourcePk>
+<targetPk>C13D6F45-4E6A-8F89-1F87-E345FD2E95DF</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>053D3995-4E96-7D7D-98D0-217AFF9F19F1</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>B2E9891E-7DCF-0B43-31C7-9BBA264742CA</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

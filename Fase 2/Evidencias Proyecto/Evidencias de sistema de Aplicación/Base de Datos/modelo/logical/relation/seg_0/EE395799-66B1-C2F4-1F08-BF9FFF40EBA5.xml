@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="ficha medica tipo alimento FK" directorySegmentName="seg_0" id="EE395799-66B1-C2F4-1F08-BF9FFF40EBA5">
+<createdBy>digim</createdBy>
+<createdTime>2024-10-16 11:45:45 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>E5D952E1-7054-5699-2A91-E408E3717BBC</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>FA077DAF-C220-A9D9-CD32-BA0E8B185BAF</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>ED6BCE0C-54D8-B574-DFF2-89966A3C220A</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

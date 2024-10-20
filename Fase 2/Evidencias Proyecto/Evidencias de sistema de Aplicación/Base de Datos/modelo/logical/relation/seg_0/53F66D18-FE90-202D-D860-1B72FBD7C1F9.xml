@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="pais masc region masc FK" directorySegmentName="seg_0" id="53F66D18-FE90-202D-D860-1B72FBD7C1F9">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:15:12 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>5A011812-B30C-A527-16C9-2E9259DE259D</sourcePk>
+<targetPk>F5F92213-052A-2024-3926-FC99A2F9BBFC</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>4E9846B6-D5E1-2F13-D9E3-C610771754F3</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>FA524066-A388-0710-03E7-2557D1C141AE</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

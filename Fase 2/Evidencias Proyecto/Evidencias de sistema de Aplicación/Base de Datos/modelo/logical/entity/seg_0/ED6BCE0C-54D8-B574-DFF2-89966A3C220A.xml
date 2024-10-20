@@ -1,0 +1,126 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="ED6BCE0C-54D8-B574-DFF2-89966A3C220A" name="ficha medica">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:26:04 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id ficha medica" id="941BA6C1-61ED-D322-0423-4C60F698717E">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:26:10 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="fecha medica" id="6D3E6518-9ABE-2715-99A2-A85544E8BAB1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:26:30 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="prox consulta" id="48331B7F-E042-65AE-DB8F-CA276EBA2E46">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:26:43 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="esterilizacion id esterilizacion" id="21C590ED-12BF-BC82-F244-92C1A1E07746">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:36:49 UTC</createdTime>
+<generatorID>0FE76E00-A035-AC81-9262-E67CC699EB2A</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>B20DA353-3DB9-579F-9990-279BB51ABF3E</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="desparacitacion id desparacitacion" id="E7B85F84-EAC8-CDF3-690A-C46D0086058E">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:37:11 UTC</createdTime>
+<generatorID>66E831B6-3748-0CC6-3BE4-962F53FA6436</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>25A47015-A9C1-5F03-B0CB-5CE84B8CBB47</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="mascota id mascota" id="3A6067B6-1728-82AB-D49A-FEA2DF8C89BC">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:38:14 UTC</createdTime>
+<generatorID>1B4BC061-4B5E-A66E-3134-411EDE193AC1</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>D65CF7A2-0E4A-8552-83ED-1D07C6C9040D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="tipo alimento id alimento" id="3CE13D16-126A-E9EA-E95B-72AFF7878E10">
+<createdBy>digim</createdBy>
+<createdTime>2024-10-16 11:45:45 UTC</createdTime>
+<generatorID>EE395799-66B1-C2F4-1F08-BF9FFF40EBA5</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>EB163366-BC62-8C9E-F2F9-B9D1EFA5B261</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="0EFDD95B-87D4-9152-3A51-1AE349EC58CC" name="ficha_medica_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:26:24 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>941BA6C1-61ED-D322-0423-4C60F698717E</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

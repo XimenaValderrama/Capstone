@@ -1,0 +1,195 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="053D3995-4E96-7D7D-98D0-217AFF9F19F1" name="mascota">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:13:29 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id mascota" id="D65CF7A2-0E4A-8552-83ED-1D07C6C9040D">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:13:34 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="92E8E66E-D7DC-9429-387A-325B29728EC0">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:13:43 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>60</dataTypeSize>
+<ownDataTypeParameters>60,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="edad" id="A56C27AC-F3E7-8AFA-1C5B-B928216B362A">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:13:59 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="imagen" id="1E2A5F21-EC2E-3D40-3B7F-5A2B4541426E">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:20:13 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT010</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="apellido" id="1E048FA7-5265-793E-675D-2C9D71162666">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:15:11 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="usuario id usuario" id="B59CEBDE-E795-80F0-B74C-8ED721E6EAB0">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:36:39 UTC</createdTime>
+<generatorID>3C852CED-41DD-7FEE-9732-27DC9DC9EC8F</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>7ED67552-D103-7870-41DC-89C03F2C5646</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="estado mascota id estado masc" id="5AA290A6-891D-98F7-C9DE-908A24A71AF1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:38:40 UTC</createdTime>
+<generatorID>970049AB-1EDB-7B03-5AD3-7349C8E59E2B</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>6BC55EFF-E8C8-19CC-0D57-508FCA9FFA99</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="raza id raza" id="95C3B574-F191-DB7E-8EB4-C14792478053">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:39:55 UTC</createdTime>
+<generatorID>3EEA64CA-364B-173A-442E-A7B324134A96</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>FA93208E-EBD0-47EA-95C2-46A669F35DE8</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="fundacion id fundacion" id="7C6C716F-59EC-4755-8679-340710586C9B">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:40:48 UTC</createdTime>
+<generatorID>91793FFC-2377-3275-60C1-776D2322180C</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>581CD500-B5CE-9B7F-1345-0DFA80B3DC61</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="tipo mascota id tipo masc" id="C0406949-2FDC-3895-BD29-D892DC951113">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:41:03 UTC</createdTime>
+<generatorID>B5C993B2-5205-DBF4-4ADC-0DE257CE6BB2</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>BBBB4BC5-382C-C902-2A06-066750FC5D41</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="direccion mascota id direccion masc" id="70F18ED3-5FB3-C1C5-FE92-CFA02D3D685A">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:23:18 UTC</createdTime>
+<generatorID>69074CB9-EC71-44A6-E7E3-D0E0B8B8A4C6</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>CD319218-6429-C539-CCDD-24DBAD5A9E58</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="genero masc id genero masc" id="6EF76084-71A9-32D6-086F-BE6095B0C715">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:32:40 UTC</createdTime>
+<generatorID>92C31EBF-E35C-676B-04D8-F1C23F1399B7</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>B90B31AF-FB0C-5683-BDDD-E9837D1AF9EF</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="681958DD-2B2B-CC9B-24EF-AC60E056A517" name="mascota PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:13:42 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>D65CF7A2-0E4A-8552-83ED-1D07C6C9040D</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

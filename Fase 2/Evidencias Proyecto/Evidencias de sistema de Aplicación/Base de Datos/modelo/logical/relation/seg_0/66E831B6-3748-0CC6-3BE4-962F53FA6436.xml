@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="ficha medica desparacitacion FK" directorySegmentName="seg_0" id="66E831B6-3748-0CC6-3BE4-962F53FA6436">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:37:07 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>0EFDD95B-87D4-9152-3A51-1AE349EC58CC</sourcePk>
+<targetPk>83A119A8-E779-BD7A-5C17-B1075D699480</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>ED6BCE0C-54D8-B574-DFF2-89966A3C220A</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>C4CB477A-26F0-9C69-736D-F9A55D98CAAA</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,100 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="B2E9891E-7DCF-0B43-31C7-9BBA264742CA" name="direccion mascota">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:16:46 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id direccion masc" id="CD319218-6429-C539-CCDD-24DBAD5A9E58">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:16:52 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="calle" id="338EE7C8-B934-3AC7-8383-31CD7EB6286F">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:17:01 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="numero" id="A2EC94CE-75AF-66AE-2204-2D921EDF3C0B">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:17:17 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="mascota id mascota" id="E87FE501-0131-97C5-307E-E93ACFE040E1">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:23:16 UTC</createdTime>
+<generatorID>69074CB9-EC71-44A6-E7E3-D0E0B8B8A4C6</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>D65CF7A2-0E4A-8552-83ED-1D07C6C9040D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="comuna masc id comuna masc" id="B4DE8FE8-F21B-26B2-E23B-8B45B350B0E4">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:14:46 UTC</createdTime>
+<generatorID>EFEE8CF9-5716-F8EC-835D-D8C413DA43AD</generatorID>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<referedAttribute>8F0E5485-079D-F845-BF5D-75561D28E4B0</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="C13D6F45-4E6A-8F89-1F87-E345FD2E95DF" name="direccion_mascota_PK">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:17:01 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>CD319218-6429-C539-CCDD-24DBAD5A9E58</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

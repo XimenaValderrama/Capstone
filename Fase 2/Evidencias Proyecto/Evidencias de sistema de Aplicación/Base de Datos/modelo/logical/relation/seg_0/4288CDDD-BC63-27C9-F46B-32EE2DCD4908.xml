@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="provincia region FK" directorySegmentName="seg_0" id="4288CDDD-BC63-27C9-F46B-32EE2DCD4908">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-16 04:18:53 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>71B5D68F-5356-6198-1D52-CC8BA96E5D1C</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>9356119F-FDCF-F4A3-7F91-6BFCB52AADDF</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>725CD18F-741D-2D3B-F443-4DF546AE6940</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

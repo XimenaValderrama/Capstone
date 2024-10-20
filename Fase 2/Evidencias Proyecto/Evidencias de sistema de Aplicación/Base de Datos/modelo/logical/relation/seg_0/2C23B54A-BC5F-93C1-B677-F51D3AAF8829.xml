@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="ciudad masc comuna masc FK" directorySegmentName="seg_0" id="2C23B54A-BC5F-93C1-B677-F51D3AAF8829">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-17 19:14:51 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>023DD44A-DEEB-C34A-A413-CA1FDEF0A225</sourcePk>
+<targetPk>E052F2E5-A529-AD91-17B9-74C2FAB0C9F3</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>82159AF0-0CBD-D28A-1857-F397004EA51D</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>EA56CB66-6848-A3E7-53B7-6EFB5E9A3417</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

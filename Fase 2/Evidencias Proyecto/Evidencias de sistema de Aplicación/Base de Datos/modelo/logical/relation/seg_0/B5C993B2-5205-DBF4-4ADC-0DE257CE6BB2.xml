@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="tipo mascota mascota FK" directorySegmentName="seg_0" id="B5C993B2-5205-DBF4-4ADC-0DE257CE6BB2">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-14 00:41:03 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>86259AF1-653A-F2E7-8B11-B00DDCB9EC68</sourcePk>
+<targetPk>681958DD-2B2B-CC9B-24EF-AC60E056A517</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>581C6C23-5517-1CA4-809C-589E1F8FE916</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>053D3995-4E96-7D7D-98D0-217AFF9F19F1</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

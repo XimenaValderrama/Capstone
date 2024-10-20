@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="formulario adopcion mascota FK" directorySegmentName="seg_0" id="A6A5CA21-579D-0A15-E624-0F36DEC173B4">
+<createdBy>valde</createdBy>
+<createdTime>2024-10-20 22:13:13 UTC</createdTime>
+<ownerDesignName>modelo</ownerDesignName>
+<engineerTo>
+<item key="E2C0739C-A80E-881F-15C2-B8C78878AC3C" value="true"/>
+</engineerTo>
+<sourcePk>681958DD-2B2B-CC9B-24EF-AC60E056A517</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>053D3995-4E96-7D7D-98D0-217AFF9F19F1</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>8E976D40-6D7B-A540-7BA3-172175A87EBB</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>
