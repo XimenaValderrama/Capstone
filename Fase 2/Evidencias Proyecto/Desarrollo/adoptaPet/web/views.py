@@ -11,7 +11,26 @@ def inicio(request):
 
 def inicio_sesion(request):    
 
-    return render(request, "login.html") 
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # Autenticar al usuario
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # Si las credenciales son correctas, iniciar sesión
+            login(request, user)
+            messages.success(request, 'Has iniciado sesión correctamente.')
+            return redirect('inicio')  # Redirigir a una página de inicio o perfil
+        else:
+            # Si las credenciales son incorrectas, mostrar un mensaje de error
+            messages.error(request, 'Credenciales inválidas. Inténtalo de nuevo.')
+            return redirect('login')  # Redirigir de vuelta a la página de inicio de sesión
+
+    # Si es una solicitud GET, mostrar el formulario de inicio de sesión
+    return render(request, 'login.html')
 
 def perfil(request):
 
@@ -68,9 +87,6 @@ def registro(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         comuna = request.POST['comuna']
-        provincia = request.POST['provincia']
-        region = request.POST['region']
-        pais = request.POST['pais']
         genero = request.POST['genero']
         estado_economico = request.POST['estado_economico']
         calle = request.POST['calle']
