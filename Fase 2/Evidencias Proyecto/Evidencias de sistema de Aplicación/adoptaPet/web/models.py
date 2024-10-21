@@ -293,10 +293,10 @@ class Chip(models.Model):
             
         return self.conf_chip
 
-class Desparacitacion(models.Model):
+class Desparasitacion(models.Model):
     
-    conf_desparacitacion = models.BooleanField(default="False")
-    fecha_desparacitacion = models.DateField()
+    conf_desparasitacion = models.BooleanField(default="False")
+    fecha_desparasitacion = models.DateField()
     ficha_medica = models.ForeignKey(FichaMedica, on_delete=models.CASCADE)
     
     def __str__(self):

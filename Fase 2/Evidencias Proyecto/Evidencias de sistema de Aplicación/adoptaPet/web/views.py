@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+
+@login_required(login_url="inicio_sesion")
 def inicio(request):    
 
     return render(request, "index.html") 
@@ -22,37 +24,41 @@ def inicio_sesion(request):
         if user is not None:
             # Si las credenciales son correctas, iniciar sesión
             login(request, user)
-            messages.success(request, 'Has iniciado sesión correctamente.')
             return redirect('inicio')  # Redirigir a una página de inicio o perfil
         else:
             # Si las credenciales son incorrectas, mostrar un mensaje de error
             messages.error(request, 'Credenciales inválidas. Inténtalo de nuevo.')
-            return redirect('login')  # Redirigir de vuelta a la página de inicio de sesión
+            return redirect('inicio_sesion')  # Redirigir de vuelta a la página de inicio de sesión
 
     # Si es una solicitud GET, mostrar el formulario de inicio de sesión
     return render(request, 'login.html')
 
+@login_required(login_url="inicio_sesion")
 def perfil(request):
 
     return render(request, "perfil.html")
 
-
+@login_required(login_url="inicio_sesion")
 def tenencia_responsable(request):
 
     return render(request, "tenencia_responsable.html")
 
+@login_required(login_url="inicio_sesion")
 def adopcion(request):
 
     return render(request, "adopcion.html")
 
+@login_required(login_url="inicio_sesion")
 def adoptados(request):
 
     return render(request, "adoptados.html")
 
+@login_required(login_url="inicio_sesion")
 def busqueda(request):
 
     return render(request, "busqueda.html")
 
+@login_required(login_url="inicio_sesion")
 def encontrados(request):
 
     return render(request, "encontrados.html")
@@ -125,15 +131,12 @@ def registro(request):
         direccionusuario.comuna = Comuna.objects.get(id=comuna)
         direccionusuario.save()
         
-        # 6. Autenticar y iniciar sesión
-        user = authenticate(request, username=username, password=password1)
-        if user is not None:
-            login(request, user)
-            messages.success(request, 'Registro exitoso y sesión iniciada.')
-            return redirect('inicio')  # Redirige a la página principal
-        else:
-            messages.error(request, 'Hubo un error al iniciar sesión.')
-            return redirect('login')
+        return redirect('inicio_sesion')
     else:
         # 7. Mostrar el formulario de registro
         return render(request, 'registro.html', context)
+
+@login_required(login_url="inicio_sesion")
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('inicio_sesion') 

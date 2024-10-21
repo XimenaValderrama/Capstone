@@ -16,5 +16,6 @@ urlpatterns = [
     path('adoptados/', adoptados, name="adoptados"),
     path('busqueda/', busqueda, name="busqueda"),
     path('encontrados/', encontrados, name="encontrados"),
-    path('registro/', registro, name="registro")
+    path('registro/', registro, name="registro"),
+    path('cerrar-sesion', cerrar_sesion, name="cerrar_sesion")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

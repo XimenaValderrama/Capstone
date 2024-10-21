@@ -84,42 +84,6 @@
                     <!-- Últimos 7 campos select -->
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" name="comuna" aria-label="Select 1" required>
-                          <option selected disabled>Comuna</option>
-                          {% for comuna in comunas %}
-                            <option value="{{ comuna.id }}">{{ comuna.nombre }}</option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                      <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" name="provincia" aria-label="Select 2" required>
-                          <option selected disabled>Provincia</option>
-                          {% for provincia in provincias %}
-                            <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" name="region" aria-label="Select 3" required>
-                          <option selected disabled>Region</option>
-                          {% for region in regiones %}
-                            <option value="{{ region.id }}">{{ region.nombre }}</option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                      <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" name="pais" aria-label="Select 4" required>
-                          <option selected disabled>Pais</option>
-                          {% for pais in paises %}
-                            <option value="{{ pais.id }}">{{ pais.nombre }}</option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" name="genero" aria-label="Select 5" required>
                           <option selected disabled>Genero</option>
                           {% for genero in generos %}
@@ -136,6 +100,43 @@
                         </select>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" name="region" aria-label="Select 3" required>
+                          <option selected disabled>Region</option>
+                          {% for region in regiones %}
+                            <option value="{{ region.id }}">{{ region.nombre }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" name="provincia" aria-label="Select 2" required>
+                          <option selected disabled>Provincia</option>
+                          {% for provincia in provincias %}
+                            <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" name="comuna" aria-label="Select 1" required>
+                          <option selected disabled>Comuna</option>
+                          {% for comuna in comunas %}
+                            <option value="{{ comuna.id }}">{{ comuna.nombre }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" name="pais" aria-label="Select 4" required>
+                          <option selected disabled>Pais</option>
+                          {% for pais in paises %}
+                            <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                   
                     
                     <div class="text-center">
                       <button type="submit"  class="btn btn-lg btn-primary btn-lg w-50 mt-4 mb-0">Registrarse</button>

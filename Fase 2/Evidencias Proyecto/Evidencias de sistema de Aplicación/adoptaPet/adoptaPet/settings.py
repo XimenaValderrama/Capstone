@@ -81,8 +81,8 @@ DATABASES = {
         'NAME': 'adoptapet',
         'USER': 'postgres',
         'PASSWORD': 'xime200305',
-        'HOST': 'localhost',  # O la IP del servidor de la base de datos
-        'PORT': '5432',       # Puerto de PostgreSQL (el predeterminado es 5432)
+        'HOST': 'localhost', 
+        'PORT': '5432',      
     }
 }
 
