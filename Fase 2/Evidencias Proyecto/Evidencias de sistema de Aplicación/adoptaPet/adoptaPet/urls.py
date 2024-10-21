@@ -17,5 +17,7 @@ urlpatterns = [
     path('busqueda/', busqueda, name="busqueda"),
     path('encontrados/', encontrados, name="encontrados"),
     path('registro/', registro, name="registro"),
+    path('registro_mascota/', registro_mascota, name="registro_mascota"),
+    path('detalle_mascota/', detalle_mascota, name="detalle_mascota"),
     path('cerrar-sesion', cerrar_sesion, name="cerrar_sesion")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

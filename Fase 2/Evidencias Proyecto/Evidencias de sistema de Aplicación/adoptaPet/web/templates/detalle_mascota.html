@@ -1,0 +1,43 @@
+{% extends "base3.html" %}
+{% load static %}
+
+{% block contenido %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <!-- Columna para la imagen de la mascota -->
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <img src="{% static 'img/mascotas/jaxi.jpg' %}" class="img-fluid rounded" alt="Jaxi" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 20px;">
+            </div>
+
+            <!-- Columna para los detalles dentro de una tarjeta -->
+            <div class="col-md-6 mt-6">
+                <div class="card">
+                    <!-- Contenido de la tarjeta -->
+                    <div class="card-body" style="background-color: #f7f7f7;">
+                        <h1 class="display-4">Jaxi</h1>
+                        <p class="lead">Una gatita llena de alegria que encontro su hogar</p>
+
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item"><strong>Tipo:</strong> Gato</li>
+                            <li class="list-group-item"><strong>Estado:</strong> Adoptada</li>
+                            <li class="list-group-item"><strong>Edad:</strong> 2 años</li>
+                            <li class="list-group-item"><strong>Tamaño:</strong> Pequeño</li>
+                        </ul>
+
+                        <div class="mb-4">
+                            <h4>Descripción</h4>
+                            <p>
+                                Jaxi es una gatita juguetona y llena de energía.
+                            </p>
+                        </div>
+
+                        <!-- Botones de acción -->
+                        <div>
+                            <a href="#" class="btn btn-primary btn-lg">Adoptar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

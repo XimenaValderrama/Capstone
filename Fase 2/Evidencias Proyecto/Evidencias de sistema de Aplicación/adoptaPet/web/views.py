@@ -162,3 +162,13 @@ def registro(request):
 def cerrar_sesion(request):
     logout(request)
     return redirect('inicio_sesion') 
+
+@login_required(login_url="inicio_sesion")
+def registro_mascota(request):
+
+    return render(request, "registro_mascota.html")
+
+@login_required(login_url="inicio_sesion")
+def detalle_mascota(request):
+
+    return render(request, "detalle_mascota.html")
