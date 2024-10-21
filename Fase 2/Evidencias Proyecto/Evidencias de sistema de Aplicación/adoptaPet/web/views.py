@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -16,7 +16,7 @@ def inicio_sesion(request):
     if request.method == 'POST':
         # Obtener los datos del formulario
         username = request.POST['username']
-        password = request.POST['password']
+        password = request.POST['password'] 
 
         # Autenticar al usuario
         user = authenticate(request, username=username, password=password)
@@ -35,9 +35,12 @@ def inicio_sesion(request):
 
 @login_required(login_url="inicio_sesion")
 def perfil(request):
+    # Obtener el perfil del usuario autenticado
+    usuario = get_object_or_404(PerfilUsuario, usuario_django=request.user)
+    
 
-    return render(request, "perfil.html")
-
+    return render(request, "perfil.html", {'usuario': usuario})
+            
 @login_required(login_url="inicio_sesion")
 def tenencia_responsable(request):
 

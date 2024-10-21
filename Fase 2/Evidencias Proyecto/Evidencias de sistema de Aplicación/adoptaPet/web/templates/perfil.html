@@ -1,4 +1,4 @@
-{% extends "base2.html" %}
+{% extends "base3.html" %}
 {% load static %}
 
 {% block contenido %}
@@ -9,18 +9,19 @@
       <div class="card card-profile">
         <div class="row justify-content-center">
           <div class="col-4 col-lg-4 order-lg-2">
-            <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
+            <div class="mt-n4 mt-lg-n6 mb-3 mb-lg-0">
               <a href="javascript:;">
-                <img src="{% static 'img/team-2.jpg' %}" class="rounded-circle img-fluid border border-2 mt-5 border-white">
+                <img src="{% static 'img/logos/logoPet.png' %}" class="rounded-circle img-fluid border border-2 mt-5 border-white">
               </a>
             </div>
           </div>
         </div>
         <div class="card-body pt-0">
           <div class="text-center mt-4">
-            <h5>Mark Davis<span class="font-weight-light">, 35</span></h5>
+            <h2>{{request.user.first_name}} {{request.user.last_name}}<span class="font-weight-light"></span></h2>
           </div>
         </div>
+ 
       </div>
     </div>
   </div>
@@ -39,55 +40,73 @@
             <p class="text-uppercase text-sm">Información</p>
             <div class="row">
               <!-- Datos del usuario -->
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="example-text-input" class="form-control-label">Nombre</label>
-                  <input class="form-control" type="text" value="lucky.jesse">
+                  <input class="form-control" type="text" value="{{ usuario.usuario_django.first_name }} {{ usuario.usuario_django.last_name }}">
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
-                  <label for="example-text-input" class="form-control-label">Correo electrónico</label>
-                  <input class="form-control" type="email" value="jesse@example.com">
+                  <label for="example-text-input" class="form-control-label">Genero</label>
+                  <input class="form-control" type="text" value="{{ usuario.genero }}">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="example-text-input" class="form-control-label">Estado economico</label>
+                  <input class="form-control" type="text" value="{{ usuario.estado_economico }}">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="example-text-input" class="form-control-label">Rut</label>
+                  <input class="form-control" type="text" value="{{ usuario.rut }}">
                 </div>
               </div>
             </div>
+            
             <hr class="horizontal dark">
             <p class="text-uppercase text-sm">Información de contacto</p>
             <div class="row">
               <!-- Contact info -->
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="example-text-input" class="form-control-label">Comuna</label>
-                  <input class="form-control" type="text" value="New York">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
                   <label for="example-text-input" class="form-control-label">País</label>
-                  <input class="form-control" type="text" value="United States">
+                  <input class="form-control" type="text" value="">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="example-text-input" class="form-control-label">Mascotas</label>
-                  <input class="form-control" type="text" value="437300">
+                  <label for="example-text-input" class="form-control-label">Provincia</label>
+                  <input class="form-control" type="text" value="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="example-text-input" class="form-control-label">Comuna</label>
+                  <input class="form-control" type="text" value="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="example-text-input" class="form-control-label">Dirección</label>
+                  <input class="form-control" type="text" value="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="example-text-input" class="form-control-label">Teléfono</label>
+                  <input class="form-control" type="text" value="{{ usuario.telefono }}">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="example-text-input" class="form-control-label">Correo electrónico</label>
+                  <input class="form-control" type="email" value="{{ usuario.usuario_django.email }}">
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="example-text-input" class="form-control-label">Teléfono</label>
-                  <input class="form-control" type="text" value="United States">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="example-text-input" class="form-control-label">Estado economico</label>
-                  <input class="form-control" type="text" value="United States">
-                </div>
-              </div>
             </div>
           </div>
         </div>
