@@ -37,9 +37,25 @@ def inicio_sesion(request):
 def perfil(request):
     # Obtener el perfil del usuario autenticado
     usuario = get_object_or_404(PerfilUsuario, usuario_django=request.user)
-    
 
-    return render(request, "perfil.html", {'usuario': usuario})
+    # Obtener la dirección del usuario
+    direccion = DireccionUsuario.objects.filter(usuario=usuario).first()
+
+    # Verificar si la dirección existe y obtener comuna, provincia, región, y país
+    comuna = direccion.comuna if direccion else None
+    provincia = comuna.provincia if comuna else None
+    region = provincia.region if provincia else None
+    pais = region.pais if region else None
+
+    # Pasar los datos al template
+    return render(request, "perfil.html", {
+        'usuario': usuario,
+        'direccion': direccion,
+        'comuna': comuna,
+        'provincia': provincia,
+        'region': region,
+        'pais': pais
+    })
             
 @login_required(login_url="inicio_sesion")
 def tenencia_responsable(request):
@@ -75,15 +91,14 @@ def registro(request):
     comunas = Comuna.objects.all()
     generos = Genero.objects.all()
     estadoseconomicos = EstadoEconomico.objects.all()
+    
     context = {
-
         'paises': paises,
         'provincias': provincias,
         'regiones': regiones,
         'comunas': comunas,
         'generos': generos,
         'estadoseconomicos': estadoseconomicos
-        
     }
 
     if request.method == 'POST':
@@ -120,6 +135,8 @@ def registro(request):
         # 5. Crear el usuario
         user = User.objects.create_user(username=username, email=email, password=password1, first_name=nombre, last_name=apellido)
         user.save()
+
+        # 6. Crear el perfil de usuario
         perfilusuario = PerfilUsuario()
         perfilusuario.usuario_django = user
         perfilusuario.rut = rut
@@ -128,15 +145,17 @@ def registro(request):
         perfilusuario.estado_economico = EstadoEconomico.objects.get(id=estado_economico)
         perfilusuario.save()
 
+        # 7. Crear la dirección asociada al perfil del usuario
         direccionusuario = DireccionUsuario()
         direccionusuario.calle = calle
         direccionusuario.numero = numero
         direccionusuario.comuna = Comuna.objects.get(id=comuna)
+        direccionusuario.usuario = perfilusuario  # Aquí asignamos el perfil del usuario a la dirección
         direccionusuario.save()
-        
+
         return redirect('inicio_sesion')
     else:
-        # 7. Mostrar el formulario de registro
+        # 8. Mostrar el formulario de registro
         return render(request, 'registro.html', context)
 
 @login_required(login_url="inicio_sesion")

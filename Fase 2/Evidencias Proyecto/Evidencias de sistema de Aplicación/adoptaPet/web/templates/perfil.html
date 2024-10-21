@@ -73,25 +73,31 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="example-text-input" class="form-control-label">País</label>
-                  <input class="form-control bg-white" type="text" value="" readonly>
+                  <input class="form-control bg-white" type="text" value="{{ pais.nombre }}" readonly>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="example-text-input" class="form-control-label">Región</label>
+                  <input class="form-control bg-white" type="text" value="{{ region.nombre }}" readonly>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="example-text-input" class="form-control-label">Provincia</label>
-                  <input class="form-control bg-white" type="text" value="" readonly>
+                  <input class="form-control bg-white" type="text" value="{{ provincia.nombre }}" readonly>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="example-text-input" class="form-control-label">Comuna</label>
-                  <input class="form-control bg-white" type="text" value="" readonly>
+                  <input class="form-control bg-white" type="text" value="{{ comuna.nombre }}" readonly>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="example-text-input" class="form-control-label">Dirección</label>
-                  <input class="form-control bg-white" type="text" value="" readonly>
+                  <input class="form-control bg-white" type="text" value="{{ direccion.calle }} {{ direccion.numero }}" readonly>
                 </div>
               </div>
               <div class="col-md-4">
