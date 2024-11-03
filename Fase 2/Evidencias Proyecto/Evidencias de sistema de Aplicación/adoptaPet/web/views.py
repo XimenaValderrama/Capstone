@@ -132,11 +132,21 @@ def registro(request):
             messages.error(request, 'Ya existe una cuenta con este correo electrónico.')
             return redirect('registro')
 
-        # 5. Crear el usuario
+        # 5. Validar que el RUT no exista ya registrado en otro perfil de usuario
+        if PerfilUsuario.objects.filter(rut=rut).exists():
+            messages.error(request, 'El RUT ya está registrado.')
+            return redirect('registro')
+
+        # 6. Validar la longitud de la contraseña
+        if len(password1) < 8:
+            messages.error(request, 'La contraseña debe tener al menos 8 caracteres.')
+            return redirect('registro')
+
+        # 7. Crear el usuario
         user = User.objects.create_user(username=username, email=email, password=password1, first_name=nombre, last_name=apellido)
         user.save()
 
-        # 6. Crear el perfil de usuario
+        # 8. Crear el perfil de usuario
         perfilusuario = PerfilUsuario()
         perfilusuario.usuario_django = user
         perfilusuario.rut = rut
@@ -145,7 +155,7 @@ def registro(request):
         perfilusuario.estado_economico = EstadoEconomico.objects.get(id=estado_economico)
         perfilusuario.save()
 
-        # 7. Crear la dirección asociada al perfil del usuario
+        # 9. Crear la dirección asociada al perfil del usuario
         direccionusuario = DireccionUsuario()
         direccionusuario.calle = calle
         direccionusuario.numero = numero
@@ -155,7 +165,7 @@ def registro(request):
 
         return redirect('inicio_sesion')
     else:
-        # 8. Mostrar el formulario de registro
+        # 10. Mostrar el formulario de registro
         return render(request, 'registro.html', context)
 
 @login_required(login_url="inicio_sesion")
