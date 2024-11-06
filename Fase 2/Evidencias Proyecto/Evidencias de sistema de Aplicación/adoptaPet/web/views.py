@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 @login_required(login_url="inicio_sesion")
@@ -182,3 +183,11 @@ def registro_mascota(request):
 def detalle_mascota(request):
 
     return render(request, "detalle_mascota.html")
+
+def get_provincias(request, region_id):
+    provincias = Provincia.objects.filter(region_id=region_id).values('id', 'nombre')
+    return JsonResponse(list(provincias), safe=False)
+
+def get_comunas(request, provincia_id):
+    comunas = Comuna.objects.filter(provincia_id=provincia_id).values('id', 'nombre')
+    return JsonResponse(list(comunas), safe=False)

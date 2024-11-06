@@ -102,29 +102,23 @@
                     </div>
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" name="region" aria-label="Select 3" required>
+                        <select id="regionSelect" class="form-control form-control-lg" name="region" aria-label="Select 3" required>
                           <option selected disabled>Region</option>
                           {% for region in regiones %}
                             <option value="{{ region.id }}">{{ region.nombre }}</option>
                           {% endfor %}
                         </select>
                       </div>
-                    <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" name="provincia" aria-label="Select 2" required>
+                      <div class="col-md-6 mb-3">
+                        <select id="provinciaSelect" class="form-control form-control-lg" name="provincia" aria-label="Select 2" required>
                           <option selected disabled>Provincia</option>
-                          {% for provincia in provincias %}
-                            <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
-                          {% endfor %}
                         </select>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" name="comuna" aria-label="Select 1" required>
+                        <select id="comunaSelect" class="form-control form-control-lg" name="comuna" aria-label="Select 1" required>
                           <option selected disabled>Comuna</option>
-                          {% for comuna in comunas %}
-                            <option value="{{ comuna.id }}">{{ comuna.nombre }}</option>
-                          {% endfor %}
                         </select>
                       </div>
                       <div class="col-md-6 mb-3">
@@ -136,8 +130,7 @@
                         </select>
                       </div>
                     </div>
-                   
-                    
+                                       
                     <div class="text-center">
                       <button type="submit"  class="btn btn-lg btn-primary btn-lg w-50 mt-4 mb-0">Registrarse</button>
                     </div>
@@ -210,5 +203,34 @@
 
 
   </script>
+
+  <script>
+    document.getElementById('regionSelect').addEventListener('change', function() {
+        const regionId = this.value;
+        fetch(`/get_provincias/${regionId}/`)
+            .then(response => response.json())
+            .then(data => {
+                const provinciaSelect = document.getElementById('provinciaSelect');
+                provinciaSelect.innerHTML = '<option selected disabled>Seleccione una Provincia</option>';
+                data.forEach(provincia => {
+                    provinciaSelect.innerHTML += `<option value="${provincia.id}">${provincia.nombre}</option>`;
+                });
+            });
+    });
+  
+    document.getElementById('provinciaSelect').addEventListener('change', function() {
+        const provinciaId = this.value;
+        fetch(`/get_comunas/${provinciaId}/`)
+            .then(response => response.json())
+            .then(data => {
+                const comunaSelect = document.getElementById('comunaSelect');
+                comunaSelect.innerHTML = '<option selected disabled>Seleccione una Comuna</option>';
+                data.forEach(comuna => {
+                    comunaSelect.innerHTML += `<option value="${comuna.id}">${comuna.nombre}</option>`;
+                });
+            });
+    });
+  </script>
+  
 </body>
 </html>
