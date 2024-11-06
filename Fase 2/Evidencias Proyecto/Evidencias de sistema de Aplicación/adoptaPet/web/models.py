@@ -37,7 +37,7 @@ class PerfilUsuario(models.Model):
 
     def __str__(self):
         
-        return self.usuario_django.name
+        return self.usuario_django.username
 
 class Pais(models.Model):
     

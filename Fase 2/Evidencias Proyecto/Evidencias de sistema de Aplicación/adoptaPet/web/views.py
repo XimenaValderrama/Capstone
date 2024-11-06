@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+import re
 
 
 @login_required(login_url="inicio_sesion")
@@ -118,6 +119,9 @@ def registro(request):
         numero = request.POST['numero']
         username = email  # Usar el email como nombre de usuario
 
+
+        rut_numerico = re.sub(r'[\.\-]', '', rut)
+
         # 2. Validar que las contraseñas coincidan
         if password1 != password2:
             messages.error(request, 'Las contraseñas no coinciden.')
@@ -143,11 +147,21 @@ def registro(request):
             messages.error(request, 'La contraseña debe tener al menos 8 caracteres.')
             return redirect('registro')
 
-        # 7. Crear el usuario
+        # 7. Validar la longitud del telefono
+        if not telefono.isdigit() or len(telefono) != 9:
+            messages.error(request, 'El teléfono debe contener exactamente 9 dígitos. (Toma en cuenta el 9 del incio)')
+            return redirect('registro')
+
+        # Validar la longitud del RUT (8 o 9 dígitos)
+        if not rut_numerico.isdigit() or not (8 <= len(rut_numerico) <= 9):
+            messages.error(request, 'El RUT debe contener 8 o 9 dígitos sin puntos ni guion.')
+            return redirect('registro')
+
+        # 9. Crear el usuario
         user = User.objects.create_user(username=username, email=email, password=password1, first_name=nombre, last_name=apellido)
         user.save()
 
-        # 8. Crear el perfil de usuario
+        # 10. Crear el perfil de usuario
         perfilusuario = PerfilUsuario()
         perfilusuario.usuario_django = user
         perfilusuario.rut = rut
@@ -156,7 +170,7 @@ def registro(request):
         perfilusuario.estado_economico = EstadoEconomico.objects.get(id=estado_economico)
         perfilusuario.save()
 
-        # 9. Crear la dirección asociada al perfil del usuario
+        # 11. Crear la dirección asociada al perfil del usuario
         direccionusuario = DireccionUsuario()
         direccionusuario.calle = calle
         direccionusuario.numero = numero
@@ -166,7 +180,7 @@ def registro(request):
 
         return redirect('inicio_sesion')
     else:
-        # 10. Mostrar el formulario de registro
+        # 12. Mostrar el formulario de registro
         return render(request, 'registro.html', context)
 
 @login_required(login_url="inicio_sesion")
