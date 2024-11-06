@@ -34,7 +34,7 @@
                 <img class="w-80 mx-auto mb-3" src="{% static "img/logos/AdoptaPet.png" %}" alt="sidebar_illustration">
                 <div class="card-header pb-0 text-start">
                   <h4 class="font-weight-bolder">Registra a tu mascota</h4>
-                  <p class="mb-0">Ingresa sus datos</p>
+                  <p class="mb-0">Ingresa los datos de la mascota</p>
                 </div>
                 {% if messages %}
                   <ul>
@@ -144,15 +144,23 @@
                         <input type="file" accept="image/jpeg, image/png" name="imagen_mascota" class="form-control bg-white py-2" required />
                       </div>     
                     </div>
-                    <div class="text-center">
-                      <button type="submit"  class="btn btn-lg btn-primary btn-lg w-50 mt-4 mb-0">Registrar</button>
+                    <div class="row">
+                      <div class="col-md-6 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0">Registrar</button>
+                      </div>
+                      <div class="col-md-6 d-flex justify-content-start">
+                        <a href="{% url 'inicio' %}" class="btn btn-lg btn-primary w-100 mt-4 mb-0">Cancelar</a>
+                      </div>
                     </div>
+                    
+                    
+                    
                   </form>
                 </div>
               </div>
             </div>
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('{% static "img/illustrations/registro.png" %}'); background-size: cover; background-position-x: center; background-position-y: center; background-size: 700px;  background-repeat: no-repeat;">
+              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('{% static "img/illustrations/registro_navidad.png" %}'); background-size: cover; background-position-x: center; background-position-y: center; background-size: 700px;  background-repeat: no-repeat;">
               </div>
           </div>
       </div>
