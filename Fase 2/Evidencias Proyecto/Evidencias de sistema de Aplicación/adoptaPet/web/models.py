@@ -332,7 +332,7 @@ class Cirugia(models.Model):
             
         return self.descripcion
     
-class Esteriliacion(models.Model):
+class Esterilizacion(models.Model):
     
     conf_esterilizacion = models.BooleanField(default="False")
     fecha_esterilizacion = models.DateField()

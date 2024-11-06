@@ -272,9 +272,10 @@ def cargar_datos():
         Comuna(nombre="Doñihue", provincia=provincia_cachapoal),
         Comuna(nombre="Coltauco", provincia=provincia_cachapoal),
         Comuna(nombre="Coinco", provincia=provincia_cachapoal),
-        Comuna(nombre="Quinta de Tiltoco", provincia=provincia_cachapoal),
+        Comuna(nombre="Quinta de Tilcoco", provincia=provincia_cachapoal),
         Comuna(nombre="San Vicente de Tagua Tagua", provincia=provincia_cachapoal),
-        Comuna(nombre="Malloa", provincia=provincia_cachapoal)
+        Comuna(nombre="Malloa", provincia=provincia_cachapoal),
+        Comuna(nombre="Pichidegua", provincia=provincia_cachapoal)
     ])
 
     provincia_colchagua= Provincia.objects.create(nombre="Provincia de Colchagua", region=libertador_general_bernardo_ohiggins)
@@ -359,7 +360,9 @@ def cargar_datos():
         Comuna(nombre="Pemuco", provincia=provincia_diguillin),
         Comuna(nombre="Pinto", provincia=provincia_diguillin),
         Comuna(nombre="San Ignacio", provincia=provincia_diguillin),
-        Comuna(nombre="Yungay", provincia=provincia_diguillin)
+        Comuna(nombre="Yungay", provincia=provincia_diguillin),
+        Comuna(nombre="Bulnes", provincia=provincia_diguillin),
+        Comuna(nombre="Quillón", provincia=provincia_diguillin)
     ])
 
     provincia_itata = Provincia.objects.create(nombre="Provincia de Itata", region=ñuble)
