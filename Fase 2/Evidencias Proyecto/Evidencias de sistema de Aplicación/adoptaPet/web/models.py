@@ -217,7 +217,7 @@ class Mascota(models.Model):
     tipo = models.ForeignKey(TipoMascota, on_delete=models.CASCADE)
     direccion = models.ForeignKey(DireccionMascota, on_delete=models.CASCADE)
     usuario = models.ForeignKey(PerfilUsuario, on_delete=models.CASCADE)
-    fundacion = models.ForeignKey(Fundacion, on_delete=models.CASCADE)
+    fundacion = models.ForeignKey(Fundacion, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         

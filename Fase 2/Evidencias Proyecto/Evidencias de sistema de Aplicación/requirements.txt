@@ -4,12 +4,14 @@ cffi==1.16.0
 chardet==5.2.0
 cssselect2==0.7.0
 Django==5.0.6
+djangorestframework==3.15.2
 fonttools==4.53.0
 html5lib==1.1
 Jinja2==3.1.4
 MarkupSafe==2.1.5
 pdfkit==1.0.0
 pillow==10.4.0
+psycopg2==2.9.10
 pycparser==2.22
 pydyf==0.10.0
 pyphen==0.15.0
@@ -22,4 +24,3 @@ weasyprint==62.3
 webencodings==0.5.1
 wkhtmltopdf==0.2
 zopfli==0.2.3
-Pillow
