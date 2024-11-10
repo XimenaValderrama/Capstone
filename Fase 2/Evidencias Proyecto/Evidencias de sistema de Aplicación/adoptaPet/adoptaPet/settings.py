@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'web'
+    'web',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -49,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'adoptaPet.urls'
@@ -71,6 +76,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'adoptaPet.wsgi.application'
 
+# Permitir solicitudes desde cualquier origen (solo para desarrollo)
+CORS_ALLOW_ALL_ORIGINS = True  # Solo para desarrollo
+CSRF_COOKIE_HTTPONLY = False  # Permite acceder al token CSRF a través de JavaScript
+CORS_ALLOW_CREDENTIALS = True  # Permite que las cookies se incluyan en las solicitudes de CORS
+CORS_ORIGIN_ALLOW_ALL = True  # Para fines de desarrollo, ajusta según sea necesario
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -80,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'adoptapet',
         'USER': 'postgres',
-        'PASSWORD': 'xime200305',
+        'PASSWORD': '5426',
         'HOST': 'localhost', 
         'PORT': '5432',      
     }
@@ -128,3 +138,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
