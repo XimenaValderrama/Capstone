@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 
 ]
+DEBUG = True
 
 ROOT_URLCONF = 'adoptaPet.urls'
 
@@ -81,6 +82,7 @@ CORS_ALLOW_ALL_ORIGINS = True  # Solo para desarrollo
 CSRF_COOKIE_HTTPONLY = False  # Permite acceder al token CSRF a través de JavaScript
 CORS_ALLOW_CREDENTIALS = True  # Permite que las cookies se incluyan en las solicitudes de CORS
 CORS_ORIGIN_ALLOW_ALL = True  # Para fines de desarrollo, ajusta según sea necesario
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']  # Ajusta la URL si es diferente
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -147,3 +149,4 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+

@@ -2,7 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+
+
 package Vista;
+
+import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.table.DefaultTableModel;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import javax.swing.JOptionPane;
+import org.json.Cookie;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -20,6 +41,12 @@ public class Usuarios extends javax.swing.JFrame {
         
         Login login = new Login();
         txtUsuario.setText(login.TipoUsuario);
+        
+
+        
+        
+        
+        cargarDatosTabla(); // Llamamos al método para cargar datos de la API en la tabla
     }
 
     /**
@@ -33,12 +60,23 @@ public class Usuarios extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        BTEliminarPA = new javax.swing.JButton();
+        BTEliminarUS = new javax.swing.JButton();
         txtUsuario = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        BTModificarPA = new javax.swing.JButton();
+        TableUsuarios = new javax.swing.JTable();
+        BTSeleccionarUS = new javax.swing.JButton();
         BTVolver = new javax.swing.JButton();
+        txtPerfilUsuario = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        txtRut = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        BTModificarUS1 = new javax.swing.JButton();
+        txtEC = new javax.swing.JTextField();
+        txtG = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,25 +85,35 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Bienvenido:");
 
-        BTEliminarPA.setText("Eliminar Usuarios");
+        BTEliminarUS.setText("Eliminar Usuarios");
+        BTEliminarUS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTEliminarUSActionPerformed(evt);
+            }
+        });
 
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         txtUsuario.setText("@NOMBRE ADMIN");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Usuario", "Rut", "Telefono", "Estado Economico", "Genero"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(TableUsuarios);
 
-        BTModificarPA.setText("Modificar Usuarios");
+        BTSeleccionarUS.setText("Seleccionar Usuario");
+        BTSeleccionarUS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTSeleccionarUSActionPerformed(evt);
+            }
+        });
 
         BTVolver.setText("Volver");
         BTVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -74,26 +122,72 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
+        txtPerfilUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPerfilUsuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Usuario");
+
+        jLabel3.setText("Rut");
+
+        jLabel4.setText("Telefono");
+
+        jLabel5.setText("Estado Economico");
+
+        jLabel6.setText("Genero");
+
+        BTModificarUS1.setText("Modificar Usuarios");
+        BTModificarUS1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTModificarUS1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(BTVolver)
-                        .addGap(75, 75, 75)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(47, 47, 47)
+                        .addGap(47, 47, 47))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                    .addComponent(txtPerfilUsuario)
+                                    .addComponent(txtRut)
+                                    .addComponent(txtEC, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                    .addComponent(txtG, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(BTSeleccionarUS)
+                                .addGap(10, 10, 10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BTEliminarUS, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BTModificarUS1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtUsuario)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(53, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BTEliminarPA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BTModificarPA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -106,28 +200,53 @@ public class Usuarios extends javax.swing.JFrame {
                             .addComponent(txtUsuario)
                             .addComponent(jLabel1)))
                     .addComponent(BTVolver))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(BTModificarPA, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BTEliminarPA, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPerfilUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(BTSeleccionarUS))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtEC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addComponent(BTModificarUS1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(183, 183, 183)
+                        .addComponent(BTEliminarUS, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,15 +258,350 @@ public class Usuarios extends javax.swing.JFrame {
             this.dispose();
     }//GEN-LAST:event_BTVolverActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void txtPerfilUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPerfilUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPerfilUsuarioActionPerformed
+
+    private void BTSeleccionarUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTSeleccionarUSActionPerformed
+
+    
+    }//GEN-LAST:event_BTSeleccionarUSActionPerformed
+
+    private void BTEliminarUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarUSActionPerformed
+        manejarEliminacionUsuario();
+    }//GEN-LAST:event_BTEliminarUSActionPerformed
+
+    private void BTModificarUS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarUS1ActionPerformed
+
+    int usuarioId = 10; // Valor de ejemplo
+    int estadoEconomico = 4; // Valor de ejemplo (ID de estado económico)
+    String estadoEconomicoDescripcion = "Clase baja"; // Descripción de estado económico
+    int genero = 2; // Valor de ejemplo (ID de genero)
+    String generoDescripcion = "Masculino"; // Descripción de genero
+    String perfilUsuario = "hula"; // Valor de ejemplo
+    String rut = "12345678-9"; // Valor de ejemplo
+    String telefono = "987654321"; // Valor de ejemplo
+
+    // Llamar al método de modificación con los datos actuales, incluyendo descripciones
+    modificarUsuario(usuarioId, estadoEconomico, estadoEconomicoDescripcion, genero, generoDescripcion, perfilUsuario, rut, telefono);
+
+    }//GEN-LAST:event_BTModificarUS1ActionPerformed
+
+private int usuarioId; // Variable para almacenar la ID seleccionada
+
+
+public void inicializarComponentes() {
+
+    // Cargar los datos en la tabla
+    cargarDatosTabla(); // Llama al método para cargar los datos al inicio
+}
+    // Método para obtener el token CSRF desde la API (suponiendo que se obtiene de alguna cookie)
+    private String obtenerTokenCSRFDesdeAPI() {
+        // Este método debe devolver el token CSRF desde las cookies o encabezado
+        // Aquí puedes escribir código que obtenga el token desde una cookie, por ejemplo:
+        // String cookieHeader = connection.getHeaderField("Set-Cookie");
+        return "http://127.0.0.1:8000/api/"; // Este es solo un valor ejemplo
+    }
+
+    // Obtener las cookies desde la respuesta (si estás usando HttpURLConnection)
+    private String getCookieFromResponse(HttpURLConnection connection) {
+        String cookieHeader = connection.getHeaderField("Set-Cookie");
+        if (cookieHeader != null) {
+            String[] cookies = cookieHeader.split(";");
+            for (String cookie : cookies) {
+                if (cookie.contains("csrftoken")) {
+                    return cookie.split("=")[1];  // Extrae el valor del token
+                }
+            }
+        }
+        return null;
+    }
+
+//--------------------------------------------------------INICIO LISTAR DATOS-------------------------------------------------------------------------
+        private void cargarDatosTabla() {
+            String urlString = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
+            String token = "3469a77e70d09db05445ce3b6b4ff0316dcc1f29";
+            DefaultTableModel model = (DefaultTableModel) TableUsuarios.getModel();
+            model.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+
+            try {
+                URL url = new URL(urlString);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Token " + token);
+                connection.connect();
+
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String inputLine;
+
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    in.close();
+
+                    // Parsear JSON
+                    JSONArray usuariosArray = new JSONArray(response.toString());
+                    for (int i = 0; i < usuariosArray.length(); i++) {
+                        JSONObject usuarioObj = usuariosArray.getJSONObject(i);
+
+                        // Obtener la ID y otros atributos
+                        int id = usuarioObj.getInt("id");
+                        String usuario = usuarioObj.optString("usuario_django", "N/A");
+                        String rut = usuarioObj.optString("rut", "N/A");
+                        String telefono = usuarioObj.optString("telefono", "N/A");
+
+                        // Obtener los IDs de estado económico y género y convertirlos a nombres
+                        String estadoEconomico = getEstadoEconomicoNombre(usuarioObj.getInt("estado_economico"));
+                        String genero = getGeneroNombre(usuarioObj.getInt("genero"));
+
+                        // Añadir los datos a la tabla
+                        model.addRow(new Object[]{id,usuario, rut, telefono, estadoEconomico, genero});
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error en la conexión. Código de respuesta: " + responseCode);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al cargar datos de la API.");
+            }
+        }
+
+            // Métodos para convertir los IDs en nombres (debes adaptarlos a tu lógica o tabla de referencia)
+    private String getEstadoEconomicoNombre(int id) {
+        switch (id) {
+            case 1: return "Clase Baja";
+            case 2: return "Clase Media";
+            case 3: return "Clase Alta";
+            default: return "Desconocido";
+        }
+    }
+
+    private String getGeneroNombre(int id) {
+        switch (id) {
+            case 1: return "Masculino";
+            case 2: return "Femenino";
+            case 3: return "Otro";
+            default: return "Desconocido";
+        }
+    }
+
+//-------------------------------------------------------FIN LISTAR DATOS---------------------------------------------------------------------
+    
+    
+//-------------------------------------------------------INICIO MODIFICAR------------------------------------------------//
+
+// Método para modificar un usuario a través de la API
+
+
+public void modificarUsuario(int usuarioId, int estadoEconomico, String estadoEconomicoDescripcion, int genero, String generoDescripcion, String perfilUsuario, String rut, String telefono) {
+    String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para modificar
+    String token = "3469a77e70d09db05445ce3b6b4ff0316dcc1f29";  // Token de autenticación
+
+    try {
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Configurar el método PUT y los encabezados
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+
+
+        // Crear el objeto Map para enviar los datos
+        Map<String, Object> jsonBodyMap = new HashMap<>();
+        
+        // Aquí solo pasamos el ID de estado_economico y genero
+        jsonBodyMap.put("estado_economico", estadoEconomico);  // Solo el ID
+        jsonBodyMap.put("genero", genero);  // Solo el ID
+        jsonBodyMap.put("usuario_django", perfilUsuario);
+        jsonBodyMap.put("rut", rut);
+        jsonBodyMap.put("telefono", telefono);
+
+        // Convertir el Map a un JSONObject
+        JSONObject jsonBody = new JSONObject(jsonBodyMap);
+
+        // Imprimir el JSON para revisar su formato
+        System.out.println("JSON a enviar: " + jsonBody.toString());
+
+        // Enviar los datos JSON en el cuerpo de la solicitud
+        connection.setDoOutput(true);
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonBody.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Obtener la respuesta de la API
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            JOptionPane.showMessageDialog(null, "Usuario modificado correctamente.");
+        } else {
+            // Capturar el mensaje de error
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
+            StringBuilder errorResponse = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                errorResponse.append(line.trim());
+            }
+            br.close();
+            // Mostrar la respuesta de error completa
+            System.out.println("Error al modificar usuario. Respuesta del servidor: " + errorResponse.toString());
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al modificar usuario.");
+    }
+}
+
+
+
+
+
+
+
+// Método para obtener los datos actualizados del usuario
+private void obtenerDatosUsuarioActualizados(int usuarioId) {
+    String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL para obtener los datos del usuario
+    String token = "3469a77e70d09db05445ce3b6b4ff0316dcc1f29";  // Token de autenticación
+    try {
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Configurar la solicitud GET
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+
+        // Obtener la respuesta de la API
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line.trim());
+            }
+            br.close();
+
+            // Imprimir los datos obtenidos para revisar el formato
+            System.out.println("Datos del usuario actualizados: " + response.toString());
+
+            // Aquí puedes actualizar la interfaz de usuario con los nuevos datos
+
+        } else {
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
+            StringBuilder errorResponse = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                errorResponse.append(line.trim());
+            }
+            br.close();
+            // Mostrar la respuesta de error
+            System.out.println("Error: " + errorResponse.toString());
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al obtener los datos del usuario.");
+    }
+}
+
+
+
+// Ejemplo de actualización de campos en la interfaz de usuario con los datos obtenidos
+private void actualizarInterfazConDatos(String datos) {
+    // Dependiendo de cómo estructures los datos, actualiza los campos del formulario
+    // Ejemplo: Si los datos son JSON, puedes parsearlos y actualizar la UI
+
+    JSONObject usuario = new JSONObject(datos);
+    String perfilUsuario = usuario.getString("perfil_usuario");
+    String rut = usuario.getString("rut");
+    String telefono = usuario.getString("telefono");
+    // Actualiza los campos del formulario con los nuevos datos
+    txtPerfilUsuario.setText(perfilUsuario);
+    txtRut.setText(rut);
+    txtTelefono.setText(telefono);
+}
+
+ 
+//-----------------------------------------------------FIN MODIFICAR------------------------------------------------------------------------
+    
+//-----------------------------------------------------INICIO ELIMINAR----------------------------------------------------------------------
+    
+    // Método para eliminar un usuario a través de la API
+    private void eliminarUsuario(int usuarioId) {
+        String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para eliminar
+        String token = "3469a77e70d09db05445ce3b6b4ff0316dcc1f29";  // Token de autenticación
+
+        try {
+            // Crear la URL y la conexión
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Configurar el método DELETE y los encabezados
+            connection.setRequestMethod("DELETE");
+            connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+            connection.setRequestProperty("Accept", "application/json");
+
+            // Conectar y obtener la respuesta
+            connection.connect();
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+                JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente.");
+                // Aquí puedes actualizar la tabla o hacer otras acciones
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar usuario. Código de respuesta: " + responseCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al eliminar usuario.");
+        }
+    }
+
+    // Método común para manejar la eliminación del usuario
+    private void manejarEliminacionUsuario() {
+        // Obtener la fila seleccionada
+        int filaSeleccionada = TableUsuarios.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            // Obtener el ID del usuario en la primera columna (suponiendo que el ID está en la columna 0)
+            int usuarioId = (int) TableUsuarios.getValueAt(filaSeleccionada, 0);
+
+            // Mostrar un cuadro de confirmación para eliminar el usuario
+            int confirmacion = JOptionPane.showConfirmDialog(null, 
+                "¿Está seguro de que desea eliminar este usuario?", 
+                "Confirmar eliminación", 
+                JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                eliminarUsuario(usuarioId); // Llamar al método de eliminación
+                cargarDatosTabla();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un usuario de la tabla.");
+        }
+    }
+
+    // Método para agregar el listener al hacer clic en la fila de la tabla
+    private void agregarListenerTabla() {
+        TableUsuarios.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                manejarEliminacionUsuario(); // Llamar al método común
+            }
+        });
+    }
+
+    
+//-----------------------------------------------------FIN ELIMINAR-------------------------------------------------------------------------
+
+
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -155,16 +609,9 @@ public class Usuarios extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (Exception ex) {
             java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -173,15 +620,32 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
     }
+    
 
+    
+
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BTEliminarPA;
-    private javax.swing.JButton BTModificarPA;
+    private javax.swing.JButton BTEliminarUS;
+    private javax.swing.JButton BTModificarUS1;
+    private javax.swing.JButton BTSeleccionarUS;
     private javax.swing.JButton BTVolver;
+    private javax.swing.JTable TableUsuarios;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtEC;
+    private javax.swing.JTextField txtG;
+    private javax.swing.JTextField txtPerfilUsuario;
+    private javax.swing.JTextField txtRut;
+    private javax.swing.JTextField txtTelefono;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+
 }
