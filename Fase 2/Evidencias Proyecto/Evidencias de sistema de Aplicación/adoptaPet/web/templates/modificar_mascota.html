@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-white text-dark text-center">
+                    <h2 class="mb-0">Modificar Mascota</h2>
+                    <p class="mb-0">Detalles de la Mascota</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Nombre y Apellido -->
+                        <div class="form-group mb-3">
+                            <label for="nombre"><strong>Nombre</strong></label>
+                            <input type="text" name="nombre" value="{{ mascota.nombre }}" class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="apellido"><strong>Apellido</strong></label>
+                            <input type="text" name="apellido" value="{{ mascota.apellido }}" class="form-control">
+                        </div>
+
+                        <!-- Edad y Tipo de Edad -->
+                        <div class="form-group mb-3">
+                            <label for="edad"><strong>Edad</strong></label>
+                            <input type="number" name="edad" value="{{ mascota.edad }}" class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="tipo_edad"><strong>Tipo de Edad</strong></label>
+                            <select name="tipo_edad" class="form-control">
+                                {% for choice in mascota.CHOICES %}
+                                    <option value="{{ choice.0 }}" {% if mascota.tipo_edad == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Imagen -->
+                        <div class="form-group mb-3">
+                            <label for="imagen"><strong>Imagen Actual</strong></label><br>
+                            {% if mascota.imagen %}
+                                <img src="{{ mascota.imagen.url }}" alt="{{ mascota.nombre }}" class="img-thumbnail mb-3" style="max-width: 200px;">
+                            {% else %}
+                                <p>No hay imagen disponible</p>
+                            {% endif %}
+                            <label for="imagen"><strong>Cambiar Imagen</strong></label>
+                            <input type="file" name="imagen" class="form-control">
+                        </div>
+
+                        <!-- Características de la Mascota -->
+                        <h4 class="mt-4">Características de la Mascota</h4>
+                        <div class="form-group mb-3">
+                            <label for="estado_mascota"><strong>Estado</strong></label>
+                            <select name="estado_mascota" class="form-control">
+                                {% for estado in estados %}
+                                    <option value="{{ estado.id }}" {% if mascota.estado_mascota.id == estado.id %}selected{% endif %}>{{ estado.descripcion }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="raza"><strong>Raza</strong></label>
+                            <select name="raza" class="form-control">
+                                {% for raza in razas %}
+                                    <option value="{{ raza.id }}" {% if mascota.raza.id == raza.id %}selected{% endif %}>{{ raza.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="genero"><strong>Género</strong></label>
+                            <select name="genero" class="form-control">
+                                {% for genero in generos %}
+                                    <option value="{{ genero.id }}" {% if mascota.genero.id == genero.id %}selected{% endif %}>{{ genero.descripcion }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="tipo"><strong>Tipo</strong></label>
+                            <select name="tipo" class="form-control">
+                                {% for tipo in tipos %}
+                                    <option value="{{ tipo.id }}" {% if mascota.tipo.id == tipo.id %}selected{% endif %}>{{ tipo.descripcion }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Descripción de la Mascota -->
+                        <h4 class="mt-4">Descripción de la Mascota</h4>
+                        <div class="form-group mb-3">
+                            <label for="descripcion_fisica"><strong>Descripción Física</strong></label>
+                            <textarea name="descripcion_fisica" class="form-control">{{ mascota.descripcion.desc_fisica }}</textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="descripcion_personalidad"><strong>Descripción de Personalidad</strong></label>
+                            <textarea name="descripcion_personalidad" class="form-control">{{ mascota.descripcion.desc_personalidad }}</textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="descripcion_adicional"><strong>Descripción Adicional</strong></label>
+                            <textarea name="descripcion_adicional" class="form-control">{{ mascota.descripcion.desc_adicional }}</textarea>
+                        </div>
+
+                        <!-- Dirección -->
+                        <h4 class="mt-4">Dirección</h4>
+                        <div class="form-group mb-3">
+                            <label for="calle"><strong>Calle</strong></label>
+                            <input type="text" name="calle" value="{{ direccion.calle }}" class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="numero"><strong>Número</strong></label>
+                            <input type="text" name="numero" value="{{ direccion.numero }}" class="form-control">
+                        </div>
+
+                        <!-- Selectores de Región, Provincia y Comuna -->
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="region"><strong>Región</strong></label>
+                                <select name="region" id="region" class="form-control" onchange="actualizarProvincias()">
+                                    {% for region in regiones %}
+                                        <option value="{{ region.id }}" {% if direccion.comuna.provincia.region.id == region.id %}selected{% endif %}>{{ region.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="provincia"><strong>Provincia</strong></label>
+                                <select name="provincia" id="provincia" class="form-control" onchange="actualizarComunas()">
+                                    {% for provincia in provincias %}
+                                        <option value="{{ provincia.id }}" {% if direccion.comuna.provincia.id == provincia.id %}selected{% endif %}>{{ provincia.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="comuna"><strong>Comuna</strong></label>
+                                <select name="comuna" id="comuna" class="form-control">
+                                    {% for comuna in comunas %}
+                                        <option value="{{ comuna.id }}" {% if direccion.comuna.id == comuna.id %}selected{% endif %}>{{ comuna.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Botón de Guardar -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-success btn-lg">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function actualizarProvincias() {
+    const regionId = document.getElementById('region').value;
+    const provinciaSelect = document.getElementById('provincia');
+    const comunaSelect = document.getElementById('comuna');
+    
+    // Limpiar las opciones actuales de provincia y comuna
+    provinciaSelect.innerHTML = '<option value="">Seleccione una provincia</option>';
+    comunaSelect.innerHTML = '<option value="">Seleccione una comuna</option>';
+    
+    if (regionId) {
+        fetch(`/ajax/provincias/${regionId}/`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(provincia => {
+                    const option = document.createElement('option');
+                    option.value = provincia.id;
+                    option.textContent = provincia.nombre;
+                    provinciaSelect.appendChild(option);
+                });
+            });
+    }
+}
+
+function actualizarComunas() {
+    const provinciaId = document.getElementById('provincia').value;
+    const comunaSelect = document.getElementById('comuna');
+    
+    // Limpiar las opciones actuales de comuna
+    comunaSelect.innerHTML = '<option value="">Seleccione una comuna</option>';
+    
+    if (provinciaId) {
+        fetch(`/ajax/comunas/${provinciaId}/`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(comuna => {
+                    const option = document.createElement('option');
+                    option.value = comuna.id;
+                    option.textContent = comuna.nombre;
+                    comunaSelect.appendChild(option);
+                });
+            });
+    }
+}
+</script>
+
+{% endblock contenido %}

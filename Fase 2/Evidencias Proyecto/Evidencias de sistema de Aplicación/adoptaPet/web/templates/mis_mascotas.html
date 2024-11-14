@@ -1,0 +1,82 @@
+{% extends "base3.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="container py-5" style="min-height: 80vh;">
+    <div class="shadow p-4 bg-body rounded">
+        {% if mascotas %}
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0">Mis mascotas</h3>
+                <a href="{% url 'registro_mascota' %}" class="btn btn-primary">Registrar mascota</a>
+            </div>
+
+            {% if messages %}
+                <div class="alert alert-success mt-3">
+                    {% for message in messages %}
+                        <h5>{{ message }}</h5>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div style="overflow-x: auto;">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="px-5">Nombre</th>
+                            <th class="px-5">Tipo</th>
+                            <th class="px-5">Edad</th>
+                            <th class="px-5">Raza</th>
+                            <th class="px-5">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mascota in mascotas %}
+                            <tr>
+                                <td>{{ mascota.nombre }} {{ mascota.apellido }}</td>
+                                <td>{{ mascota.tipo }}</td>
+                                <td>{{ mascota.edad }} {{ mascota.tipo_edad }}</td>
+                                <td>{{ mascota.raza }}</td>
+                                <td class="d-flex justify-content-center ">
+                                    <a href="{% url 'modificar_mascota' mascota.id %}" class="btn btn-primary btn-sm px-3 me-2"><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg></a>
+                                    <button class="btn btn-danger btn-sm px-3" onclick="confirmarEliminacion({{ mascota.id }})">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M7.616 20q-.691 0-1.153-.462T6 18.384V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zm2.192-3h1V8h-1zm3.384 0h1V8h-1z"/></svg>
+                                    </button>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0">Mis mascotas</h3>
+                <a href="{% url 'registro_mascota' %}" class="btn btn-primary">Registrar mascota</a>
+            </div>
+            <p class="text-center">No hay mascotas registradas.</p>
+        {% endif %}
+    </div>
+</div>
+
+
+<script>
+    function confirmarEliminacion(mascotaId) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirige a la vista de eliminación de la mascota si el usuario confirma
+                window.location.href = `/eliminar_mascota/${mascotaId}/`;
+            }
+        });
+    }
+</script>
+    
+
+{% endblock contenido %}

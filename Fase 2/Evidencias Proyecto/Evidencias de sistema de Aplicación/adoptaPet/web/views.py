@@ -12,6 +12,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from .serializers import *
 
+
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated, IsAdminUser])
 def modificar_eliminar_usuario(request, user_id):
@@ -391,3 +392,116 @@ def get_comunas_mascota(request, provincia_id):
     comunas = ComunaMascota.objects.filter(provincia_id=provincia_id)
     data = [{"id": comuna.id, "nombre": comuna.nombre} for comuna in comunas]
     return JsonResponse(data, safe=False)
+
+@login_required(login_url="inicio_sesion")
+def mascotas(request):
+    try:
+        # Obtiene el perfil del usuario actual utilizando el campo usuario_django
+        perfil_usuario = PerfilUsuario.objects.get(usuario_django=request.user)
+        # Filtra las mascotas asociadas a este perfil de usuario
+        mascotas_usuario = Mascota.objects.filter(usuario=perfil_usuario)
+    except PerfilUsuario.DoesNotExist:
+        # Si el usuario no tiene un perfil asociado, se devuelve una lista vacía
+        mascotas_usuario = []
+
+    return render(request, "mis_mascotas.html", {"mascotas": mascotas_usuario})
+
+def modificar_mascota(request, mascota_id):
+    # Obtener la mascota, dirección y descripción
+    mascota = get_object_or_404(Mascota, id=mascota_id)
+    direccion = mascota.direccion
+    descripcion_mascota = mascota.descripcion  # Referencia al modelo DescripcionMascota
+
+    if request.method == 'POST':
+        # Obtener los datos de la mascota desde el POST
+        nombre = request.POST.get('nombre', mascota.nombre)
+        apellido = request.POST.get('apellido', mascota.apellido)
+        edad = request.POST.get('edad', mascota.edad)
+        tipo_edad = request.POST.get('tipo_edad', mascota.tipo_edad)
+        imagen = request.FILES.get('imagen', mascota.imagen)
+        estado_mascota_id = request.POST.get('estado_mascota', mascota.estado_mascota.id)
+        raza_id = request.POST.get('raza', mascota.raza.id)
+        genero_id = request.POST.get('genero', mascota.genero.id)
+        tipo_id = request.POST.get('tipo', mascota.tipo.id)
+        
+        # Obtener los datos de la dirección desde el POST
+        calle = request.POST.get('calle', direccion.calle)
+        numero = request.POST.get('numero', direccion.numero)
+        comuna_id = request.POST.get('comuna', direccion.comuna.id)
+        
+        # Obtener los datos de descripción de la mascota desde el POST
+        desc_fisica = request.POST.get('descripcion_fisica', descripcion_mascota.desc_fisica)
+        desc_personalidad = request.POST.get('descripcion_personalidad', descripcion_mascota.desc_personalidad)
+        desc_adicional = request.POST.get('descripcion_adicional', descripcion_mascota.desc_adicional)
+
+        # Actualizar los atributos de la mascota
+        mascota.nombre = nombre
+        mascota.apellido = apellido
+        mascota.edad = edad
+        mascota.tipo_edad = tipo_edad
+        mascota.imagen = imagen
+        mascota.estado_mascota_id = estado_mascota_id
+        mascota.raza_id = raza_id
+        mascota.genero_id = genero_id
+        mascota.tipo_id = tipo_id
+        mascota.save()  # Guardar los cambios de la mascota
+
+        # Actualizar la dirección
+        direccion.calle = calle
+        direccion.numero = numero
+        direccion.comuna_id = comuna_id
+        direccion.save()  # Guardar los cambios de la dirección
+
+        # Actualizar la descripción de la mascota
+        descripcion_mascota.desc_fisica = desc_fisica
+        descripcion_mascota.desc_personalidad = desc_personalidad
+        descripcion_mascota.desc_adicional = desc_adicional
+        descripcion_mascota.save()  # Guardar los cambios de la descripción
+
+        # mensaje de éxito
+        messages.success(request, 'La mascota ha sido modificada con éxito.')
+
+        # Redirigir a la lista de mascotas después de guardar
+        return redirect('mascotas')
+
+    # Obtener las opciones para los selectores
+    estados = EstadoMascota.objects.all()
+    razas = Razas.objects.all()
+    generos = GeneroMascota.objects.all()
+    tipos = TipoMascota.objects.all()
+    regiones = RegionMascota.objects.all()
+    provincias = ProvinciaMascota.objects.filter(region=direccion.comuna.provincia.region)
+    comunas = ComunaMascota.objects.filter(provincia=direccion.comuna.provincia)
+
+    context = {
+        'mascota': mascota,
+        'direccion': direccion,
+        'descripcion_mascota': descripcion_mascota,
+        'estados': estados,
+        'razas': razas,
+        'generos': generos,
+        'tipos': tipos,
+        'regiones': regiones,
+        'provincias': provincias,
+        'comunas': comunas,
+    }
+
+    return render(request, 'modificar_mascota.html', context)
+
+def obtener_provincias(request, region_id):
+    provincias = ProvinciaMascota.objects.filter(region_id=region_id).values('id', 'nombre')
+    return JsonResponse(list(provincias), safe=False)
+
+def obtener_comunas(request, provincia_id):
+    comunas = ComunaMascota.objects.filter(provincia_id=provincia_id).values('id', 'nombre')
+    return JsonResponse(list(comunas), safe=False)
+
+def eliminar_mascota(request, mascota_id):
+    # Obtener la mascota que se desea eliminar
+    mascota = get_object_or_404(Mascota, id=mascota_id)
+    
+    # Eliminar la mascota
+    mascota.delete()
+
+    # Redirigir a la lista de mascotas
+    return redirect('mascotas')

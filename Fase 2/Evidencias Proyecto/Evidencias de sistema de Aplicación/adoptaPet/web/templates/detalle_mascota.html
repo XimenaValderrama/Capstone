@@ -35,10 +35,12 @@
                             </ul>
                         </div>
 
-                        <!-- Botones de acción -->
+                        
+                        {% if mascota.estado_mascota.descripcion == "en_adopcion" %}
                         <div>
                             <a href="#" class="btn btn-primary btn-lg">Adoptar</a>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
