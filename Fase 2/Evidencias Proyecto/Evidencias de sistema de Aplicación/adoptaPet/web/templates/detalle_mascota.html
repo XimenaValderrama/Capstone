@@ -6,7 +6,8 @@
         <div class="row justify-content-center">
             <!-- Columna para la imagen de la mascota -->
             <div class="col-md-4 d-flex justify-content-center align-items-center">
-                <img src="{% static 'img/mascotas/jaxi.jpg' %}" class="img-fluid rounded" alt="Jaxi" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 20px;">
+                <img src="{{ mascota.imagen.url }}" class="card-img-top" alt="{{ mascota.nombre }}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 20px;">
+                
             </div>
 
             <!-- Columna para los detalles dentro de una tarjeta -->
@@ -14,21 +15,24 @@
                 <div class="card">
                     <!-- Contenido de la tarjeta -->
                     <div class="card-body" style="background-color: #f7f7f7;">
-                        <h1 class="display-4">Jaxi</h1>
-                        <p class="lead">Una gatita llena de alegria que encontro su hogar</p>
-
+                        <h1 class="display-4">{{ mascota.nombre }} {{ mascota.apellido }}</h1>
                         <ul class="list-group list-group-flush mb-4">
-                            <li class="list-group-item"><strong>Tipo:</strong> Gato</li>
-                            <li class="list-group-item"><strong>Estado:</strong> Adoptada</li>
-                            <li class="list-group-item"><strong>Edad:</strong> 2 años</li>
-                            <li class="list-group-item"><strong>Tamaño:</strong> Pequeño</li>
+                            <li class="list-group-item"><strong>Tipo Mascota:</strong> {{ mascota.tipo }}</li>
+                            <li class="list-group-item"><strong>Estado Mascota:</strong> {{ mascota.estado_mascota }}</li>
+                            <li class="list-group-item"><strong>Edad:</strong> {{ mascota.edad }} {{ mascota.tipo_edad }}</li>
+                            <li class="list-group-item"><strong>Raza:</strong> {{ mascota.raza }}</li>
+                            <li class="list-group-item"><strong>Dueño:</strong> {{ usuario_registrador.usuario_django.first_name }} {{ usuario_registrador.usuario_django.last_name }}</li>
+                            <li class="list-group-item"><strong>Contacto:</strong> {{ usuario_registrador.usuario_django.username }} </li>
+                            <li class="list-group-item"><strong>Teléfono:</strong> +56{{ usuario_registrador.telefono }} </li>
                         </ul>
 
                         <div class="mb-4">
                             <h4>Descripción</h4>
-                            <p>
-                                Jaxi es una gatita juguetona y llena de energía.
-                            </p>
+                            <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item"><strong>Descripción física:</strong> {{ mascota.descripcion.desc_fisica }}</li>
+                            <li class="list-group-item"><strong>Descripción personalidad:</strong> {{ mascota.descripcion.desc_personalidad }}</li>
+                            <li class="list-group-item"><strong>Descripción adicional:</strong> {{ mascota.descripcion.desc_adicional }}</li>
+                            </ul>
                         </div>
 
                         <!-- Botones de acción -->

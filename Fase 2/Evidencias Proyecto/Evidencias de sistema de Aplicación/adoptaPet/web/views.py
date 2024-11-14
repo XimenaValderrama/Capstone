@@ -6,12 +6,74 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import re
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.response import Response
+from .serializers import *
+
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def modificar_eliminar_usuario(request, user_id):
+    try:
+        usuario = User.objects.get(id=user_id)
+        perfil_usuario = PerfilUsuario.objects.get(usuario_django=usuario)
+    except User.DoesNotExist:
+        return Response({"error": "Usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+    except PerfilUsuario.DoesNotExist:
+        return Response({"error": "Perfil de usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        # Serializar los datos del usuario y perfil
+        usuario_serializer = UserSerializer(usuario)
+        perfil_serializer = PerfilUsuarioSerializer(perfil_usuario)
+        return Response({
+            "usuario": usuario_serializer.data,
+            "perfil": perfil_serializer.data
+        }, status=status.HTTP_200_OK)
+    
+    elif request.method == 'PUT':
+        # Modificar perfil y usuario
+        usuario_data = request.data.get('usuario', {})
+        perfil_data = request.data.get('perfil', {})
+
+        usuario_serializer = UserSerializer(usuario, data=usuario_data, partial=True)
+        perfil_serializer = PerfilUsuarioSerializer(perfil_usuario, data=perfil_data, partial=True)
+        
+        # Verificar que ambos serializers son válidos antes de guardar
+        if usuario_serializer.is_valid() and perfil_serializer.is_valid():
+            usuario_serializer.save()
+            perfil_serializer.save()
+            return Response({
+                "usuario": usuario_serializer.data,
+                "perfil": perfil_serializer.data
+            }, status=status.HTTP_200_OK)
+        else:
+            # Retornar errores de validación
+            errors = {
+                "usuario_errors": usuario_serializer.errors if not usuario_serializer.is_valid() else {},
+                "perfil_errors": perfil_serializer.errors if not perfil_serializer.is_valid() else {}
+            }
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        # Eliminar perfil y usuario
+        perfil_usuario.delete()
+        usuario.delete()
+        return Response({"message": "Usuario y perfil eliminados correctamente."}, status=status.HTTP_204_NO_CONTENT)
 
 
 @login_required(login_url="inicio_sesion")
-def inicio(request):    
+def inicio(request):
+    # Obtén todas las mascotas
+    mascotas = Mascota.objects.all()
+    
+    # Pasa las mascotas al contexto del template
+    context = {
+        'mascotas': mascotas
+    }
 
-    return render(request, "index.html") 
+    return render(request, "index.html", context)
 
 def inicio_sesion(request):    
 
@@ -66,23 +128,47 @@ def tenencia_responsable(request):
 
 @login_required(login_url="inicio_sesion")
 def adopcion(request):
+    try:
+        estado_en_adopcion = EstadoMascota.objects.get(descripcion="en_adopcion")
+        mascotas = Mascota.objects.filter(estado_mascota=estado_en_adopcion)
+    except EstadoMascota.DoesNotExist:
+        # Si el estado "en_adopcion" no existe, define `mascotas` como una lista vacía
+        mascotas = []
 
-    return render(request, "adopcion.html")
+    return render(request, 'adopcion.html', {'mascotas': mascotas})
 
 @login_required(login_url="inicio_sesion")
 def adoptados(request):
+    try:
+        estado_en_adopcion = EstadoMascota.objects.get(descripcion="adoptado")
+        mascotas = Mascota.objects.filter(estado_mascota=estado_en_adopcion)
+    except EstadoMascota.DoesNotExist:
+        # Si el estado "adoptado" no existe, define `mascotas` como una lista vacía
+        mascotas = []
 
-    return render(request, "adoptados.html")
+    return render(request, 'adoptados.html', {'mascotas': mascotas})
 
 @login_required(login_url="inicio_sesion")
 def busqueda(request):
+    try:
+        estado_en_adopcion = EstadoMascota.objects.get(descripcion="perdido")
+        mascotas = Mascota.objects.filter(estado_mascota=estado_en_adopcion)
+    except EstadoMascota.DoesNotExist:
+        # Si el estado "perdido" no existe, define `mascotas` como una lista vacía
+        mascotas = []
 
-    return render(request, "busqueda.html")
+    return render(request, 'busqueda.html', {'mascotas': mascotas})
 
 @login_required(login_url="inicio_sesion")
 def encontrados(request):
+    try:
+        estado_en_adopcion = EstadoMascota.objects.get(descripcion="encontrado")
+        mascotas = Mascota.objects.filter(estado_mascota=estado_en_adopcion)
+    except EstadoMascota.DoesNotExist:
+        # Si el estado "encontrado" no existe, define `mascotas` como una lista vacía
+        mascotas = []
 
-    return render(request, "encontrados.html")
+    return render(request, 'encontrados.html', {'mascotas': mascotas})
 
 
 def registro(request):
@@ -190,13 +276,101 @@ def cerrar_sesion(request):
 
 @login_required(login_url="inicio_sesion")
 def registro_mascota(request):
+    # Obtener listas de opciones para el formulario
+    paises = PaisMascota.objects.all()
+    regiones = RegionMascota.objects.all()
+    provincias = ProvinciaMascota.objects.all()
+    comunas = ComunaMascota.objects.all()
+    generos = GeneroMascota.objects.all()
+    estados = EstadoMascota.objects.all()
+    tipos = TipoMascota.objects.all()
+    razas = Razas.objects.all()
 
-    return render(request, "registro_mascota.html")
+    tipo_edades = Mascota.CHOICES
+    
+    context = {
+        'paises': paises,
+        'provincias': provincias,
+        'regiones': regiones,
+        'comunas': comunas,
+        'generos': generos,
+        'estados': estados,
+        'tipos': tipos,
+        'razas': razas,
+        'tipo_edades': tipo_edades 
+    }
+
+    if request.method == 'POST':
+        # Obtener datos del formulario
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        edad = request.POST.get('edad')
+        tipo_edad = request.POST.get('tipo_edad')  # <-- Asegúrate de obtener el valor del tipo de edad
+        imagen = request.FILES.get('imagen')  # Usar request.FILES para imágenes
+        estado_mascota_id = request.POST.get('estado_mascota')
+        raza_id = request.POST.get('raza')
+        genero_id = request.POST.get('genero')
+        tipo_id = request.POST.get('tipo')
+        
+        # Obtener datos de la dirección desde el formulario
+        calle = request.POST.get('calle')
+        numero = request.POST.get('numero')
+        comuna_id = request.POST.get('comuna')
+
+        # Obtener las descripciones
+        desc_fisica = request.POST.get('desc_fisica')
+        desc_personalidad = request.POST.get('desc_personalidad')
+        desc_adicional = request.POST.get('desc_adicional')
+
+        # Crear la instancia de DescripcionMascota
+        descripcion = DescripcionMascota.objects.create(
+            desc_fisica=desc_fisica,
+            desc_personalidad=desc_personalidad,
+            desc_adicional=desc_adicional
+        )
+
+        # Validar y obtener instancias de relaciones ForeignKey
+        estado_mascota = EstadoMascota.objects.get(id=estado_mascota_id)
+        raza = Razas.objects.get(id=raza_id)
+        genero = GeneroMascota.objects.get(id=genero_id)
+        tipo = TipoMascota.objects.get(id=tipo_id)
+        comuna = ComunaMascota.objects.get(id=comuna_id)
+        usuario = PerfilUsuario.objects.get(usuario_django=request.user)
+
+        # Crear la nueva dirección para la mascota
+        direccion = DireccionMascota.objects.create(
+            calle=calle,
+            numero=numero,
+            comuna=comuna
+        )
+
+        # Crear la nueva mascota asociada con la descripción, dirección, y tipo de edad
+        mascota = Mascota.objects.create(
+            nombre=nombre,
+            apellido=apellido,
+            edad=edad,
+            tipo_edad=tipo_edad,  # <-- Asigna el tipo de edad aquí
+            imagen=imagen,
+            estado_mascota=estado_mascota,
+            raza=raza,
+            genero=genero,
+            descripcion=descripcion,
+            tipo=tipo,
+            direccion=direccion,  # Asocia la dirección recién creada
+            usuario=usuario
+        )
+
+        # Redirigir a otra página después de guardar
+        return redirect('inicio')  # Cambia 'login' a la URL a la que quieres redirigir después del registro
+
+    # Mostrar el formulario de registro si el método es GET
+    return render(request, 'registro_mascota.html', context)
 
 @login_required(login_url="inicio_sesion")
-def detalle_mascota(request):
-
-    return render(request, "detalle_mascota.html")
+def detalle_mascota(request, id):
+    mascota = get_object_or_404(Mascota, id=id)
+    usuario_registrador = mascota.usuario  # Obtenemos el perfil del usuario que registró la mascota
+    return render(request, 'detalle_mascota.html', {'mascota': mascota, 'usuario_registrador': usuario_registrador})
 
 def get_provincias(request, region_id):
     provincias = Provincia.objects.filter(region_id=region_id).values('id', 'nombre')
@@ -205,3 +379,15 @@ def get_provincias(request, region_id):
 def get_comunas(request, provincia_id):
     comunas = Comuna.objects.filter(provincia_id=provincia_id).values('id', 'nombre')
     return JsonResponse(list(comunas), safe=False)
+
+# Vista para obtener las provincias de una región
+def get_provincias_mascota(request, region_id):
+    provincias = ProvinciaMascota.objects.filter(region_id=region_id)
+    data = [{"id": provincia.id, "nombre": provincia.nombre} for provincia in provincias]
+    return JsonResponse(data, safe=False)
+
+# Vista para obtener las comunas de una provincia
+def get_comunas_mascota(request, provincia_id):
+    comunas = ComunaMascota.objects.filter(provincia_id=provincia_id)
+    data = [{"id": comuna.id, "nombre": comuna.nombre} for comuna in comunas]
+    return JsonResponse(data, safe=False)

@@ -2,36 +2,28 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{% static "img/apple-icon.png" %}">
-  <link rel="icon" type="image/png" href="{% static "img/favicon.png" %}">
-  <title>
-    AdoptaPet
-  </title>
-  <!--     Fonts and icons     -->
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+  <title>AdoptaPet</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-  <!-- Nucleo Icons -->
-  <link href="{% static "css/nucleo-icons.css" %}" rel="stylesheet" />
-  <link href="{% static "css/nucleo-svg.css" %}" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
+  <link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="{% static "css/nucleo-svg.css" %}" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link id="pagestyle" href="{% static "css/argon-dashboard.css" %}" rel="stylesheet" />
+  <link id="pagestyle" href="{% static 'css/argon-dashboard.css' %}" rel="stylesheet" />
 </head>
 
-<body class="">
-  <main class="main-content  mt-0">
+<body>
+  <main class="main-content mt-0">
     <section>
       <div class="page-header min-vh-100">
         <div class="container">
           <div class="row">
             <div class="col-xl-5 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
               <div class="card card-plain">
-                <img class="w-80 mx-auto mb-3" src="{% static "img/logos/AdoptaPet.png" %}" alt="sidebar_illustration">
+                <img class="w-80 mx-auto mb-3" src="{% static 'img/logos/AdoptaPet.png' %}" alt="AdoptaPet Logo">
                 <div class="card-header pb-0 text-start">
                   <h4 class="font-weight-bolder">Registra a tu mascota</h4>
                   <p class="mb-0">Ingresa los datos de la mascota</p>
@@ -44,106 +36,131 @@
                   </ul>
                 {% endif %}
                 <div class="card-body">
-                  <form method="POST">
+                  <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Nombre" name="nombre" aria-label="Nombre" required>
-                        
+                        <input type="text" class="form-control form-control-lg" placeholder="Nombre" name="nombre" required>
                       </div>
                       <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Apellido" name="apellido" aria-label="Apellido" required>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Edad" name="edad" aria-label="Edad" required>
-                      </div>
-                      <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Calle" name="calle" aria-label="Calle" required>
+                        <input type="text" class="form-control form-control-lg" placeholder="Apellido" name="apellido" required>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Numero de calle" name="numero" aria-label="Numero" required>
+                        <input type="number" class="form-control form-control-lg" placeholder="Edad" name="edad" required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" name="tipo_edad" required>
+                          <option selected disabled>Tipo edad</option>
+                          {% for tipo_edad in tipo_edades %}
+                            <option value="{{ tipo_edad.0 }}">{{ tipo_edad.1 }} </option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Calle" name="calle" required>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Número de calle" name="numero" required>
                       </div>
                     </div>
 
-                    <!-- Últimos 7 campos select -->
+                    <!-- Selects de datos relacionados -->
                     <div class="row">
                       <div class="col-md-4 mb-3">
-                        <select class="form-control form-control-lg" name="raza" aria-label="Select 5" required>
+                        <select class="form-control form-control-lg" name="raza" required>
                           <option selected disabled>Raza</option>
+                          {% for raza in razas %}
+                            <option value="{{ raza.id }}">{{ raza.nombre }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <select class="form-control form-control-lg" name="genero" required>
+                          <option selected disabled>Género</option>
                           {% for genero in generos %}
                             <option value="{{ genero.id }}">{{ genero.get_descripcion_display }}</option>
                           {% endfor %}
                         </select>
                       </div>
                       <div class="col-md-4 mb-3">
-                        <select class="form-control form-control-lg" name="genero" aria-label="Select 6" required>
-                          <option selected disabled>Genero</option>
-                          {% for estadoeconomico in estadoseconomicos %}
-                            <option value="{{ estadoeconomico.id }}">{{ estadoeconomico.descripcion }}</option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                      <div class="col-md-4 mb-3">
-                        <select class="form-control form-control-lg" name="tipo_mascota" aria-label="Select 1" required>
-                          <option selected disabled>Tipo mascota</option>
-                          {% for comuna in comunas %}
-                            <option value="{{ comuna.id }}">{{ comuna.nombre }}</option>
+                        <select class="form-control form-control-lg" name="tipo" required>
+                          <option selected disabled>Tipo de mascota</option>
+                          {% for tipo in tipos %}
+                            <option value="{{ tipo.id }}">{{ tipo.get_descripcion_display }}</option>
                           {% endfor %}
                         </select>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-4 mb-3">
-                        <select class="form-control form-control-lg" name="estado_mascota" aria-label="Select 3" required>
-                          <option selected disabled>Estado mascota</option>
+                        <select class="form-control form-control-lg" name="estado_mascota" required>
+                          <option selected disabled>Estado de mascota</option>
+                          {% for estado in estados %}
+                            <option value="{{ estado.id }}">{{ estado.get_descripcion_display }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <select class="form-control form-control-lg" name="pais" required>
+                          <option selected disabled>País</option>
+                          {% for pais in paises %}
+                            <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <select class="form-control form-control-lg" id="regionSelect" name="region" required>
+                          <option selected disabled>Región</option>
                           {% for region in regiones %}
                             <option value="{{ region.id }}">{{ region.nombre }}</option>
                           {% endfor %}
                         </select>
                       </div>
-                      <div class="col-md-4 mb-3">
-                          <select class="form-control form-control-lg" name="pais" aria-label="Select 2" required>
-                            <option selected disabled>País</option>
-                            {% for provincia in provincias %}
-                              <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
-                            {% endfor %}
-                          </select>
-                      </div>
-                      <div class="col-md-4 mb-3">
-                        <select class="form-control form-control-lg" name="region" aria-label="Select 4" required>
-                          <option selected disabled>Región</option>
-                          {% for pais in paises %}
-                            <option value="{{ pais.id }}">{{ pais.nombre }}</option>
-                          {% endfor %}
-                        </select>
-                      </div>
                     </div>
                     <div class="row">
                       <div class="col-md-4 mb-3">
-                        <select class="form-control form-control-lg" name="provincia" aria-label="Select 4" required>
+                        <select class="form-control form-control-lg" id="provinciaSelect" name="provincia" required>
                           <option selected disabled>Provincia</option>
-                          {% for pais in paises %}
-                            <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                          {% for provincia in provincias %}
+                            <option value="{{ provincia.id }}">{{ provincia.nombre }}</option>
                           {% endfor %}
                         </select>
                       </div>
                       <div class="col-md-4 mb-3">
-                        <select class="form-control form-control-lg" name="comuna" aria-label="Select 4" required>
+                        <select class="form-control form-control-lg" id="comunaSelect" name="comuna" required>
                           <option selected disabled>Comuna</option>
-                          {% for pais in paises %}
-                            <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                          {% for comuna in comunas %}
+                            <option value="{{ comuna.id }}">{{ comuna.nombre }}</option>
                           {% endfor %}
                         </select>
                       </div>
                       <h6>Imagen de la mascota</h6>
                       <div class="font-weight-bold mt-1">
-                        <input type="file" accept="image/jpeg, image/png" name="imagen_mascota" class="form-control bg-white py-2" required />
+                        <input type="file" accept="image/jpeg, image/png" name="imagen" class="form-control bg-white py-2" required />
                       </div>     
                     </div>
+                    <div class="row">
+                      <div class="col-md-12 mb-3">
+                          <label for="desc_fisica" class="form-label">Descripción Física</label>
+                          <textarea class="form-control form-control-lg" id="desc_fisica" name="desc_fisica" rows="3" required></textarea>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12 mb-3">
+                          <label for="desc_personalidad" class="form-label">Descripción de la Personalidad</label>
+                          <textarea class="form-control form-control-lg" id="desc_personalidad" name="desc_personalidad" rows="3" required></textarea>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12 mb-3">
+                          <label for="desc_adicional" class="form-label">Descripción Adicional</label>
+                          <textarea class="form-control form-control-lg" id="desc_adicional" name="desc_adicional" rows="3"></textarea>
+                      </div>
+                  </div>
                     <div class="row">
                       <div class="col-md-6 d-flex justify-content-end">
                         <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0">Registrar</button>
@@ -152,9 +169,6 @@
                         <a href="{% url 'inicio' %}" class="btn btn-lg btn-primary w-100 mt-4 mb-0">Cancelar</a>
                       </div>
                     </div>
-                    
-                    
-                    
                   </form>
                 </div>
               </div>
@@ -168,55 +182,40 @@
     </section>
   </main>
 
-  <!--   Core JS Files   -->
+  <!-- Core JS Files -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+
+
+  
   <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/argon-dashboard.min.js?v=2.0.4"></script>
-  <script>
-    function formatRUT(rut) {
-  // Eliminar puntos y guiones existentes
-      rut = rut.replace(/\./g, '').replace(/-/g, '');
-
-  // Verificar que el RUT tenga al menos dos caracteres (cuerpo y dígito verificador)
-      if (rut.length < 2) {
-        return rut;
-      }
-
-  // Separar el dígito verificador del cuerpo del RUT
-      const cuerpo = rut.slice(0, -1);
-      const dv = rut.slice(-1);
-
-  // Formatear el cuerpo del RUT con puntos cada tres dígitos
-      let cuerpoFormateado = '';
-      let contador = 0;
-
-      for (let i = cuerpo.length - 1; i >= 0; i--) {
-        cuerpoFormateado = cuerpo[i] + cuerpoFormateado;
-        contador++;
-        if (contador % 3 === 0 && i !== 0) {
-          cuerpoFormateado = '.' + cuerpoFormateado;
-        } 
-      }
-
-  // Retornar el RUT formateado
-      return `${cuerpoFormateado}-${dv}`;
-}
-
-
+    document.getElementById('regionSelect').addEventListener('change', function() {
+      const regionId = this.value;
+      fetch(`/get_provincias_mascota/${regionId}/`)
+          .then(response => response.json())
+          .then(data => {
+              const provinciaSelect = document.getElementById('provinciaSelect');
+              provinciaSelect.innerHTML = '<option selected disabled>Seleccione una Provincia</option>';
+              data.forEach(provincia => {
+                  provinciaSelect.innerHTML += `<option value="${provincia.id}">${provincia.nombre}</option>`;
+              });
+          });
+  });
+  
+    document.getElementById('provinciaSelect').addEventListener('change', function() {
+      const provinciaId = this.value;
+      fetch(`/get_comunas_mascota/${provinciaId}/`)
+          .then(response => response.json())
+          .then(data => {
+              const comunaSelect = document.getElementById('comunaSelect');
+              comunaSelect.innerHTML = '<option selected disabled>Seleccione una Comuna</option>';
+              data.forEach(comuna => {
+                  comunaSelect.innerHTML += `<option value="${comuna.id}">${comuna.nombre}</option>`;
+              });
+          });
+  });
   </script>
 </body>
 </html>

@@ -142,7 +142,17 @@ class DescripcionMascota(models.Model):
     
 class TipoMascota(models.Model):
 
-    descripcion = models.CharField(max_length=50)
+    CHOICES = [
+        ("gato", "Gato"),
+        ("perro", "Perro"),
+        ("otro", "Otro"),
+    ]
+
+    descripcion = models.CharField(max_length=50, choices=CHOICES)
+
+    def get_descripcion_display(self):
+
+        return dict(self.CHOICES).get(self.descripcion, "Desconocido")
 
     def __str__(self):
         
@@ -206,9 +216,20 @@ class Fundacion(models.Model):
 
 class Mascota(models.Model):
 
+    CHOICES = [
+        ("meses", "Meses"),
+        ("años", "Años"),
+        ("dias", "Días")
+    ]
+
+    def get_descripcion_display(self):
+
+        return dict(self.CHOICES).get(self.descripcion, "Desconocido")
+
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     edad = models.IntegerField()
+    tipo_edad = models.CharField(max_length=50, choices=CHOICES, null=True, blank=True)
     imagen = models.ImageField(upload_to="mascotas/")
     estado_mascota = models.ForeignKey(EstadoMascota, on_delete=models.CASCADE)
     raza = models.ForeignKey(Razas, on_delete=models.CASCADE)
