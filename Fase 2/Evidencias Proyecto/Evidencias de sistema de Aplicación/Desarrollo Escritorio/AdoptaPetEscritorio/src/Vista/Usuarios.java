@@ -7,6 +7,7 @@
 
 package Vista;
 
+import java.awt.Color;
 import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -167,14 +168,16 @@ public class Usuarios extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                                    .addComponent(txtPerfilUsuario)
-                                    .addComponent(txtRut)
-                                    .addComponent(txtEC, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                                    .addComponent(txtG, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addComponent(BTSeleccionarUS)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                            .addComponent(txtRut)
+                                            .addComponent(txtEC, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                            .addComponent(txtG, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(BTSeleccionarUS))
+                                    .addComponent(txtPerfilUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(10, 10, 10))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,8 +266,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPerfilUsuarioActionPerformed
 
     private void BTSeleccionarUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTSeleccionarUSActionPerformed
-
-    
+        manejarSeleccionUsuario(); // Llama al método para manejar la selección del usuario
     }//GEN-LAST:event_BTSeleccionarUSActionPerformed
 
     private void BTEliminarUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarUSActionPerformed
@@ -273,18 +275,6 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void BTModificarUS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarUS1ActionPerformed
 
-    int usuarioId = 10; // Valor de ejemplo
-    int estadoEconomico = 4; // Valor de ejemplo (ID de estado económico)
-    String estadoEconomicoDescripcion = "Clase baja"; // Descripción de estado económico
-    int genero = 2; // Valor de ejemplo (ID de genero)
-    String generoDescripcion = "Masculino"; // Descripción de genero
-    String perfilUsuario = "hula"; // Valor de ejemplo
-    String rut = "12345678-9"; // Valor de ejemplo
-    String telefono = "987654321"; // Valor de ejemplo
-
-    // Llamar al método de modificación con los datos actuales, incluyendo descripciones
-    modificarUsuario(usuarioId, estadoEconomico, estadoEconomicoDescripcion, genero, generoDescripcion, perfilUsuario, rut, telefono);
-
     }//GEN-LAST:event_BTModificarUS1ActionPerformed
 
 private int usuarioId; // Variable para almacenar la ID seleccionada
@@ -292,6 +282,7 @@ private int usuarioId; // Variable para almacenar la ID seleccionada
 
 public void inicializarComponentes() {
 
+    
     // Cargar los datos en la tabla
     cargarDatosTabla(); // Llama al método para cargar los datos al inicio
 }
@@ -320,7 +311,7 @@ public void inicializarComponentes() {
 //--------------------------------------------------------INICIO LISTAR DATOS-------------------------------------------------------------------------
         private void cargarDatosTabla() {
             String urlString = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
-            String token = "3469a77e70d09db05445ce3b6b4ff0316dcc1f29";
+            String token = "b0533e8356de17655c128d5fa9a6ca4a0537872d";
             DefaultTableModel model = (DefaultTableModel) TableUsuarios.getModel();
             model.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
 
@@ -396,66 +387,47 @@ public void inicializarComponentes() {
 // Método para modificar un usuario a través de la API
 
 
-public void modificarUsuario(int usuarioId, int estadoEconomico, String estadoEconomicoDescripcion, int genero, String generoDescripcion, String perfilUsuario, String rut, String telefono) {
-    String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para modificar
-    String token = "3469a77e70d09db05445ce3b6b4ff0316dcc1f29";  // Token de autenticación
+private void modificarUsuario(int usuarioId, int estadoEconomico, String estadoEconomicoDescripcion, int genero, String generoDescripcion, String perfilUsuario, String rut, String telefono) {
+        String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para modificar
+        String token = "b0533e8356de17655c128d5fa9a6ca4a0537872d"; // Token de autenticación
 
-    try {
-        // Crear la URL y la conexión
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        try {
+            // Crear la URL y la conexión
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        // Configurar el método PUT y los encabezados
-        connection.setRequestMethod("PUT");
-        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            // Configurar el método PUT y los encabezados
+            connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
 
+            // Crear el JSON con los datos modificados
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("estado_economico", estadoEconomico);
+            jsonRequest.put("genero", genero);
+            jsonRequest.put("usuario_django", perfilUsuario);
+            jsonRequest.put("rut", rut);
+            jsonRequest.put("telefono", telefono);
 
-        // Crear el objeto Map para enviar los datos
-        Map<String, Object> jsonBodyMap = new HashMap<>();
-        
-        // Aquí solo pasamos el ID de estado_economico y genero
-        jsonBodyMap.put("estado_economico", estadoEconomico);  // Solo el ID
-        jsonBodyMap.put("genero", genero);  // Solo el ID
-        jsonBodyMap.put("usuario_django", perfilUsuario);
-        jsonBodyMap.put("rut", rut);
-        jsonBodyMap.put("telefono", telefono);
-
-        // Convertir el Map a un JSONObject
-        JSONObject jsonBody = new JSONObject(jsonBodyMap);
-
-        // Imprimir el JSON para revisar su formato
-        System.out.println("JSON a enviar: " + jsonBody.toString());
-
-        // Enviar los datos JSON en el cuerpo de la solicitud
-        connection.setDoOutput(true);
-        try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = jsonBody.toString().getBytes("utf-8");
+            // Enviar los datos
+            OutputStream os = connection.getOutputStream();
+            byte[] input = jsonRequest.toString().getBytes("utf-8");
             os.write(input, 0, input.length);
-        }
 
-        // Obtener la respuesta de la API
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            JOptionPane.showMessageDialog(null, "Usuario modificado correctamente.");
-        } else {
-            // Capturar el mensaje de error
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
-            StringBuilder errorResponse = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                errorResponse.append(line.trim());
+            // Conectar y obtener la respuesta
+            connection.connect();
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                JOptionPane.showMessageDialog(null, "Usuario modificado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al modificar usuario. Código de respuesta: " + responseCode);
             }
-            br.close();
-            // Mostrar la respuesta de error completa
-            System.out.println("Error al modificar usuario. Respuesta del servidor: " + errorResponse.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al modificar usuario.");
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error al modificar usuario.");
     }
-}
 
 
 
@@ -466,7 +438,7 @@ public void modificarUsuario(int usuarioId, int estadoEconomico, String estadoEc
 // Método para obtener los datos actualizados del usuario
 private void obtenerDatosUsuarioActualizados(int usuarioId) {
     String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL para obtener los datos del usuario
-    String token = "3469a77e70d09db05445ce3b6b4ff0316dcc1f29";  // Token de autenticación
+    String token = "b0533e8356de17655c128d5fa9a6ca4a0537872d";  // Token de autenticación
     try {
         // Crear la URL y la conexión
         URL url = new URL(urlString);
@@ -535,7 +507,7 @@ private void actualizarInterfazConDatos(String datos) {
     // Método para eliminar un usuario a través de la API
     private void eliminarUsuario(int usuarioId) {
         String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para eliminar
-        String token = "3469a77e70d09db05445ce3b6b4ff0316dcc1f29";  // Token de autenticación
+        String token = "b0533e8356de17655c128d5fa9a6ca4a0537872d";  // Token de autenticación
 
         try {
             // Crear la URL y la conexión
@@ -598,6 +570,103 @@ private void actualizarInterfazConDatos(String datos) {
     
 //-----------------------------------------------------FIN ELIMINAR-------------------------------------------------------------------------
 
+    
+//-----------------------------------------------------INICIO SELECCIONAR USUARIO-----------------------------------------------------------
+    
+    // Método para seleccionar un usuario y cargar sus datos desde la API
+    private void seleccionarUsuario(int usuarioId) {
+    String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para obtener datos
+    String token = "b0533e8356de17655c128d5fa9a6ca4a0537872d"; // Token de autenticación
+
+    try {
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Configurar el método GET y los encabezados
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Accept", "application/json");
+
+        // Conectar y obtener la respuesta
+        connection.connect();
+        int responseCode = connection.getResponseCode();
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            // Leer la respuesta de la API
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+
+            // Convertir la respuesta en un JSONObject
+            JSONObject jsonResponse = new JSONObject(response.toString());
+
+            // Extraer los datos del JSON
+            int estadoEconomico = jsonResponse.getInt("estado_economico");
+            String estadoEconomicoDescripcion = getEstadoEconomicoNombre(estadoEconomico);
+            int genero = jsonResponse.getInt("genero");
+            String generoDescripcion = getGeneroNombre(genero);
+            String perfilUsuario = jsonResponse.getString("usuario_django");
+            String rut = jsonResponse.getString("rut");
+            String telefono = jsonResponse.getString("telefono");
+
+            // Mostrar los datos en los campos correspondientes
+            txtEC.setText(estadoEconomicoDescripcion);
+            txtG.setText(generoDescripcion);
+            txtPerfilUsuario.setText(perfilUsuario);
+            txtRut.setText(rut);
+            txtTelefono.setText(telefono);
+
+            // Deshabilitar los campos que no deben ser modificados
+            txtPerfilUsuario.setEditable(false);
+            txtPerfilUsuario.setBackground(Color.GRAY);
+
+            txtRut.setEditable(false);
+            txtRut.setBackground(Color.GRAY);
+
+            txtG.setEditable(false);
+            txtG.setBackground(Color.GRAY);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al obtener datos del usuario.");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al seleccionar usuario.");
+    }
+}
+
+
+    // Método para manejar la selección del usuario en la tabla y cargar datos
+    private void manejarSeleccionUsuario() {
+        // Obtener la fila seleccionada
+        int filaSeleccionada = TableUsuarios.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            // Obtener el ID del usuario en la primera columna (suponiendo que el ID está en la columna 0)
+            int usuarioId = (int) TableUsuarios.getValueAt(filaSeleccionada, 0);
+
+            // Confirmación de selección
+            int confirmacion = JOptionPane.showConfirmDialog(null,
+                "¿Está seguro de que desea cargar los datos de este usuario?",
+                "Confirmar selección",
+                JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                seleccionarUsuario(usuarioId); // Llamar al método para cargar los datos
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un usuario de la tabla.");
+        }
+    }    
+    
+        
+
+
+   
+//-----------------------------------------------------FIN SELECCIONAR USUARIO--------------------------------------------------------------
 
 
     public static void main(String args[]) {
