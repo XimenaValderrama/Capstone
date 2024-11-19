@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base3.html" %}
 {% load static %}
 
 {% block contenido %}
@@ -6,7 +6,7 @@
     <div class="row">
         {% if mascotas %}
             {% for mascota in mascotas %}
-            <div class="col-lg-3 col-md-6 mb-4">
+            <div class="col-lg-3 col-md-6 mb-4 mt-4">
                 <div class="card" style="width: 100%; margin-bottom: 20px;">
                     <div style="width: 100%; height: 18rem; display: flex; justify-content: center; align-items: center; overflow: hidden;">
                         <img src="{{ mascota.imagen.url }}" class="card-img-top" alt="{{ mascota.nombre }}" style="width: 100%; height: 100%; object-fit: cover;">
@@ -21,7 +21,7 @@
             </div>
             {% endfor %}
         {% else %}
-            <div class="col-12 mt-11 mb-10">
+            <div class="col-12 mt-12 mb-11">
               <h3 class="text-center">No hay mascotas perdidas en este momento.</h3>
               
             </div>

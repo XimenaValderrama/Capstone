@@ -7,7 +7,6 @@
             <!-- Columna para la imagen de la mascota -->
             <div class="col-md-4 d-flex justify-content-center align-items-center">
                 <img src="{{ mascota.imagen.url }}" class="card-img-top" alt="{{ mascota.nombre }}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 20px;">
-                
             </div>
 
             <!-- Columna para los detalles dentro de una tarjeta -->
@@ -17,8 +16,8 @@
                     <div class="card-body" style="background-color: #f7f7f7;">
                         <h1 class="display-4">{{ mascota.nombre }} {{ mascota.apellido }}</h1>
                         <ul class="list-group list-group-flush mb-4">
-                            <li class="list-group-item"><strong>Tipo Mascota:</strong> {{ mascota.tipo }}</li>
-                            <li class="list-group-item"><strong>Estado Mascota:</strong> {{ mascota.estado_mascota }}</li>
+                            <li class="list-group-item"><strong>Tipo Mascota:</strong> {{ mascota.tipo.get_descripcion_display }}</li>
+                            <li class="list-group-item"><strong>Estado Mascota:</strong> {{ mascota.estado_mascota.get_descripcion_display }}</li>
                             <li class="list-group-item"><strong>Edad:</strong> {{ mascota.edad }} {{ mascota.tipo_edad }}</li>
                             <li class="list-group-item"><strong>Raza:</strong> {{ mascota.raza }}</li>
                             <li class="list-group-item"><strong>Dueño:</strong> {{ usuario_registrador.usuario_django.first_name }} {{ usuario_registrador.usuario_django.last_name }}</li>
@@ -29,16 +28,30 @@
                         <div class="mb-4">
                             <h4>Descripción</h4>
                             <ul class="list-group list-group-flush mb-4">
-                            <li class="list-group-item"><strong>Descripción física:</strong> {{ mascota.descripcion.desc_fisica }}</li>
-                            <li class="list-group-item"><strong>Descripción personalidad:</strong> {{ mascota.descripcion.desc_personalidad }}</li>
-                            <li class="list-group-item"><strong>Descripción adicional:</strong> {{ mascota.descripcion.desc_adicional }}</li>
+                                <li class="list-group-item"><strong>Descripción física:</strong> {{ mascota.descripcion.desc_fisica }}</li>
+                                <li class="list-group-item"><strong>Descripción personalidad:</strong> {{ mascota.descripcion.desc_personalidad }}</li>
+                                <li class="list-group-item"><strong>Descripción adicional:</strong> {{ mascota.descripcion.desc_adicional }}</li>
                             </ul>
                         </div>
 
-                        
-                        {% if mascota.estado_mascota.descripcion == "en_adopcion" %}
+                        {% if mascota.estado_mascota.descripcion == "en_adopcion" and not es_registrador %}
                         <div>
-                            <a href="#" class="btn btn-primary btn-lg">Adoptar</a>
+                            {% if formulario_existente %}
+                                <!-- Botón desactivado -->
+                                <button class="btn btn-secondary btn-lg" disabled>Ya has enviado un formulario</button>
+                                <!-- SweetAlert Script -->
+                                <script>
+                                    Swal.fire({
+                                        icon: 'warning',
+                                        title: 'Formulario ya enviado',
+                                        text: 'Ya has enviado un formulario para adoptar esta mascota. Por favor, espera a que sea revisado.',
+                                        confirmButtonText: 'Aceptar'
+                                    });
+                                </script>
+                            {% else %}
+                                <!-- Botón habilitado si no existe el formulario -->
+                                <a href="{% url 'formulario_adopcion' mascota.id %}" class="btn btn-primary btn-lg">Adoptar</a>
+                            {% endif %}
                         </div>
                         {% endif %}
                     </div>

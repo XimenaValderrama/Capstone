@@ -33,7 +33,7 @@
         <div class="card">
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
-              <button class="btn btn-primary btn-sm ms-auto">Editar perfil</button>
+              <a href="{% url 'modificar_perfil' %}" class="btn btn-primary btn-sm ms-auto">Editar perfil</a>
             </div>
           </div>
           <div class="card-body">
@@ -49,7 +49,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="example-text-input" class="form-control-label">Genero</label>
-                  <input class="form-control bg-white" type="text" value="{{ usuario.genero }}" readonly>
+                  <input class="form-control bg-white" type="text" value="{{ usuario.genero.get_descripcion_display }}" readonly>
                 </div>
               </div>
               <div class="col-md-4">

@@ -1,0 +1,181 @@
+{% extends "base3.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container py-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="mb-0">Editar Perfil</h4>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Datos del Usuario -->
+                <div class="row mb-3">
+                    <!-- Nombre -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="first_name" class="form-control-label">Nombre</label>
+                            <input class="form-control" type="text" id="first_name" name="first_name" value="{{ usuario.first_name }}" readonly>
+                        </div>
+                    </div>
+                    <!-- Apellido -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="last_name" class="form-control-label">Apellido</label>
+                            <input class="form-control" type="text" id="last_name" name="last_name" value="{{ usuario.last_name }}" readonly>
+                        </div>
+                    </div>
+                    <!-- RUT -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="rut" class="form-control-label">RUT</label>
+                            <input class="form-control" type="text" id="rut" name="rut" value="{{ usuario_perfil.rut }}" readonly>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Teléfono -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="telefono" class="form-control-label">Teléfono</label>
+                            <input class="form-control" type="text" id="telefono" name="telefono" value="{{ usuario_perfil.telefono }}" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Género -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="genero" class="form-control-label">Género</label>
+                            <select class="form-control" id="genero" name="genero" required>
+                                {% for genero in generos %}
+                                <option value="{{ genero.id }}" {% if usuario_perfil.genero.id == genero.id %}selected{% endif %}>
+                                    {{ genero.get_descripcion_display }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dirección -->
+                <div class="row mb-3">
+                    <!-- Región -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="regionSelect" class="form-control-label">Región</label>
+                            <select class="form-control" id="regionSelect" name="region" required>
+                                <option value="">Seleccione una región</option>
+                                {% for region in regiones %}
+                                <option value="{{ region.id }}" {% if direccion.comuna.provincia.region.id == region.id %}selected{% endif %}>
+                                    {{ region.nombre }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Provincia -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="provinciaSelect" class="form-control-label">Provincia</label>
+                            <select class="form-control" id="provinciaSelect" name="provincia" required>
+                                <option value="">Seleccione una provincia</option>
+                                {% for provincia in provincias %}
+                                <option value="{{ provincia.id }}" {% if direccion.comuna.provincia.id == provincia.id %}selected{% endif %}>
+                                    {{ provincia.nombre }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Comuna -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="comunaSelect" class="form-control-label">Comuna</label>
+                            <select class="form-control" id="comunaSelect" name="comuna" required>
+                                <option value="">Seleccione una comuna</option>
+                                {% for comuna in comunas %}
+                                <option value="{{ comuna.id }}" {% if direccion.comuna.id == comuna.id %}selected{% endif %}>
+                                    {{ comuna.nombre }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Calle y Número -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="calle" class="form-control-label">Calle</label>
+                            <input class="form-control" type="text" id="calle" name="calle" value="{{ direccion.calle }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="numero" class="form-control-label">Número</label>
+                            <input class="form-control" type="number" id="numero" name="numero" value="{{ direccion.numero }}" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Botón -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+  document.getElementById('regionSelect').addEventListener('change', function() {
+      const regionId = this.value;
+
+      fetch(`/get_provincias/${regionId}/`)
+          .then(response => response.json())
+          .then(data => {
+              const provinciaSelect = document.getElementById('provinciaSelect');
+              const comunaSelect = document.getElementById('comunaSelect');
+
+              provinciaSelect.innerHTML = '<option selected disabled>Seleccione una Provincia</option>';
+              comunaSelect.innerHTML = '<option selected disabled>Seleccione una Comuna</option>';
+
+              data.forEach(provincia => {
+                  provinciaSelect.innerHTML += `<option value="${provincia.id}">${provincia.nombre}</option>`;
+              });
+          })
+          .catch(error => {
+              console.error('Error al cargar provincias:', error);
+              alert('No se pudieron cargar las provincias. Intente nuevamente.');
+          });
+  });
+
+  document.getElementById('provinciaSelect').addEventListener('change', function() {
+      const provinciaId = this.value;
+
+      fetch(`/get_comunas/${provinciaId}/`)
+          .then(response => response.json())
+          .then(data => {
+              const comunaSelect = document.getElementById('comunaSelect');
+
+              comunaSelect.innerHTML = '<option selected disabled>Seleccione una Comuna</option>';
+
+              data.forEach(comuna => {
+                  comunaSelect.innerHTML += `<option value="${comuna.id}">${comuna.nombre}</option>`;
+              });
+          })
+          .catch(error => {
+              console.error('Error al cargar comunas:', error);
+              alert('No se pudieron cargar las comunas. Intente nuevamente.');
+          });
+  });
+</script>
+{% endblock contenido %}

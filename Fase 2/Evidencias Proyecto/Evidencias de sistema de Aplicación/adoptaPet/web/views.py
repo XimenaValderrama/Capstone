@@ -63,13 +63,12 @@ def modificar_eliminar_usuario(request, user_id):
         usuario.delete()
         return Response({"message": "Usuario y perfil eliminados correctamente."}, status=status.HTTP_204_NO_CONTENT)
 
-
 @login_required(login_url="inicio_sesion")
 def inicio(request):
-    # Obtén todas las mascotas
+    # Obtener todas las mascotas
     mascotas = Mascota.objects.all()
     
-    # Pasa las mascotas al contexto del template
+    # Pasar las mascotas al contexto del template
     context = {
         'mascotas': mascotas
     }
@@ -95,7 +94,6 @@ def inicio_sesion(request):
             messages.error(request, 'Credenciales inválidas. Inténtalo de nuevo.')
             return redirect('inicio_sesion')  # Redirigir de vuelta a la página de inicio de sesión
 
-    # Si es una solicitud GET, mostrar el formulario de inicio de sesión
     return render(request, 'login.html')
 
 @login_required(login_url="inicio_sesion")
@@ -170,7 +168,6 @@ def encontrados(request):
         mascotas = []
 
     return render(request, 'encontrados.html', {'mascotas': mascotas})
-
 
 def registro(request):
 
@@ -368,10 +365,23 @@ def registro_mascota(request):
     return render(request, 'registro_mascota.html', context)
 
 @login_required(login_url="inicio_sesion")
-def detalle_mascota(request, id):
-    mascota = get_object_or_404(Mascota, id=id)
-    usuario_registrador = mascota.usuario  # Obtenemos el perfil del usuario que registró la mascota
-    return render(request, 'detalle_mascota.html', {'mascota': mascota, 'usuario_registrador': usuario_registrador})
+def detalle_mascota(request, mascota_id):
+    mascota = get_object_or_404(Mascota, id=mascota_id)
+    usuario_registrador = mascota.usuario  # Perfil del usuario que registró la mascota
+    usuario_perfil = PerfilUsuario.objects.get(usuario_django=request.user)
+
+    # Verificar si el usuario actual ya registró esta mascota
+    es_registrador = (usuario_registrador == usuario_perfil)
+
+    # Verificar si ya existe un formulario para esta mascota y este usuario
+    formulario_existente = FormularioAdopcion.objects.filter(usuario=usuario_perfil, mascota=mascota).exists()
+
+    return render(request, 'detalle_mascota.html', {
+        'mascota': mascota,
+        'usuario_registrador': usuario_registrador,
+        'formulario_existente': formulario_existente,
+        'es_registrador': es_registrador,  # Pasamos esta información al template
+    })
 
 def get_provincias(request, region_id):
     provincias = Provincia.objects.filter(region_id=region_id).values('id', 'nombre')
@@ -381,14 +391,15 @@ def get_comunas(request, provincia_id):
     comunas = Comuna.objects.filter(provincia_id=provincia_id).values('id', 'nombre')
     return JsonResponse(list(comunas), safe=False)
 
-# Vista para obtener las provincias de una región
+# Vista para obtener las provincias de una región de la mascota 
 def get_provincias_mascota(request, region_id):
     provincias = ProvinciaMascota.objects.filter(region_id=region_id)
     data = [{"id": provincia.id, "nombre": provincia.nombre} for provincia in provincias]
     return JsonResponse(data, safe=False)
 
-# Vista para obtener las comunas de una provincia
+# Vista para obtener las comunas de una provincia de la mascota
 def get_comunas_mascota(request, provincia_id):
+
     comunas = ComunaMascota.objects.filter(provincia_id=provincia_id)
     data = [{"id": comuna.id, "nombre": comuna.nombre} for comuna in comunas]
     return JsonResponse(data, safe=False)
@@ -505,3 +516,108 @@ def eliminar_mascota(request, mascota_id):
 
     # Redirigir a la lista de mascotas
     return redirect('mascotas')
+
+@login_required(login_url="inicio_sesion")
+def modificar_perfil(request):
+    # Obtener el perfil del usuario logueado
+    usuario_perfil = PerfilUsuario.objects.get(usuario_django=request.user)
+    direccion = DireccionUsuario.objects.get(usuario=usuario_perfil)
+
+    if request.method == "POST":
+        # Campos editables
+        telefono = request.POST.get("telefono")
+        genero_id = request.POST.get("genero")
+        region_id = request.POST.get("region")
+        provincia_id = request.POST.get("provincia")
+        comuna_id = request.POST.get("comuna")
+        calle = request.POST.get("calle")
+        numero = request.POST.get("numero")
+
+        # Actualizar perfil de usuario
+        usuario_perfil.telefono = telefono
+        usuario_perfil.genero_id = genero_id
+        usuario_perfil.save()
+
+        # Actualizar dirección
+        direccion.calle = calle
+        direccion.numero = numero
+        direccion.comuna_id = comuna_id
+        direccion.save()
+
+        # Redirigir tras guardar cambios
+        return redirect("perfil")
+
+    # Cargar datos necesarios para el formulario
+    generos = Genero.objects.all()
+    regiones = Region.objects.all()
+    provincias = Provincia.objects.filter(region=direccion.comuna.provincia.region)
+    comunas = Comuna.objects.filter(provincia=direccion.comuna.provincia)
+
+    return render(request, "modificar_perfil.html", {
+        "usuario": request.user,
+        "usuario_perfil": usuario_perfil,
+        "direccion": direccion,
+        "generos": generos,
+        "regiones": regiones,
+        "provincias": provincias,
+        "comunas": comunas,
+    })
+
+def obtener_provincias_perfil(request, region_id):
+    provincias = Provincia.objects.filter(region_id=region_id).values('id', 'nombre')
+    return JsonResponse(list(provincias), safe=False)
+
+def obtener_comunas_perfil(request, provincia_id):
+    comunas = Comuna.objects.filter(provincia_id=provincia_id).values('id', 'nombre')
+    return JsonResponse(list(comunas), safe=False)
+
+@login_required(login_url="inicio_sesion")
+def formulario_adopcion(request, mascota_id):
+    
+    mascota = get_object_or_404(Mascota, id=mascota_id)
+    usuario_perfil = PerfilUsuario.objects.get(usuario_django=request.user)
+
+    # Obtener dirección y los datos relacionados
+    direccion = DireccionUsuario.objects.filter(usuario=usuario_perfil).select_related(
+        'comuna__provincia__region__pais'
+    ).first()
+
+    # Datos relacionados
+    comuna = direccion.comuna if direccion else None
+    provincia = comuna.provincia if comuna else None
+    region = provincia.region if provincia else None
+    pais = region.pais if region else None
+
+    # Verificar si ya existe un formulario para esta mascota y este usuario
+    formulario_existente = FormularioAdopcion.objects.filter(usuario=usuario_perfil, mascota=mascota).exists()
+
+    if formulario_existente:
+        messages.warning(request, "Ya has enviado un formulario para adoptar esta mascota.")
+        return redirect('detalle_mascota', mascota_id=mascota.id)
+
+    if request.method == "POST":
+        comentarios = request.POST.get("comentarios")
+        estado_pendiente = EstadoFormulario.objects.get(descripcion="pendiente")
+
+        # Crear el nuevo formulario de adopción
+        formulario = FormularioAdopcion(
+            comentarios=comentarios,
+            estado_formulario=estado_pendiente,
+            usuario=usuario_perfil,
+            mascota=mascota,
+        )
+        formulario.save()
+
+        messages.success(request, "Tu formulario de adopción ha sido enviado exitosamente.")
+        return redirect('detalle_mascota', mascota_id=mascota.id)
+
+    return render(request, "formulario_adopcion.html", {
+        "usuario": request.user,
+        "usuario_perfil": usuario_perfil,
+        "mascota": mascota,
+        "pais": pais,
+        "region": region,
+        "provincia": provincia,
+        "comuna": comuna,
+        "estado_economico": usuario_perfil.estado_economico,
+    })

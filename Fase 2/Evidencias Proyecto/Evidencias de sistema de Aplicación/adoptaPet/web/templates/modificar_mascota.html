@@ -56,7 +56,7 @@
                             <label for="estado_mascota"><strong>Estado</strong></label>
                             <select name="estado_mascota" class="form-control">
                                 {% for estado in estados %}
-                                    <option value="{{ estado.id }}" {% if mascota.estado_mascota.id == estado.id %}selected{% endif %}>{{ estado.descripcion }}</option>
+                                    <option value="{{ estado.id }}" {% if mascota.estado_mascota.id. == estado.id %}selected{% endif %}>{{ estado.get_descripcion_display }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -72,7 +72,9 @@
                             <label for="genero"><strong>Género</strong></label>
                             <select name="genero" class="form-control">
                                 {% for genero in generos %}
-                                    <option value="{{ genero.id }}" {% if mascota.genero.id == genero.id %}selected{% endif %}>{{ genero.descripcion }}</option>
+                                    <option value="{{ genero.id }}" {% if mascota.genero.id == genero.id %}selected{% endif %}>
+                                        {{ genero.get_descripcion_display }}
+                                    </option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -80,7 +82,7 @@
                             <label for="tipo"><strong>Tipo</strong></label>
                             <select name="tipo" class="form-control">
                                 {% for tipo in tipos %}
-                                    <option value="{{ tipo.id }}" {% if mascota.tipo.id == tipo.id %}selected{% endif %}>{{ tipo.descripcion }}</option>
+                                    <option value="{{ tipo.id }}" {% if mascota.tipo.id == tipo.id %}selected{% endif %}>{{ tipo.get_descripcion_display }}</option>
                                 {% endfor %}
                             </select>
                         </div>
