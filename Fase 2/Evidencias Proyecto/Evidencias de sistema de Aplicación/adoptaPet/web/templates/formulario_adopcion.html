@@ -4,8 +4,8 @@
 {% block contenido %}
 <div class="container py-4">
     <div class="card">
-        <div class="card-header text-center">
-            <h4 class="mb-0">Formulario de adopción para {{ mascota.nombre }}</h4>
+        <div class="card-header">
+            <h4 class="mb-0">Formulario de adopción para {{ mascota.nombre }} {{ mascota.apellido }}</h4>
         </div>
         <div class="card-body">
             <form method="post">
@@ -73,7 +73,7 @@
 
                 <!-- Botón Enviar -->
                 <div class="row">
-                    <div class="col-md-12 text-center">
+                    <div class="col-md-12 d-flex justify-content-end md-2 mt-2">
                         <button type="submit" class="btn btn-primary">Enviar Formulario</button>
                     </div>
                 </div>

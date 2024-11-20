@@ -12,7 +12,6 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from .serializers import *
 
-
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated, IsAdminUser])
 def modificar_eliminar_usuario(request, user_id):
@@ -67,7 +66,6 @@ def modificar_eliminar_usuario(request, user_id):
         
         return Response({"message": "Usuario y perfil eliminados correctamente."}, status=status.HTTP_204_NO_CONTENT)
     
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def eliminar_usuario(request, user_profile_id):
@@ -113,7 +111,7 @@ def inicio_sesion(request):
             return redirect('inicio')  # Redirigir a una página de inicio o perfil
         else:
             # Si las credenciales son incorrectas, mostrar un mensaje de error
-            messages.error(request, 'Credenciales inválidas. Inténtalo de nuevo.')
+            messages.error(request, 'Credenciales inválidas. Inténtalo de nuevo.', extra_tags='contraseñas')
             return redirect('inicio_sesion')  # Redirigir de vuelta a la página de inicio de sesión
 
     return render(request, 'login.html')
@@ -193,22 +191,6 @@ def encontrados(request):
 
 def registro(request):
 
-    paises = Pais.objects.all()
-    regiones = Region.objects.all()
-    provincias = Provincia.objects.all()
-    comunas = Comuna.objects.all()
-    generos = Genero.objects.all()
-    estadoseconomicos = EstadoEconomico.objects.all()
-    
-    context = {
-        'paises': paises,
-        'provincias': provincias,
-        'regiones': regiones,
-        'comunas': comunas,
-        'generos': generos,
-        'estadoseconomicos': estadoseconomicos
-    }
-
     if request.method == 'POST':
         # 1. Obtener datos del formulario
         nombre = request.POST['nombre']
@@ -230,37 +212,37 @@ def registro(request):
 
         # 2. Validar que las contraseñas coincidan
         if password1 != password2:
-            messages.error(request, 'Las contraseñas no coinciden.')
+            messages.error(request, 'Las contraseñas no coinciden.',  extra_tags='coincidencia_contraseñas')
             return redirect('registro')
 
         # 3. Validar que el correo electrónico no exista
         if User.objects.filter(email=email).exists():
-            messages.error(request, 'El correo electrónico ya está en uso.')
+            messages.error(request, 'El correo electrónico ya está en uso.',  extra_tags='correo_duplicado')
             return redirect('registro')
 
         # 4. Validar que el nombre de usuario (correo electrónico) no exista
         if User.objects.filter(username=username).exists():
-            messages.error(request, 'Ya existe una cuenta con este correo electrónico.')
+            messages.error(request, 'Ya existe una cuenta con este correo electrónico.',  extra_tags='correo_duplicado')
             return redirect('registro')
 
         # 5. Validar que el RUT no exista ya registrado en otro perfil de usuario
         if PerfilUsuario.objects.filter(rut=rut).exists():
-            messages.error(request, 'El RUT ya está registrado.')
+            messages.error(request, 'El RUT ya está registrado.', extra_tags='rut_duplicado')
             return redirect('registro')
 
         # 6. Validar la longitud de la contraseña
         if len(password1) < 8:
-            messages.error(request, 'La contraseña debe tener al menos 8 caracteres.')
+            messages.error(request, 'La contraseña debe tener al menos 8 caracteres.', extra_tags='largo_contraseña')
             return redirect('registro')
 
         # 7. Validar la longitud del telefono
         if not telefono.isdigit() or len(telefono) != 9:
-            messages.error(request, 'El teléfono debe contener exactamente 9 dígitos. (Toma en cuenta el 9 del incio)')
+            messages.error(request, 'El teléfono debe contener exactamente 9 dígitos. (Toma en cuenta el 9 del incio)', extra_tags='telefono')
             return redirect('registro')
 
         # Validar la longitud del RUT (8 o 9 dígitos)
         if not rut_numerico.isdigit() or not (8 <= len(rut_numerico) <= 9):
-            messages.error(request, 'El RUT debe contener 8 o 9 dígitos sin puntos ni guion.')
+            messages.error(request, 'El RUT debe contener 8 o 9 dígitos sin puntos ni guion.', extra_tags='largo_contraseña')
             return redirect('registro')
 
         # 9. Crear el usuario
@@ -283,9 +265,26 @@ def registro(request):
         direccionusuario.comuna = Comuna.objects.get(id=comuna)
         direccionusuario.usuario = perfilusuario  # Aquí asignamos el perfil del usuario a la dirección
         direccionusuario.save()
-
+        
+        # mensaje de éxito
+        messages.success(request, '¡Registro exitoso! Tu cuenta ha sido creada satisfactoriamente.', extra_tags='registro_exitoso')
         return redirect('inicio_sesion')
     else:
+        paises = Pais.objects.all()
+        regiones = Region.objects.all()
+        provincias = Provincia.objects.all()
+        comunas = Comuna.objects.all()
+        generos = Genero.objects.all()
+        estadoseconomicos = EstadoEconomico.objects.all()
+        
+        context = {
+            'paises': paises,
+            'provincias': provincias,
+            'regiones': regiones,
+            'comunas': comunas,
+            'generos': generos,
+            'estadoseconomicos': estadoseconomicos
+        }
         # 12. Mostrar el formulario de registro
         return render(request, 'registro.html', context)
 
@@ -296,7 +295,6 @@ def cerrar_sesion(request):
 
 @login_required(login_url="inicio_sesion")
 def registro_mascota(request):
-
 
     if request.method == 'POST':
         # Obtener datos del formulario
@@ -357,8 +355,10 @@ def registro_mascota(request):
         mascota.usuario = usuario
         mascota.save()
         
+        messages.success(request, 'Se registro su mascota con exito.', extra_tags='registro_mascota')
+        
         # Redirigir a otra página después de guardar
-        return redirect('inicio') 
+        return redirect('mascotas') 
 
     # Obtener listas de opciones para el formulario
     paises = PaisMascota.objects.all()
@@ -442,6 +442,7 @@ def mascotas(request):
 
     return render(request, "mis_mascotas.html", {"mascotas": mascotas_usuario})
 
+@login_required(login_url="inicio_sesion")
 def modificar_mascota(request, mascota_id):
     # Obtener la mascota, dirección y descripción
     mascota = get_object_or_404(Mascota, id=mascota_id)
@@ -495,7 +496,7 @@ def modificar_mascota(request, mascota_id):
         descripcion_mascota.save()  # Guardar los cambios de la descripción
 
         # mensaje de éxito
-        messages.success(request, 'La mascota ha sido modificada con éxito.')
+        messages.success(request, 'La mascota ha sido modificada con éxito.', extra_tags='modificacion_mascota')
 
         # Redirigir a la lista de mascotas después de guardar
         return redirect('mascotas')
@@ -555,25 +556,44 @@ def modificar_perfil(request):
         comuna_id = request.POST.get("comuna")
         calle = request.POST.get("calle")
         numero = request.POST.get("numero")
+        estado_economico_id = request.POST.get("estado_economico")
+        email = request.POST.get("email")
         
+        # Validar que el nuevo email no esté en uso por otro usuario
+        if User.objects.filter(email=email).exclude(id=request.user.id).exists():
+            messages.error(request, 'El correo electrónico ya está en uso. Por favor, elige otro.', extra_tags='correo_duplicado')
+            return redirect("modificar_perfil")
+        
+        # Actualizar datos del usuario (User)
+        request.user.email = email  # Actualizar el email
+        request.user.username = email  # Actualizar el username como el email
+        request.user.save()
 
         # Actualizar perfil de usuario
         usuario_perfil.telefono = telefono
-        usuario_perfil.genero = genero_id
+        usuario_perfil.genero = Genero.objects.get(id=genero_id)
+        usuario_perfil.estado_economico = EstadoEconomico.objects.get(id=estado_economico_id)
         usuario_perfil.save()
+        
+        
 
         # Actualizar dirección
         direccion.calle = calle
         direccion.numero = numero
-        direccion.comuna = comuna_id
+        direccion.comuna = Comuna.objects.get(id=comuna_id)
         direccion.save()
-
+        
+        
+        # mensaje de éxito
+        messages.success(request, 'Sus datos han sido modificados con éxito.', extra_tags='modificacion_perfil')
+        
         # Redirigir tras guardar cambios
         return redirect("perfil")
 
     # Cargar datos necesarios para el formulario
     generos = Genero.objects.all()
     regiones = Region.objects.all()
+    estados_economicos = EstadoEconomico.objects.all() 
     provincias = Provincia.objects.filter(region=direccion.comuna.provincia.region)
     comunas = Comuna.objects.filter(provincia=direccion.comuna.provincia)
     
@@ -585,6 +605,7 @@ def modificar_perfil(request):
         "regiones": regiones,
         "provincias": provincias,
         "comunas": comunas,
+        "estados_economicos": estados_economicos,
     }
 
     return render(request, "modificar_perfil.html", context)

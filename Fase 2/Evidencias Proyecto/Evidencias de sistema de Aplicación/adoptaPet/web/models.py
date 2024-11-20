@@ -207,7 +207,7 @@ class Fundacion(models.Model):
     
     nombre = models.CharField(max_length=50)
     desc_fundacion = models.TextField()
-    imagen = models.ImageField(upload_to="fundaciones/")
+    imagen = models.ImageField(upload_to="media/fundaciones/")
     url_fundacion = models.CharField(max_length=256)
     
     def __str__(self):
@@ -222,15 +222,13 @@ class Mascota(models.Model):
         ("dias", "Días")
     ]
 
-    def get_descripcion_display(self):
-
-        return dict(self.CHOICES).get(self.descripcion, "Desconocido")
+    
 
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     edad = models.IntegerField()
     tipo_edad = models.CharField(max_length=50, choices=CHOICES, null=True, blank=True)
-    imagen = models.ImageField(upload_to="mascotas/")
+    imagen = models.ImageField(upload_to="media/mascotas/")
     estado_mascota = models.ForeignKey(EstadoMascota, on_delete=models.CASCADE)
     raza = models.ForeignKey(Razas, on_delete=models.CASCADE)
     genero = models.ForeignKey(GeneroMascota, on_delete=models.CASCADE)
@@ -240,6 +238,10 @@ class Mascota(models.Model):
     usuario = models.ForeignKey(PerfilUsuario, on_delete=models.CASCADE)
     fundacion = models.ForeignKey(Fundacion, on_delete=models.CASCADE, blank=True, null=True)
 
+    def get_descripcion_display(self):
+
+        return dict(self.CHOICES).get(self.descripcion, "Desconocido")
+    
     def __str__(self):
         
         return self.nombre
@@ -287,7 +289,7 @@ class FichaMedica(models.Model):
     fecha_medica = models.DateField()
     prox_consulta = models.DateField()
     mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
-    tipo_alimetno = models.ForeignKey(TipoAlimento, on_delete=models.CASCADE)
+    tipo_alimento = models.ForeignKey(TipoAlimento, on_delete=models.CASCADE)
 
     def __str__(self):
         
@@ -305,18 +307,18 @@ class Vacuna(models.Model):
     
 class Chip(models.Model):
     
-    conf_chip = models.BooleanField(default="False")
+    confirmacion_chip = models.BooleanField(default="False")
     fecha_colocacion = models.DateField()
     lugar_colocacion = models.CharField(max_length=50)
     ficha_medica = models.ForeignKey(FichaMedica, on_delete=models.CASCADE)
     
     def __str__(self):
             
-        return self.conf_chip
+        return self.confirmacion_chip
 
 class Desparasitacion(models.Model):
     
-    conf_desparasitacion = models.BooleanField(default="False")
+    confirmacion_desparasitacion = models.BooleanField(default="False")
     fecha_desparasitacion = models.DateField()
     ficha_medica = models.ForeignKey(FichaMedica, on_delete=models.CASCADE)
     
@@ -355,11 +357,11 @@ class Cirugia(models.Model):
     
 class Esterilizacion(models.Model):
     
-    conf_esterilizacion = models.BooleanField(default="False")
+    confirmacion_esterilizacion = models.BooleanField(default="False")
     fecha_esterilizacion = models.DateField()
     lugar_esterilizacion = models.CharField(max_length=50)
     ficha_medica = models.ForeignKey(FichaMedica, on_delete=models.CASCADE)
     
     def __str__(self):
             
-        return self.conf_esterilizacion
+        return self.confirmacion_esterilizacion

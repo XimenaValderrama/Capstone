@@ -34,6 +34,11 @@
                             <input class="form-control" type="text" id="rut" name="rut" value="{{ usuario_perfil.rut }}" readonly>
                         </div>
                     </div>
+                    <!-- E-mail -->
+                    <div class="col-md-4">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ usuario.email }}" required>
+                    </div>
                 </div>
                 
                 <!-- Teléfono -->
@@ -44,10 +49,6 @@
                             <input class="form-control" type="text" id="telefono" name="telefono" value="{{ usuario_perfil.telefono }}" required>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Género -->
-                <div class="row mb-3">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="genero" class="form-control-label">Género</label>
@@ -60,8 +61,19 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="estado_economico" class="form-control-label">Estado economico</label>
+                            <select class="form-control" id="estado_economico_id" name="estado_economico" required>
+                                {% for estado_economico in estados_economicos %}
+                                <option value="{{ estado_economico.id }}" {% if usuario_perfil.estado_economico.id == estado_economico.id %}selected{% endif %}>
+                                    {{ estado_economico.descripcion }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                
                 <!-- Dirección -->
                 <div class="row mb-3">
                     <!-- Región -->

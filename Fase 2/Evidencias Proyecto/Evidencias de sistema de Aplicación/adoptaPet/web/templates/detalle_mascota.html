@@ -3,19 +3,19 @@
 
 {% block contenido %}
     <div class="container py-5">
-        <div class="row justify-content-center">
+        <div class="row ">
             <!-- Columna para la imagen de la mascota -->
-            <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <div class="col-md-4 ">
                 <img src="{{ mascota.imagen.url }}" class="card-img-top" alt="{{ mascota.nombre }}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 20px;">
             </div>
 
             <!-- Columna para los detalles dentro de una tarjeta -->
-            <div class="col-md-6 mt-6">
-                <div class="card">
+            <div class="col-md-8 ">
+                <div class="card" style="border-radius: 20px;" >
                     <!-- Contenido de la tarjeta -->
-                    <div class="card-body" style="background-color: #f7f7f7;">
-                        <h1 class="display-4">{{ mascota.nombre }} {{ mascota.apellido }}</h1>
-                        <ul class="list-group list-group-flush mb-4">
+                    <div class="card-body" style="background-color: #f7f7f7; border-radius: 20px;">
+                        <h3 class="mb-4">{{ mascota.nombre }} {{ mascota.apellido }}</h3>
+                        <ul class="list-group list-group-flush mb-4" style="border-radius: 20px;">
                             <li class="list-group-item"><strong>Tipo Mascota:</strong> {{ mascota.tipo.get_descripcion_display }}</li>
                             <li class="list-group-item"><strong>Estado Mascota:</strong> {{ mascota.estado_mascota.get_descripcion_display }}</li>
                             <li class="list-group-item"><strong>Edad:</strong> {{ mascota.edad }} {{ mascota.tipo_edad }}</li>
@@ -29,7 +29,7 @@
 
                         <div class="mb-4">
                             <h4>Descripción</h4>
-                            <ul class="list-group list-group-flush mb-4">
+                            <ul class="list-group list-group-flush mb-4" style="border-radius: 20px;">
                                 <li class="list-group-item"><strong>Descripción física:</strong> {{ mascota.descripcion.desc_fisica }}</li>
                                 <li class="list-group-item"><strong>Descripción personalidad:</strong> {{ mascota.descripcion.desc_personalidad }}</li>
                                 <li class="list-group-item"><strong>Descripción adicional:</strong> {{ mascota.descripcion.desc_adicional }}</li>
@@ -52,7 +52,9 @@
                                 </script>
                             {% else %}
                                 <!-- Botón habilitado si no existe el formulario -->
-                                <a href="{% url 'formulario_adopcion' mascota.id %}" class="btn btn-primary btn-lg">Adoptar</a>
+                                <a href="{% url 'formulario_adopcion' mascota.id %}" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-paw"></i> Adoptar
+                                </a>
                             {% endif %}
                         </div>
                         {% endif %}

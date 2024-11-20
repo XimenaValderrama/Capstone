@@ -22,10 +22,10 @@
         <div class="container">
           <div class="row">
             <div class="col-xl-5 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
-              <div class="card card-plain">
-                <div class="card-header pb-0 text-start">
+              <div class="card card-plain mt-5 mb-5">
+                <div class="pb-0 text-start">
                   <h4 class="font-weight-bolder">Registra a tu mascota</h4>
-                  <p class="mb-0">Ingresa los datos de la mascota</p>
+                  <p class="mb-2">Ingresa los datos de la mascota</p>
                 </div>
                 <div class="card-body">
                   <form method="POST" enctype="multipart/form-data">
@@ -128,7 +128,7 @@
                           {% endfor %}
                         </select>
                       </div>
-                      <h6>Imagen de la mascota</h6>
+                      <label>Imagen de la mascota</label>
                       <div class="font-weight-bold mt-1">
                         <input type="file" accept="image/jpeg, image/png" name="imagen" class="form-control bg-white py-2" required />
                       </div>     

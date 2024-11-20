@@ -20,6 +20,7 @@
   <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="{% static 'css/argon-dashboard.css' %}" rel="stylesheet" />
+
 </head>
 
 <body class="">
@@ -34,14 +35,24 @@
                 <div class="pb-0 text-start">
                   <h4 class="font-weight-bolder mb-0">Inicia sesión</h4>
                   <p class="mb-4 mt-2">Ingresa tus credenciales</p>
+                  
                   <!-- Mostrar mensajes de error -->
-                  {% if messages %}
-                    <div class="mt-2 text-danger" >
-                      {% for message in messages %}
-                        {{ message }}
-                      {% endfor %}
-                    </div>
-                  {% endif %}
+                {% if messages %}
+                  <div>
+                    {% for message in messages %}
+                      {% if 'contraseñas' in message.extra_tags %}
+                        <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
+                          {{ message }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                      {% elif 'registro_exitoso' in message.extra_tags %}
+                        <div class="alert alert-dismissible fade show" role="alert" style="background-color: #6cb44f; color: #ffffff;">
+                            {{ message }}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
                 </div>
                 <div class="card-body rounded">
                   <form role="form" method="post" >

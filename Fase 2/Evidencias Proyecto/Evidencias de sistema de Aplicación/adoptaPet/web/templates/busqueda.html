@@ -11,17 +11,16 @@
         {% if mascotas %}
             {% for mascota in mascotas %}
             <div class="col-lg-3 col-md-6 mb-4 mt-4">
-                <div class="card" style="width: 100%; margin-bottom: 20px;">
+                <div class="card clickable-card" style="width: 100%; margin-bottom: 20px;" onclick="location.href='{% url 'detalle_mascota' mascota.id %}'">
                     <div style="width: 100%; height: 18rem; display: flex; justify-content: center; align-items: center; overflow: hidden;">
                         <img src="{{ mascota.imagen.url }}" class="card-img-top" alt="{{ mascota.nombre }}" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
-                    <div class="card-body">
+                    <div class="card-body rounded-bottom">
                         <h5 class="card-title">{{ mascota.nombre }} {{ mascota.apellido }}</h5>
-                        <p class="card-text">Tipo: {{ mascota.tipo.get_descripcion_display }}</p>
+                        <p class="card-text mb-0">Tipo: {{ mascota.tipo.get_descripcion_display }}</p>
                         <p class="card-text">Estado: {{ mascota.estado_mascota.get_descripcion_display }}</p>
-                        <a href="{% url 'detalle_mascota' mascota.id %}" class="btn btn-primary">Ver</a>
                     </div>
-                </div>
+                </div>       
             </div>
             {% endfor %}
         {% else %}

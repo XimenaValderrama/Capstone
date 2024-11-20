@@ -36,13 +36,37 @@
                   <h4 class="font-weight-bolder mb-0">Registrate</h4>
                   <p class="mb-4 mt-2">Ingresa tus datos</p>
                 </div>
-                {% if messages %}
-                  <ul>
-                    {% for message in messages %}
-                      <li>{{ message }}</li>
-                    {% endfor %}
-                  </ul>
-                {% endif %}
+                {% for message in messages %}
+                      {% if 'coincidencia_contraseñas' in message.extra_tags %}
+                          <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
+                              {{ message }}
+                          </div>
+                      {% elif 'correo_duplicado' in message.extra_tags %}
+                          <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
+                              {{ message }}
+                          </div>
+                      {% elif 'correo_duplicado' in message.extra_tags %}
+                          <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
+                              {{ message }}
+                          </div>
+                      {% elif 'rut_duplicado' in message.extra_tags %}
+                          <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
+                              {{ message }}
+                          </div>
+                      {% elif 'largo_contraseña' in message.extra_tags %}
+                          <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
+                              {{ message }}
+                          </div>
+                      {% elif 'telefono' in message.extra_tags %}
+                          <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
+                              {{ message }}
+                          </div>
+                      {% elif 'largo_contraseña' in message.extra_tags %}
+                          <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
+                              {{ message }}
+                          </div>
+                      {% endif %}
+                  {% endfor %}
                 <div class="card-body rounded">
                   <form method="POST">
                     {% csrf_token %}

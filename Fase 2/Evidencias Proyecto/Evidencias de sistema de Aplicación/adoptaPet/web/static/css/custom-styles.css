@@ -1,0 +1,14 @@
+/* Estilo para tarjetas clickeables */
+.clickable-card {
+    cursor: pointer; /* Cambiar el cursor a pointer */
+    transition: transform 0.2s, box-shadow 0.2s; /* Animación de transformación */
+}
+
+.clickable-card:hover {
+    transform: scale(1.03); /* Ampliar ligeramente la tarjeta */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Añadir sombra al pasar el mouse */
+}
+
+
+
+

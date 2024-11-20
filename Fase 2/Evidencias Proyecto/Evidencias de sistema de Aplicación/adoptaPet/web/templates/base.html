@@ -21,6 +21,7 @@
   <link href="{% static "css/nucleo-svg.css" %}" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="{% static "css/argon-dashboard.css" %}" rel="stylesheet" />
+  <link href="{% static 'css/custom-styles.css' %}" rel="stylesheet"> 
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -41,14 +42,6 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 36 36"><path fill="currentColor" d="M33 19a1 1 0 0 1-.71-.29L18 4.41L3.71 18.71A1 1 0 0 1 2.3 17.3l15-15a1 1 0 0 1 1.41 0l15 15A1 1 0 0 1 33 19" class="clr-i-solid clr-i-solid-path-1"/><path fill="currentColor" d="M18 7.79L6 19.83V32a2 2 0 0 0 2 2h7V24h6v10h7a2 2 0 0 0 2-2V19.76Z" class="clr-i-solid clr-i-solid-path-2"/><path fill="none" d="M0 0h36v36H0z"/></svg>
             </div>
             <span class="nav-link-text ms-1">Inicio</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if "/tenencia_responsable/" in request.path %} active {% endif %}" href="{% url "tenencia_responsable" %}">
-            <div class="icon icon-shape icon-md border-radius-md text-center me-0 d-flex align-items-center justify-content-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M4.5 1.5c-.495 0-.883.301-1.123.662C3.134 2.526 3 3.001 3 3.5s.134.974.377 1.338c.24.36.628.662 1.123.662s.883-.301 1.123-.662C5.866 4.474 6 3.999 6 3.5s-.134-.974-.377-1.338c-.24-.36-.628-.662-1.123-.662m5 0c-.495 0-.883.301-1.123.662C8.134 2.526 8 3.001 8 3.5s.134.974.377 1.338c.24.36.628.662 1.123.662s.883-.301 1.123-.662c.243-.364.377-.839.377-1.338s-.134-.974-.377-1.338c-.24-.36-.628-.662-1.123-.662M1.5 6c-.495 0-.883.301-1.123.662C.134 7.026 0 7.501 0 8s.134.974.377 1.338c.24.36.628.662 1.123.662s.883-.301 1.123-.662C2.866 8.974 3 8.499 3 8s-.134-.974-.377-1.338C2.383 6.302 1.995 6 1.5 6M7 6c-1.2 0-2.089.644-2.657 1.443C3.782 8.23 3.5 9.207 3.5 10c0 .924.555 1.566 1.236 1.952c.67.38 1.51.548 2.264.548s1.594-.167 2.264-.548c.68-.386 1.236-1.028 1.236-1.952c0-.793-.282-1.77-.843-2.557C9.09 6.643 8.201 6 7 6m5.5 0c-.495 0-.883.301-1.123.662C11.134 7.026 11 7.501 11 8s.134.974.377 1.338c.24.36.628.662 1.123.662s.883-.301 1.123-.662C13.866 8.974 14 8.499 14 8s-.134-.974-.377-1.338C13.383 6.302 12.995 6 12.5 6" clip-rule="evenodd"/></svg>
-            </div>
-            <span class="nav-link-text ms-1">Tenencia responsable</span>
           </a>
         </li>
         <li class="nav-item">
@@ -83,8 +76,16 @@
             <span class="nav-link-text ms-1">Encontrados</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {% if "/tenencia_responsable/" in request.path %} active {% endif %}" href="{% url "tenencia_responsable" %}">
+            <div class="icon icon-shape icon-md border-radius-md text-center me-0 d-flex align-items-center justify-content-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M4.5 1.5c-.495 0-.883.301-1.123.662C3.134 2.526 3 3.001 3 3.5s.134.974.377 1.338c.24.36.628.662 1.123.662s.883-.301 1.123-.662C5.866 4.474 6 3.999 6 3.5s-.134-.974-.377-1.338c-.24-.36-.628-.662-1.123-.662m5 0c-.495 0-.883.301-1.123.662C8.134 2.526 8 3.001 8 3.5s.134.974.377 1.338c.24.36.628.662 1.123.662s.883-.301 1.123-.662c.243-.364.377-.839.377-1.338s-.134-.974-.377-1.338c-.24-.36-.628-.662-1.123-.662M1.5 6c-.495 0-.883.301-1.123.662C.134 7.026 0 7.501 0 8s.134.974.377 1.338c.24.36.628.662 1.123.662s.883-.301 1.123-.662C2.866 8.974 3 8.499 3 8s-.134-.974-.377-1.338C2.383 6.302 1.995 6 1.5 6M7 6c-1.2 0-2.089.644-2.657 1.443C3.782 8.23 3.5 9.207 3.5 10c0 .924.555 1.566 1.236 1.952c.67.38 1.51.548 2.264.548s1.594-.167 2.264-.548c.68-.386 1.236-1.028 1.236-1.952c0-.793-.282-1.77-.843-2.557C9.09 6.643 8.201 6 7 6m5.5 0c-.495 0-.883.301-1.123.662C11.134 7.026 11 7.501 11 8s.134.974.377 1.338c.24.36.628.662 1.123.662s.883-.301 1.123-.662C13.866 8.974 14 8.499 14 8s-.134-.974-.377-1.338C13.383 6.302 12.995 6 12.5 6" clip-rule="evenodd"/></svg>
+            </div>
+            <span class="nav-link-text ms-1">Tenencia responsable</span>
+          </a>
+        </li>
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Opciones</h6>
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Configuraciones</h6>
         </li>
         <li class="nav-item">
           <a class="nav-link {% if "/perfil/" in request.path %} active {% endif %}" href="/perfil/">
