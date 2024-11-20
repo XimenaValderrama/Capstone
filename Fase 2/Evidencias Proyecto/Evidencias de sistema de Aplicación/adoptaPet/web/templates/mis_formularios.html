@@ -59,7 +59,7 @@
 
 
 <script>
-    function confirmarEliminacion(mascotaId) {
+    function confirmarEliminacion(formularioid) {
         Swal.fire({
             title: '¿Estás seguro?',
             text: "Esta acción no se puede deshacer",
@@ -72,7 +72,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // Redirige a la vista de eliminación de la mascota si el usuario confirma
-                window.location.href = `/eliminar_mascota/${mascotaId}/`;
+                window.location.href = `/eliminar_formulario/${formularioid}/`;
             }
         });
     }

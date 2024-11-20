@@ -707,4 +707,13 @@ def detalle_formulario(request, formulario_id):
     }
     
     return render(request, "detalle_formulario.html", context)
+
+def eliminar_formulario(request, formulario_id):
+    # Obtener la mascota que se desea eliminar
+    formulario = get_object_or_404(FormularioAdopcion, id=formulario_id)
     
+    # Eliminar la mascota
+    formulario.delete()
+
+    # Redirigir a la lista de mascotas
+    return redirect('mis_formularios')

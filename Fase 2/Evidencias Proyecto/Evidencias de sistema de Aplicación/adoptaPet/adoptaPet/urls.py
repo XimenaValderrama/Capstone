@@ -74,4 +74,5 @@ urlpatterns = [
     path('eliminar_usuario/<int:user_profile_id>/', eliminar_usuario, name='eliminar_usuario'),
     path('mis_formularios/', mis_formularios, name="mis_formularios"),
     path('detalle_formulario/<int:formulario_id>/', detalle_formulario, name="detalle_formulario"),
+    path('eliminar_formulario/<int:formulario_id>/', eliminar_formulario, name='eliminar_formulario'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
