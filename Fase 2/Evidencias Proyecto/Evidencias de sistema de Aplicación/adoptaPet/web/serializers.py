@@ -22,10 +22,9 @@ class GeneroSerializer(serializers.ModelSerializer):
 
 class PerfilUsuarioSerializer(serializers.ModelSerializer):
 
-    estado_economico = serializers.PrimaryKeyRelatedField(queryset=EstadoEconomico.objects.all())
-    genero = serializers.PrimaryKeyRelatedField(queryset=Genero.objects.all())
-    usuario_django = serializers.StringRelatedField()
-
+    estado_economico = EstadoEconomicoSerializer()
+    genero = GeneroSerializer()
+    usuario_django = UserSerializer()
 
     class Meta:
         model = PerfilUsuario

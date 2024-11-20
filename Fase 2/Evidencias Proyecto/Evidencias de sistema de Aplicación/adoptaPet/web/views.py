@@ -17,8 +17,11 @@ from .serializers import *
 @permission_classes([IsAuthenticated, IsAdminUser])
 def modificar_eliminar_usuario(request, user_id):
     try:
-        usuario = User.objects.get(id=user_id)
-        perfil_usuario = PerfilUsuario.objects.get(usuario_django=usuario)
+
+        perfil_usuario = PerfilUsuario.objects.get(id=user_id)
+        usuario = perfil_usuario.usuario_django
+        
+
     except User.DoesNotExist:
         return Response({"error": "Usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
     except PerfilUsuario.DoesNotExist:
@@ -59,9 +62,27 @@ def modificar_eliminar_usuario(request, user_id):
     
     elif request.method == 'DELETE':
         # Eliminar perfil y usuario
-        perfil_usuario.delete()
         usuario.delete()
+        perfil_usuario.delete()
+
         return Response({"message": "Usuario y perfil eliminados correctamente."}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def eliminar_usuario(request, user_profile_id):
+    try:
+        perfil_usuario = PerfilUsuario.objects.get(id=user_profile_id)
+        usuario = perfil_usuario.usuario_django
+
+    except User.DoesNotExist:
+        return Response({"error": "Usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+    
+    except PerfilUsuario.DoesNotExist:
+        return Response({"error": "Perfil de usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+    
+    usuario.delete()
+    perfil_usuario.delete()
+    return Response({"message": "Usuario y perfil eliminados correctamente."}, status=status.HTTP_204_NO_CONTENT)
 
 @login_required(login_url="inicio_sesion")
 def inicio(request):
