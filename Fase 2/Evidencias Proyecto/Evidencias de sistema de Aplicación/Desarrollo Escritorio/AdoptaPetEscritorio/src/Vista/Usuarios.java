@@ -342,7 +342,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsernameActionPerformed
 
 private int usuarioId; // Variable para almacenar la ID seleccionada
-private String token = "b0533e8356de17655c128d5fa9a6ca4a0537872d";
+private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
 
 public void inicializarComponentes() {
 
@@ -445,7 +445,6 @@ public void inicializarComponentes() {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Error en la conexión. Código de respuesta: " + responseCode);
         }
     } catch (Exception e) {
         e.printStackTrace();
@@ -467,15 +466,15 @@ public void inicializarComponentes() {
     
     // Método para eliminar un usuario a través de la API
     private void eliminarUsuario(int usuarioId) {
-        String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para eliminar
+        String urlString = "http://127.0.0.1:8000/eliminar_usuario/" + usuarioId + "/"; // URL de la API para eliminar
 
         try {
             // Crear la URL y la conexión
             URL url = new URL(urlString);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            // Configurar el método DELETE y los encabezados
-            connection.setRequestMethod("DELETE");
+            // Configurar el método GET y los encabezados
+            connection.setRequestMethod("GET");
             connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
             connection.setRequestProperty("Accept", "application/json");
 

@@ -71,5 +71,5 @@ urlpatterns = [
     path('get_provincias/<int:region_id>/', obtener_provincias_perfil, name='get_provincias'),
     path('get_comunas/<int:provincia_id>/', obtener_comunas_perfil, name='get_comunas'),
     path('formulario_adopcion/<int:mascota_id>/', formulario_adopcion, name='formulario_adopcion'),
-    path('eliminar_usuario/<int:user_id>/', eliminar_usuario, name='eliminar_usuario'),
+    path('eliminar_usuario/<int:user_profile_id>/', eliminar_usuario, name='eliminar_usuario'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

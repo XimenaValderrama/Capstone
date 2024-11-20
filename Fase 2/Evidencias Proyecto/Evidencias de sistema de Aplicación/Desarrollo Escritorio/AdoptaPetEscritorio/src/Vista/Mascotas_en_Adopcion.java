@@ -8,12 +8,16 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -225,14 +229,55 @@ public class Mascotas_en_Adopcion extends javax.swing.JFrame {
         manejarSeleccionMascota(); // Llama al método para manejar la selección del usuario
     }//GEN-LAST:event_BTSeleccionarMasEnAdopActionPerformed
   
-    private String token = "b0533e8356de17655c128d5fa9a6ca4a0537872d";
-    //--------------------------------------------------------INICIO LISTAR DATOS-------------------------------------------------------------------------
+private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
+    
+//--------------------------------------------------------INICIO LISTAR DATOS MASCOTA EN ADOPCION-------------------------------------------------------------------------
 private void cargarDatosTabla() {
-    String urlString = "http://127.0.0.1:8000/api/mascota/?format=json";
+    String mascotasUrl = "http://127.0.0.1:8000/api/mascota/?format=json";
+    String usuariosUrl = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
     DefaultTableModel model = (DefaultTableModel) TablaMascotasAdoptadas.getModel();
-    model.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+    model.setRowCount(0);
 
     try {
+        // Obtener datos de mascotas
+        JSONArray mascotasArray = obtenerDatosDeApi(mascotasUrl);
+
+        // Obtener y procesar datos de usuarios
+        JSONArray usuariosArray = obtenerDatosDeApi(usuariosUrl);
+        Map<Integer, String> usuariosMap = procesarUsuarios(usuariosArray);
+
+        // Procesar datos de mascotas
+        for (int i = 0; i < mascotasArray.length(); i++) {
+            JSONObject mascota = mascotasArray.getJSONObject(i);
+
+            int idMascota = mascota.getInt("id");
+            String nombreMascota = mascota.optString("nombre", "N/A");
+
+            // Obtener la información del usuario (el objeto 'usuario' dentro de 'mascota')
+            JSONObject usuario = mascota.optJSONObject("usuario");
+            int idUsuario = usuario != null ? usuario.optInt("id", -1) : -1;  // Extraemos el 'id' del usuario
+
+
+            // Obtener el username del usuario usando el mapa de usuarios
+            String nombreUsuario = usuariosMap.getOrDefault(idUsuario, "N/A");
+
+
+            JSONObject estadoMascota = mascota.optJSONObject("estado_mascota");
+            String estado = estadoMascota != null ? estadoMascota.optString("descripcion", "N/A") : "N/A";
+
+            if (estado.equals("en_adopcion")) {
+                model.addRow(new Object[]{idMascota, nombreMascota, nombreUsuario, estado});
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al cargar datos de las APIs.");
+    }
+}
+
+
+// Método para obtener datos de la API
+    private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -244,65 +289,48 @@ private void cargarDatosTabla() {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder response = new StringBuilder();
             String inputLine;
-
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
             in.close();
-
-            // Parsear JSON
-            JSONArray mascotasArray = new JSONArray(response.toString());
-            for (int i = 0; i < mascotasArray.length(); i++) {
-                JSONObject mascotaObj = mascotasArray.getJSONObject(i);
-
-                // Obtener el ID y el nombre de la mascota
-                int id = mascotaObj.getInt("id");
-                String nombreMascota = mascotaObj.optString("nombre", "N/A");
-                
-                // Obtener el objeto usuario_django
-                JSONObject usuario = mascotaObj.optJSONObject("usuario_django");
-                String nombreUsuario = "N/A";
-                if (usuario != null) {
-                    nombreUsuario = usuario.optString("username", "N/A");
-                }
-
-                // Obtener el estado de la mascota
-                JSONObject estadoMascota = mascotaObj.optJSONObject("estado_mascota");
-                String estado = "N/A";
-                if (estadoMascota != null) {
-                    estado = estadoMascota.optString("descripcion", "N/A");  // Asumiendo que 'descripcion' es el campo dentro de 'estado_mascota'
-                }
-
-                // Filtrar solo las mascotas cuyo estado es "en_adopcion"
-                if (estado.equals("en_adopcion")) {
-                    // Mostrar en consola para depuración
-                    System.out.println("ID Mascota: " + id);
-                    System.out.println("Nombre Mascota: " + nombreMascota);
-                    System.out.println("Dueño: " + nombreUsuario);
-                    System.out.println("Estado de la Mascota: " + estado);
-
-                    // Añadir los datos a la tabla solo si la mascota está adoptada
-                    model.addRow(new Object[]{id, nombreMascota, nombreUsuario, estado});
-                }
-            }
+            return new JSONArray(response.toString());
         } else {
-            JOptionPane.showMessageDialog(this, "Error en la conexión. Código de respuesta: " + responseCode);
+            throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al cargar datos de la API.");
     }
+
+
+private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
+    Map<Integer, String> usuariosMap = new HashMap<>();
+    try {
+        // Recorrer todos los usuarios en el JSONArray
+        for (int i = 0; i < usuariosArray.length(); i++) {
+            JSONObject usuario = usuariosArray.getJSONObject(i);
+
+            int id = usuario.optInt("id", -1);
+            JSONObject usuarioDjango = usuario.optJSONObject("usuario_django");
+            String username = usuarioDjango != null ? usuarioDjango.optString("username", "N/A") : "N/A";
+
+            // Almacenar en el mapa
+            usuariosMap.put(id, username);
+
+            // Opcional: Mostrar en consola
+            System.out.println("ID: " + id + ", Username: " + username);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos del JSONArray.");
+    }
+    return usuariosMap;
 }
 
 
 
 
 
+//-------------------------------------------------------FIN LISTAR DATOS MASCOTA EN ADOPCION---------------------------------------------------------------------
 
-
-//-------------------------------------------------------FIN LISTAR DATOS---------------------------------------------------------------------
-
-//-------------------------------------------------------INICIO ELIMINAR MASCOTA ADOPTADA-----------------------------------------------------
+//-------------------------------------------------------INICIO ELIMINAR MASCOTA EN ADOPCION-----------------------------------------------------
 // Método para eliminar una mascota a través de la API
 private void eliminarMascota(int mascotaId) {
     String urlString = "http://127.0.0.1:8000/api/mascota/" + mascotaId + "/"; // URL de la API para eliminar
@@ -365,9 +393,9 @@ private void agregarListenerTabla() {
     });
 }
 
-//-------------------------------------------------------FIN ELIMINAR MASCOTA ADOPTADA--------------------------------------------------------
+//-------------------------------------------------------FIN ELIMINAR MASCOTA EN ADOPCION--------------------------------------------------------
 
-//--------------------------------------------------------INICIO SELECCION MASCOTA ADOPTADA-------------------------------------------------------------
+//--------------------------------------------------------INICIO SELECCION MASCOTA EN ADOPCION-------------------------------------------------------------
 // Método para seleccionar una mascota y cargar sus datos desde la API
 private void seleccionarMascota(int mascotaId) {
     String urlString = "http://127.0.0.1:8000/api/mascota/" + mascotaId + "/"; // URL de la API para obtener datos de la mascota
@@ -460,7 +488,7 @@ private void manejarSeleccionMascota() {
     }
 }
 
-//--------------------------------------------------------FIN SELECCION MASCOTA ADOPTADA-------------------------------------------------------
+//--------------------------------------------------------FIN SELECCION MASCOTA EN ADOPCION-------------------------------------------------------
     
     /**
      * @param args the command line arguments

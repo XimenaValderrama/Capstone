@@ -64,8 +64,9 @@ def modificar_eliminar_usuario(request, user_id):
         # Eliminar perfil y usuario
         usuario.delete()
         perfil_usuario.delete()
-
+        
         return Response({"message": "Usuario y perfil eliminados correctamente."}, status=status.HTTP_204_NO_CONTENT)
+    
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
