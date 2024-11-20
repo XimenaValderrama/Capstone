@@ -274,29 +274,7 @@ def cerrar_sesion(request):
 
 @login_required(login_url="inicio_sesion")
 def registro_mascota(request):
-    # Obtener listas de opciones para el formulario
-    paises = PaisMascota.objects.all()
-    regiones = RegionMascota.objects.all()
-    provincias = ProvinciaMascota.objects.all()
-    comunas = ComunaMascota.objects.all()
-    generos = GeneroMascota.objects.all()
-    estados = EstadoMascota.objects.all()
-    tipos = TipoMascota.objects.all()
-    razas = Razas.objects.all()
 
-    tipo_edades = Mascota.CHOICES
-    
-    context = {
-        'paises': paises,
-        'provincias': provincias,
-        'regiones': regiones,
-        'comunas': comunas,
-        'generos': generos,
-        'estados': estados,
-        'tipos': tipos,
-        'razas': razas,
-        'tipo_edades': tipo_edades 
-    }
 
     if request.method == 'POST':
         # Obtener datos del formulario
@@ -320,12 +298,11 @@ def registro_mascota(request):
         desc_personalidad = request.POST.get('desc_personalidad')
         desc_adicional = request.POST.get('desc_adicional')
 
-        # Crear la instancia de DescripcionMascota
-        descripcion = DescripcionMascota.objects.create(
-            desc_fisica=desc_fisica,
-            desc_personalidad=desc_personalidad,
-            desc_adicional=desc_adicional
-        )
+        descripcion = DescripcionMascota()
+        descripcion.desc_fisica = desc_fisica
+        descripcion.desc_personalidad = desc_personalidad
+        descripcion.desc_adicional = desc_adicional
+        descripcion.save() 
 
         # Validar y obtener instancias de relaciones ForeignKey
         estado_mascota = EstadoMascota.objects.get(id=estado_mascota_id)
@@ -336,31 +313,55 @@ def registro_mascota(request):
         usuario = PerfilUsuario.objects.get(usuario_django=request.user)
 
         # Crear la nueva dirección para la mascota
-        direccion = DireccionMascota.objects.create(
-            calle=calle,
-            numero=numero,
-            comuna=comuna
-        )
+        direccion = DireccionMascota()
+        direccion.calle = calle
+        direccion.numero = numero
+        direccion.comuna = comuna
+        direccion.save()
 
         # Crear la nueva mascota asociada con la descripción, dirección, y tipo de edad
-        mascota = Mascota.objects.create(
-            nombre=nombre,
-            apellido=apellido,
-            edad=edad,
-            tipo_edad=tipo_edad,  # <-- Asigna el tipo de edad aquí
-            imagen=imagen,
-            estado_mascota=estado_mascota,
-            raza=raza,
-            genero=genero,
-            descripcion=descripcion,
-            tipo=tipo,
-            direccion=direccion,  # Asocia la dirección recién creada
-            usuario=usuario
-        )
-
+        mascota = Mascota()
+        mascota.nombre = nombre
+        mascota.apellido = apellido
+        mascota.edad = edad
+        mascota.tipo_edad = tipo_edad
+        mascota.imagen = imagen
+        mascota.estado_mascota = estado_mascota
+        mascota.raza = raza
+        mascota.genero = genero
+        mascota.descripcion = descripcion
+        mascota.tipo = tipo
+        mascota.direccion = direccion
+        mascota.usuario = usuario
+        mascota.save()
+        
         # Redirigir a otra página después de guardar
-        return redirect('inicio')  # Cambia 'login' a la URL a la que quieres redirigir después del registro
+        return redirect('inicio') 
 
+    # Obtener listas de opciones para el formulario
+    paises = PaisMascota.objects.all()
+    regiones = RegionMascota.objects.all()
+    provincias = ProvinciaMascota.objects.all()
+    comunas = ComunaMascota.objects.all()
+    generos = GeneroMascota.objects.all()
+    estados = EstadoMascota.objects.all()
+    tipos = TipoMascota.objects.all()
+    razas = Razas.objects.all()
+
+    tipo_edades = Mascota.CHOICES
+    
+    context = {
+        'paises': paises,
+        'provincias': provincias,
+        'regiones': regiones,
+        'comunas': comunas,
+        'generos': generos,
+        'estados': estados,
+        'tipos': tipos,
+        'razas': razas,
+        'tipo_edades': tipo_edades 
+    }
+    
     # Mostrar el formulario de registro si el método es GET
     return render(request, 'registro_mascota.html', context)
 
@@ -451,16 +452,16 @@ def modificar_mascota(request, mascota_id):
         mascota.edad = edad
         mascota.tipo_edad = tipo_edad
         mascota.imagen = imagen
-        mascota.estado_mascota_id = estado_mascota_id
-        mascota.raza_id = raza_id
-        mascota.genero_id = genero_id
-        mascota.tipo_id = tipo_id
+        mascota.estado_mascota = EstadoMascota.objects.get(id=estado_mascota_id)
+        mascota.raza = Razas.objects.get(id=raza_id)
+        mascota.genero = GeneroMascota.objects.get(id=genero_id)
+        mascota.tipo = TipoMascota.objects.get(id=tipo_id)
         mascota.save()  # Guardar los cambios de la mascota
 
         # Actualizar la dirección
         direccion.calle = calle
         direccion.numero = numero
-        direccion.comuna_id = comuna_id
+        direccion.comuna = ComunaMascota.objects.get(id=comuna_id)
         direccion.save()  # Guardar los cambios de la dirección
 
         # Actualizar la descripción de la mascota
@@ -527,21 +528,20 @@ def modificar_perfil(request):
         # Campos editables
         telefono = request.POST.get("telefono")
         genero_id = request.POST.get("genero")
-        region_id = request.POST.get("region")
-        provincia_id = request.POST.get("provincia")
         comuna_id = request.POST.get("comuna")
         calle = request.POST.get("calle")
         numero = request.POST.get("numero")
+        
 
         # Actualizar perfil de usuario
         usuario_perfil.telefono = telefono
-        usuario_perfil.genero_id = genero_id
+        usuario_perfil.genero = genero_id
         usuario_perfil.save()
 
         # Actualizar dirección
         direccion.calle = calle
         direccion.numero = numero
-        direccion.comuna_id = comuna_id
+        direccion.comuna = comuna_id
         direccion.save()
 
         # Redirigir tras guardar cambios
@@ -552,8 +552,8 @@ def modificar_perfil(request):
     regiones = Region.objects.all()
     provincias = Provincia.objects.filter(region=direccion.comuna.provincia.region)
     comunas = Comuna.objects.filter(provincia=direccion.comuna.provincia)
-
-    return render(request, "modificar_perfil.html", {
+    
+    context = {
         "usuario": request.user,
         "usuario_perfil": usuario_perfil,
         "direccion": direccion,
@@ -561,7 +561,9 @@ def modificar_perfil(request):
         "regiones": regiones,
         "provincias": provincias,
         "comunas": comunas,
-    })
+    }
+
+    return render(request, "modificar_perfil.html", context)
 
 def obtener_provincias_perfil(request, region_id):
     provincias = Provincia.objects.filter(region_id=region_id).values('id', 'nombre')
@@ -600,18 +602,18 @@ def formulario_adopcion(request, mascota_id):
         estado_pendiente = EstadoFormulario.objects.get(descripcion="pendiente")
 
         # Crear el nuevo formulario de adopción
-        formulario = FormularioAdopcion(
-            comentarios=comentarios,
-            estado_formulario=estado_pendiente,
-            usuario=usuario_perfil,
-            mascota=mascota,
-        )
+        formulario = FormularioAdopcion()
+        formulario.comentarios = comentarios
+        formulario.estado_formulario = estado_pendiente
+        formulario.usuario = usuario_perfil
+        formulario.mascota = mascota
         formulario.save()
+        
 
         messages.success(request, "Tu formulario de adopción ha sido enviado exitosamente.")
         return redirect('detalle_mascota', mascota_id=mascota.id)
 
-    return render(request, "formulario_adopcion.html", {
+    context = {
         "usuario": request.user,
         "usuario_perfil": usuario_perfil,
         "mascota": mascota,
@@ -619,5 +621,12 @@ def formulario_adopcion(request, mascota_id):
         "region": region,
         "provincia": provincia,
         "comuna": comuna,
-        "estado_economico": usuario_perfil.estado_economico,
-    })
+        "estado_economico": usuario_perfil.estado_economico
+    }
+
+    return render(request, "formulario_adopcion.html", context)
+
+def mis_formularios(request, formulario_id):
+    formularios = get_object_or_404(FormularioAdopcion, id=formulario_id)
+    
+    return render(request, "mis_formularios.html")

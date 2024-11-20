@@ -3,6 +3,7 @@
 
 {% block contenido %}
 <div class="container-fluid py-4">
+    {% if mascotas %}
     <div class="row">
         {% for mascota in mascotas %}
         <div class="col-lg-3 col-md-6 mb-4">  <!-- Tres tarjetas por fila en pantallas grandes, dos en medianas -->
@@ -19,6 +20,11 @@
             </div>
         </div>
         {% endfor %}
+        {% else %}
+        <div class="col-12 mt-12 mb-10">
+            <h3 class="text-center">No hay mascotas en este momento.</h3>
+          </div>
+      {% endif %}
     </div>
 </div>
 {% endblock contenido %}
