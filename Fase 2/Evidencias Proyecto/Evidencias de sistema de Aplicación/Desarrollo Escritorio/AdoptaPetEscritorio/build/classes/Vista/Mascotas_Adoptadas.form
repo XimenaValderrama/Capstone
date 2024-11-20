@@ -56,8 +56,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="BTEliminarP" alignment="1" min="-2" pref="250" max="-2" attributes="0"/>
-                              <Component id="BTModificarP" alignment="1" min="-2" pref="250" max="-2" attributes="0"/>
+                              <Component id="BTEliminarADOP" alignment="1" min="-2" pref="250" max="-2" attributes="0"/>
+                              <Component id="BTModificarADOP" alignment="1" min="-2" pref="250" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
@@ -87,11 +87,11 @@
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="BTModificarADOP" min="-2" pref="79" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="BTModificarP" min="-2" pref="79" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="BTEliminarP" min="-2" pref="79" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                          <Component id="BTEliminarADOP" min="-2" pref="79" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -107,9 +107,9 @@
             <Property name="text" type="java.lang.String" value="Bienvenido:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="BTEliminarP">
+        <Component class="javax.swing.JButton" name="BTEliminarADOP">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Eliminar Formularios"/>
+            <Property name="text" type="java.lang.String" value="Eliminar Mascotas Adoptadas"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtUsuario">
@@ -141,12 +141,12 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="BTModificarP">
+        <Component class="javax.swing.JButton" name="BTModificarADOP">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Modificar Formularios"/>
+            <Property name="text" type="java.lang.String" value="Modificar Mascotas Adoptadas"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTModificarPActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTModificarADOPActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BTVolver">
