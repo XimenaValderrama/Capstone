@@ -468,7 +468,6 @@ public void inicializarComponentes() {
     // Método para eliminar un usuario a través de la API
     private void eliminarUsuario(int usuarioId) {
         String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para eliminar
-        String token = "b0533e8356de17655c128d5fa9a6ca4a0537872d";  // Token de autenticación
 
         try {
             // Crear la URL y la conexión
