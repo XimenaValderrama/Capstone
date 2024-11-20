@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="{% static "img/apple-icon.png" %}">
   <link rel="icon" type="image/png" href="{% static "img/favicon.png" %}">
   <title>
-    AdoptaPet
+    AdoptaPet - Registro
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -31,10 +31,10 @@
           <div class="row">
             <div class="col-xl-5 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
               <div class="card card-plain">
-                <img class="w-80 mx-auto mb-3" src="{% static "img/logos/AdoptaPet.png" %}" alt="sidebar_illustration">
-                <div class="card-header pb-0 text-start">
-                  <h4 class="font-weight-bolder">Registrate</h4>
-                  <p class="mb-0">Ingresa tus datos</p>
+                <img class="w-50 mb-3" src="{% static "img/logos/AdoptaPet.png" %}" alt="sidebar_illustration">
+                <div class="pb-0 text-start">
+                  <h4 class="font-weight-bolder mb-0">Registrate</h4>
+                  <p class="mb-4 mt-2">Ingresa tus datos</p>
                 </div>
                 {% if messages %}
                   <ul>
@@ -43,47 +43,46 @@
                     {% endfor %}
                   </ul>
                 {% endif %}
-                <div class="card-body">
+                <div class="card-body rounded">
                   <form method="POST">
                     {% csrf_token %}
                     <div class="row">
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mb-3 mt-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Nombre" name="nombre" aria-label="Nombre" required>
-                        
                       </div>
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Apellido" name="apellido" aria-label="Apellido" required>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-lg" id="rut" oninput="this.value = formatRUT(this.value)" placeholder="Rut" name="rut" aria-label="Rut" required>
+                      <div class="col-md-6 mt-3">
+                        <input type="text" class="form-control form-control-lg" id="rut" oninput="this.value = formatRUT(this.value)" placeholder="RUT" name="rut" aria-label="Rut" required>
                       </div>
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <input type="number" class="form-control form-control-lg" placeholder="Teléfono" name="telefono" aria-label="Teléfono" required>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Correo electrónico" name="email" aria-label="Correo electrónico" required>
                       </div>
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <input type="password" class="form-control form-control-lg" placeholder="Contraseña" name="password1" aria-label="Contraseña" required>
                       </div>
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <input type="password" class="form-control form-control-lg" placeholder="Confirma contraseña" name="password2" aria-label="Contraseña" required>
                       </div>
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Calle" name="calle" aria-label="Calle" required>
                       </div>
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Numero de calle" name="numero" aria-label="Numero" required>
                       </div>
                     </div>
 
                     <!-- Últimos 7 campos select -->
                     <div class="row">
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <select class="form-control form-control-lg" name="genero" aria-label="Select 5" required>
                           <option selected disabled>Genero</option>
                           {% for genero in generos %}
@@ -91,7 +90,7 @@
                           {% endfor %}
                         </select>
                       </div>
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <select class="form-control form-control-lg" name="estado_economico" aria-label="Select 6" required>
                           <option selected disabled>Estado economico</option>
                           {% for estadoeconomico in estadoseconomicos %}
@@ -101,7 +100,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <select id="regionSelect" class="form-control form-control-lg" name="region" aria-label="Select 3" required>
                           <option selected disabled>Region</option>
                           {% for region in regiones %}
@@ -109,19 +108,19 @@
                           {% endfor %}
                         </select>
                       </div>
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <select id="provinciaSelect" class="form-control form-control-lg" name="provincia" aria-label="Select 2" required>
                           <option selected disabled>Provincia</option>
                         </select>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <select id="comunaSelect" class="form-control form-control-lg" name="comuna" aria-label="Select 1" required>
                           <option selected disabled>Comuna</option>
                         </select>
                       </div>
-                      <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mt-3">
                         <select class="form-control form-control-lg" name="pais" aria-label="Select 4" required>
                           <option selected disabled>Pais</option>
                           {% for pais in paises %}
@@ -131,13 +130,13 @@
                       </div>
                     </div>
                                        
-                    <div class="text-center">
-                      <button type="submit"  class="btn btn-lg btn-primary btn-lg w-50 mt-4 mb-0">Registrarse</button>
+                    <div class="text-center d-flex justify-content-end">
+                      <button type="submit"  class="btn btn-lg btn-primary btn-lg w-50 mt-4 mb-3">Registrarse</button>
                     </div>
                   </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                  <p class="mb-4 text-sm mx-auto">
+                  <p class="mt-3 text-sm mx-auto">
                     Ya tienes una cuenta?
                     <a href="/" class="text-primary text-gradient font-weight-bold">Inicia sesión</a>
                   </p>

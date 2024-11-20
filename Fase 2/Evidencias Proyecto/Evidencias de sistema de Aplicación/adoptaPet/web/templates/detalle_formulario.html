@@ -1,0 +1,76 @@
+{% extends "base3.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container py-4">
+    <div class="card">
+        <div class="card-header text-center">
+            <h4 class="mb-0">Detalle formulario de {{ formulario.mascota.nombre }} {{ formulario.mascota.apellido }} </h4>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                
+                <!-- Datos del Usuario -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label>Nombre:</label>
+                        <input type="text" class="form-control" value="{{ formulario.usuario.usuario_django.first_name }}" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Apellido:</label>
+                        <input type="text" class="form-control" value="{{ formulario.usuario.usuario_django.last_name }}" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Correo Electrónico:</label>
+                        <input type="text" class="form-control" value="{{ formulario.usuario.usuario_django.email }}" readonly>
+                    </div>
+                </div>
+
+                <!-- Datos del Perfil -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label>RUT:</label>
+                        <input type="text" class="form-control" value="{{ formulario.usuario.rut }}" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Teléfono:</label>
+                        <input type="text" class="form-control" value="{{ formulario.usuario.telefono }}" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Estado Económico:</label>
+                        <input type="text" class="form-control" value="{{ formulario.usuario.estado_economico.descripcion }}" readonly>
+                    </div>
+                </div>
+
+                <!-- Dirección -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label>País:</label>
+                        <input type="text" class="form-control" value="{{ pais.nombre }}" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Región:</label>
+                        <input type="text" class="form-control" value="{{ region.nombre }}" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Provincia:</label>
+                        <input type="text" class="form-control" value="{{ provincia.nombre }}" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Comuna:</label>
+                        <input type="text" class="form-control" value="{{ comuna.nombre }}" readonly>
+                    </div>
+                </div>
+
+                <!-- Comentarios -->
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label>Comentarios:</label>
+                        <textarea class="form-control" name="comentarios" rows="4" readonly>{{ formulario.comentarios }}</textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

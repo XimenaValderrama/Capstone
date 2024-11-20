@@ -398,13 +398,15 @@ def detalle_mascota(request, mascota_id):
 
     # Verificar si ya existe un formulario para esta mascota y este usuario
     formulario_existente = FormularioAdopcion.objects.filter(usuario=usuario_perfil, mascota=mascota).exists()
-
-    return render(request, 'detalle_mascota.html', {
+    
+    context = {
         'mascota': mascota,
         'usuario_registrador': usuario_registrador,
         'formulario_existente': formulario_existente,
         'es_registrador': es_registrador,  # Pasamos esta información al template
-    })
+    }
+
+    return render(request, 'detalle_mascota.html', context)
 
 def get_provincias(request, region_id):
     provincias = Provincia.objects.filter(region_id=region_id).values('id', 'nombre')
@@ -468,7 +470,7 @@ def modificar_mascota(request, mascota_id):
         desc_personalidad = request.POST.get('descripcion_personalidad', descripcion_mascota.desc_personalidad)
         desc_adicional = request.POST.get('descripcion_adicional', descripcion_mascota.desc_adicional)
 
-        # Actualizar los atributos de la mascota
+        # Actualizar los atributos de la mascotaa
         mascota.nombre = nombre
         mascota.apellido = apellido
         mascota.edad = edad
@@ -648,7 +650,40 @@ def formulario_adopcion(request, mascota_id):
 
     return render(request, "formulario_adopcion.html", context)
 
-def mis_formularios(request, formulario_id):
-    formularios = get_object_or_404(FormularioAdopcion, id=formulario_id)
+@login_required(login_url="inicio_sesion")
+def mis_formularios(request):
+    usuario = PerfilUsuario.objects.get(usuario_django=request.user)
+    formularios = FormularioAdopcion.objects.filter(usuario=usuario)
     
-    return render(request, "mis_formularios.html")
+    context = {
+        'formularios' : formularios,
+        'usuario' : usuario
+    }
+    
+    return render(request, "mis_formularios.html", context)
+
+@login_required(login_url="inicio_sesion")
+def detalle_formulario(request, formulario_id):
+    formulario = get_object_or_404(FormularioAdopcion, id=formulario_id)
+    usuario = formulario.usuario
+    direccion = DireccionUsuario.objects.filter(usuario=usuario).first()
+    
+    comuna = direccion.comuna if direccion else None
+    provincia = comuna.provincia if comuna else None
+    region = provincia.region if provincia else None
+    pais = region.pais if region else None
+    
+    context = {
+        
+        'formulario' : formulario,
+        'usuario' : usuario,
+        'direccion' : direccion,
+        'comuna': comuna,
+        'provincia': provincia,
+        'region': region,
+        'pais': pais
+                
+    }
+    
+    return render(request, "detalle_formulario.html", context)
+    

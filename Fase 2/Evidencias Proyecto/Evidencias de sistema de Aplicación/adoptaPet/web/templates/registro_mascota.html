@@ -23,18 +23,10 @@
           <div class="row">
             <div class="col-xl-5 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
               <div class="card card-plain">
-                <img class="w-80 mx-auto mb-3" src="{% static 'img/logos/AdoptaPet.png' %}" alt="AdoptaPet Logo">
                 <div class="card-header pb-0 text-start">
                   <h4 class="font-weight-bolder">Registra a tu mascota</h4>
                   <p class="mb-0">Ingresa los datos de la mascota</p>
                 </div>
-                {% if messages %}
-                  <ul>
-                    {% for message in messages %}
-                      <li>{{ message }}</li>
-                    {% endfor %}
-                  </ul>
-                {% endif %}
                 <div class="card-body">
                   <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -61,16 +53,13 @@
                       <div class="col-md-6 mb-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Calle" name="calle" required>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-md-6 mb-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Número de calle" name="numero" required>
                       </div>
                     </div>
-
                     <!-- Selects de datos relacionados -->
                     <div class="row">
-                      <div class="col-md-4 mb-3">
+                      <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" name="raza" required>
                           <option selected disabled>Raza</option>
                           {% for raza in razas %}
@@ -78,7 +67,7 @@
                           {% endfor %}
                         </select>
                       </div>
-                      <div class="col-md-4 mb-3">
+                      <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" name="genero" required>
                           <option selected disabled>Género</option>
                           {% for genero in generos %}
@@ -86,7 +75,10 @@
                           {% endfor %}
                         </select>
                       </div>
-                      <div class="col-md-4 mb-3">
+                      
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" name="tipo" required>
                           <option selected disabled>Tipo de mascota</option>
                           {% for tipo in tipos %}
@@ -94,9 +86,7 @@
                           {% endfor %}
                         </select>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 mb-3">
+                      <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" name="estado_mascota" required>
                           <option selected disabled>Estado de mascota</option>
                           {% for estado in estados %}
@@ -104,7 +94,7 @@
                           {% endfor %}
                         </select>
                       </div>
-                      <div class="col-md-4 mb-3">
+                      <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" name="pais" required>
                           <option selected disabled>País</option>
                           {% for pais in paises %}
@@ -112,7 +102,7 @@
                           {% endfor %}
                         </select>
                       </div>
-                      <div class="col-md-4 mb-3">
+                      <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" id="regionSelect" name="region" required>
                           <option selected disabled>Región</option>
                           {% for region in regiones %}
@@ -122,7 +112,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-4 mb-3">
+                      <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" id="provinciaSelect" name="provincia" required>
                           <option selected disabled>Provincia</option>
                           {% for provincia in provincias %}
@@ -130,7 +120,7 @@
                           {% endfor %}
                         </select>
                       </div>
-                      <div class="col-md-4 mb-3">
+                      <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" id="comunaSelect" name="comuna" required>
                           <option selected disabled>Comuna</option>
                           {% for comuna in comunas %}
@@ -143,30 +133,26 @@
                         <input type="file" accept="image/jpeg, image/png" name="imagen" class="form-control bg-white py-2" required />
                       </div>     
                     </div>
-                    <div class="row">
-                      <div class="col-md-12 mb-3">
-                          <label for="desc_fisica" class="form-label">Descripción Física</label>
-                          <textarea class="form-control form-control-lg" id="desc_fisica" name="desc_fisica" rows="3" required></textarea>
-                      </div>
-                  </div>
                   <div class="row">
-                      <div class="col-md-12 mb-3">
-                          <label for="desc_personalidad" class="form-label">Descripción de la Personalidad</label>
-                          <textarea class="form-control form-control-lg" id="desc_personalidad" name="desc_personalidad" rows="3" required></textarea>
+                      <div class="col-md-12 mt-2">
+                        <label for="desc_fisica" class="form-label">Descripción Física</label>
+                        <textarea class="form-control form-control-lg" id="desc_fisica" name="desc_fisica" rows="3" required></textarea>
                       </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-12 mb-3">
+                      <div class="col-md-12 mt-2">
+                        <label for="desc_personalidad" class="form-label">Descripción de la Personalidad</label>
+                        <textarea class="form-control form-control-lg" id="desc_personalidad" name="desc_personalidad" rows="3" required></textarea>
+                      </div>
+                      <div class="col-md-12 mt-2">
                           <label for="desc_adicional" class="form-label">Descripción Adicional</label>
                           <textarea class="form-control form-control-lg" id="desc_adicional" name="desc_adicional" rows="3"></textarea>
                       </div>
                   </div>
                     <div class="row">
-                      <div class="col-md-6 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0">Registrar</button>
+                      <div class="col-md-6 d-flex justify-content-start mt-2">
+                        <a href="{% url 'inicio' %}" class="btn btn-lg btn-outline-warning w-100 mt-4 mb-0">Cancelar</a>
                       </div>
-                      <div class="col-md-6 d-flex justify-content-start">
-                        <a href="{% url 'inicio' %}" class="btn btn-lg btn-primary w-100 mt-4 mb-0">Cancelar</a>
+                      <div class="col-md-6 d-flex justify-content-end mt-2">
+                        <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0">Registrar</button>
                       </div>
                     </div>
                   </form>
