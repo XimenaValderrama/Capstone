@@ -11,6 +11,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from .serializers import *
+from web.cargar_datos_fundaciones import consumir_y_guardar_fundaciones
+from django.http import JsonResponse
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated, IsAdminUser])
@@ -717,3 +719,7 @@ def eliminar_formulario(request, formulario_id):
 
     # Redirigir a la lista de mascotas
     return redirect('mis_formularios')
+
+def actualizar_fundaciones(request):
+    mensaje = consumir_y_guardar_fundaciones()
+    return JsonResponse({"mensaje": mensaje})
