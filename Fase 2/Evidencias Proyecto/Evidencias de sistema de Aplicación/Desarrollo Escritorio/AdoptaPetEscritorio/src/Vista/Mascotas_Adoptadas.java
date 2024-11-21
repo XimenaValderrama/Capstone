@@ -256,7 +256,7 @@ private void cargarDatosTabla() {
             // Obtener la información del usuario (el objeto 'usuario' dentro de 'mascota')
             JSONObject usuario = mascota.optJSONObject("usuario");
             int idUsuario = usuario != null ? usuario.optInt("id", -1) : -1;  // Extraemos el 'id' del usuario
-
+            
 
             // Obtener el username del usuario usando el mapa de usuarios
             String nombreUsuario = usuariosMap.getOrDefault(idUsuario, "N/A");

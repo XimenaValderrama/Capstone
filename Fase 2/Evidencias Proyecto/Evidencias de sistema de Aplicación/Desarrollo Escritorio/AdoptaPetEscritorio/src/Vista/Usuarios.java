@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -25,6 +26,7 @@ import javax.swing.JOptionPane;
 import org.json.Cookie;
 import java.util.HashMap;
 import java.util.Map;
+import org.json.JSONException;
 
 /**
  *
@@ -102,18 +104,32 @@ public class Usuarios extends javax.swing.JFrame {
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         txtUsuario.setText("@NOMBRE ADMIN");
 
+        TableUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         TableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Usuario", "Rut", "Telefono", "Estado Economico", "Genero"
+                "ID", "Nombre", "Apellido", "Rut", "Telefono", "Estado Economico", "Genero", "Pais", "Region", "Provincia", "Comuna", "Direccion"
             }
         ));
+        TableUsuarios.setMinimumSize(new java.awt.Dimension(180, 180));
+        TableUsuarios.setRowHeight(20);
         jScrollPane2.setViewportView(TableUsuarios);
+        if (TableUsuarios.getColumnModel().getColumnCount() > 0) {
+            TableUsuarios.getColumnModel().getColumn(0).setMaxWidth(100);
+            TableUsuarios.getColumnModel().getColumn(3).setMinWidth(100);
+            TableUsuarios.getColumnModel().getColumn(4).setMinWidth(100);
+            TableUsuarios.getColumnModel().getColumn(5).setMinWidth(100);
+            TableUsuarios.getColumnModel().getColumn(6).setMinWidth(100);
+            TableUsuarios.getColumnModel().getColumn(8).setMinWidth(350);
+            TableUsuarios.getColumnModel().getColumn(9).setMinWidth(200);
+            TableUsuarios.getColumnModel().getColumn(10).setMinWidth(100);
+            TableUsuarios.getColumnModel().getColumn(11).setMinWidth(100);
+        }
 
         BTSeleccionarUS.setText("Seleccionar Usuario");
         BTSeleccionarUS.addActionListener(new java.awt.event.ActionListener() {
@@ -199,39 +215,37 @@ public class Usuarios extends javax.swing.JFrame {
                                             .addComponent(jLabel2)
                                             .addComponent(jLabel7)
                                             .addComponent(jLabel8))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                                        .addGap(57, 57, 57)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(15, 15, 15)
+                                                .addComponent(BTSeleccionarUS)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(txtUsername)
+                                            .addComponent(txtApellido)
+                                            .addComponent(txtNombre)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel3)
                                             .addComponent(jLabel4)
                                             .addComponent(jLabel5)
-                                            .addComponent(jLabel6))
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel9))
                                         .addGap(62, 62, 62)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtEmail)
                                             .addComponent(txtEC, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtRut)
-                                            .addComponent(txtG)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(52, 52, 52))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(BTSeleccionarUS)
-                                .addGap(130, 130, 130))
+                                            .addComponent(txtG)
+                                            .addComponent(txtRut))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(72, 72, 72)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(BTEliminarUS, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(BTModificarUS1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1466, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -244,12 +258,13 @@ public class Usuarios extends javax.swing.JFrame {
                             .addComponent(txtUsuario)
                             .addComponent(jLabel1)))
                     .addComponent(BTVolver))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
                         .addComponent(BTSeleccionarUS)
-                        .addGap(13, 13, 13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -284,22 +299,19 @@ public class Usuarios extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(BTModificarUS1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
-                        .addComponent(BTEliminarUS, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 136, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(BTEliminarUS, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -344,6 +356,9 @@ public class Usuarios extends javax.swing.JFrame {
 private int usuarioId; // Variable para almacenar la ID seleccionada
 private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
 
+
+
+
 public void inicializarComponentes() {
 
     
@@ -373,84 +388,170 @@ public void inicializarComponentes() {
     }
 
 //--------------------------------------------------------INICIO LISTAR DATOS-------------------------------------------------------------------------
-    private void cargarDatosTabla() {
-    String urlString = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
+private void cargarDatosTabla() {
+    String usuariosUrl = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
+    String direccionesUrl = "http://127.0.0.1:8000/api/direccionusuario/?format=json";
     DefaultTableModel model = (DefaultTableModel) TableUsuarios.getModel();
     model.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
 
     try {
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Authorization", "Token " + token);
-        connection.connect();
+        // Obtener datos de usuarios
+        JSONArray usuariosArray = obtenerDatosDeApi(usuariosUrl);
 
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String inputLine;
+        // Obtener datos de direcciones
+        JSONArray direccionesArray = obtenerDatosDeApi(direccionesUrl);
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
+        // Crear un mapa para relacionar usuario ID con su dirección
+        Map<Integer, String> direccionesMap = procesarDirecciones(direccionesArray);
 
-            // Parsear JSON
-            JSONArray usuariosArray = new JSONArray(response.toString());
-            for (int i = 0; i < usuariosArray.length(); i++) {
-                JSONObject usuarioObj = usuariosArray.getJSONObject(i);
+        // Procesar datos de usuarios
+        for (int i = 0; i < usuariosArray.length(); i++) {
+            JSONObject usuarioObj = usuariosArray.getJSONObject(i);
+            JSONObject DireccionObj = direccionesArray.getJSONObject(i);
+            int id = usuarioObj.getInt("id");
+            String rut = usuarioObj.optString("rut", "N/A");
+            String telefono = usuarioObj.optString("telefono", "N/A");
 
-                // Obtener la ID y otros atributos
-                int id = usuarioObj.getInt("id");
-                String rut = usuarioObj.optString("rut", "N/A");
-                String telefono = usuarioObj.optString("telefono", "N/A");
+            // Procesar el estado económico
+            JSONObject estadoEconomicoObj = usuarioObj.optJSONObject("estado_economico");
+            String estadoEconomico = estadoEconomicoObj != null ? estadoEconomicoObj.optString("descripcion", "N/A") : "N/A";
 
-                // Procesar estado económico como objeto JSON
-                JSONObject estadoEconomicoObj = usuarioObj.optJSONObject("estado_economico");
-                String estadoEconomico = "N/A";
-                if (estadoEconomicoObj != null) {
-                    estadoEconomico = estadoEconomicoObj.optString("descripcion", "N/A");
-                }
+            // Procesar género
+            JSONObject generoObj = usuarioObj.optJSONObject("genero");
+            String genero = generoObj != null ? generoObj.optString("descripcion", "N/A") : usuarioObj.optString("genero", "N/A");
 
-                // Procesar genero como objeto JSON o cadena simple
-                String genero = "N/A";
-                JSONObject generoObj = usuarioObj.optJSONObject("genero");
-                if (generoObj != null) {
-                    genero = generoObj.optString("descripcion", "N/A");
-                } else {
-                    // Si genero es un valor simple, asignarlo directamente
-                    genero = usuarioObj.optString("genero", "N/A");
-                }
+            // Obtener datos del usuario Django
+            JSONObject usuarioDjango = usuarioObj.optJSONObject("usuario_django");
+            String firstName = usuarioDjango != null ? usuarioDjango.optString("first_name", "N/A") : "N/A";
+            String lastName = usuarioDjango != null ? usuarioDjango.optString("last_name", "N/A") : "N/A";
+            
+            //Sacar La Calle
+            String direccion = DireccionObj.optString("calle", "N/A");
+            
+            //Sacar la Comuna
+            JSONObject ComunaObj = DireccionObj.optJSONObject("comuna");
+            String comuna = ComunaObj != null ? ComunaObj.optString("nombre", "N/A") : "N/A";
+   
+            //Sacar La Provincia
+            JSONObject ProvinciaObj = ComunaObj.optJSONObject("provincia");
+            String Provincia = ProvinciaObj != null ? ProvinciaObj.optString("nombre", "N/A") : "N/A";
+            
+            //Sacar La Region
+            JSONObject RegionObj = ProvinciaObj.optJSONObject("region");
+            String Region = RegionObj != null ? RegionObj.optString("nombre", "N/A") : "N/A";
+            
+            //Sacar El Pais
+            JSONObject PaisObj = RegionObj.optJSONObject("pais");
+            String Pais = PaisObj != null ? PaisObj.optString("nombre", "N/A") : "N/A";
 
-                // Obtener el objeto dentro de "usuario_django"
-                JSONObject usuarioDjango = usuarioObj.optJSONObject("usuario_django");
-
-                if (usuarioDjango != null) {
-                    String lastName = usuarioDjango.optString("last_name", "N/A");
-                    String firstName = usuarioDjango.optString("first_name", "N/A");
-                    String email = usuarioDjango.optString("email", "N/A");
-
-                    System.out.println("Apellido: " + lastName);
-                    System.out.println("Nombre: " + firstName);
-                    System.out.println("Email: " + email);
-                    System.out.println("Estado Económico: " + estadoEconomico);
-                    System.out.println("Género: " + genero);
-                    
-
-                    // Añadir los datos a la tabla
-                    model.addRow(new Object[]{id, firstName, lastName, rut, telefono, estadoEconomico, genero});
-                } else {
-                    System.out.println("El campo 'usuario_django' no contiene un objeto JSON válido.");
-                }
-            }
-        } else {
+            
+            // Añadir datos a la tabla
+            model.addRow(new Object[]{id, firstName, lastName, rut, telefono, estadoEconomico, genero, Pais, Region, Provincia, comuna, direccion});
         }
     } catch (Exception e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al cargar datos de la API.");
+        JOptionPane.showMessageDialog(null, "Error al cargar datos de las APIs.");
     }
 }
+
+// Método para obtener datos de la API
+private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
+    URL url = new URL(urlString);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("GET");
+    connection.setRequestProperty("Authorization", "Token " + token);
+    connection.connect();
+
+    int responseCode = connection.getResponseCode();
+    if (responseCode == HttpURLConnection.HTTP_OK) {
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        return new JSONArray(response.toString());
+    } else {
+        throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
+    }
+}
+
+private Map<Integer, String> procesarComunas(JSONArray comunasArray) {
+    Map<Integer, String> comunasMap = new HashMap<>();
+    try {
+        for (int i = 0; i < comunasArray.length(); i++) {
+            JSONObject comunaObj = comunasArray.getJSONObject(i);
+            int comunaId = comunaObj.getInt("id");
+            String comunaNombre = comunaObj.optString("nombre", "N/A");
+
+            // Guardar el nombre de la comuna asociado al ID
+            comunasMap.put(comunaId, comunaNombre);
+
+            // Opcional: Mostrar en consola
+            System.out.println("ID Comuna: " + comunaId + ", Nombre: " + comunaNombre);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de comunas.");
+    }
+    return comunasMap;
+}
+
+
+private Map<Integer, String> procesarDirecciones(JSONArray direccionesArray) {
+    Map<Integer, String> direccionesMap = new HashMap<>();
+    try {
+        for (int i = 0; i < direccionesArray.length(); i++) {
+            JSONObject direccionObj = direccionesArray.getJSONObject(i);
+            int userId = direccionObj.getInt("id"); // ID del usuario asociado a la dirección
+            String calle = direccionObj.optString("calle", "N/A");
+
+            // Obtener los datos anidados de comuna, provincia, región y país
+            JSONObject comunaObj = direccionObj.optJSONObject("comuna");
+            String comunaNombre = "N/A";
+            String provinciaNombre = "N/A";
+            String regionNombre = "N/A";
+            String paisNombre = "N/A";
+
+            if (comunaObj != null) {
+                comunaNombre = comunaObj.optString("nombre", "N/A");
+
+                JSONObject provinciaObj = comunaObj.optJSONObject("provincia");
+                if (provinciaObj != null) {
+                    provinciaNombre = provinciaObj.optString("nombre", "N/A");
+
+                    JSONObject regionObj = provinciaObj.optJSONObject("region");
+                    if (regionObj != null) {
+                        regionNombre = regionObj.optString("nombre", "N/A");
+
+                        JSONObject paisObj = regionObj.optJSONObject("pais");
+                        if (paisObj != null) {
+                            paisNombre = paisObj.optString("nombre", "N/A");
+                        }
+                    }
+                }
+            }
+
+            // Formatear la dirección completa
+            String direccionCompleta = calle + ", " + comunaNombre + ", " + provinciaNombre + ", " + regionNombre + ", " + paisNombre;
+
+            // Guardar la dirección asociada al ID del usuario
+            direccionesMap.put(userId, direccionCompleta);
+
+            // Opcional: Mostrar en consola
+            System.out.println("ID Usuario: " + userId + ", Dirección Completa: " + direccionCompleta);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de direcciones.");
+    }
+    return direccionesMap;
+}
+
+
+
+
 
 
 //-------------------------------------------------------FIN LISTAR DATOS---------------------------------------------------------------------
