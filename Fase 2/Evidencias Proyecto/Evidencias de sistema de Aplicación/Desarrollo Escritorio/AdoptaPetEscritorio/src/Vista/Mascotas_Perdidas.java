@@ -257,10 +257,8 @@ private void cargarDatosTabla() {
             JSONObject usuario = mascota.optJSONObject("usuario");
             int idUsuario = usuario != null ? usuario.optInt("id", -1) : -1;  // Extraemos el 'id' del usuario
 
-
-            // Obtener el username del usuario usando el mapa de usuarios
+            // Obtener el nombre completo del usuario usando el mapa de usuarios
             String nombreUsuario = usuariosMap.getOrDefault(idUsuario, "N/A");
-
 
             JSONObject estadoMascota = mascota.optJSONObject("estado_mascota");
             String estado = estadoMascota != null ? estadoMascota.optString("descripcion", "N/A") : "N/A";
@@ -274,6 +272,7 @@ private void cargarDatosTabla() {
         JOptionPane.showMessageDialog(null, "Error al cargar datos de las APIs.");
     }
 }
+
 
 
 // Método para obtener datos de la API
@@ -309,13 +308,19 @@ private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
 
             int id = usuario.optInt("id", -1);
             JSONObject usuarioDjango = usuario.optJSONObject("usuario_django");
-            String username = usuarioDjango != null ? usuarioDjango.optString("username", "N/A") : "N/A";
 
-            // Almacenar en el mapa
-            usuariosMap.put(id, username);
+            // Obtener los campos first_name y last_name
+            String firstName = usuarioDjango != null ? usuarioDjango.optString("first_name", "N/A") : "N/A";
+            String lastName = usuarioDjango != null ? usuarioDjango.optString("last_name", "N/A") : "N/A";
+
+            // Unir first_name y last_name
+            String fullName = firstName + " " + lastName;
+
+            // Almacenar el nombre completo en el mapa
+            usuariosMap.put(id, fullName);
 
             // Opcional: Mostrar en consola
-            System.out.println("ID: " + id + ", Username: " + username);
+            System.out.println("ID: " + id + ", Nombre Completo: " + fullName);
         }
     } catch (JSONException e) {
         e.printStackTrace();
@@ -323,6 +328,7 @@ private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
     }
     return usuariosMap;
 }
+
 
 
 

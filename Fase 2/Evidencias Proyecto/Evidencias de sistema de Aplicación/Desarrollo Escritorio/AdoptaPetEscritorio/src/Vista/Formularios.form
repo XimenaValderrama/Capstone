@@ -56,8 +56,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="BTEliminarP" alignment="1" min="-2" pref="250" max="-2" attributes="0"/>
-                              <Component id="BTModificarP" alignment="1" min="-2" pref="250" max="-2" attributes="0"/>
+                              <Component id="BTEliminarFormu" alignment="1" min="-2" pref="250" max="-2" attributes="0"/>
+                              <Component id="BTModificarFormu" alignment="1" min="-2" pref="250" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
@@ -88,9 +88,9 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="BTModificarP" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Component id="BTModificarFormu" min="-2" pref="79" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="BTEliminarP" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Component id="BTEliminarFormu" min="-2" pref="79" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -107,10 +107,13 @@
             <Property name="text" type="java.lang.String" value="Bienvenido:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="BTEliminarP">
+        <Component class="javax.swing.JButton" name="BTEliminarFormu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Eliminar Formularios"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTEliminarFormuActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="txtUsuario">
           <Properties>
@@ -127,26 +130,59 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="TableFormulario">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="4">
-                    <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                    <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                  <Table columnCount="5" rowCount="4">
+                    <Column editable="true" title="ID" type="java.lang.Object"/>
+                    <Column editable="true" title="Mascota" type="java.lang.Object"/>
+                    <Column editable="true" title="Due&#xf1;o" type="java.lang.Object"/>
+                    <Column editable="true" title="Estado Formulario" type="java.lang.Object"/>
+                    <Column editable="true" title="Comentarios" type="java.lang.Object"/>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="BTModificarP">
+        <Component class="javax.swing.JButton" name="BTModificarFormu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Modificar Formularios"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTModificarPActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTModificarFormuActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BTVolver">

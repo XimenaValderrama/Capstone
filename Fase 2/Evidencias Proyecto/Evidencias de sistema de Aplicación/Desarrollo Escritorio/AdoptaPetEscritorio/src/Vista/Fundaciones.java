@@ -4,6 +4,23 @@
  */
 package Vista;
 
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  *
  * @author digim
@@ -18,7 +35,7 @@ public class Fundaciones extends javax.swing.JFrame {
         
         Login login = new Login();
         txtUsuario.setText(login.TipoUsuario);
-        
+        cargarDatosTabla(); // Llamamos al método para cargar datos de la API en la tabla
     }
 
     /**
@@ -35,7 +52,7 @@ public class Fundaciones extends javax.swing.JFrame {
         BTEliminarP = new javax.swing.JButton();
         txtUsuario = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaFundaciones = new javax.swing.JTable();
         BTModificarP = new javax.swing.JButton();
         BTVolver = new javax.swing.JButton();
         BTAgregarF = new javax.swing.JButton();
@@ -57,18 +74,21 @@ public class Fundaciones extends javax.swing.JFrame {
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         txtUsuario.setText("@NOMBRE ADMIN o Usuario");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaFundaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombre", "Descripcion Fundacion", "Imagen", "Url Fundacion"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(TablaFundaciones);
+        if (TablaFundaciones.getColumnModel().getColumnCount() > 0) {
+            TablaFundaciones.getColumnModel().getColumn(2).setMinWidth(120);
+        }
 
         BTModificarP.setText("Modificar Fundaciones");
 
@@ -86,23 +106,21 @@ public class Fundaciones extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(BTVolver)
+                .addGap(72, 72, 72)
+                .addComponent(jLabel1)
+                .addGap(47, 47, 47)
+                .addComponent(txtUsuario)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BTVolver)
-                        .addGap(72, 72, 72)
-                        .addComponent(jLabel1)
-                        .addGap(47, 47, 47)
-                        .addComponent(txtUsuario)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BTEliminarP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BTModificarP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BTAgregarF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(BTModificarP, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BTAgregarF, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BTEliminarP, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 775, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,19 +132,17 @@ public class Fundaciones extends javax.swing.JFrame {
                             .addComponent(txtUsuario)
                             .addComponent(jLabel1)))
                     .addComponent(BTVolver))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BTAgregarF, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BTModificarP, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(BTEliminarP, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BTAgregarF, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BTModificarP, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(BTEliminarP, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -137,7 +153,9 @@ public class Fundaciones extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,9 +168,132 @@ public class Fundaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_BTVolverActionPerformed
 
     private void BTEliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarPActionPerformed
-        // TODO add your handling code here:
+        manejarEliminacionFundacion();
     }//GEN-LAST:event_BTEliminarPActionPerformed
 
+    
+private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
+
+
+//------------------------------------------INICIO LISTAR FUNDACIONES-------------------------------------------------------------------------
+private void cargarDatosTabla() {
+    String fundacionesUrl = "http://127.0.0.1:8000/api/fundacion/?format=json"; // URL de las fundaciones
+    DefaultTableModel model = (DefaultTableModel) TablaFundaciones.getModel();
+    model.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+
+    try {
+        // Obtener datos de las fundaciones
+        JSONArray fundacionesArray = obtenerDatosDeApi(fundacionesUrl);
+
+        // Procesar datos de las fundaciones
+        for (int i = 0; i < fundacionesArray.length(); i++) {
+            JSONObject fundacionObj = fundacionesArray.getJSONObject(i);
+
+            // Obtener los datos necesarios para la tabla
+            int id = fundacionObj.optInt("id", -1);
+            String nombre = fundacionObj.optString("nombre", "N/A");
+            String descFundacion = fundacionObj.optString("desc_fundacion", "N/A");
+            String imagen = fundacionObj.optString("imagen", "N/A");
+            String urlFundacion = fundacionObj.optString("url_fundacion", "N/A");
+
+            // Eliminar la parte "http://127.0.0.1:8000/" de la URL de la imagen
+            if (!imagen.equals("N/A")) {
+                imagen = imagen.replace("http://127.0.0.1:8000/https%3A/", "");
+            }
+
+            // Añadir datos a la tabla
+            model.addRow(new Object[]{id, nombre, descFundacion, imagen, urlFundacion});
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al cargar datos de las APIs.");
+    }
+}
+
+
+
+
+// Método para obtener datos de la API
+private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
+    URL url = new URL(urlString);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("GET");
+    connection.setRequestProperty("Authorization", "Token " + token); // Asumiendo que se usa un token de autenticación
+    connection.connect();
+
+    int responseCode = connection.getResponseCode();
+    if (responseCode == HttpURLConnection.HTTP_OK) {
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        return new JSONArray(response.toString());
+    } else {
+        throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
+    }
+}
+//------------------------------------------FIN LISTAR FUNDACIONES-------------------------------------------------------------------------
+
+//-------------------------------------------------------------------INICIO ELIMINAR FUNDACIONES------------------------------------------------------------------    
+
+    // Método para eliminar una fundación a través de la API
+private void eliminarFundacion(int fundacionId) {
+    String urlString = "http://127.0.0.1:8000/api/fundacion/" + fundacionId + "/"; // URL de la API para eliminar la fundación
+
+    try {
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Configurar el método DELETE y los encabezados
+        connection.setRequestMethod("DELETE");  // Cambiar a DELETE para eliminar
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Accept", "application/json");
+
+        // Conectar y obtener la respuesta
+        connection.connect();
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+            JOptionPane.showMessageDialog(null, "Fundación eliminada correctamente.");
+            // Aquí puedes actualizar la tabla o hacer otras acciones
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al eliminar fundación. Código de respuesta: " + responseCode);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al eliminar fundación.");
+    }
+}
+
+// Método común para manejar la eliminación de una fundación
+private void manejarEliminacionFundacion() {
+    // Obtener la fila seleccionada
+    int filaSeleccionada = TablaFundaciones.getSelectedRow();
+
+    if (filaSeleccionada != -1) {
+        // Obtener el ID de la fundación en la primera columna (suponiendo que el ID está en la columna 0)
+        int fundacionId = (int) TablaFundaciones.getValueAt(filaSeleccionada, 0);
+
+        // Mostrar un cuadro de confirmación para eliminar la fundación
+        int confirmacion = JOptionPane.showConfirmDialog(null, 
+            "¿Está seguro de que desea eliminar esta fundación?", 
+            "Confirmar eliminación", 
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            eliminarFundacion(fundacionId); // Llamar al método de eliminación
+            cargarDatosTabla();  // Recargar la tabla para reflejar la eliminación
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione una fundación de la tabla.");
+    }
+}
+
+
+//-------------------------------------------------------------------FIN ELIMINAR FUNDACIONES------------------------------------------------------------------    
     /**
      * @param args the command line arguments
      */
@@ -194,10 +335,10 @@ public class Fundaciones extends javax.swing.JFrame {
     private javax.swing.JButton BTEliminarP;
     private javax.swing.JButton BTModificarP;
     private javax.swing.JButton BTVolver;
+    private javax.swing.JTable TablaFundaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

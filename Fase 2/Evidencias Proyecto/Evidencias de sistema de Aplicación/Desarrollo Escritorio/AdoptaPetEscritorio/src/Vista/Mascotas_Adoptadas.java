@@ -256,11 +256,9 @@ private void cargarDatosTabla() {
             // Obtener la información del usuario (el objeto 'usuario' dentro de 'mascota')
             JSONObject usuario = mascota.optJSONObject("usuario");
             int idUsuario = usuario != null ? usuario.optInt("id", -1) : -1;  // Extraemos el 'id' del usuario
-            
 
-            // Obtener el username del usuario usando el mapa de usuarios
+            // Obtener el nombre completo del usuario usando el mapa de usuarios
             String nombreUsuario = usuariosMap.getOrDefault(idUsuario, "N/A");
-
 
             JSONObject estadoMascota = mascota.optJSONObject("estado_mascota");
             String estado = estadoMascota != null ? estadoMascota.optString("descripcion", "N/A") : "N/A";
@@ -275,30 +273,28 @@ private void cargarDatosTabla() {
     }
 }
 
-
 // Método para obtener datos de la API
-    private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Authorization", "Token " + token);
-        connection.connect();
+private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
+    URL url = new URL(urlString);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("GET");
+    connection.setRequestProperty("Authorization", "Token " + token);
+    connection.connect();
 
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            return new JSONArray(response.toString());
-        } else {
-            throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
+    int responseCode = connection.getResponseCode();
+    if (responseCode == HttpURLConnection.HTTP_OK) {
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
         }
+        in.close();
+        return new JSONArray(response.toString());
+    } else {
+        throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
     }
-
+}
 
 private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
     Map<Integer, String> usuariosMap = new HashMap<>();
@@ -309,13 +305,18 @@ private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
 
             int id = usuario.optInt("id", -1);
             JSONObject usuarioDjango = usuario.optJSONObject("usuario_django");
-            String username = usuarioDjango != null ? usuarioDjango.optString("username", "N/A") : "N/A";
+
+            String firstName = usuarioDjango != null ? usuarioDjango.optString("first_name", "N/A") : "N/A";
+            String lastName = usuarioDjango != null ? usuarioDjango.optString("last_name", "N/A") : "N/A";
+
+            // Concatenar el nombre completo
+            String nombreCompleto = firstName + " " + lastName;
 
             // Almacenar en el mapa
-            usuariosMap.put(id, username);
+            usuariosMap.put(id, nombreCompleto);
 
             // Opcional: Mostrar en consola
-            System.out.println("ID: " + id + ", Username: " + username);
+            System.out.println("ID: " + id + ", Nombre completo: " + nombreCompleto);
         }
     } catch (JSONException e) {
         e.printStackTrace();

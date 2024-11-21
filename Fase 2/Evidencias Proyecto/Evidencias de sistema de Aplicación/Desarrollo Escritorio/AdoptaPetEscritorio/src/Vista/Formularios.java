@@ -4,6 +4,21 @@
  */
 package Vista;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  *
  * @author digim
@@ -18,7 +33,7 @@ public class Formularios extends javax.swing.JFrame {
         
         Login login = new Login();
         txtUsuario.setText(login.TipoUsuario);
-        
+        cargarDatosTabla();
     }
 
     /**
@@ -32,11 +47,11 @@ public class Formularios extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        BTEliminarP = new javax.swing.JButton();
+        BTEliminarFormu = new javax.swing.JButton();
         txtUsuario = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        BTModificarP = new javax.swing.JButton();
+        TableFormulario = new javax.swing.JTable();
+        BTModificarFormu = new javax.swing.JButton();
         BTVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,28 +61,33 @@ public class Formularios extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Bienvenido:");
 
-        BTEliminarP.setText("Eliminar Formularios");
+        BTEliminarFormu.setText("Eliminar Formularios");
+        BTEliminarFormu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTEliminarFormuActionPerformed(evt);
+            }
+        });
 
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         txtUsuario.setText("@NOMBRE ADMIN o Usuario");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TableFormulario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Mascota", "Dueño", "Estado Formulario", "Comentarios"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(TableFormulario);
 
-        BTModificarP.setText("Modificar Formularios");
-        BTModificarP.addActionListener(new java.awt.event.ActionListener() {
+        BTModificarFormu.setText("Modificar Formularios");
+        BTModificarFormu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BTModificarPActionPerformed(evt);
+                BTModificarFormuActionPerformed(evt);
             }
         });
 
@@ -94,8 +114,8 @@ public class Formularios extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BTEliminarP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BTModificarP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BTEliminarFormu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTModificarFormu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(45, 45, 45)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -117,9 +137,9 @@ public class Formularios extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BTModificarP, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BTModificarFormu, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
-                        .addComponent(BTEliminarP, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BTEliminarFormu, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42))))
         );
 
@@ -143,9 +163,264 @@ public class Formularios extends javax.swing.JFrame {
             this.dispose();
     }//GEN-LAST:event_BTVolverActionPerformed
 
-    private void BTModificarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarPActionPerformed
+    private void BTModificarFormuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarFormuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BTModificarPActionPerformed
+    }//GEN-LAST:event_BTModificarFormuActionPerformed
+
+    private void BTEliminarFormuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarFormuActionPerformed
+       manejarEliminacionFormulario();
+    }//GEN-LAST:event_BTEliminarFormuActionPerformed
+
+private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
+//-------------------------------------------------LISTAR DATOS FORMULARIOS----------------------------------------------------------    
+private void cargarDatosTabla() {
+    String formularioUrl = "http://127.0.0.1:8000/api/formulario/?format=json";
+    String usuariosUrl = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
+    String mascotasUrl = "http://127.0.0.1:8000/api/mascota/?format=json"; // URL para las mascotas
+    DefaultTableModel model = (DefaultTableModel) TableFormulario.getModel();
+    model.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+
+    try {
+        // Obtener datos de Formulario
+        JSONArray formularioArray = obtenerDatosDeApi(formularioUrl);
+
+        // Obtener datos de usuarios
+        JSONArray usuariosArray = obtenerDatosDeApi(usuariosUrl);
+
+        // Obtener datos de mascotas
+        JSONArray mascotasArray = obtenerDatosDeApi(mascotasUrl);
+
+        // Crear un mapa para relacionar mascota ID con su formulario
+        Map<Integer, JSONObject> mascotaFormularioMap = new HashMap<>();
+        for (int j = 0; j < formularioArray.length(); j++) {
+            JSONObject formulario = formularioArray.getJSONObject(j);
+            JSONObject mascota = formulario.optJSONObject("mascota");
+            if (mascota != null) {
+                int mascotaId = mascota.getInt("id");
+                mascotaFormularioMap.put(mascotaId, formulario);
+            }
+        }
+
+        // Procesar datos de las mascotas
+        for (int i = 0; i < mascotasArray.length(); i++) {
+            JSONObject mascotaObj = mascotasArray.getJSONObject(i);
+            int mascotaId = mascotaObj.getInt("id");
+
+            // Verificar si la mascota tiene un formulario asociado
+            JSONObject formularioAsociado = mascotaFormularioMap.getOrDefault(mascotaId, null);
+
+            if (formularioAsociado != null) {
+                // Obtener datos del formulario
+                int formularioId = formularioAsociado.getInt("id");
+                String comentarios = formularioAsociado.optString("comentarios", "N/A");
+                JSONObject estadoFormularioObj = formularioAsociado.optJSONObject("estado_formulario");
+                String estadoFormulario = estadoFormularioObj != null ? estadoFormularioObj.optString("descripcion", "N/A") : "N/A";
+
+                // Obtener datos del dueño de la mascota
+                JSONObject usuarioObj = mascotaObj.optJSONObject("usuario");
+                String nombreUsuario = "N/A";
+                if (usuarioObj != null) {
+                    JSONObject usuarioDjango = usuarioObj.optJSONObject("usuario_django");
+                    String firstName = usuarioDjango != null ? usuarioDjango.optString("first_name", "N/A") : "N/A";
+                    String lastName = usuarioDjango != null ? usuarioDjango.optString("last_name", "N/A") : "N/A";
+                    nombreUsuario = firstName + " " + lastName;
+                }
+
+                // Añadir datos a la tabla
+                String nombreMascota = mascotaObj.optString("nombre", "N/A");
+                model.addRow(new Object[]{formularioId, nombreMascota, nombreUsuario, estadoFormulario, comentarios});
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al cargar datos de las APIs.");
+    }
+}
+
+
+
+
+
+// Método para obtener datos de la API
+private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
+    URL url = new URL(urlString);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("GET");
+    connection.setRequestProperty("Authorization", "Token " + token);
+    connection.connect();
+
+    int responseCode = connection.getResponseCode();
+    if (responseCode == HttpURLConnection.HTTP_OK) {
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        return new JSONArray(response.toString());
+    } else {
+        throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
+    }
+}
+
+
+
+
+// Método para procesar las mascotas
+private Map<Integer, String> procesarMascotas(JSONArray mascotasArray) {
+    Map<Integer, String> mascotasMap = new HashMap<>();
+    try {
+        for (int i = 0; i < mascotasArray.length(); i++) {
+            JSONObject mascotaObj = mascotasArray.getJSONObject(i);
+            int idUsuario = mascotaObj.optJSONObject("usuario") != null ? mascotaObj.optJSONObject("usuario").optInt("id", -1) : -1;
+            String nombreMascota = mascotaObj.optString("nombre", "N/A");
+            
+            // Guardar el nombre de la mascota asociado al ID del usuario
+            if (idUsuario != -1) {
+                mascotasMap.put(idUsuario, nombreMascota);
+            }
+
+            // Opcional: Mostrar en consola
+            System.out.println("ID Usuario: " + idUsuario + ", Mascota: " + nombreMascota);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de mascotas.");
+    }
+    return mascotasMap;
+}
+
+private Map<Integer, String> procesarDirecciones(JSONArray direccionesArray) {
+    Map<Integer, String> direccionesMap = new HashMap<>();
+    try {
+        for (int i = 0; i < direccionesArray.length(); i++) {
+            JSONObject direccionObj = direccionesArray.getJSONObject(i);
+            int userId = direccionObj.getInt("id"); // ID del usuario asociado a la dirección
+            String calle = direccionObj.optString("calle", "N/A");
+
+            // Obtener los datos anidados de comuna, provincia, región y país
+            JSONObject comunaObj = direccionObj.optJSONObject("comuna");
+            String comunaNombre = "N/A";
+            String provinciaNombre = "N/A";
+            String regionNombre = "N/A";
+            String paisNombre = "N/A";
+
+            if (comunaObj != null) {
+                comunaNombre = comunaObj.optString("nombre", "N/A");
+
+                JSONObject provinciaObj = comunaObj.optJSONObject("provincia");
+                if (provinciaObj != null) {
+                    provinciaNombre = provinciaObj.optString("nombre", "N/A");
+
+                    JSONObject regionObj = provinciaObj.optJSONObject("region");
+                    if (regionObj != null) {
+                        regionNombre = regionObj.optString("nombre", "N/A");
+
+                        JSONObject paisObj = regionObj.optJSONObject("pais");
+                        if (paisObj != null) {
+                            paisNombre = paisObj.optString("nombre", "N/A");
+                        }
+                    }
+                }
+            }
+
+            // Formatear la dirección completa
+            String direccionCompleta = calle + ", " + comunaNombre + ", " + provinciaNombre + ", " + regionNombre + ", " + paisNombre;
+
+            // Guardar la dirección asociada al ID del usuario
+            direccionesMap.put(userId, direccionCompleta);
+
+            // Opcional: Mostrar en consola
+            System.out.println("ID Usuario: " + userId + ", Dirección Completa: " + direccionCompleta);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de direcciones.");
+    }
+    return direccionesMap;
+}
+//-------------------------------------------------FIN LISTAR DATOS FORMULARIOS------------------------------------------------------
+    
+
+
+
+
+
+
+
+// Método para eliminar un Formulario a través de la API
+private void eliminarFormulario(int FormularioId) {
+    String urlString = "http://127.0.0.1:8000/api/formulario/" + FormularioId + "/"; // URL de la API para eliminar
+
+    try {
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Configurar el método DELETE y los encabezados
+        connection.setRequestMethod("DELETE");
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Accept", "application/json");
+
+        // Conectar y obtener la respuesta
+        connection.connect();
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+            JOptionPane.showMessageDialog(null, "Formulario eliminado correctamente.");
+            // Aquí puedes actualizar la tabla o hacer otras acciones
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el formulario. Código de respuesta: " + responseCode);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al eliminar formulario.");
+    }
+}
+
+// Método común para manejar la eliminación de el Formulario
+private void manejarEliminacionFormulario() {
+    // Obtener la fila seleccionada
+    int filaSeleccionada = TableFormulario.getSelectedRow();
+
+    if (filaSeleccionada != -1) {
+        // Obtener el ID del Formulario en la primera columna (suponiendo que el ID está en la columna 0)
+        int FormularioId = (int) TableFormulario.getValueAt(filaSeleccionada, 0);
+
+        // Mostrar un cuadro de confirmación para eliminar la Formulario
+        int confirmacion = JOptionPane.showConfirmDialog(null, 
+            "¿Está seguro de que desea eliminar esta mascota?", 
+            "Confirmar eliminación", 
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            eliminarFormulario(FormularioId); // Llamar al método de eliminación
+            cargarDatosTabla();  // Método para recargar la tabla si es necesario
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione una mascota de la tabla.");
+    }
+}
+
+// Método para agregar el listener al hacer clic en la fila de la tabla
+private void agregarListenerTabla() {
+    TableFormulario.addMouseListener(new MouseAdapter() {
+        public void mouseClicked(MouseEvent e) {
+            manejarEliminacionFormulario(); // Llamar al método común
+        }
+    });
+}
+
+//-------------------------------------------------------FIN ELIMINAR MASCOTA ADOPTADA--------------------------------------------------------
+
+
+
+
+
+
+
+
+
 
     /**
      * @param args the command line arguments
@@ -182,13 +457,13 @@ public class Formularios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BTEliminarP;
-    private javax.swing.JButton BTModificarP;
+    private javax.swing.JButton BTEliminarFormu;
+    private javax.swing.JButton BTModificarFormu;
     private javax.swing.JButton BTVolver;
+    private javax.swing.JTable TableFormulario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

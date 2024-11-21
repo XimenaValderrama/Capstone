@@ -365,27 +365,7 @@ public void inicializarComponentes() {
     // Cargar los datos en la tabla
     cargarDatosTabla(); // Llama al método para cargar los datos al inicio
 }
-    // Método para obtener el token CSRF desde la API (suponiendo que se obtiene de alguna cookie)
-    private String obtenerTokenCSRFDesdeAPI() {
-        // Este método debe devolver el token CSRF desde las cookies o encabezado
-        // Aquí puedes escribir código que obtenga el token desde una cookie, por ejemplo:
-        // String cookieHeader = connection.getHeaderField("Set-Cookie");
-        return "http://127.0.0.1:8000/api/"; // Este es solo un valor ejemplo
-    }
 
-    // Obtener las cookies desde la respuesta (si estás usando HttpURLConnection)
-    private String getCookieFromResponse(HttpURLConnection connection) {
-        String cookieHeader = connection.getHeaderField("Set-Cookie");
-        if (cookieHeader != null) {
-            String[] cookies = cookieHeader.split(";");
-            for (String cookie : cookies) {
-                if (cookie.contains("csrftoken")) {
-                    return cookie.split("=")[1];  // Extrae el valor del token
-                }
-            }
-        }
-        return null;
-    }
 
 //--------------------------------------------------------INICIO LISTAR DATOS-------------------------------------------------------------------------
 private void cargarDatosTabla() {
@@ -476,28 +456,6 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
         throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
     }
 }
-
-private Map<Integer, String> procesarComunas(JSONArray comunasArray) {
-    Map<Integer, String> comunasMap = new HashMap<>();
-    try {
-        for (int i = 0; i < comunasArray.length(); i++) {
-            JSONObject comunaObj = comunasArray.getJSONObject(i);
-            int comunaId = comunaObj.getInt("id");
-            String comunaNombre = comunaObj.optString("nombre", "N/A");
-
-            // Guardar el nombre de la comuna asociado al ID
-            comunasMap.put(comunaId, comunaNombre);
-
-            // Opcional: Mostrar en consola
-            System.out.println("ID Comuna: " + comunaId + ", Nombre: " + comunaNombre);
-        }
-    } catch (JSONException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error al procesar datos de comunas.");
-    }
-    return comunasMap;
-}
-
 
 private Map<Integer, String> procesarDirecciones(JSONArray direccionesArray) {
     Map<Integer, String> direccionesMap = new HashMap<>();
