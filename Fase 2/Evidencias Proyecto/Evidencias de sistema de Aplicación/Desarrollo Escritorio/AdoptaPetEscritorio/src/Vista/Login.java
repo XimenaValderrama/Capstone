@@ -4,7 +4,10 @@
  */
 package Vista;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -15,10 +18,14 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         // Hacemos que la ventana no sea redimensionable (deshabilita maximizar)
+        setTitle("INICIAR SESION");
         setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
         
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("src/Img/Icono.png").getImage());
+
     }
     public static String TipoUsuario = "";
     /**
@@ -180,9 +187,11 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        Login login= new Login();
-        login.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+              Login login= new Login();
+                login.setVisible(true);
+        });
+      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

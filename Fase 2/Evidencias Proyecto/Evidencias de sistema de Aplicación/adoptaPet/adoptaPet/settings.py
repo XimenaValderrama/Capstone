@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'adoptapet',
         'USER': 'postgres',
-        'PASSWORD': 'xime200305',
+        'PASSWORD': '5426',
         'HOST': 'localhost', 
         'PORT': '5432',      
     }

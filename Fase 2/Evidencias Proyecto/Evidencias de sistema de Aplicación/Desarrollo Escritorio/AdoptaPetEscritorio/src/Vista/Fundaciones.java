@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -43,6 +44,7 @@ public class Fundaciones extends javax.swing.JFrame {
 
 
     public Fundaciones() {
+        setTitle("GESTIONAR FUNDACIONES");
         setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -50,6 +52,9 @@ public class Fundaciones extends javax.swing.JFrame {
         Login login = new Login();
         txtUsuario.setText(login.TipoUsuario);
         cargarDatosTabla(); // Llamamos al método para cargar datos de la API en la tabla
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("src/Img/Icono.png").getImage());
        
     }
 
@@ -285,10 +290,6 @@ private void cargarDatosTabla() {
             String imagen = fundacionObj.optString("imagen", "N/A");
             String urlFundacion = fundacionObj.optString("url_fundacion", "N/A");
 
-            // Eliminar la parte "http://127.0.0.1:8000/" de la URL de la imagen
-            if (!imagen.equals("N/A")) {
-                imagen = imagen.replace("http://127.0.0.1:8000/https%3A/", "");
-            }
 
             // Añadir datos a la tabla
             model.addRow(new Object[]{id, nombre, descFundacion, imagen, urlFundacion});

@@ -28,6 +28,7 @@ public class Mascotas_Perdidas extends javax.swing.JFrame {
 
 
     public Mascotas_Perdidas() {
+        setTitle("GESTIONAR MASCOTAS PERDIDAS");
         setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);

@@ -4,6 +4,9 @@
  */
 package Vista;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
 /**
  *
  * @author digim
@@ -14,12 +17,16 @@ public class Ficha_Medica extends javax.swing.JFrame {
      * Creates new form Menu
      */
     public Ficha_Medica() {
+        setTitle("GESTIONAR FICHAS MEDICAS");
         setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
         
         Login login = new Login();
         txtUsuario.setText(login.TipoUsuario);
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("src/Img/Icono.png").getImage());
     }
 
     /**

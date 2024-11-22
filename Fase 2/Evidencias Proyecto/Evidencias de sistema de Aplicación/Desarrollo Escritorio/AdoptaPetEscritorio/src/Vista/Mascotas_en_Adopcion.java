@@ -14,6 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
@@ -28,6 +30,7 @@ public class Mascotas_en_Adopcion extends javax.swing.JFrame {
 
 
     public Mascotas_en_Adopcion() {
+        setTitle("GESTIONAR MASCOTAS EN ADOPCION");
         setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -35,6 +38,9 @@ public class Mascotas_en_Adopcion extends javax.swing.JFrame {
         Login login = new Login();
         txtUsuario.setText(login.TipoUsuario);
         cargarDatosTabla(); // Llamamos al método para cargar datos de la API en la tabla
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("src/Img/Icono.png").getImage());
     }
 
     /**

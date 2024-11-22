@@ -26,6 +26,8 @@ import javax.swing.JOptionPane;
 import org.json.Cookie;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import org.json.JSONException;
 
 /**
@@ -38,6 +40,7 @@ public class Usuarios extends javax.swing.JFrame {
      * Creates new form Menu
      */
     public Usuarios() {
+        setTitle("GESTIONAR USUARIOS");
         setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -45,11 +48,10 @@ public class Usuarios extends javax.swing.JFrame {
         Login login = new Login();
         txtUsuario.setText(login.TipoUsuario);
         
-
-        
-        
-        
         cargarDatosTabla(); // Llamamos al método para cargar datos de la API en la tabla
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("src/Img/Icono.png").getImage());
     }
 
     /**

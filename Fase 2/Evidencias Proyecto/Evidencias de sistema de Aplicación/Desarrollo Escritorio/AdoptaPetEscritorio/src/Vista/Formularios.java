@@ -13,6 +13,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
@@ -27,6 +29,7 @@ public class Formularios extends javax.swing.JFrame {
 
 
     public Formularios() {
+        setTitle("GESTIONAR FORMULARIOS");
         setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -34,6 +37,9 @@ public class Formularios extends javax.swing.JFrame {
         Login login = new Login();
         txtUsuario.setText(login.TipoUsuario);
         cargarDatosTabla();
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon("src/Img/Icono.png").getImage());
     }
 
     /**
