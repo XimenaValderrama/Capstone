@@ -1,0 +1,253 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+  <title>AdoptaPet - Ficha Médica</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link id="pagestyle" href="{% static 'css/argon-dashboard.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+  <main class="main-content mt-0">
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-5 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+              <div class="card card-plain mt-5 mb-5">
+                <img class="w-50 mb-3" src="{% static "img/logos/AdoptaPet.png" %}" alt="sidebar_illustration">
+                <div class="pb-0 text-start">
+                    <h4 class="font-weight-bolder">Crear Ficha Médica</h4>
+                    <p class="mb-2">Completa los datos para la ficha médica de {{ mascota.nombre }} {{ mascota.apellido }}</p>
+                </div>
+                </div>
+                <div class="card-body rounded">
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Datos Básicos de la Ficha -->
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label>Fecha Médica</label>
+                        <input type="date" class="form-control form-control-lg" name="fecha_medica" required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label>Próxima Consulta</label>
+                        <input type="date" class="form-control form-control-lg" name="prox_consulta">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 mb-3">
+                        <label>Tipo de Alimento</label>
+                        <select class="form-control form-control-lg" name="tipo_alimento" required>
+                          <option selected disabled>Seleccione el tipo de alimento</option>
+                          {% for alimento in tipos_alimento %}
+                            <option value="{{ alimento.id }}" required>{{ alimento.tipo }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- Veterinarias -->
+                    <div id="veterinarias-container">
+                      <h5>Veterinarias</h5>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" name="veterinaria_nombre[]" placeholder="Nombre de Veterinaria" required>
+                        </div>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" name="veterinaria_direccion[]" placeholder="Dirección de Veterinaria" required>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" id="add-veterinaria" class="btn btn-sm btn-secondary mb-3">Agregar Veterinaria</button>
+
+                    <!-- Esterilización -->
+                    <h5>Esterilización</h5>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label>¿Confirmada?</label>
+                        <input type="checkbox" name="confirmacion_esterilizacion">
+                      </div>
+                      <div class="col-md-6">
+                        <label>Fecha de Esterilización</label>
+                        <input type="date" class="form-control" name="fecha_esterilizacion">
+                      </div>
+                      <div class="col-md-12">
+                        <label>Lugar</label>
+                        <input type="text" class="form-control" name="lugar_esterilizacion">
+                      </div>
+                    </div>
+
+                    <!-- Cirugías -->
+                    <div id="cirugias-container">
+                      <h5>Cirugías</h5>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" name="descripcion_cirugia[]" placeholder="Descripción de Cirugía">
+                        </div>
+                        <div class="col-md-3">
+                          <input type="date" class="form-control" name="fecha_cirugia[]" placeholder="Fecha de Cirugía">
+                        </div>
+                        <div class="col-md-3">
+                          <select class="form-control" name="tipo_cirugia[]">
+                            <option selected disabled>Tipo de Cirugía</option>
+                            {% for tipo in tipos_cirugia %}
+                              <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" id="add-cirugia" class="btn btn-sm btn-secondary mb-3">Agregar Cirugía</button>
+
+                    <!-- Vacunas -->
+                    <div id="vacunas-container">
+                      <h5>Vacunas</h5>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <input type="text" class="form-control" name="nombre_vacuna[]" placeholder="Nombre de Vacuna">
+                        </div>
+                        <div class="col-md-6">
+                          <input type="date" class="form-control" name="fecha_vacuna[]" placeholder="Fecha de Vacuna">
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" id="add-vacuna" class="btn btn-sm btn-secondary mb-3">Agregar Vacuna</button>
+
+                    <!-- Chips -->
+                    <!-- Chips -->
+                    <h5>Chip</h5>
+                    <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label>¿Confirmado?</label>
+                        <input type="checkbox" name="confirmacion_chip">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" class="form-control" name="fecha_colocacion_chip" placeholder="Fecha de Colocación">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="lugar_colocacion_chip" placeholder="Lugar de Colocación">
+                    </div>
+                    </div>
+
+
+                    <!-- Desparasitaciones -->
+                    <div id="desparasitaciones-container">
+                      <h5>Desparasitaciones</h5>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <label>¿Confirmada?</label>
+                          <input type="checkbox" name="confirmacion_desparasitacion[]">
+                        </div>
+                        <div class="col-md-6">
+                          <input type="date" class="form-control" name="fecha_desparasitacion[]" placeholder="Fecha de Desparasitación">
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" id="add-desparasitacion" class="btn btn-sm btn-secondary mb-3">Agregar Desparasitación</button>
+
+                    <!-- Botones -->
+                    <div class="row">
+                      <div class="col-md-6 d-flex justify-content-start mt-2 mb-2">
+                        <a href="{% url 'detalle_mascota' mascota.id %}" class="btn btn-lg btn-outline-warning w-100 mt-4 mb-5">Cancelar</a>
+                      </div>
+
+                      <div class="col-md-6 d-flex justify-content-end mt-2 mb-2">
+                        <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-5">Guardar</button>
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('{% static "img/illustrations/amigos.png" %}'); background-size: cover; background-position-x: center; background-position-y: center; background-size: 700px;  background-repeat: no-repeat;">
+            </div>
+        </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script>
+    // Agregar campos dinámicos para veterinarias
+    document.getElementById('add-veterinaria').addEventListener('click', () => {
+      const container = document.getElementById('veterinarias-container');
+      const row = document.createElement('div');
+      row.className = 'row mb-3';
+      row.innerHTML = `
+        <div class="col-md-6">
+          <input type="text" class="form-control" name="veterinaria_nombre[]" placeholder="Nombre de Veterinaria">
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control" name="veterinaria_direccion[]" placeholder="Dirección de Veterinaria">
+        </div>`;
+      container.appendChild(row);
+    });
+
+    // Agregar campos dinámicos para cirugías
+    document.getElementById('add-cirugia').addEventListener('click', () => {
+      const container = document.getElementById('cirugias-container');
+      const row = document.createElement('div');
+      row.className = 'row mb-3';
+      row.innerHTML = `
+        <div class="col-md-6">
+          <input type="text" class="form-control" name="descripcion_cirugia[]" placeholder="Descripción de Cirugía">
+        </div>
+        <div class="col-md-3">
+          <input type="date" class="form-control" name="fecha_cirugia[]" placeholder="Fecha de Cirugía">
+        </div>
+        <div class="col-md-3">
+          <select class="form-control" name="tipo_cirugia[]">
+            <option selected disabled>Tipo de Cirugía</option>
+            {% for tipo in tipos_cirugia %}
+              <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>`;
+      container.appendChild(row);
+    });
+
+    // Agregar campos dinámicos para vacunas
+    document.getElementById('add-vacuna').addEventListener('click', () => {
+      const container = document.getElementById('vacunas-container');
+      const row = document.createElement('div');
+      row.className = 'row mb-3';
+      row.innerHTML = `
+        <div class="col-md-6">
+          <input type="text" class="form-control" name="nombre_vacuna[]" placeholder="Nombre de Vacuna">
+        </div>
+        <div class="col-md-6">
+          <input type="date" class="form-control" name="fecha_vacuna[]" placeholder="Fecha de Vacuna">
+        </div>`;
+      container.appendChild(row);
+    });
+
+    // Agregar campos dinámicos para desparasitaciones
+    document.getElementById('add-desparasitacion').addEventListener('click', () => {
+      const container = document.getElementById('desparasitaciones-container');
+      const row = document.createElement('div');
+      row.className = 'row mb-3';
+      row.innerHTML = `
+        <div class="col-md-6">
+          <label>¿Confirmada?</label>
+          <input type="checkbox" name="confirmacion_desparasitacion[]">
+        </div>
+        <div class="col-md-6">
+          <input type="date" class="form-control" name="fecha_desparasitacion[]" placeholder="Fecha de Desparasitación">
+        </div>`;
+      container.appendChild(row);
+    });
+  </script>
+</body>
+</html>

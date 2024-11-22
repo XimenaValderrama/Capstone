@@ -207,7 +207,7 @@ class Fundacion(models.Model):
     
     nombre = models.CharField(max_length=50)
     desc_fundacion = models.TextField()
-    imagen = models.ImageField(upload_to="media/fundaciones/")
+    imagen = models.ImageField(upload_to="media/fundaciones/", blank=True, null=True)
     url_fundacion = models.CharField(max_length=256)
     
     def __str__(self):
@@ -314,7 +314,7 @@ class Chip(models.Model):
     
     def __str__(self):
             
-        return self.confirmacion_chip
+        return f"Chip - Confirmado: {'Sí' if self.confirmacion_chip else 'No'}, Fecha: {self.fecha_colocacion}, Lugar: {self.lugar_colocacion}"
 
 class Desparasitacion(models.Model):
     
@@ -364,4 +364,4 @@ class Esterilizacion(models.Model):
     
     def __str__(self):
             
-        return self.confirmacion_esterilizacion
+        return f"Esterilización {'Confirmada' if self.confirmacion_esterilizacion else 'No Confirmada'} - {self.fecha_esterilizacion} en {self.lugar_esterilizacion}"

@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from .serializers import *
 from web.cargar_datos_fundaciones import consumir_y_guardar_fundaciones
 from django.http import JsonResponse
+from django.utils.timezone import now
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated, IsAdminUser])
@@ -438,6 +439,9 @@ def mascotas(request):
         perfil_usuario = PerfilUsuario.objects.get(usuario_django=request.user)
         # Filtra las mascotas asociadas a este perfil de usuario
         mascotas_usuario = Mascota.objects.filter(usuario=perfil_usuario)
+        # Agrega un atributo a cada mascota indicando si tiene ficha médica
+        for mascota in mascotas_usuario:
+            mascota.tiene_ficha_medica = FichaMedica.objects.filter(mascota=mascota).exists()
     except PerfilUsuario.DoesNotExist:
         # Si el usuario no tiene un perfil asociado, se devuelve una lista vacía
         mascotas_usuario = []
@@ -723,3 +727,128 @@ def eliminar_formulario(request, formulario_id):
 def actualizar_fundaciones(request):
     mensaje = consumir_y_guardar_fundaciones()
     return JsonResponse({"mensaje": mensaje})
+
+@login_required(login_url="inicio_sesion")
+def fundaciones(request):
+    # Obtener todas las fundaciones
+    fundaciones = Fundacion.objects.all()
+    
+    # Pasar las mascotas al contexto del template
+    context = {
+        'fundaciones': fundaciones
+    }
+
+    return render(request, "fundaciones.html", context)
+
+@login_required(login_url="inicio_sesion")
+def detalle_fundacion(request, fundacion_id):
+
+    fundacion = get_object_or_404(Fundacion, id=fundacion_id)
+
+    context = {
+        'fundacion' : fundacion
+    }
+    
+    return render(request, "detalle_fundacion.html", context)
+
+@login_required(login_url="inicio_sesion")
+def ficha_medica(request, mascota_id):
+    mascota = get_object_or_404(Mascota, pk=mascota_id)
+
+    if request.method == 'POST':
+        # Ficha Médica
+        fecha_medica = request.POST.get('fecha_medica', now().date())
+        prox_consulta = request.POST.get('prox_consulta', None)
+        tipo_alimento_id = request.POST.get('tipo_alimento')
+        tipo_alimento = get_object_or_404(TipoAlimento, pk=tipo_alimento_id)
+
+        ficha_medica = FichaMedica()
+        ficha_medica.fecha_medica = fecha_medica
+        ficha_medica.prox_consulta = prox_consulta
+        ficha_medica.mascota = mascota
+        ficha_medica.tipo_alimento = tipo_alimento
+        ficha_medica.save()
+
+        # Veterinarias
+        veterinaria_nombres = request.POST.getlist('veterinaria_nombre[]')
+        veterinaria_direcciones = request.POST.getlist('veterinaria_direccion[]')
+        for nombre, direccion in zip(veterinaria_nombres, veterinaria_direcciones):
+            if nombre and direccion:
+                veterinaria = Veterinaria()
+                veterinaria.nombre = nombre
+                veterinaria.direccion = direccion
+                veterinaria.ficha_medica = ficha_medica
+                veterinaria.save()
+
+        # Esterilización
+        confirmacion_esterilizacion = request.POST.get('confirmacion_esterilizacion') == 'on'
+        fecha_esterilizacion = request.POST.get('fecha_esterilizacion')
+        lugar_esterilizacion = request.POST.get('lugar_esterilizacion')
+        if confirmacion_esterilizacion:
+            esterilizacion = Esterilizacion()
+            esterilizacion.confirmacion_esterilizacion = confirmacion_esterilizacion
+            esterilizacion.fecha_esterilizacion = fecha_esterilizacion
+            esterilizacion.lugar_esterilizacion = lugar_esterilizacion
+            esterilizacion.ficha_medica = ficha_medica
+            esterilizacion.save()
+
+        # Cirugías
+        descripciones_cirugia = request.POST.getlist('descripcion_cirugia[]')
+        fechas_cirugia = request.POST.getlist('fecha_cirugia[]')
+        tipos_cirugia_ids = request.POST.getlist('tipo_cirugia[]')
+        for descripcion, fecha, tipo_id in zip(descripciones_cirugia, fechas_cirugia, tipos_cirugia_ids):
+            if descripcion and fecha and tipo_id:
+                tipo_cirugia = get_object_or_404(TipoCirugia, pk=tipo_id)
+                cirugia = Cirugia()
+                cirugia.descripcion = descripcion
+                cirugia.fecha_cirugia = fecha
+                cirugia.tipo_cirugia = tipo_cirugia
+                cirugia.ficha_medica = ficha_medica
+                cirugia.save()
+
+        # Desparasitación
+        confirmaciones_desparasitacion = request.POST.getlist('confirmacion_desparasitacion[]')
+        fechas_desparasitacion = request.POST.getlist('fecha_desparasitacion[]')
+        for confirmacion, fecha in zip(confirmaciones_desparasitacion, fechas_desparasitacion):
+            if confirmacion == 'on' and fecha:
+                desparasitacion = Desparasitacion()
+                desparasitacion.confirmacion_desparasitacion = True
+                desparasitacion.fecha_desparasitacion = fecha
+                desparasitacion.ficha_medica = ficha_medica
+                desparasitacion.save()
+
+        # Chip
+        confirmacion_chip = request.POST.get('confirmacion_chip') == 'on'
+        fecha_colocacion_chip = request.POST.get('fecha_colocacion_chip')
+        lugar_colocacion_chip = request.POST.get('lugar_colocacion_chip')
+        if confirmacion_chip and fecha_colocacion_chip and lugar_colocacion_chip:
+            chip = Chip()
+            chip.confirmacion_chip = confirmacion_chip
+            chip.fecha_colocacion = fecha_colocacion_chip
+            chip.lugar_colocacion = lugar_colocacion_chip
+            chip.ficha_medica = ficha_medica
+            chip.save()
+
+        # Vacunas
+        nombres_vacuna = request.POST.getlist('nombre_vacuna[]')
+        fechas_vacuna = request.POST.getlist('fecha_vacuna[]')
+        for nombre, fecha in zip(nombres_vacuna, fechas_vacuna):
+            if nombre and fecha:
+                vacuna = Vacuna()
+                vacuna.nombre = nombre
+                vacuna.fecha_vacuna = fecha
+                vacuna.ficha_medica = ficha_medica
+                vacuna.save()
+
+        messages.success(request, f"Ficha médica creada para {mascota.nombre}.")
+        return redirect('mis_mascotas', mascota_id=mascota.id)
+
+    # Datos para renderizar el formulario
+    tipos_alimento = TipoAlimento.objects.all()
+    tipos_cirugia = TipoCirugia.objects.all()
+
+    return render(request, 'ficha_medica.html', {
+        'mascota': mascota,
+        'tipos_alimento': tipos_alimento,
+        'tipos_cirugia': tipos_cirugia,
+    })
