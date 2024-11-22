@@ -8,15 +8,29 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.ws.Response;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +50,7 @@ public class Fundaciones extends javax.swing.JFrame {
         Login login = new Login();
         txtUsuario.setText(login.TipoUsuario);
         cargarDatosTabla(); // Llamamos al método para cargar datos de la API en la tabla
+       
     }
 
     /**
@@ -56,6 +71,15 @@ public class Fundaciones extends javax.swing.JFrame {
         BTModificarP = new javax.swing.JButton();
         BTVolver = new javax.swing.JButton();
         BTAgregarF = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
+        txtDescrip = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        BTSeleccionarI = new javax.swing.JButton();
+        txtImagenUrl = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtURLFunda = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +124,26 @@ public class Fundaciones extends javax.swing.JFrame {
         });
 
         BTAgregarF.setText("Agregar Fundaciones");
+        BTAgregarF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTAgregarFActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Nombre");
+
+        jLabel3.setText("Descripcion de la Fundacion");
+
+        jLabel5.setText("Url Fundacion");
+
+        BTSeleccionarI.setText("Seleccionar Imagen");
+        BTSeleccionarI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTSeleccionarIActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Imagen");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -107,42 +151,79 @@ public class Fundaciones extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(BTVolver)
-                .addGap(72, 72, 72)
+                .addGap(75, 75, 75)
                 .addComponent(jLabel1)
                 .addGap(47, 47, 47)
                 .addComponent(txtUsuario)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BTModificarP, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BTAgregarF, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BTEliminarP, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 775, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(143, 143, 143)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtURLFunda)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtDescrip)
+                                        .addComponent(BTSeleccionarI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtNombre)
+                                        .addComponent(txtImagenUrl))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BTAgregarF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTModificarP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTEliminarP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 775, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtUsuario)
+                                    .addComponent(jLabel1)))
+                            .addComponent(BTVolver))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtUsuario)
-                            .addComponent(jLabel1)))
-                    .addComponent(BTVolver))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BTAgregarF, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BTModificarP, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(BTEliminarP, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BTSeleccionarI)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtImagenUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(txtURLFunda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addComponent(BTAgregarF, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BTModificarP, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BTEliminarP, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,6 +251,14 @@ public class Fundaciones extends javax.swing.JFrame {
     private void BTEliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarPActionPerformed
         manejarEliminacionFundacion();
     }//GEN-LAST:event_BTEliminarPActionPerformed
+
+    private void BTAgregarFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTAgregarFActionPerformed
+        agregarFundacion();
+    }//GEN-LAST:event_BTAgregarFActionPerformed
+
+    private void BTSeleccionarIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTSeleccionarIActionPerformed
+    seleccionarImagen();
+    }//GEN-LAST:event_BTSeleccionarIActionPerformed
 
     
 private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
@@ -236,6 +325,89 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     }
 }
 //------------------------------------------FIN LISTAR FUNDACIONES-------------------------------------------------------------------------
+
+//------------------------------------------INICIO AGREGAR FUNDACIONES----------------------------------------------------------------------------
+private void agregarFundacion() {
+    String urlAPI = "http://127.0.0.1:8000/api/fundacion/"; // URL de la API para agregar fundación
+
+    // Obtener datos de los campos de texto
+    String nombre = txtNombre.getText().trim();
+    String descripcion = txtDescrip.getText().trim();
+    String urlFundacion = txtURLFunda.getText().trim();
+
+    if (nombre.isEmpty() || descripcion.isEmpty() || urlFundacion.isEmpty() || selectedImageFile == null) {
+        JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios, incluyendo la imagen.");
+        return;
+    }
+
+    try {
+        // Preparar cliente HTTP
+        OkHttpClient client = new OkHttpClient();
+
+        // Crear el cuerpo de la imagen
+        RequestBody imageBody = RequestBody.create(selectedImageFile, MediaType.parse("image/*"));
+
+        // Crear el cuerpo de la solicitud multipart
+        MultipartBody requestBody = new MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("nombre", nombre)
+            .addFormDataPart("desc_fundacion", descripcion)
+            .addFormDataPart("url_fundacion", urlFundacion)
+            .addFormDataPart("imagen", selectedImageFile.getName(), imageBody)
+            .build();
+
+        // Construir la solicitud HTTP
+        Request request = new Request.Builder()
+            .url(urlAPI)
+            .post(requestBody) // Método POST
+            .addHeader("Authorization", "Token " + token) // Si se requiere autenticación
+            .build();
+
+        // Ejecutar la solicitud
+        okhttp3.Response response = client.newCall(request).execute();
+
+        // Manejar la respuesta
+        if (response.isSuccessful()) {
+            JOptionPane.showMessageDialog(null, "Fundación agregada exitosamente.");
+            cargarDatosTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al agregar la fundación. Código de respuesta: " + response.code());
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al realizar la solicitud.");
+    }
+}
+
+
+
+private File selectedImageFile; // Variable global para almacenar la imagen seleccionada
+
+private void seleccionarImagen() {
+    // Crear un selector de archivos
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Seleccionar Imagen");
+    fileChooser.setFileFilter(new FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg", "gif"));
+
+    // Abrir el diálogo y obtener la respuesta del usuario
+    int result = fileChooser.showOpenDialog(this);
+    if (result == JFileChooser.APPROVE_OPTION) {
+        selectedImageFile = fileChooser.getSelectedFile(); // Guardar el archivo seleccionado
+        String filePath = selectedImageFile.getAbsolutePath();
+
+        // Mostrar la ruta seleccionada en el campo de texto (opcional)
+        txtImagenUrl.setText(filePath);
+
+        // Mostrar una vista previa de la imagen (opcional)
+        ImageIcon icon = new ImageIcon(new ImageIcon(filePath).getImage()
+                           .getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+        JOptionPane.showMessageDialog(this, "", "Vista Previa", JOptionPane.INFORMATION_MESSAGE, icon);
+    }
+}
+
+
+
+//------------------------------------------FIN AGREGAR FUNDACIONES------------------------------------------------------------------------
 
 //-------------------------------------------------------------------INICIO ELIMINAR FUNDACIONES------------------------------------------------------------------    
 
@@ -334,11 +506,20 @@ private void manejarEliminacionFundacion() {
     private javax.swing.JButton BTAgregarF;
     private javax.swing.JButton BTEliminarP;
     private javax.swing.JButton BTModificarP;
+    private javax.swing.JButton BTSeleccionarI;
     private javax.swing.JButton BTVolver;
     private javax.swing.JTable TablaFundaciones;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField txtDescrip;
+    private javax.swing.JTextField txtImagenUrl;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtURLFunda;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
