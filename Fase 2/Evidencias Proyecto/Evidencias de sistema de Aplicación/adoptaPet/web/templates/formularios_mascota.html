@@ -1,0 +1,138 @@
+{% extends "base3.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="container py-5" style="min-height: 80vh;">
+    <div class="shadow p-4 bg-body rounded mt-5">
+        {% if formularios %}
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0">Formularios de {{ mascota.nombre }} {{ mascota.apellido }}</h3>
+                {% if messages %}
+                <div>
+                   {% for message in messages %}
+                     {% if 'cambio_estado' in message.extra_tags %}
+                       <div class="alert alert-dismissible fade show" role="alert" style="background-color: #6cb44f; color: #ffffff;">
+                           {{ message }}
+                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                       </div>
+                       {% elif 'eliminar_formulario_soli' in message.extra_tags %}
+                       <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
+                           {{ message }}
+                       </div>
+                     {% endif %}
+                   {% endfor %}
+                 </div>
+               {% endif %}
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="px-5">Nombre mascota</th>
+                            <th class="px-5">Tipo mascota</th>
+                            <th class="px-5">Persona solicitante</th>
+                            <th class="px-5">Correo</th>
+                            <th class="px-5">Estado formulario</th>
+                            <th class="px-5">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for formulario in formularios %}
+                            <tr>
+                                <td>{{ formulario.mascota.nombre }} {{ formulario.mascota.apellido }}</td>
+                                <td>{{ formulario.mascota.tipo.get_descripcion_display }}</td>
+                                <td>{{ formulario.usuario.usuario_django.first_name }} {{ formulario.usuario.usuario_django.last_name }}</td>
+                                <td>{{ formulario.usuario.usuario_django.username }}</td>
+                                <td>
+                                    <!-- Botón para abrir el modal -->
+                                    <button class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#cambiarEstadoModal" 
+                                    onclick="cargarFormularioEstado({{ formulario.id }}, '{{ formulario.estado_formulario.get_descripcion_display }}')">
+                                    {{ formulario.estado_formulario.get_descripcion_display }}
+                                    </button>
+                                </td>
+                                <td class="d-flex justify-content-center ">
+                                    <a href="{% url 'detalle_formulario' formulario.id %}" class="btn btn-primary btn-sm px-3 me-2"><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 9a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5a5 5 0 0 1 5-5a5 5 0 0 1 5 5a5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg></a>
+                                    <button class="btn btn-danger btn-sm px-3" onclick="confirmarEliminacion({{ formulario.id }})">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M7.616 20q-.691 0-1.153-.462T6 18.384V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zm2.192-3h1V8h-1zm3.384 0h1V8h-1z"/></svg>
+                                    </button>  
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h3 class="mb-0">Formularios de {{ mascota.nombre }} {{ mascota.apellido }}</h3>
+            </div>
+            <p class="text-center">No hay formularios registrados.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal para cambiar el estado -->
+<div class="modal fade" id="cambiarEstadoModal" tabindex="-1" aria-labelledby="cambiarEstadoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form method="POST" id="formCambiarEstado">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="cambiarEstadoModalLabel">Cambiar Estado</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Formulario ID: <span id="formularioId"></span></p>
+            <label for="estadoFormularioSelect">Nuevo Estado:</label>
+            <select class="form-control" id="estadoFormularioSelect" name="estado_formulario" required>
+              {% for estado in estados %}
+                <option value="{{ estado.id }}">{{ estado.get_descripcion_display }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+    function confirmarEliminacion(formularioid) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirige a la vista de eliminación de la mascota si el usuario confirma
+                window.location.href = `/eliminar_formulario_solicitante/${formularioid}/`;
+            }
+        });
+    }
+</script>
+
+<script>
+    function cargarFormularioEstado(formularioId, estadoActual) {
+      // Rellenar el modal con el ID del formulario y el estado actual
+      document.getElementById('formularioId').innerText = formularioId;
+      const estadoSelect = document.getElementById('estadoFormularioSelect');
+      for (let option of estadoSelect.options) {
+        option.selected = option.text === estadoActual;
+      }
+  
+      // Cambiar la acción del formulario dinámicamente
+      document.getElementById('formCambiarEstado').action = `/cambiar_estado_formulario/${formularioId}/`;
+    }
+  </script>
+    
+
+{% endblock contenido %}

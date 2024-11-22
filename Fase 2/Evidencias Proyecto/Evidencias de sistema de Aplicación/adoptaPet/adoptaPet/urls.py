@@ -79,5 +79,10 @@ urlpatterns = [
     path('fundaciones/', fundaciones, name='fundaciones'),
     path('detalle_fundacion/<int:fundacion_id>/', detalle_fundacion, name="detalle_fundacion"),
     path('mascota/<int:mascota_id>/ficha_medica/', ficha_medica, name='ficha_medica'),
+    path('formularios_mascota/<int:mascota_id>/', formularios_mascota, name='formularios_mascota'),
+    path('eliminar_formulario_solicitante/<int:formulario_id>/', eliminar_formulario_solicitante, name='eliminar_formulario_solicitante'),
+    path('cambiar_estado_formulario/<int:formulario_id>/', cambiar_estado_formulario, name='cambiar_estado_formulario'),
+    path('detalle_ficha_medica/<int:ficha_id>/', detalle_ficha_medica, name='detalle_ficha_medica'),
+    path('eliminar_ficha_medica/<int:ficha_medica_id>/', eliminar_ficha_medica, name='eliminar_ficha_medica'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

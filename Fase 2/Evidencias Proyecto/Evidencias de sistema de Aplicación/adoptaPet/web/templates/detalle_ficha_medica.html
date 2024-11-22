@@ -1,0 +1,118 @@
+{% extends "base3.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container py-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Detalle de la Ficha Médica de {{ ficha_medica.mascota.nombre }} {{ ficha_medica.mascota.apellido }}</h4>
+            <div class="d-flex gap-2">
+                <a href="" class="btn btn-primary">Modificar ficha médica</a>
+                <a href="{% url 'eliminar_ficha_medica' ficha_medica.id %}" class="btn btn-danger">Eliminar ficha médica</a>
+            </div>
+        </div>
+        
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h6>Fecha ultima consulta médica:</h6>
+                    <input type="text" class="form-control bg-white" value="{{ ficha_medica.fecha_medica }}" readonly>
+                </div>
+                <div class="col-md-6">
+                    <h6>Próxima Consulta:</h6>
+                    <input type="text" class="form-control bg-white" value="{{ ficha_medica.prox_consulta }}" readonly>
+                </div>
+                <div class="col-md-6 mt-4">
+                    <h6>Tipo de Alimento:</h6   >
+                    <input type="text" class="form-control bg-white" value="{{ ficha_medica.tipo_alimento.tipo }}" readonly>
+                </div>
+
+                <div class="col-md-6 mt-4">
+                    <h6>Desparasitaciones:</h6>
+                    {% if desparasitaciones %}
+                        <ul class="list-group">
+                            {% for desparasitacion in desparasitaciones %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Fecha: {{ desparasitacion.fecha_desparasitacion }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No se han registrado desparasitaciones.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h6>Cirugías:</h6>
+                    {% if cirugias %}
+                        <ul class="list-group">
+                            {% for cirugia in cirugias %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">Nombre: {{ cirugia.descripcion }} </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">Fecha: {{ cirugia.fecha_cirugia }}</li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">Tipo: {{ cirugia.tipo_cirugia.nombre }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No se han registrado cirugías.</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <h6>Vacunas:</h6>
+                    {% if vacunas %}
+                        <ul class="list-group">
+                            {% for vacuna in vacunas %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">Nombre: {{ vacuna.nombre }}</li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">Fecha: {{ vacuna.fecha_vacuna }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No se han registrado vacunas.</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 mt-4">
+                    <h6>Veterinarias:</h6>
+                    {% if veterinarias %}
+                        <ul class="list-group" readonly>
+                            {% for veterinaria in veterinarias %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">Nombre: {{ veterinaria.nombre }}</li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">Dirección: {{ veterinaria.direccion }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No se han registrado veterinarias.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Chip y esterilizacion-->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h6>Chip:</h6>
+                    {% if chip %}
+                        <li ><strong>Colocado:</strong> {{ chip.confirmacion_chip|yesno:"Sí,No" }}</li>
+                        <li><strong>Fecha de colocación:</strong> {{ chip.fecha_colocacion }}</li>
+                        <li><strong>Lugar:</strong> {{ chip.lugar_colocacion }}</li>
+                    {% else %}
+                        <p>No se ha registrado un chip.</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <h6>Esterilización:</h6>
+                    {% if esterilizacion %}
+                        <li><strong>Realizada:</strong> {{ esterilizacion.confirmacion_esterilizacion|yesno:"Sí,No" }}</li>
+                        <li><strong>Fecha:</strong> {{ esterilizacion.fecha_esterilizacion }}</li>
+                        <li><strong>Lugar:</strong> {{ esterilizacion.lugar_esterilizacion }}</li>
+                    {% else %}
+                        <p>No se ha registrado una esterilización.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

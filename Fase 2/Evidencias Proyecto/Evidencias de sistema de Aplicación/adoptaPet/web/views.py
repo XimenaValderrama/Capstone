@@ -720,7 +720,7 @@ def eliminar_formulario(request, formulario_id):
     
     # Eliminar la mascota
     formulario.delete()
-
+    messages.success(request, f"Formulario eliminado con exito", extra_tags='eliminar_formulario')
     # Redirigir a la lista de mascotas
     return redirect('mis_formularios')
 
@@ -753,7 +753,7 @@ def detalle_fundacion(request, fundacion_id):
 
 @login_required(login_url="inicio_sesion")
 def ficha_medica(request, mascota_id):
-    mascota = get_object_or_404(Mascota, pk=mascota_id)
+    mascota = get_object_or_404(Mascota, id=mascota_id)
 
     if request.method == 'POST':
         # Ficha Médica
@@ -840,15 +840,111 @@ def ficha_medica(request, mascota_id):
                 vacuna.ficha_medica = ficha_medica
                 vacuna.save()
 
-        messages.success(request, f"Ficha médica creada para {mascota.nombre}.")
-        return redirect('mis_mascotas', mascota_id=mascota.id)
+        messages.success(request, f"Ficha médica creada exitosamente para {mascota.nombre}.")
+        return redirect('mascotas')
 
     # Datos para renderizar el formulario
     tipos_alimento = TipoAlimento.objects.all()
     tipos_cirugia = TipoCirugia.objects.all()
 
-    return render(request, 'ficha_medica.html', {
+    context =  {
         'mascota': mascota,
         'tipos_alimento': tipos_alimento,
         'tipos_cirugia': tipos_cirugia,
-    })
+    }
+
+    return render(request, 'ficha_medica.html', context)
+
+@login_required(login_url="inicio_sesion")
+def formularios_mascota(request, mascota_id):
+
+    # Obtener la mascota según el ID proporcionado
+    mascota = get_object_or_404(Mascota, id=mascota_id)
+
+    # Filtrar los formularios relacionados con la mascota
+    formularios = FormularioAdopcion.objects.filter(mascota=mascota)
+
+    estados = EstadoFormulario.objects.all()
+    
+
+    context =  {
+        "mascota": mascota,
+        "formularios": formularios,
+        "estados": estados
+    }
+    # Renderizar el template con los formularios relacionados
+    return render(request, "formularios_mascota.html", context)
+
+@login_required(login_url="inicio_sesion")
+def eliminar_formulario_solicitante(request, formulario_id):
+    # Obtener el formulario que se desea eliminar
+    formulario = get_object_or_404(FormularioAdopcion, id=formulario_id)
+    
+    # Obtener la mascota asociada al formulario antes de eliminarlo
+    mascota = formulario.mascota
+
+    # Eliminar el formulario
+    formulario.delete()
+    
+    messages.success(request, f"Formulario eliminado con exito", extra_tags='eliminar_formulario_soli')
+    # Redirigir a la vista de formularios de la mascota
+    return redirect('formularios_mascota', mascota_id=mascota.id)
+
+@login_required(login_url="inicio_sesion")
+def cambiar_estado_formulario(request, formulario_id):
+    formulario = get_object_or_404(FormularioAdopcion, id=formulario_id)
+
+    if request.method == 'POST':
+        # Obtener el nuevo estado desde el formulario
+        nuevo_estado_id = request.POST.get('estado_formulario')
+        nuevo_estado = get_object_or_404(EstadoFormulario, id=nuevo_estado_id)
+
+        # Actualizar el estado
+        formulario.estado_formulario = nuevo_estado
+        formulario.save()
+
+        messages.success(request, f"Estado del formulario actualizado a {nuevo_estado.get_descripcion_display()}.", extra_tags='cambio_estado')
+        return redirect('formularios_mascota', mascota_id=formulario.mascota.id)
+
+@login_required(login_url="inicio_sesion")
+def detalle_ficha_medica(request, ficha_id):
+
+    # Obtener la ficha médica por su ID
+    ficha_medica = get_object_or_404(FichaMedica, id=ficha_id)
+
+    # Obtener detalles relacionados
+    vacunas = Vacuna.objects.filter(ficha_medica=ficha_medica)
+    cirugias = Cirugia.objects.filter(ficha_medica=ficha_medica)
+    desparasitaciones = Desparasitacion.objects.filter(ficha_medica=ficha_medica)
+    chip = Chip.objects.filter(ficha_medica=ficha_medica).first()  
+    esterilizacion = Esterilizacion.objects.filter(ficha_medica=ficha_medica).first() 
+    veterinarias = Veterinaria.objects.filter(ficha_medica=ficha_medica)
+
+    # Contexto para el template
+    context = {
+        "ficha_medica": ficha_medica,
+        "vacunas": vacunas,
+        "cirugias": cirugias,
+        "desparasitaciones": desparasitaciones,
+        "chip": chip,
+        "esterilizacion": esterilizacion,
+        "veterinarias": veterinarias,
+    }
+
+    # Renderizar el template con los detalles
+    return render(request, "detalle_ficha_medica.html", context)
+
+@login_required(login_url="inicio_sesion")
+def eliminar_ficha_medica(request, ficha_medica_id):
+    # Obtener la ficha médica que se desea eliminar
+    ficha_medica = get_object_or_404(FichaMedica, id=ficha_medica_id)
+    
+    # Obtener la mascota asociada a la ficha médica antes de eliminarla
+    mascota = ficha_medica.mascota
+
+    # Eliminar la ficha médica
+    ficha_medica.delete()
+
+    # Redirigir a la vista de detalles de la mascota o a la lista de mascotas
+    messages.success(request, f"La ficha médica de {mascota.nombre} fue eliminada con éxito.", extra_tags='eliminar_ficha')
+    return redirect('mascotas')  # Asegúrate de que 'mascotas' sea la URL correcta
