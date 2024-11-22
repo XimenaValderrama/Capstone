@@ -21,7 +21,6 @@ class GeneroSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PerfilUsuarioSerializer(serializers.ModelSerializer):
-
     estado_economico = EstadoEconomicoSerializer()
     genero = GeneroSerializer()
     usuario_django = UserSerializer()
@@ -29,6 +28,30 @@ class PerfilUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = PerfilUsuario
         fields = '__all__'
+
+    def update(self, instance, validated_data):
+        # Actualizar estado_economico
+        estado_economico_data = validated_data.pop('estado_economico', None)
+        if estado_economico_data:
+            for attr, value in estado_economico_data.items():
+                setattr(instance.estado_economico, attr, value)
+            instance.estado_economico.save()
+
+
+        # Actualizar usuario_django
+        usuario_django_data = validated_data.pop('usuario_django', None)
+        if usuario_django_data:
+            for attr, value in usuario_django_data.items():
+                setattr(instance.usuario_django, attr, value)
+            instance.usuario_django.save()
+
+        # Actualizar los campos restantes del PerfilUsuario
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
+
 
 class PaisSerializer(serializers.ModelSerializer):
     class Meta:

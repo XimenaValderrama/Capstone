@@ -340,7 +340,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_BTEliminarUSActionPerformed
 
     private void BTModificarUS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarUS1ActionPerformed
-
+        manejarModificacionUsuario();
     }//GEN-LAST:event_BTModificarUS1ActionPerformed
 
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
@@ -519,6 +519,79 @@ private Map<Integer, String> procesarDirecciones(JSONArray direccionesArray) {
     
 //-------------------------------------------------------INICIO MODIFICAR------------------------------------------------//
 
+private void modificarUsuario(int usuarioId) {
+    String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para modificar datos
+
+    try {
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Configurar el método PUT y los encabezados
+        connection.setRequestMethod("PUT"); // Cambiar a "PATCH" si solo deseas actualizar algunos campos
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        // Crear el objeto JSON con los datos modificados
+        JSONObject jsonData = new JSONObject();
+        jsonData.put("usuario_django", new JSONObject()
+                .put("first_name", txtNombre.getText())
+                .put("last_name", txtApellido.getText())
+                .put("username", txtUsername.getText())
+                .put("email", txtEmail.getText()));
+        jsonData.put("rut", txtRut.getText());
+        jsonData.put("telefono", txtTelefono.getText());
+        jsonData.put("genero", new JSONObject().put("descripcion", txtG.getText()));
+        jsonData.put("estado_economico", new JSONObject().put("descripcion", txtEC.getText()));
+        System.out.println(jsonData);
+        // Enviar los datos a la API
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonData.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Leer la respuesta de la API
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+            System.out.println("Usuario modificado con éxito.");
+        } else {
+            // Leer y mostrar el error desde la API
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
+            StringBuilder errorResponse = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                errorResponse.append(line.trim());
+            }
+            System.err.println("Error al modificar el usuario. Código de respuesta: " + responseCode);
+            System.err.println("Detalles del error: " + errorResponse.toString());
+        }
+    } catch (Exception e) {
+        e.printStackTrace(); // Mostrar el error completo en la consola
+    }
+}
+
+
+
+private void manejarModificacionUsuario() {
+    int filaSeleccionada = TableUsuarios.getSelectedRow();
+
+    if (filaSeleccionada != -1) {
+        int usuarioId = (int) TableUsuarios.getValueAt(filaSeleccionada, 0);
+
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+            "¿Está seguro de que desea modificar los datos de este usuario?",
+            "Confirmar modificación",
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            modificarUsuario(usuarioId);
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione un usuario de la tabla.");
+    }
+}
 
  
 //-----------------------------------------------------FIN MODIFICAR------------------------------------------------------------------------
