@@ -150,7 +150,7 @@
                         </div>
                       </div>
                     </div>
-                    <button type="button" id="add-desparasitacion" class="btn btn-sm btn-secondary mb-3">Agregar Desparasitación</button>
+                    
 
                     <!-- Botones -->
                     <div class="row">
@@ -177,76 +177,68 @@
     </section>
   </main>
 
-  <!-- Scripts -->
   <script>
-    // Agregar campos dinámicos para veterinarias
-    document.getElementById('add-veterinaria').addEventListener('click', () => {
-      const container = document.getElementById('veterinarias-container');
-      const row = document.createElement('div');
-      row.className = 'row mb-3';
-      row.innerHTML = `
-        <div class="col-md-6">
-          <input type="text" class="form-control" name="veterinaria_nombre[]" placeholder="Nombre de Veterinaria">
-        </div>
-        <div class="col-md-6">
-          <input type="text" class="form-control" name="veterinaria_direccion[]" placeholder="Dirección de Veterinaria">
-        </div>`;
-      container.appendChild(row);
+    // Función para agregar vacunas
+    document.getElementById('add-vacuna').addEventListener('click', function () {
+        const container = document.getElementById('vacunas-container');
+        const row = document.createElement('div');
+        row.className = 'd-flex gap-2 mb-2 align-items-center';
+        row.innerHTML = `
+            <input type="text" class="form-control" name="nombre_vacuna[]" placeholder="Nombre de vacuna">
+            <input type="date" class="form-control" name="fecha_vacuna[]">
+            <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+        `;
+        container.appendChild(row);
+        addRemoveFunctionality();
     });
 
-    // Agregar campos dinámicos para cirugías
-    document.getElementById('add-cirugia').addEventListener('click', () => {
-      const container = document.getElementById('cirugias-container');
-      const row = document.createElement('div');
-      row.className = 'row mb-3';
-      row.innerHTML = `
-        <div class="col-md-6">
-          <input type="text" class="form-control" name="descripcion_cirugia[]" placeholder="Descripción de Cirugía">
-        </div>
-        <div class="col-md-3">
-          <input type="date" class="form-control" name="fecha_cirugia[]" placeholder="Fecha de Cirugía">
-        </div>
-        <div class="col-md-3">
-          <select class="form-control" name="tipo_cirugia[]">
-            <option selected disabled>Tipo de Cirugía</option>
-            {% for tipo in tipos_cirugia %}
-              <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
-            {% endfor %}
-          </select>
-        </div>`;
-      container.appendChild(row);
+    // Función para agregar cirugías
+    document.getElementById('add-cirugia').addEventListener('click', function () {
+        const container = document.getElementById('cirugias-container');
+        const row = document.createElement('div');
+        row.className = 'd-flex gap-2 mb-2 align-items-center';
+        row.innerHTML = `
+            <input type="text" class="form-control" name="descripcion_cirugia[]" placeholder="Descripción de cirugía">
+            <input type="date" class="form-control" name="fecha_cirugia[]">
+            <select class="form-control" name="tipo_cirugia[]">
+                {% for tipo in tipos_cirugia %}
+                    <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
+                {% endfor %}
+            </select>
+            <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+        `;
+        container.appendChild(row);
+        addRemoveFunctionality();
     });
 
-    // Agregar campos dinámicos para vacunas
-    document.getElementById('add-vacuna').addEventListener('click', () => {
-      const container = document.getElementById('vacunas-container');
-      const row = document.createElement('div');
-      row.className = 'row mb-3';
-      row.innerHTML = `
-        <div class="col-md-6">
-          <input type="text" class="form-control" name="nombre_vacuna[]" placeholder="Nombre de Vacuna">
-        </div>
-        <div class="col-md-6">
-          <input type="date" class="form-control" name="fecha_vacuna[]" placeholder="Fecha de Vacuna">
-        </div>`;
-      container.appendChild(row);
+    // Función para agregar veterinarias
+    document.getElementById('add-veterinaria').addEventListener('click', function () {
+        const container = document.getElementById('veterinarias-container');
+        const row = document.createElement('div');
+        row.className = 'd-flex gap-2 mb-2 align-items-center';
+        row.innerHTML = `
+            <input type="text" class="form-control" name="veterinaria_nombre[]" placeholder="Nombre de veterinaria">
+            <input type="text" class="form-control" name="veterinaria_direccion[]" placeholder="Dirección">
+            <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+        `;
+        container.appendChild(row);
+        addRemoveFunctionality();
     });
 
-    // Agregar campos dinámicos para desparasitaciones
-    document.getElementById('add-desparasitacion').addEventListener('click', () => {
-      const container = document.getElementById('desparasitaciones-container');
-      const row = document.createElement('div');
-      row.className = 'row mb-3';
-      row.innerHTML = `
-        <div class="col-md-6">
-          <label>¿Confirmada?</label>
-          <input type="checkbox" name="confirmacion_desparasitacion[]">
-        </div>
-        <div class="col-md-6">
-          <input type="date" class="form-control" name="fecha_desparasitacion[]" placeholder="Fecha de Desparasitación">
-        </div>`;
-      container.appendChild(row);
+    // Función para habilitar el botón de eliminación en todos los campos dinámicos
+    function addRemoveFunctionality() {
+        const removeButtons = document.querySelectorAll('.remove-btn');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                this.parentElement.remove();
+            });
+        });
+    }
+
+    // Inicializar funcionalidad de eliminación para los elementos ya cargados
+    document.addEventListener('DOMContentLoaded', function () {
+        addRemoveFunctionality();
     });
-  </script>
+</script>
 </body>
 </html>

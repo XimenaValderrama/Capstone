@@ -1,0 +1,219 @@
+{% extends "base3.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container py-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Modificar Ficha Médica de {{ ficha_medica.mascota.nombre }} {{ ficha_medica.mascota.apellido }}</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <!-- Información básica -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h6>Fecha última consulta médica:</h6>
+                        <input type="date" class="form-control" name="fecha_medica" value="{{ ficha_medica.fecha_medica|date:'Y-m-d' }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Próxima consulta:</h6>
+                        <input type="date" class="form-control" name="prox_consulta" value="{{ ficha_medica.prox_consulta|date:'Y-m-d' }}">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h6>Tipo de Alimento:</h6>
+                        <select class="form-control" name="tipo_alimento">
+                            {% for tipo in tipos_alimento %}
+                                <option value="{{ tipo.id }}" {% if tipo.id == ficha_medica.tipo_alimento.id %}selected{% endif %}>
+                                    {{ tipo.tipo }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Esterilización:</h6>
+                        <div class="d-flex gap-2 align-items-center">
+                            <input type="checkbox" name="confirmacion_esterilizacion" {% if esterilizacion and esterilizacion.confirmacion_esterilizacion %}checked{% endif %}>
+                            <input type="date" class="form-control" name="fecha_esterilizacion" value="{{ esterilizacion.fecha_esterilizacion|date:'Y-m-d' }}" placeholder="Fecha de esterilización">
+                            <input type="text" class="form-control" name="lugar_esterilizacion" value="{{ esterilizacion.lugar_esterilizacion }}" placeholder="Lugar de esterilización">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chip -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h6>Chip:</h6>
+                        <div class="d-flex gap-2 align-items-center">
+                            <input type="checkbox" name="confirmacion_chip" {% if chip and chip.confirmacion_chip %}checked{% endif %}>
+                            <input type="date" class="form-control" name="fecha_colocacion_chip" value="{{ chip.fecha_colocacion|date:'Y-m-d' }}" placeholder="Fecha de colocación">
+                            <input type="text" class="form-control" name="lugar_colocacion_chip" value="{{ chip.lugar_colocacion }}" placeholder="Lugar de colocación">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desparasitaciones y Vacunas -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h6>Desparasitaciones:</h6>
+                        <div id="desparasitaciones-container">
+                            {% for desparasitacion in desparasitaciones %}
+                                <div class="d-flex gap-2 align-items-center mb-2">
+                                    <input type="checkbox" name="confirmacion_desparasitacion[]" {% if desparasitacion.confirmacion_desparasitacion %}checked{% endif %}>
+                                    <input type="date" class="form-control" name="fecha_desparasitacion[]" value="{{ desparasitacion.fecha_desparasitacion|date:'Y-m-d' }}">
+                                    <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-sm" id="add-desparasitacion">Agregar Desparasitación</button>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h6>Vacunas:</h6>
+                        <div id="vacunas-container">
+                            {% for vacuna in vacunas %}
+                                <div class="d-flex gap-2 mb-2">
+                                    <input type="text" class="form-control" name="nombre_vacuna[]" value="{{ vacuna.nombre }}" placeholder="Nombre de vacuna">
+                                    <input type="date" class="form-control" name="fecha_vacuna[]" value="{{ vacuna.fecha_vacuna|date:'Y-m-d' }}">
+                                    <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-sm" id="add-vacuna">Agregar Vacuna</button>
+                    </div>
+                </div>
+
+                <!-- Cirugías y Veterinarias -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h6>Cirugías:</h6>
+                        <div id="cirugias-container">
+                            {% for cirugia in cirugias %}
+                                <div class="d-flex gap-2 mb-2">
+                                    <input type="text" class="form-control" name="descripcion_cirugia[]" value="{{ cirugia.descripcion }}" placeholder="Descripción de cirugía">
+                                    <input type="date" class="form-control" name="fecha_cirugia[]" value="{{ cirugia.fecha_cirugia|date:'Y-m-d' }}">
+                                    <select class="form-control" name="tipo_cirugia[]">
+                                        {% for tipo in tipos_cirugia %}
+                                            <option value="{{ tipo.id }}" {% if tipo.id == cirugia.tipo_cirugia.id %}selected{% endif %}>
+                                                {{ tipo.nombre }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-sm" id="add-cirugia">Agregar Cirugía</button>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h6>Veterinarias:</h6>
+                        <div id="veterinarias-container">
+                            {% for veterinaria in veterinarias %}
+                                <div class="d-flex gap-2 mb-2">
+                                    <input type="text" class="form-control" name="veterinaria_nombre[]" value="{{ veterinaria.nombre }}" placeholder="Nombre de veterinaria">
+                                    <input type="text" class="form-control" name="veterinaria_direccion[]" value="{{ veterinaria.direccion }}" placeholder="Dirección">
+                                    <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-sm" id="add-veterinaria">Agregar Veterinaria</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <a href="{% url 'detalle_ficha_medica' ficha_medica.id %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Función para agregar vacunas
+    document.getElementById('add-vacuna').addEventListener('click', function () {
+        const container = document.getElementById('vacunas-container');
+        const row = document.createElement('div');
+        row.className = 'd-flex gap-2 mb-2 align-items-center';
+        row.innerHTML = `
+            <input type="text" class="form-control" name="nombre_vacuna[]" placeholder="Nombre de vacuna">
+            <input type="date" class="form-control" name="fecha_vacuna[]">
+            <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+        `;
+        container.appendChild(row);
+        addRemoveFunctionality();
+    });
+
+    // Función para agregar cirugías
+    document.getElementById('add-cirugia').addEventListener('click', function () {
+        const container = document.getElementById('cirugias-container');
+        const row = document.createElement('div');
+        row.className = 'd-flex gap-2 mb-2 align-items-center';
+        row.innerHTML = `
+            <input type="text" class="form-control" name="descripcion_cirugia[]" placeholder="Descripción de cirugía">
+            <input type="date" class="form-control" name="fecha_cirugia[]">
+            <select class="form-control" name="tipo_cirugia[]">
+                {% for tipo in tipos_cirugia %}
+                    <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
+                {% endfor %}
+            </select>
+            <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+        `;
+        container.appendChild(row);
+        addRemoveFunctionality();
+    });
+
+    // Función para agregar veterinarias
+    document.getElementById('add-veterinaria').addEventListener('click', function () {
+        const container = document.getElementById('veterinarias-container');
+        const row = document.createElement('div');
+        row.className = 'd-flex gap-2 mb-2 align-items-center';
+        row.innerHTML = `
+            <input type="text" class="form-control" name="veterinaria_nombre[]" placeholder="Nombre de veterinaria">
+            <input type="text" class="form-control" name="veterinaria_direccion[]" placeholder="Dirección">
+            <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+        `;
+        container.appendChild(row);
+        addRemoveFunctionality();
+    });
+
+    // Función para habilitar el botón de eliminación en todos los campos dinámicos
+    function addRemoveFunctionality() {
+        const removeButtons = document.querySelectorAll('.remove-btn');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                this.parentElement.remove();
+            });
+        });
+    }
+
+    // Inicializar funcionalidad de eliminación para los elementos ya cargados
+    document.addEventListener('DOMContentLoaded', function () {
+        addRemoveFunctionality();
+    });
+
+        // Función para agregar desparasitaciones
+    document.getElementById('add-desparasitacion').addEventListener('click', function () {
+        const container = document.getElementById('desparasitaciones-container');
+        const row = document.createElement('div');
+        row.className = 'd-flex gap-2 align-items-center mb-2';
+        row.innerHTML = `
+            <input type="checkbox" name="confirmacion_desparasitacion[]" checked>
+            <input type="date" class="form-control" name="fecha_desparasitacion[]">
+            <button type="button" class="btn btn-danger btn-sm remove-btn">Eliminar</button>
+        `;
+        container.appendChild(row);
+        addRemoveFunctionality();
+    });
+
+    // Inicializar funcionalidad de eliminación para los elementos ya cargados
+    document.addEventListener('DOMContentLoaded', function () {
+        addRemoveFunctionality();
+    });
+</script>
+
+
+{% endblock %}

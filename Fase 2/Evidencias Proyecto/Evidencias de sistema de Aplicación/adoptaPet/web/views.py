@@ -16,6 +16,7 @@ from django.http import JsonResponse
 from django.utils.timezone import now
 from django.views.decorators.csrf import csrf_exempt
 
+#Funciones para la API
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated, IsAdminUser])
 def modificar_eliminar_usuario(request, user_id):
@@ -118,7 +119,6 @@ def modificar_eliminar_mascota(request, mascota_id):
         mascota.delete()
         return Response({"message": "Mascota eliminada correctamente."}, status=status.HTTP_204_NO_CONTENT)
 
-
 @csrf_exempt
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated, IsAdminUser])
@@ -151,20 +151,7 @@ def modificar_eliminar_formulario(request, formulario_id):
         return Response({"message": "Formulario eliminado correctamente."}, status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#Funciones para la WEB
 
 @login_required(login_url="inicio_sesion")
 def inicio(request):
@@ -1028,3 +1015,112 @@ def eliminar_ficha_medica(request, ficha_medica_id):
     # Redirigir a la vista de detalles de la mascota o a la lista de mascotas
     messages.success(request, f"La ficha médica de {mascota.nombre} fue eliminada con éxito.", extra_tags='eliminar_ficha')
     return redirect('mascotas')  # Asegúrate de que 'mascotas' sea la URL correcta
+
+@login_required(login_url="inicio_sesion")
+def modificar_ficha_medica(request, ficha_medica_id):
+    # Obtener la ficha médica a modificar
+    ficha_medica = get_object_or_404(FichaMedica, id=ficha_medica_id)
+
+    if request.method == 'POST':
+        # Actualizar información básica de la ficha médica
+        ficha_medica.fecha_medica = request.POST.get('fecha_medica', ficha_medica.fecha_medica)
+        ficha_medica.prox_consulta = request.POST.get('prox_consulta', ficha_medica.prox_consulta)
+
+        tipo_alimento_id = request.POST.get('tipo_alimento')
+        if tipo_alimento_id:
+            ficha_medica.tipo_alimento_id = tipo_alimento_id
+
+        ficha_medica.save()
+
+        # Procesar desparasitaciones
+        fechas_desparasitacion = request.POST.getlist('fecha_desparasitacion[]')
+        confirmaciones_desparasitacion = request.POST.getlist('confirmacion_desparasitacion[]')
+        ficha_medica.desparasitacion_set.all().delete()  # Eliminar las existentes
+        for fecha, confirmacion in zip(fechas_desparasitacion, confirmaciones_desparasitacion):
+            if fecha:
+                Desparasitacion.objects.create(
+                    ficha_medica=ficha_medica,
+                    fecha_desparasitacion=fecha,
+                    confirmacion_desparasitacion=(confirmacion == 'on')
+                )
+
+        # Procesar vacunas
+        nombres_vacuna = request.POST.getlist('nombre_vacuna[]')
+        fechas_vacuna = request.POST.getlist('fecha_vacuna[]')
+        ficha_medica.vacuna_set.all().delete()  # Eliminar las existentes
+        for nombre, fecha in zip(nombres_vacuna, fechas_vacuna):
+            if nombre and fecha:
+                Vacuna.objects.create(
+                    ficha_medica=ficha_medica,
+                    nombre=nombre,
+                    fecha_vacuna=fecha
+                )
+
+        # Procesar cirugías
+        descripciones_cirugia = request.POST.getlist('descripcion_cirugia[]')
+        fechas_cirugia = request.POST.getlist('fecha_cirugia[]')
+        tipos_cirugia_ids = request.POST.getlist('tipo_cirugia[]')
+        ficha_medica.cirugia_set.all().delete()  # Eliminar las existentes
+        for descripcion, fecha, tipo_id in zip(descripciones_cirugia, fechas_cirugia, tipos_cirugia_ids):
+            if descripcion and fecha and tipo_id:
+                Cirugia.objects.create(
+                    ficha_medica=ficha_medica,
+                    descripcion=descripcion,
+                    fecha_cirugia=fecha,
+                    tipo_cirugia_id=tipo_id
+                )
+
+        # Procesar veterinarias
+        nombres_veterinaria = request.POST.getlist('veterinaria_nombre[]')
+        direcciones_veterinaria = request.POST.getlist('veterinaria_direccion[]')
+        ficha_medica.veterinaria_set.all().delete()  # Eliminar las existentes
+        for nombre, direccion in zip(nombres_veterinaria, direcciones_veterinaria):
+            if nombre and direccion:
+                Veterinaria.objects.create(
+                    ficha_medica=ficha_medica,
+                    nombre=nombre,
+                    direccion=direccion
+                )
+
+        # Procesar chip
+        confirmacion_chip = request.POST.get('confirmacion_chip') == 'on'
+        fecha_colocacion_chip = request.POST.get('fecha_colocacion_chip')
+        lugar_colocacion_chip = request.POST.get('lugar_colocacion_chip')
+        ficha_medica.chip_set.all().delete()  # Eliminar el chip existente
+        if confirmacion_chip and fecha_colocacion_chip and lugar_colocacion_chip:
+            Chip.objects.create(
+                ficha_medica=ficha_medica,
+                confirmacion_chip=confirmacion_chip,
+                fecha_colocacion=fecha_colocacion_chip,
+                lugar_colocacion=lugar_colocacion_chip
+            )
+
+        # Procesar esterilización
+        confirmacion_esterilizacion = request.POST.get('confirmacion_esterilizacion') == 'on'
+        fecha_esterilizacion = request.POST.get('fecha_esterilizacion')
+        lugar_esterilizacion = request.POST.get('lugar_esterilizacion')
+        ficha_medica.esterilizacion_set.all().delete()  # Eliminar la existente
+        if confirmacion_esterilizacion and fecha_esterilizacion and lugar_esterilizacion:
+            Esterilizacion.objects.create(
+                ficha_medica=ficha_medica,
+                confirmacion_esterilizacion=confirmacion_esterilizacion,
+                fecha_esterilizacion=fecha_esterilizacion,
+                lugar_esterilizacion=lugar_esterilizacion
+            )
+
+        messages.success(request, f"Ficha médica de {ficha_medica.mascota.nombre} actualizada con éxito.", extra_tags='modificar_ficha')
+        return redirect('detalle_ficha_medica', ficha_id=ficha_medica.id)
+
+    # Preparar datos para el formulario
+    context = {
+        'ficha_medica': ficha_medica,
+        'desparasitaciones': ficha_medica.desparasitacion_set.all(),
+        'vacunas': ficha_medica.vacuna_set.all(),
+        'cirugias': ficha_medica.cirugia_set.all(),
+        'veterinarias': ficha_medica.veterinaria_set.all(),
+        'chip': ficha_medica.chip_set.first(),
+        'esterilizacion': ficha_medica.esterilizacion_set.first(),
+        'tipos_alimento': TipoAlimento.objects.all(),
+        'tipos_cirugia': TipoCirugia.objects.all(),
+    }
+    return render(request, 'modificar_ficha_medica.html', context)
