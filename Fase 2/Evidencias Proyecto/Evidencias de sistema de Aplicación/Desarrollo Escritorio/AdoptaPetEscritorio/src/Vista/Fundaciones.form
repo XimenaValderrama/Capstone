@@ -46,7 +46,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <Component id="BTVolver" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -54,41 +54,53 @@
                   <Component id="txtUsuario" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtURLFunda" max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtDescrip" max="32767" attributes="0"/>
-                                          <Component id="BTSeleccionarI" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtImagenUrl" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtURLFunda" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="txtDescrip" max="32767" attributes="0"/>
+                                                  <Component id="BTSeleccionarI" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtImagenUrl" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="BTAgregarF" alignment="1" min="-2" pref="233" max="-2" attributes="0"/>
+                                      <Component id="BTModificarP" alignment="1" min="-2" pref="233" max="-2" attributes="0"/>
+                                      <Component id="BTEliminarP" alignment="1" min="-2" pref="233" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
+                          <EmptySpace pref="26" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="BTAgregarF" alignment="1" min="-2" pref="233" max="-2" attributes="0"/>
-                              <Component id="BTModificarP" alignment="1" min="-2" pref="233" max="-2" attributes="0"/>
-                              <Component id="BTEliminarP" alignment="1" min="-2" pref="233" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="BTSeleccionarFund" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="775" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -98,21 +110,19 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="BTVolver" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="BTVolver" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="BTSeleccionarFund" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -141,6 +151,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="BTEliminarP" min="-2" pref="70" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
@@ -158,7 +169,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="BTEliminarP">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Eliminar Fundaciones"/>
+            <Property name="text" type="java.lang.String" value="Eliminar Fundacion"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTEliminarPActionPerformed"/>
@@ -228,8 +239,11 @@
         </Container>
         <Component class="javax.swing.JButton" name="BTModificarP">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Modificar Fundaciones"/>
+            <Property name="text" type="java.lang.String" value="Modificar Fundacion"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTModificarPActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BTVolver">
           <Properties>
@@ -241,7 +255,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="BTAgregarF">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Agregar Fundaciones"/>
+            <Property name="text" type="java.lang.String" value="Agregar Fundacion"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTAgregarFActionPerformed"/>
@@ -282,6 +296,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtURLFunda">
+        </Component>
+        <Component class="javax.swing.JButton" name="BTSeleccionarFund">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Seleccionar Fundacion"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTSeleccionarFundActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

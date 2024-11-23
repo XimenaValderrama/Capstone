@@ -151,6 +151,71 @@ def modificar_eliminar_formulario(request, formulario_id):
         return Response({"message": "Formulario eliminado correctamente."}, status=status.HTTP_204_NO_CONTENT)
 
 
+
+@csrf_exempt
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def modificar_eliminar_fundacion(request, fundacion_id):
+    try:
+        # Obtener la fundación por su ID
+        fundacion = Fundacion.objects.get(id=fundacion_id)
+    except Fundacion.DoesNotExist:
+        return Response({"error": "Fundación no encontrada."}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        # Serializar los datos de la fundación
+        fundacion_serializer = FundacionSerializer(fundacion)
+        return Response(fundacion_serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == 'PUT':
+        # Modificar los datos de la fundación
+        fundacion_data = request.data
+        fundacion_serializer = FundacionSerializer(fundacion, data=fundacion_data, partial=True)
+
+        if fundacion_serializer.is_valid():
+            fundacion_serializer.save()  # Guardar los cambios
+            return Response(fundacion_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(fundacion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        # Eliminar la fundación
+        fundacion.delete()
+        return Response({"message": "Fundación eliminada correctamente."}, status=status.HTTP_204_NO_CONTENT)
+
+
+@csrf_exempt
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def modificar_eliminar_ficha_medica(request, fundacion_id):
+    try:
+        # Obtener la fundación por su ID
+        fundacion = Fundacion.objects.get(id=fundacion_id)
+    except Fundacion.DoesNotExist:
+        return Response({"error": "Fundación no encontrada."}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        # Serializar los datos de la fundación
+        fundacion_serializer = FundacionSerializer(fundacion)
+        return Response(fundacion_serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == 'PUT':
+        # Modificar los datos de la fundación
+        fundacion_data = request.data
+        fundacion_serializer = FundacionSerializer(fundacion, data=fundacion_data, partial=True)
+
+        if fundacion_serializer.is_valid():
+            fundacion_serializer.save()  # Guardar los cambios
+            return Response(fundacion_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(fundacion_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        # Eliminar la fundación
+        fundacion.delete()
+        return Response({"message": "Fundación eliminada correctamente."}, status=status.HTTP_204_NO_CONTENT)
+
+
 #Funciones para la WEB
 
 @login_required(login_url="inicio_sesion")

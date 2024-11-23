@@ -397,7 +397,7 @@ private Map<Integer, String> procesarDirecciones(JSONArray direccionesArray) {
 //-------------------------------------------------INICIO MODIFICAR FORMULARIO-----------------------------------------------------
 
 private void modificarFormulario(int formularioId) {
-    String urlString = "http://127.0.0.1:8000/formulario-adopcion/" + formularioId + "/";
+    String urlString = "http://127.0.0.1:8000/formulario/" + formularioId + "/";
 
     try {
         // Crear la URL y la conexión
