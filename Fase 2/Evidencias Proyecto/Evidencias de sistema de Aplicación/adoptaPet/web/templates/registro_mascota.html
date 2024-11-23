@@ -60,29 +60,29 @@
                     <!-- Selects de datos relacionados -->
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" name="raza" required>
-                          <option selected disabled>Raza</option>
-                          {% for raza in razas %}
-                            <option value="{{ raza.id }}">{{ raza.nombre }}</option>
+                        <select class="form-control form-control-lg" id="tipoMascotaSelect" name="tipo" required>
+                          <option selected disabled>Tipo de mascota</option>
+                          {% for tipo in tipos %}
+                            <option value="{{ tipo.descripcion }}">{{ tipo.get_descripcion_display }}</option>
                           {% endfor %}
                         </select>
+                        
+                        
                       </div>
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" id="razaSelect" name="raza" required>
+                          <option selected disabled>Raza</option>
+                        </select>
+                      </div>
+                      
+                      
+                    </div>
+                    <div class="row">
                       <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" name="genero" required>
                           <option selected disabled>Género</option>
                           {% for genero in generos %}
                             <option value="{{ genero.id }}">{{ genero.get_descripcion_display }}</option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                      
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" name="tipo" required>
-                          <option selected disabled>Tipo de mascota</option>
-                          {% for tipo in tipos %}
-                            <option value="{{ tipo.id }}">{{ tipo.get_descripcion_display }}</option>
                           {% endfor %}
                         </select>
                       </div>
@@ -203,5 +203,26 @@
           });
   });
   </script>
+  <script>
+    document.getElementById('tipoMascotaSelect').addEventListener('change', function () {
+      const tipoId = this.value;
+      const razaSelect = document.getElementById('razaSelect');
+  
+      if (tipoId === "otro") {
+        razaSelect.innerHTML = '<option value="otro" selected>Otro</option>';
+        return;
+      }
+  
+      fetch(`/get_razas/${tipoId}/`)
+        .then(response => response.json())
+        .then(data => {
+          razaSelect.innerHTML = '<option selected disabled>Seleccione una Raza</option>';
+          data.forEach(raza => {
+            razaSelect.innerHTML += `<option value="${raza.id}">${raza.nombre}</option>`;
+          });
+        });
+    });
+  </script>
+  
 </body>
 </html>

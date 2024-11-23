@@ -1124,3 +1124,13 @@ def modificar_ficha_medica(request, ficha_medica_id):
         'tipos_cirugia': TipoCirugia.objects.all(),
     }
     return render(request, 'modificar_ficha_medica.html', context)
+
+def get_razas(request, tipo_id):
+    try:
+        # Filtrar las razas según el tipo seleccionado
+        tipo = TipoMascota.objects.get(descripcion=tipo_id)  # Busca el tipo de mascota
+        razas = Razas.objects.filter(tipo=tipo).values('id', 'nombre')
+        return JsonResponse(list(razas), safe=False)  # Devuelve las razas como JSON
+    
+    except TipoMascota.DoesNotExist:
+        return JsonResponse([], safe=False)  # Si el tipo no existe, devuelve una lista vacía

@@ -109,6 +109,7 @@ class EstadoMascota(models.Model):
 class Razas(models.Model):
     
     nombre = models.CharField(max_length=50)
+    tipo = models.ForeignKey("TipoMascota", on_delete=models.CASCADE, null=True, blank=True)
     
     def __str__(self):
             
