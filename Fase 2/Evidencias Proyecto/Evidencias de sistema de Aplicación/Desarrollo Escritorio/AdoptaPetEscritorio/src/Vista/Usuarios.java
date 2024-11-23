@@ -240,7 +240,7 @@ public class Usuarios extends javax.swing.JFrame {
                                             .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtG)
                                             .addComponent(txtRut))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(72, 72, 72)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -298,7 +298,7 @@ public class Usuarios extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(32, 32, 32)
                         .addComponent(BTModificarUS1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addComponent(BTEliminarUS, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -521,20 +521,38 @@ private Map<Integer, String> procesarDirecciones(JSONArray direccionesArray) {
 
 private void modificarUsuario(int usuarioId) {
     String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para modificar datos
+    HttpURLConnection connection = null;
 
     try {
-        // Crear la URL y la conexión
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        // 1. Obtener los datos actuales del usuario
+        URL getUrl = new URL(urlString);
+        HttpURLConnection getConnection = (HttpURLConnection) getUrl.openConnection();
+        getConnection.setRequestMethod("GET");
+        getConnection.setRequestProperty("Authorization", "Token " + token);
+        getConnection.setRequestProperty("Accept", "application/json");
+        getConnection.connect();
 
-        // Configurar el método PUT y los encabezados
-        connection.setRequestMethod("PUT"); // Cambiar a "PATCH" si solo deseas actualizar algunos campos
-        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Content-Type", "application/json; utf-8");
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setDoOutput(true);
+        int getResponseCode = getConnection.getResponseCode();
+        if (getResponseCode != HttpURLConnection.HTTP_OK) {
+            JOptionPane.showMessageDialog(null, 
+                "Error al obtener los datos actuales del usuario. Código de respuesta: " + getResponseCode, 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        // Crear el objeto JSON con los datos modificados
+        BufferedReader reader = new BufferedReader(new InputStreamReader(getConnection.getInputStream(), "utf-8"));
+        StringBuilder currentDataBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            currentDataBuilder.append(line.trim());
+        }
+        reader.close();
+
+        JSONObject currentData = new JSONObject(currentDataBuilder.toString());
+        getConnection.disconnect();
+
+        // 2. Crear el objeto JSON con los datos nuevos
         JSONObject jsonData = new JSONObject();
         jsonData.put("usuario_django", new JSONObject()
                 .put("first_name", txtNombre.getText())
@@ -545,32 +563,74 @@ private void modificarUsuario(int usuarioId) {
         jsonData.put("telefono", txtTelefono.getText());
         jsonData.put("genero", new JSONObject().put("descripcion", txtG.getText()));
         jsonData.put("estado_economico", new JSONObject().put("descripcion", txtEC.getText()));
-        System.out.println(jsonData);
-        // Enviar los datos a la API
+
+        // 3. Validar si al menos un campo ha cambiado
+        boolean hasChanges = false;
+        if (!txtNombre.getText().equals(currentData.getJSONObject("usuario_django").getString("first_name")) ||
+            !txtApellido.getText().equals(currentData.getJSONObject("usuario_django").getString("last_name")) ||
+            !txtUsername.getText().equals(currentData.getJSONObject("usuario_django").getString("username")) ||
+            !txtEmail.getText().equals(currentData.getJSONObject("usuario_django").getString("email")) ||
+            !txtRut.getText().equals(currentData.getString("rut")) ||
+            !txtTelefono.getText().equals(currentData.getString("telefono")) ||
+            !txtG.getText().equals(currentData.getJSONObject("genero").getString("descripcion")) ||
+            !txtEC.getText().equals(currentData.getJSONObject("estado_economico").getString("descripcion"))) {
+            hasChanges = true;
+        }
+
+        if (!hasChanges) {
+            JOptionPane.showMessageDialog(null, 
+                "No se realizaron cambios. Al menos un campo debe modificarse.", 
+                "Advertencia", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 4. Realizar la solicitud PUT
+        URL url = new URL(urlString);
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Authorization", "Token " + token);
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
         try (OutputStream os = connection.getOutputStream()) {
             byte[] input = jsonData.toString().getBytes("utf-8");
             os.write(input, 0, input.length);
         }
 
-        // Leer la respuesta de la API
+        // 5. Leer la respuesta de la API
         int responseCode = connection.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
-            System.out.println("Usuario modificado con éxito.");
+            JOptionPane.showMessageDialog(null, 
+                "Usuario modificado con éxito.", 
+                "Éxito", 
+                JOptionPane.INFORMATION_MESSAGE);
         } else {
-            // Leer y mostrar el error desde la API
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
             StringBuilder errorResponse = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = errorReader.readLine()) != null) {
                 errorResponse.append(line.trim());
             }
-            System.err.println("Error al modificar el usuario. Código de respuesta: " + responseCode);
-            System.err.println("Detalles del error: " + errorResponse.toString());
+            JOptionPane.showMessageDialog(null, 
+                "Error al modificar el usuario. Código de respuesta: " + responseCode + "\nDetalles del error: " + errorResponse.toString(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
         }
     } catch (Exception e) {
-        e.printStackTrace(); // Mostrar el error completo en la consola
+        JOptionPane.showMessageDialog(null, 
+            "Ocurrió un error", 
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+ 
+        e.printStackTrace();
+    } finally {
+        if (connection != null) {
+            connection.disconnect();
+        }
     }
 }
+
 
 
 
@@ -753,8 +813,7 @@ private void seleccionarUsuario(int usuarioId) {
             txtRut.setEditable(false);
             txtRut.setBackground(Color.GRAY);
 
-            txtG.setEditable(false);
-            txtG.setBackground(Color.GRAY);
+
 
         } else {
             JOptionPane.showMessageDialog(null, "Error al obtener datos del usuario.");

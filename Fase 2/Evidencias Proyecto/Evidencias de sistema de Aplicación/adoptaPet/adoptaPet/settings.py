@@ -78,8 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'adoptaPet.wsgi.application'
 
 # Permitir solicitudes desde cualquier origen (solo para desarrollo)
-CORS_ALLOW_ALL_ORIGINS = True  # Solo para desarrollo
-CSRF_COOKIE_HTTPONLY = False  # Permite acceder al token CSRF a través de JavaScript
+CSRF_COOKIE_HTTPONLY = True  # Permite acceder al token CSRF a través de JavaScript
 CORS_ALLOW_CREDENTIALS = True  # Permite que las cookies se incluyan en las solicitudes de CORS
 CORS_ORIGIN_ALLOW_ALL = True  # Para fines de desarrollo, ajusta según sea necesario
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']  # Ajusta la URL si es diferente
@@ -92,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'adoptapet',
         'USER': 'postgres',
-        'PASSWORD': 'xime200305',
+        'PASSWORD': '5426',
         'HOST': 'localhost', 
         'PORT': '5432',      
     }

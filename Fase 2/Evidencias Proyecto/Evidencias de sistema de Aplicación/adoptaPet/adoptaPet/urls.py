@@ -84,5 +84,8 @@ urlpatterns = [
     path('cambiar_estado_formulario/<int:formulario_id>/', cambiar_estado_formulario, name='cambiar_estado_formulario'),
     path('detalle_ficha_medica/<int:ficha_id>/', detalle_ficha_medica, name='detalle_ficha_medica'),
     path('eliminar_ficha_medica/<int:ficha_medica_id>/', eliminar_ficha_medica, name='eliminar_ficha_medica'),
+    path('mascotas/<int:mascota_id>/', modificar_eliminar_mascota, name='modificar_eliminar_mascota'),
+    path('formulario-adopcion/<int:formulario_id>/', modificar_eliminar_formulario, name='modificar_eliminar_formulario'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

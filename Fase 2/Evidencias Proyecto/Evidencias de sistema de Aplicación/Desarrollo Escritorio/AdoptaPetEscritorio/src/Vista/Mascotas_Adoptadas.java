@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -223,7 +224,7 @@ public class Mascotas_Adoptadas extends javax.swing.JFrame {
     }//GEN-LAST:event_BTVolverActionPerformed
 
     private void BTModificarMasAdopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarMasAdopActionPerformed
-        // TODO add your handling code here:
+     manejarModificacionMascota();
     }//GEN-LAST:event_BTModificarMasAdopActionPerformed
 
     private void BTEliminarMasAdopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarMasAdopActionPerformed
@@ -311,17 +312,15 @@ private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
             int id = usuario.optInt("id", -1);
             JSONObject usuarioDjango = usuario.optJSONObject("usuario_django");
 
-            String firstName = usuarioDjango != null ? usuarioDjango.optString("first_name", "N/A") : "N/A";
-            String lastName = usuarioDjango != null ? usuarioDjango.optString("last_name", "N/A") : "N/A";
+            String username = usuarioDjango != null ? usuarioDjango.optString("username", "N/A") : "N/A";
 
             // Concatenar el nombre completo
-            String nombreCompleto = firstName + " " + lastName;
 
             // Almacenar en el mapa
-            usuariosMap.put(id, nombreCompleto);
+            usuariosMap.put(id, username);
 
             // Opcional: Mostrar en consola
-            System.out.println("ID: " + id + ", Nombre completo: " + nombreCompleto);
+            System.out.println("ID: " + id + ", Nombre completo: " + username);
         }
     } catch (JSONException e) {
         e.printStackTrace();
@@ -329,11 +328,6 @@ private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
     }
     return usuariosMap;
 }
-
-
-
-
-
 //-------------------------------------------------------FIN LISTAR DATOS---------------------------------------------------------------------
 
 //-------------------------------------------------------INICIO ELIMINAR MASCOTA ADOPTADA-----------------------------------------------------
@@ -401,73 +395,155 @@ private void agregarListenerTabla() {
 
 //-------------------------------------------------------FIN ELIMINAR MASCOTA ADOPTADA--------------------------------------------------------
 
-//--------------------------------------------------------INICIO SELECCION MASCOTA ADOPTADA-------------------------------------------------------------
-// Método para seleccionar una mascota y cargar sus datos desde la API
-private void seleccionarMascota(int mascotaId) {
-    String urlString = "http://127.0.0.1:8000/api/mascota/" + mascotaId + "/"; // URL de la API para obtener datos de la mascota
+//-----------------------------------------------------INICIO MODIFICAR MASCOTA ADOPTADA---------------------------------------------------
+private void modificarMascota(int mascotaId) {
+    String urlString = "http://127.0.0.1:8000/mascotas/" + mascotaId + "/";
 
     try {
         // Crear la URL y la conexión
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        // Configurar el método GET y los encabezados
-        connection.setRequestMethod("GET");
+        // Configurar el método PUT
+        connection.setRequestMethod("PUT");
         connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
         connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
 
-        // Conectar y obtener la respuesta
-        connection.connect();
+        // Crear el objeto JSON con los datos nuevos
+        JSONObject jsonData = new JSONObject();
+        jsonData.put("nombre", txtNombreMascota.getText()); // Nombre de la mascota
+        jsonData.put("estado_mascota", new JSONObject().put("descripcion", txtEstadoMascota.getText())); // Estado de la mascota
+
+        // Enviar los datos a la API
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonData.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Leer la respuesta de la API
         int responseCode = connection.getResponseCode();
-
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            // Leer la respuesta de la API
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
+        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+            System.out.println("Mascota modificada con éxito.");
+        } else {
+            // Leer y mostrar el error desde la API
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
+            StringBuilder errorResponse = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
-                response.append(line);
+                errorResponse.append(line.trim());
+            }
+            System.err.println("Error al modificar la mascota. Código de respuesta: " + responseCode);
+            System.err.println("Detalles del error: " + errorResponse.toString());
+        }
+    } catch (Exception e) {
+        e.printStackTrace(); // Mostrar el error completo en la consola
+    }
+}
+
+
+
+
+private void manejarModificacionMascota() {
+    int filaSeleccionada = TablaMascotasAdoptadas.getSelectedRow(); // Obtener la fila seleccionada en la tabla
+
+    if (filaSeleccionada != -1) {
+        int mascotaId = (int) TablaMascotasAdoptadas.getValueAt(filaSeleccionada, 0); // Obtener el ID de la mascota
+
+        // Confirmar la modificación
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null,
+            "¿Está seguro de que desea modificar los datos de esta mascota?",
+            "Confirmar modificación",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Llamar al método modificarMascota pasando el ID de la mascota seleccionada
+            modificarMascota(mascotaId);
+            cargarDatosTabla();
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione una mascota de la tabla.");
+    }
+}
+
+//-----------------------------------------------------FIN MODIFICAR MASCOTA ADOPTADA---------------------------------------------------
+
+
+
+
+//--------------------------------------------------------INICIO SELECCION MASCOTA ADOPTADA-------------------------------------------------------------
+// Método para seleccionar una mascota y cargar sus datos desde la API
+private void seleccionarMascota(int mascotaId) {
+    String urlMascota = "http://127.0.0.1:8000/api/mascota/" + mascotaId + "/"; // URL de la API para obtener datos de la mascota
+    String urlUsuarios = "http://127.0.0.1:8000/api/perfilusuario/?format=json"; // URL para obtener usuarios
+    Map<Integer, String> usuariosMap = new HashMap<>(); // Mapa para almacenar datos de usuarios
+
+    try {
+        // Obtener los datos de la mascota
+        JSONObject jsonResponse = obtenerObjetoDeApi(urlMascota);
+
+        // Procesar estado de la mascota como objeto JSON
+        String estadoMascota = "N/A";
+        JSONObject estadoMascotaObj = jsonResponse.optJSONObject("estado_mascota");
+        if (estadoMascotaObj != null) {
+            estadoMascota = estadoMascotaObj.optString("descripcion", "N/A");
+        }
+
+        // Filtrar solo si el estado de la mascota es "Adoptada"
+        if (estadoMascota.equals("adoptado")) {
+            // Obtener los datos básicos de la mascota
+            String nombreMascota = jsonResponse.optString("nombre", "N/A");
+
+            // Obtener el ID del usuario asociado a la mascota
+            JSONObject usuarioObj = jsonResponse.optJSONObject("usuario");
+            int idUsuario = usuarioObj != null ? usuarioObj.optInt("id", -1) : -1;
+
+            // Si no se ha cargado el mapa de usuarios, hacerlo ahora
+            if (usuariosMap.isEmpty()) {
+                JSONArray usuariosArray = obtenerDatosDeApi(urlUsuarios);
+                usuariosMap = procesarUsuarios(usuariosArray); // Utiliza el método existente
             }
 
-            // Convertir la respuesta en un JSONObject
-            JSONObject jsonResponse = new JSONObject(response.toString());
+            // Obtener el nombre completo del usuario
+            String nombreCompleto = usuariosMap.getOrDefault(idUsuario, "N/A");
 
-            // Procesar estado de la mascota como objeto JSON
-            String estadoMascota = "N/A";
-            JSONObject estadoMascotaObj = jsonResponse.optJSONObject("estado_mascota");
-            if (estadoMascotaObj != null) {
-                estadoMascota = estadoMascotaObj.optString("descripcion", "N/A");
-            }
+            // Mostrar los datos en los campos correspondientes
+            txtNombreMascota.setText(nombreMascota);
+            txtEstadoMascota.setText(estadoMascota);
 
-            // Filtrar solo si el estado de la mascota es "Adoptada"
-            if (estadoMascota.equals("adoptado")) {
-                // Obtener los datos básicos de la mascota
-                String nombreMascota = jsonResponse.optString("nombre", "N/A");
-                String username = jsonResponse.optString("username", "N/A");
-
-                // Mostrar los datos en los campos correspondientes
-                txtNombreMascota.setText(nombreMascota);
-                txtUsername.setText(username);
-                txtEstadoMascota.setText(estadoMascota);
-
-                // Deshabilitar los campos que no deben ser modificados
-                txtNombreMascota.setEditable(false);
-                txtNombreMascota.setBackground(Color.GRAY);
-
-                txtUsername.setEditable(false);
-                txtUsername.setBackground(Color.GRAY);
-
-                txtEstadoMascota.setEditable(false);
-                txtEstadoMascota.setBackground(Color.GRAY);
-            } else {
-                JOptionPane.showMessageDialog(null, "La mascota seleccionada no está adoptada.");
-            }
         } else {
-            JOptionPane.showMessageDialog(null, "Error al obtener datos de la mascota.");
+            JOptionPane.showMessageDialog(null, "La mascota seleccionada no está adoptada.");
         }
     } catch (Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error al seleccionar mascota.");
+    }
+}
+
+// Método para obtener un objeto JSON desde una API
+private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSONException {
+    URL url = new URL(urlString);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("GET");
+    connection.setRequestProperty("Authorization", "Token " + token);
+    connection.setRequestProperty("Accept", "application/json");
+    connection.connect();
+
+    int responseCode = connection.getResponseCode();
+    if (responseCode == HttpURLConnection.HTTP_OK) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
+        }
+        reader.close();
+        return new JSONObject(response.toString());
+    } else {
+        throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
     }
 }
 
@@ -481,13 +557,21 @@ private void manejarSeleccionMascota() {
         int mascotaId = (int) TablaMascotasAdoptadas.getValueAt(filaSeleccionada, 0);
 
         // Confirmación de selección
-        int confirmacion = JOptionPane.showConfirmDialog(null,
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null,
             "¿Está seguro de que desea cargar los datos de esta mascota?",
             "Confirmar selección",
-            JOptionPane.YES_NO_OPTION);
+            JOptionPane.YES_NO_OPTION
+        );
 
         if (confirmacion == JOptionPane.YES_OPTION) {
-            seleccionarMascota(mascotaId); // Llamar al método para cargar los datos
+            try {
+                // Llamar al método para cargar los datos de la mascota
+                seleccionarMascota(mascotaId);
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al manejar la selección de la mascota.");
+            }
         }
     } else {
         JOptionPane.showMessageDialog(null, "Por favor, seleccione una mascota de la tabla.");

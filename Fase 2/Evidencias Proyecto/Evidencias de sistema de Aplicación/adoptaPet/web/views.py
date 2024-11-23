@@ -14,6 +14,7 @@ from .serializers import *
 from web.cargar_datos_fundaciones import consumir_y_guardar_fundaciones
 from django.http import JsonResponse
 from django.utils.timezone import now
+from django.views.decorators.csrf import csrf_exempt
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated, IsAdminUser])
@@ -85,6 +86,85 @@ def eliminar_usuario(request, user_profile_id):
     usuario.delete()
     perfil_usuario.delete()
     return Response({"message": "Usuario y perfil eliminados correctamente."}, status=status.HTTP_204_NO_CONTENT)
+
+@csrf_exempt
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def modificar_eliminar_mascota(request, mascota_id):
+    try:
+        # Obtener la mascota por su ID
+        mascota = Mascota.objects.get(id=mascota_id)
+    except Mascota.DoesNotExist:
+        return Response({"error": "Mascota no encontrada."}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        # Serializar los datos de la mascota
+        mascota_serializer = MascotaSerializer(mascota)
+        return Response(mascota_serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == 'PUT':
+        # Modificar los datos de la mascota
+        mascota_data = request.data
+        mascota_serializer = MascotaSerializer(mascota, data=mascota_data, partial=True)
+        
+        if mascota_serializer.is_valid():
+            mascota_serializer.save()  # Guardar los cambios
+            return Response(mascota_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(mascota_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        # Eliminar la mascota
+        mascota.delete()
+        return Response({"message": "Mascota eliminada correctamente."}, status=status.HTTP_204_NO_CONTENT)
+
+
+@csrf_exempt
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def modificar_eliminar_formulario(request, formulario_id):
+    try:
+        # Obtener el formulario por su ID
+        formulario = FormularioAdopcion.objects.get(id=formulario_id)
+    except FormularioAdopcion.DoesNotExist:
+        return Response({"error": "Formulario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        # Serializar los datos del formulario
+        formulario_serializer = FormularioAdopcionSerializer(formulario)
+        return Response(formulario_serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == 'PUT':
+        # Modificar los datos del formulario
+        formulario_data = request.data
+        formulario_serializer = FormularioAdopcionSerializer(formulario, data=formulario_data, partial=True)
+
+        if formulario_serializer.is_valid():
+            formulario_serializer.save()  # Guardar los cambios
+            return Response(formulario_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(formulario_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        # Eliminar el formulario
+        formulario.delete()
+        return Response({"message": "Formulario eliminado correctamente."}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @login_required(login_url="inicio_sesion")
 def inicio(request):

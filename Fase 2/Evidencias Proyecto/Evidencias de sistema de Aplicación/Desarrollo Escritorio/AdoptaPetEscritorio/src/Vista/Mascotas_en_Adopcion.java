@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -340,6 +341,91 @@ private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
 
 
 //-------------------------------------------------------FIN LISTAR DATOS MASCOTA EN ADOPCION---------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------INICIO MODIFICAR MASCOTA EN ADOPCION---------------------------------------------------
+private void modificarMascota(int mascotaId) {
+    String urlString = "http://127.0.0.1:8000/mascotas/" + mascotaId + "/";
+
+    try {
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Configurar el método PUT
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        // Crear el objeto JSON con los datos nuevos
+        JSONObject jsonData = new JSONObject();
+        jsonData.put("nombre", txtNombreMascota.getText()); // Nombre de la mascota
+        jsonData.put("estado_mascota", new JSONObject().put("descripcion", txtEstadoMascota.getText())); // Estado de la mascota
+
+        // Enviar los datos a la API
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonData.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Leer la respuesta de la API
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+            System.out.println("Mascota modificada con éxito.");
+        } else {
+            // Leer y mostrar el error desde la API
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
+            StringBuilder errorResponse = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                errorResponse.append(line.trim());
+            }
+            System.err.println("Error al modificar la mascota. Código de respuesta: " + responseCode);
+            System.err.println("Detalles del error: " + errorResponse.toString());
+        }
+    } catch (Exception e) {
+        e.printStackTrace(); // Mostrar el error completo en la consola
+    }
+}
+
+
+
+
+private void manejarModificacionMascota() {
+    int filaSeleccionada = TablaMascotasAdoptadas.getSelectedRow(); // Obtener la fila seleccionada en la tabla
+
+    if (filaSeleccionada != -1) {
+        int mascotaId = (int) TablaMascotasAdoptadas.getValueAt(filaSeleccionada, 0); // Obtener el ID de la mascota
+
+        // Confirmar la modificación
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null,
+            "¿Está seguro de que desea modificar los datos de esta mascota?",
+            "Confirmar modificación",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Llamar al método modificarMascota pasando el ID de la mascota seleccionada
+            modificarMascota(mascotaId);
+            cargarDatosTabla();
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione una mascota de la tabla.");
+    }
+}
+
+//-----------------------------------------------------FIN MODIFICAR MASCOTA EN ADOPCION---------------------------------------------------
+
+
+
+
+
+
+
 
 //-------------------------------------------------------INICIO ELIMINAR MASCOTA EN ADOPCION-----------------------------------------------------
 // Método para eliminar una mascota a través de la API

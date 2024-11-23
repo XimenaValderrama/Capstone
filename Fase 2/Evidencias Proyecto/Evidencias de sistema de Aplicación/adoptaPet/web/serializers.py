@@ -29,6 +29,15 @@ class PerfilUsuarioSerializer(serializers.ModelSerializer):
         model = PerfilUsuario
         fields = '__all__'
 
+class PerfilUsuarioSerializer(serializers.ModelSerializer):
+    estado_economico = EstadoEconomicoSerializer()
+    genero = GeneroSerializer()
+    usuario_django = UserSerializer()
+
+    class Meta:
+        model = PerfilUsuario
+        fields = '__all__'
+
     def update(self, instance, validated_data):
         # Actualizar estado_economico
         estado_economico_data = validated_data.pop('estado_economico', None)
@@ -37,6 +46,12 @@ class PerfilUsuarioSerializer(serializers.ModelSerializer):
                 setattr(instance.estado_economico, attr, value)
             instance.estado_economico.save()
 
+        # Actualizar genero
+        genero_data = validated_data.pop('genero', None)
+        if genero_data:
+            for attr, value in genero_data.items():
+                setattr(instance.genero, attr, value)
+            instance.genero.save()
 
         # Actualizar usuario_django
         usuario_django_data = validated_data.pop('usuario_django', None)
@@ -51,6 +66,7 @@ class PerfilUsuarioSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
 
 
 class PaisSerializer(serializers.ModelSerializer):
@@ -175,6 +191,70 @@ class MascotaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mascota
         fields = '__all__'
+        
+    def update(self, instance, validated_data): 
+        # Actualizar estado_mascota
+        estado_mascota_data = validated_data.pop('estado_mascota', None)
+        if estado_mascota_data:
+            for attr, value in estado_mascota_data.items():
+                setattr(instance.estado_mascota, attr, value)
+            instance.estado_mascota.save()
+
+        # Actualizar raza
+        raza_data = validated_data.pop('raza', None)
+        if raza_data:
+            for attr, value in raza_data.items():
+                setattr(instance.raza, attr, value)
+            instance.raza.save()
+
+        # Actualizar genero
+        genero_data = validated_data.pop('genero', None)
+        if genero_data:
+            for attr, value in genero_data.items():
+                setattr(instance.genero, attr, value)
+            instance.genero.save()
+
+        # Actualizar descripcion
+        descripcion_data = validated_data.pop('descripcion', None)
+        if descripcion_data:
+            for attr, value in descripcion_data.items():
+                setattr(instance.descripcion, attr, value)
+            instance.descripcion.save()
+
+        # Actualizar tipo
+        tipo_data = validated_data.pop('tipo', None)
+        if tipo_data:
+            for attr, value in tipo_data.items():
+                setattr(instance.tipo, attr, value)
+            instance.tipo.save()
+
+        # Actualizar direccion
+        direccion_data = validated_data.pop('direccion', None)
+        if direccion_data:
+            for attr, value in direccion_data.items():
+                setattr(instance.direccion, attr, value)
+            instance.direccion.save()
+
+        # Actualizar usuario (PerfilUsuario)
+        usuario_data = validated_data.pop('usuario', None)
+        if usuario_data:
+            for attr, value in usuario_data.items():
+                setattr(instance.usuario, attr, value)
+            instance.usuario.save()
+
+        # Actualizar fundacion
+        fundacion_data = validated_data.pop('fundacion', None)
+        if fundacion_data:
+            for attr, value in fundacion_data.items():
+                setattr(instance.fundacion, attr, value)
+            instance.fundacion.save()
+
+        # Actualizar los campos restantes de la mascota
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
 
 class EstadoFormularioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -190,6 +270,36 @@ class FormularioAdopcionSerializer(serializers.ModelSerializer):
     class Meta:
         model = FormularioAdopcion
         fields = '__all__'
+
+    def update(self, instance, validated_data):
+        # Actualizar estado_formulario
+        estado_formulario_data = validated_data.pop('estado_formulario', None)
+        if estado_formulario_data:
+            for attr, value in estado_formulario_data.items():
+                setattr(instance.estado_formulario, attr, value)
+            instance.estado_formulario.save()
+
+        # Actualizar mascota (relación con MascotaSerializer)
+        mascota_data = validated_data.pop('mascota', None)
+        if mascota_data:
+            for attr, value in mascota_data.items():
+                setattr(instance.mascota, attr, value)
+            instance.mascota.save()
+
+        # Actualizar usuario (PerfilUsuario)
+        usuario_data = validated_data.pop('usuario', None)
+        if usuario_data:
+            for attr, value in usuario_data.items():
+                setattr(instance.usuario, attr, value)
+            instance.usuario.save()
+
+        # Actualizar los campos restantes del formulario
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
+
 
 class TipoAlimentoSerializer(serializers.ModelSerializer):
     class Meta:

@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -59,6 +60,11 @@ public class Formularios extends javax.swing.JFrame {
         TableFormulario = new javax.swing.JTable();
         BTModificarFormu = new javax.swing.JButton();
         BTVolver = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtEstadoFor = new javax.swing.JTextField();
+        txtComentarios = new javax.swing.JTextField();
+        BTSeleccionarForm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,6 +110,17 @@ public class Formularios extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Estado Formulario");
+
+        jLabel3.setText("Comentarios");
+
+        BTSeleccionarForm.setText("Seleccionar Formulario");
+        BTSeleccionarForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTSeleccionarFormActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -120,9 +137,23 @@ public class Formularios extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BTEliminarFormu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BTModificarFormu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(BTEliminarFormu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(BTModificarFormu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel3))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtEstadoFor, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                            .addComponent(txtComentarios))))
+                                .addGap(45, 45, 45))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(BTSeleccionarForm)
+                                .addGap(79, 79, 79)))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -136,17 +167,25 @@ public class Formularios extends javax.swing.JFrame {
                             .addComponent(txtUsuario)
                             .addComponent(jLabel1)))
                     .addComponent(BTVolver))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BTModificarFormu, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(BTEliminarFormu, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(BTSeleccionarForm)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtEstadoFor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BTModificarFormu, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(BTEliminarFormu, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,14 +209,20 @@ public class Formularios extends javax.swing.JFrame {
     }//GEN-LAST:event_BTVolverActionPerformed
 
     private void BTModificarFormuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarFormuActionPerformed
-        // TODO add your handling code here:
+       manejarModificacionFormulario();
     }//GEN-LAST:event_BTModificarFormuActionPerformed
 
     private void BTEliminarFormuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarFormuActionPerformed
        manejarEliminacionFormulario();
     }//GEN-LAST:event_BTEliminarFormuActionPerformed
 
+    private void BTSeleccionarFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTSeleccionarFormActionPerformed
+        manejarSeleccionFormulario(); // Llama al método para manejar la selección del usuario
+    }//GEN-LAST:event_BTSeleccionarFormActionPerformed
+
 private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
+
+
 //-------------------------------------------------LISTAR DATOS FORMULARIOS----------------------------------------------------------    
 private void cargarDatosTabla() {
     String formularioUrl = "http://127.0.0.1:8000/api/formulario/?format=json";
@@ -346,13 +391,85 @@ private Map<Integer, String> procesarDirecciones(JSONArray direccionesArray) {
     }
     return direccionesMap;
 }
-//-------------------------------------------------FIN LISTAR DATOS FORMULARIOS------------------------------------------------------
+//-------------------------------------------------FIN LISTAR DATOS FORMULARIO------------------------------------------------------
     
 
+//-------------------------------------------------INICIO MODIFICAR FORMULARIO-----------------------------------------------------
+
+private void modificarFormulario(int formularioId) {
+    String urlString = "http://127.0.0.1:8000/formulario-adopcion/" + formularioId + "/";
+
+    try {
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Configurar el método PUT
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        // Crear el objeto JSON con los datos nuevos
+        JSONObject jsonData = new JSONObject();
+        jsonData.put("estado_formulario", new JSONObject().put("descripcion", txtEstadoFor.getText())); // Estado del formulario
+        jsonData.put("comentarios", txtComentarios.getText()); // Comentarios del formulario
+
+        // Enviar los datos a la API
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonData.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Leer la respuesta de la API
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+            System.out.println("Formulario modificado con éxito.");
+        } else {
+            // Leer y mostrar el error desde la API
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
+            StringBuilder errorResponse = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                errorResponse.append(line.trim());
+            }
+            System.err.println("Error al modificar el formulario. Código de respuesta: " + responseCode);
+            System.err.println("Detalles del error: " + errorResponse.toString());
+        }
+    } catch (Exception e) {
+        e.printStackTrace(); // Mostrar el error completo en la consola
+    }
+}
+
+private void manejarModificacionFormulario() {
+    int filaSeleccionada = TableFormulario.getSelectedRow(); // Obtener la fila seleccionada en la tabla
+
+    if (filaSeleccionada != -1) {
+        int formularioId = (int) TableFormulario.getValueAt(filaSeleccionada, 0); // Obtener el ID del formulario
+
+        // Confirmar la modificación
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null,
+            "¿Está seguro de que desea modificar los datos de este formulario?",
+            "Confirmar modificación",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Llamar al método modificarFormulario pasando el ID del formulario seleccionado
+            modificarFormulario(formularioId);
+            cargarDatosTabla(); // Recargar los datos de la tabla
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione un formulario de la tabla.");
+    }
+}
 
 
+//-------------------------------------------------FIN MODIFICAR FORMULARIO 
 
-
+//-------------------------------------------------------INICIO ELIMINAR FORMULARIO--------------------------------------------------------
 
 
 // Método para eliminar un Formulario a través de la API
@@ -417,11 +534,103 @@ private void agregarListenerTabla() {
     });
 }
 
-//-------------------------------------------------------FIN ELIMINAR MASCOTA ADOPTADA--------------------------------------------------------
+//-------------------------------------------------------FIN ELIMINAR FORMULARIO--------------------------------------------------------
 
 
 
 
+
+
+
+
+//------------------------------------------------------INICIO SELECCIONAR FORMULARIO---------------------------------------------------
+// Método para seleccionar un formulario y cargar sus datos desde la API
+private void seleccionarFormulario(int formularioId) {
+    String urlFormulario = "http://127.0.0.1:8000/api/formulario/" + formularioId + "/"; // URL de la API para obtener datos del formulario
+
+    try {
+        // Obtener los datos del formulario
+        JSONObject jsonResponse = obtenerObjetoDeApi(urlFormulario);
+
+        // Procesar estado del formulario como objeto JSON
+        String estadoFormulario = "N/A";
+        JSONObject estadoFormularioObj = jsonResponse.optJSONObject("estado_formulario");
+        if (estadoFormularioObj != null) {
+            estadoFormulario = estadoFormularioObj.optString("descripcion", "N/A");
+        }
+
+        // Obtener los comentarios del formulario
+        String comentarios = jsonResponse.optString("comentarios", "N/A");
+
+        // Mostrar los datos en los campos correspondientes
+        txtEstadoFor.setText(estadoFormulario);
+        txtComentarios.setText(comentarios);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al seleccionar formulario.");
+    }
+}
+
+// Método para manejar la selección del formulario en la tabla y cargar los datos
+private void manejarSeleccionFormulario() {
+    // Obtener la fila seleccionada
+    int filaSeleccionada = TableFormulario.getSelectedRow();
+
+    if (filaSeleccionada != -1) {
+        // Obtener el ID del formulario en la primera columna (suponiendo que el ID está en la columna 0)
+        int formularioId = (int) TableFormulario.getValueAt(filaSeleccionada, 0);
+
+        // Confirmación de selección
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null,
+            "¿Está seguro de que desea cargar los datos de este formulario?",
+            "Confirmar selección",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            try {
+                // Llamar al método para cargar los datos del formulario
+                seleccionarFormulario(formularioId);
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al manejar la selección del formulario.");
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione un formulario de la tabla.");
+    }
+}
+
+// Método para obtener un objeto JSON desde una API (mismo que el original)
+private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSONException {
+    URL url = new URL(urlString);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("GET");
+    connection.setRequestProperty("Authorization", "Token " + token);
+    connection.setRequestProperty("Accept", "application/json");
+    connection.connect();
+
+    int responseCode = connection.getResponseCode();
+    if (responseCode == HttpURLConnection.HTTP_OK) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
+        }
+        reader.close();
+        return new JSONObject(response.toString());
+    } else {
+        throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
+    }
+}
+
+
+
+
+//-----------------------------------------------------FIN SELECCIONAR FORMULARIO-----------------------------------------------------
 
 
 
@@ -465,11 +674,16 @@ private void agregarListenerTabla() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTEliminarFormu;
     private javax.swing.JButton BTModificarFormu;
+    private javax.swing.JButton BTSeleccionarForm;
     private javax.swing.JButton BTVolver;
     private javax.swing.JTable TableFormulario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField txtComentarios;
+    private javax.swing.JTextField txtEstadoFor;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
