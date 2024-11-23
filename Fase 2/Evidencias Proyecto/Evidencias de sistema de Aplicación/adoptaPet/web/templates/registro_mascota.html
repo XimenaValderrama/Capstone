@@ -63,17 +63,24 @@
                         <select class="form-control form-control-lg" id="tipoMascotaSelect" name="tipo" required>
                           <option selected disabled>Tipo de mascota</option>
                           {% for tipo in tipos %}
-                            <option value="{{ tipo.descripcion }}">{{ tipo.get_descripcion_display }}</option>
+                            <option value="{{ tipo.id }}">{{ tipo.get_descripcion_display }}</option>
                           {% endfor %}
                         </select>
                         
                         
                       </div>
-                      <div class="col-md-6 mb-3">
-                        <select class="form-control form-control-lg" id="razaSelect" name="raza" required>
-                          <option selected disabled>Raza</option>
+                      <div class="form-group mb-3">
+                        <label for="raza"><strong>Raza</strong></label>
+                        <select name="raza" id="raza" class="form-control">
+                            <option value="">Seleccione una raza</option> <!-- Opción predeterminada -->
+                            {% for raza in razas %}
+                                <option value="{{ raza.id }}" data-tipo="{{ raza.tipo.id }}" 
+                                    {% if mascota.raza.id == raza.id %}selected{% endif %}>
+                                    {{ raza.nombre }}
+                                </option>
+                            {% endfor %}
                         </select>
-                      </div>
+                    </div>
                       
                       
                     </div>
@@ -204,25 +211,43 @@
   });
   </script>
   <script>
-    document.getElementById('tipoMascotaSelect').addEventListener('change', function () {
-      const tipoId = this.value;
-      const razaSelect = document.getElementById('razaSelect');
-  
-      if (tipoId === "otro") {
-        razaSelect.innerHTML = '<option value="otro" selected>Otro</option>';
-        return;
-      }
-  
-      fetch(`/get_razas/${tipoId}/`)
-        .then(response => response.json())
-        .then(data => {
-          razaSelect.innerHTML = '<option selected disabled>Seleccione una Raza</option>';
-          data.forEach(raza => {
-            razaSelect.innerHTML += `<option value="${raza.id}">${raza.nombre}</option>`;
-          });
-        });
+    document.getElementById('tipo').addEventListener('change', function() {
+        const tipoId = this.value; // ID del tipo seleccionado
+        const razaSelect = document.getElementById('raza'); // Select de razas
+        const opciones = razaSelect.options; // Todas las opciones actuales del select de razas
+    
+        // Reiniciar el select de razas
+        razaSelect.innerHTML = '';
+    
+        // Agregar la opción predeterminada "Seleccione una raza"
+        const opcionDefault = document.createElement('option');
+        opcionDefault.value = '';
+        opcionDefault.textContent = 'Seleccione una raza';
+        razaSelect.appendChild(opcionDefault);
+    
+        // Manejar el caso "Otro"
+        if (tipoId === 'otro') {
+            const opcionOtro = document.createElement('option');
+            opcionOtro.value = 'otro';
+            opcionOtro.textContent = 'Otro';
+            razaSelect.appendChild(opcionOtro);
+            return; // No continuar con las demás opciones
+        }
+    
+        // Mostrar solo las razas que coinciden con el tipo seleccionado
+        for (let i = 0; i < opciones.length; i++) {
+            const opcion = opciones[i];
+            const tipoRaza = opcion.getAttribute('data-tipo'); // Tipo al que pertenece la raza
+            if (tipoRaza === tipoId) {
+                razaSelect.appendChild(opcion.cloneNode(true)); // Clonar la opción válida
+            }
+        }
+    
+        // Reiniciar el valor seleccionado en el select de razas
+        razaSelect.value = '';
     });
-  </script>
+    </script>
+    
   
 </body>
 </html>

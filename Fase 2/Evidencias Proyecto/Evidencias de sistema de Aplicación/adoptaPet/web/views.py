@@ -430,51 +430,56 @@ def cerrar_sesion(request):
 
 @login_required(login_url="inicio_sesion")
 def registro_mascota(request):
-
     if request.method == 'POST':
         # Obtener datos del formulario
         nombre = request.POST.get('nombre')
         apellido = request.POST.get('apellido')
         edad = request.POST.get('edad')
-        tipo_edad = request.POST.get('tipo_edad')  # <-- Asegúrate de obtener el valor del tipo de edad
-        imagen = request.FILES.get('imagen')  # Usar request.FILES para imágenes
+        tipo_edad = request.POST.get('tipo_edad')
+        imagen = request.FILES.get('imagen')
         estado_mascota_id = request.POST.get('estado_mascota')
         raza_id = request.POST.get('raza')
         genero_id = request.POST.get('genero')
         tipo_id = request.POST.get('tipo')
-        
-        # Obtener datos de la dirección desde el formulario
         calle = request.POST.get('calle')
         numero = request.POST.get('numero')
         comuna_id = request.POST.get('comuna')
-
-        # Obtener las descripciones
         desc_fisica = request.POST.get('desc_fisica')
         desc_personalidad = request.POST.get('desc_personalidad')
         desc_adicional = request.POST.get('desc_adicional')
 
+        # Crear la descripción
         descripcion = DescripcionMascota()
         descripcion.desc_fisica = desc_fisica
         descripcion.desc_personalidad = desc_personalidad
         descripcion.desc_adicional = desc_adicional
-        descripcion.save() 
+        descripcion.save()
 
-        # Validar y obtener instancias de relaciones ForeignKey
-        estado_mascota = EstadoMascota.objects.get(id=estado_mascota_id)
-        raza = Razas.objects.get(id=raza_id)
-        genero = GeneroMascota.objects.get(id=genero_id)
-        tipo = TipoMascota.objects.get(id=tipo_id)
-        comuna = ComunaMascota.objects.get(id=comuna_id)
-        usuario = PerfilUsuario.objects.get(usuario_django=request.user)
+        # Manejar ForeignKey correctamente
+        estado_mascota = get_object_or_404(EstadoMascota, id=estado_mascota_id)
+        genero = get_object_or_404(GeneroMascota, id=genero_id)
+        comuna = get_object_or_404(ComunaMascota, id=comuna_id)
+        usuario = get_object_or_404(PerfilUsuario, usuario_django=request.user)
 
-        # Crear la nueva dirección para la mascota
+        if tipo_id == "otro":
+            tipo = TipoMascota.objects.create(descripcion="Otro")  # Crear un nuevo registro
+        else:
+            tipo = TipoMascota.objects.get(id=tipo_id)
+
+
+        if raza_id == "otro":
+            raza = Razas.objects.create(nombre="Otro", tipo=tipo)
+        else:
+            raza = get_object_or_404(Razas, id=raza_id)
+
+        # Crear la dirección
         direccion = DireccionMascota()
         direccion.calle = calle
         direccion.numero = numero
         direccion.comuna = comuna
         direccion.save()
 
-        # Crear la nueva mascota asociada con la descripción, dirección, y tipo de edad
+
         mascota = Mascota()
         mascota.nombre = nombre
         mascota.apellido = apellido
@@ -489,38 +494,25 @@ def registro_mascota(request):
         mascota.direccion = direccion
         mascota.usuario = usuario
         mascota.save()
-        
-        messages.success(request, 'Se registro su mascota con exito.', extra_tags='registro_mascota')
-        
-        # Redirigir a otra página después de guardar
-        return redirect('mascotas') 
 
-    # Obtener listas de opciones para el formulario
-    paises = PaisMascota.objects.all()
-    regiones = RegionMascota.objects.all()
-    provincias = ProvinciaMascota.objects.all()
-    comunas = ComunaMascota.objects.all()
-    generos = GeneroMascota.objects.all()
-    estados = EstadoMascota.objects.all()
-    tipos = TipoMascota.objects.all()
-    razas = Razas.objects.all()
+        messages.success(request, 'Se registró su mascota con éxito.')
+        return redirect('mascotas')
 
-    tipo_edades = Mascota.CHOICES
-    
+    # Obtener datos para el formulario
     context = {
-        'paises': paises,
-        'provincias': provincias,
-        'regiones': regiones,
-        'comunas': comunas,
-        'generos': generos,
-        'estados': estados,
-        'tipos': tipos,
-        'razas': razas,
-        'tipo_edades': tipo_edades 
+        'mascota': Mascota.objects.all(),
+        'paises': PaisMascota.objects.all(),
+        'provincias': ProvinciaMascota.objects.all(),
+        'regiones': RegionMascota.objects.all(),
+        'comunas': ComunaMascota.objects.all(),
+        'generos': GeneroMascota.objects.all(),
+        'estados': EstadoMascota.objects.all(),
+        'tipos': TipoMascota.objects.all(),
+        'razas': Razas.objects.all(),
+        'tipo_edades': Mascota.CHOICES
     }
-    
-    # Mostrar el formulario de registro si el método es GET
     return render(request, 'registro_mascota.html', context)
+
 
 @login_required(login_url="inicio_sesion")
 def detalle_mascota(request, mascota_id):
@@ -551,13 +543,13 @@ def get_comunas(request, provincia_id):
     comunas = Comuna.objects.filter(provincia_id=provincia_id).values('id', 'nombre')
     return JsonResponse(list(comunas), safe=False)
 
-# Vista para obtener las provincias de una región de la mascota 
+# Vista para obtener las provincias de una región de la mascata 
 def get_provincias_mascota(request, region_id):
     provincias = ProvinciaMascota.objects.filter(region_id=region_id)
     data = [{"id": provincia.id, "nombre": provincia.nombre} for provincia in provincias]
     return JsonResponse(data, safe=False)
 
-# Vista para obtener las comunas de una provincia de la mascota
+# Vista para obtener las comunas de una provincia de la mascata
 def get_comunas_mascota(request, provincia_id):
 
     comunas = ComunaMascota.objects.filter(provincia_id=provincia_id)
@@ -585,10 +577,10 @@ def modificar_mascota(request, mascota_id):
     # Obtener la mascota, dirección y descripción
     mascota = get_object_or_404(Mascota, id=mascota_id)
     direccion = mascota.direccion
-    descripcion_mascota = mascota.descripcion  # Referencia al modelo DescripcionMascota
+    descripcion_mascota = mascota.descripcion
 
     if request.method == 'POST':
-        # Obtener los datos de la mascota desde el POST
+        # Obtener datos del formulario
         nombre = request.POST.get('nombre', mascota.nombre)
         apellido = request.POST.get('apellido', mascota.apellido)
         edad = request.POST.get('edad', mascota.edad)
@@ -598,52 +590,55 @@ def modificar_mascota(request, mascota_id):
         raza_id = request.POST.get('raza', mascota.raza.id)
         genero_id = request.POST.get('genero', mascota.genero.id)
         tipo_id = request.POST.get('tipo', mascota.tipo.id)
-        
-        # Obtener los datos de la dirección desde el POST
+
+        # Dirección
         calle = request.POST.get('calle', direccion.calle)
         numero = request.POST.get('numero', direccion.numero)
         comuna_id = request.POST.get('comuna', direccion.comuna.id)
-        
-        # Obtener los datos de descripción de la mascota desde el POST
+
+        # Descripción
         desc_fisica = request.POST.get('descripcion_fisica', descripcion_mascota.desc_fisica)
         desc_personalidad = request.POST.get('descripcion_personalidad', descripcion_mascota.desc_personalidad)
         desc_adicional = request.POST.get('descripcion_adicional', descripcion_mascota.desc_adicional)
 
-        # Actualizar los atributos de la mascotaa
+        # Manejo de raza (crear una nueva si es "Otro")
+        if raza_id == "otro":
+            raza = Razas.objects.create(nombre="Otro", tipo_id=tipo_id)
+        else:
+            raza = Razas.objects.get(id=raza_id)
+
+        # Actualizar mascota
         mascota.nombre = nombre
         mascota.apellido = apellido
         mascota.edad = edad
         mascota.tipo_edad = tipo_edad
         mascota.imagen = imagen
         mascota.estado_mascota = EstadoMascota.objects.get(id=estado_mascota_id)
-        mascota.raza = Razas.objects.get(id=raza_id)
+        mascota.raza = raza
         mascota.genero = GeneroMascota.objects.get(id=genero_id)
         mascota.tipo = TipoMascota.objects.get(id=tipo_id)
-        mascota.save()  # Guardar los cambios de la mascota
+        mascota.save()
 
-        # Actualizar la dirección
+        # Actualizar dirección
         direccion.calle = calle
         direccion.numero = numero
         direccion.comuna = ComunaMascota.objects.get(id=comuna_id)
-        direccion.save()  # Guardar los cambios de la dirección
+        direccion.save()
 
-        # Actualizar la descripción de la mascota
+        # Actualizar descripción
         descripcion_mascota.desc_fisica = desc_fisica
         descripcion_mascota.desc_personalidad = desc_personalidad
         descripcion_mascota.desc_adicional = desc_adicional
-        descripcion_mascota.save()  # Guardar los cambios de la descripción
+        descripcion_mascota.save()
 
-        # mensaje de éxito
         messages.success(request, 'La mascota ha sido modificada con éxito.', extra_tags='modificacion_mascota')
-
-        # Redirigir a la lista de mascotas después de guardar
         return redirect('mascotas')
 
-    # Obtener las opciones para los selectores
+    # Obtener datos para el formulario
     estados = EstadoMascota.objects.all()
-    razas = Razas.objects.all()
-    generos = GeneroMascota.objects.all()
     tipos = TipoMascota.objects.all()
+    razas = Razas.objects.filter(tipo=mascota.tipo)  # Filtrar razas por tipo actual
+    generos = GeneroMascota.objects.all()
     regiones = RegionMascota.objects.all()
     provincias = ProvinciaMascota.objects.filter(region=direccion.comuna.provincia.region)
     comunas = ComunaMascota.objects.filter(provincia=direccion.comuna.provincia)
@@ -653,15 +648,17 @@ def modificar_mascota(request, mascota_id):
         'direccion': direccion,
         'descripcion_mascota': descripcion_mascota,
         'estados': estados,
-        'razas': razas,
         'generos': generos,
-        'tipos': tipos,
         'regiones': regiones,
         'provincias': provincias,
         'comunas': comunas,
+        'razas': Razas.objects.all(),  # Todas las razas
+        'tipos': TipoMascota.objects.all(),
     }
 
     return render(request, 'modificar_mascota.html', context)
+
+
 
 def obtener_provincias(request, region_id):
     provincias = ProvinciaMascota.objects.filter(region_id=region_id).values('id', 'nombre')
@@ -672,13 +669,12 @@ def obtener_comunas(request, provincia_id):
     return JsonResponse(list(comunas), safe=False)
 
 def eliminar_mascota(request, mascota_id):
-    # Obtener la mascota que se desea eliminar
+    # Obtener la mascsta que se desea eliminar
     mascota = get_object_or_404(Mascota, id=mascota_id)
     
     # Eliminar la mascota
     mascota.delete()
 
-    # Redirigir a la lista de mascotas
     return redirect('mascotas')
 
 @login_required(login_url="inicio_sesion")
@@ -714,7 +710,6 @@ def modificar_perfil(request):
         usuario_perfil.save()
         
         
-
         # Actualizar dirección
         direccion.calle = calle
         direccion.numero = numero
@@ -1192,10 +1187,39 @@ def modificar_ficha_medica(request, ficha_medica_id):
 
 def get_razas(request, tipo_id):
     try:
-        # Filtrar las razas según el tipo seleccionado
-        tipo = TipoMascota.objects.get(descripcion=tipo_id)  # Busca el tipo de mascota
+        print(f"Tipo ID recibido: {tipo_id}")  # Depurar ID recibido
+        tipo = TipoMascota.objects.get(id=tipo_id)
         razas = Razas.objects.filter(tipo=tipo).values('id', 'nombre')
-        return JsonResponse(list(razas), safe=False)  # Devuelve las razas como JSON
-    
+        print(f"Razas encontradas: {list(razas)}")  # Depurar razas encontradas
+        return JsonResponse(list(razas), safe=False)
     except TipoMascota.DoesNotExist:
-        return JsonResponse([], safe=False)  # Si el tipo no existe, devuelve una lista vacía
+        print("TipoMascota no encontrado.")  # Depurar errores
+        return JsonResponse([], safe=False) 
+
+@login_required(login_url="inicio_sesion")
+def detalle_ficha_medica_masc(request, ficha_id):
+
+    # Obtener la ficha médica por su ID
+    ficha_medica = get_object_or_404(FichaMedica, id=ficha_id)
+
+    # Obtener detalles relacionados
+    vacunas = Vacuna.objects.filter(ficha_medica=ficha_medica)
+    cirugias = Cirugia.objects.filter(ficha_medica=ficha_medica)
+    desparasitaciones = Desparasitacion.objects.filter(ficha_medica=ficha_medica)
+    chip = Chip.objects.filter(ficha_medica=ficha_medica).first()  
+    esterilizacion = Esterilizacion.objects.filter(ficha_medica=ficha_medica).first() 
+    veterinarias = Veterinaria.objects.filter(ficha_medica=ficha_medica)
+
+    # Contexto para el template
+    context = {
+        "ficha_medica": ficha_medica,
+        "vacunas": vacunas,
+        "cirugias": cirugias,
+        "desparasitaciones": desparasitaciones,
+        "chip": chip,
+        "esterilizacion": esterilizacion,
+        "veterinarias": veterinarias,
+    }
+
+    # Renderizar el template con los detalles
+    return render(request, "detalle_ficha_medica_masc.html", context)

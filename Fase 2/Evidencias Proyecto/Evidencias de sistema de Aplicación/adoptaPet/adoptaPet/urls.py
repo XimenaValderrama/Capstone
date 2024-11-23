@@ -89,6 +89,7 @@ urlpatterns = [
     path('modificar_ficha_medica-adopcion/<int:ficha_medica_id>/', modificar_ficha_medica, name='modificar_ficha_medica'),
     path('fundacion/<int:fundacion_id>/', modificar_eliminar_fundacion, name='modificar_eliminar_fundacion'),
     path('get_razas/<str:tipo_id>/', get_razas, name='get_razas'),
+    path('detalle_ficha_medica_masc/<int:ficha_id>/', detalle_ficha_medica_masc, name='detalle_ficha_medica_masc'),
 
  
 
