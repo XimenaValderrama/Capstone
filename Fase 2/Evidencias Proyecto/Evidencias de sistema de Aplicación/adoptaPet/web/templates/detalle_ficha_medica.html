@@ -4,14 +4,16 @@
 {% block contenido %}
 <div class="container py-4">
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+        <!-- Header de la ficha médica -->
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
             <h4 class="mb-0">Detalle de la Ficha Médica de {{ ficha_medica.mascota.nombre }} {{ ficha_medica.mascota.apellido }}</h4>
-            <div class="d-flex gap-2 mt-3 mt-md-0">
+            <div class="d-flex flex-wrap gap-2">
                 <a href="{% url 'modificar_ficha_medica' ficha_medica.id %}" class="btn btn-primary">Modificar ficha médica</a>
                 <a href="#" class="btn btn-danger" onclick="confirmarEliminacion({{ ficha_medica.id }}); return false;">Eliminar ficha médica</a>
             </div>
         </div>
 
+        <!-- Mensajes de alerta -->
         <div>
             {% if messages %}
                 <div>
@@ -27,21 +29,26 @@
             {% endif %}
         </div>
 
+        <!-- Contenido principal -->
         <div class="card-body">
             <div class="row g-3">
-                <div class="col-md-6">
+                <!-- Fecha última consulta y próxima consulta -->
+                <div class="col-md-6 col-sm-12">
                     <h6>Fecha última consulta médica:</h6>
                     <input type="text" class="form-control bg-white" value="{{ ficha_medica.fecha_medica }}" readonly>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12">
                     <h6>Próxima Consulta:</h6>
                     <input type="text" class="form-control bg-white" value="{{ ficha_medica.prox_consulta }}" readonly>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="row g-3 mt-4">
+                <!-- Tipo de alimento y desparasitaciones -->
+                <div class="col-md-6 col-sm-12">
                     <h6>Tipo de Alimento:</h6>
                     <input type="text" class="form-control bg-white" value="{{ ficha_medica.tipo_alimento.tipo }}" readonly>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12">
                     <h6>Desparasitaciones:</h6>
                     {% if desparasitaciones %}
                         <ul class="list-group">
@@ -56,7 +63,8 @@
             </div>
 
             <div class="row g-3 mt-4">
-                <div class="col-md-6">
+                <!-- Cirugías y vacunas -->
+                <div class="col-md-6 col-sm-12">
                     <h6>Cirugías:</h6>
                     {% if cirugias %}
                         <ul class="list-group">
@@ -70,7 +78,7 @@
                         <p>No se han registrado cirugías.</p>
                     {% endif %}
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12">
                     <h6>Vacunas:</h6>
                     {% if vacunas %}
                         <ul class="list-group">
@@ -86,7 +94,8 @@
             </div>
 
             <div class="row g-3 mt-4">
-                <div class="col-md-6">
+                <!-- Veterinarias y chip -->
+                <div class="col-md-6 col-sm-12">
                     <h6>Veterinarias:</h6>
                     {% if veterinarias %}
                         <ul class="list-group">
@@ -99,7 +108,7 @@
                         <p>No se han registrado veterinarias.</p>
                     {% endif %}
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12">
                     <h6>Chip:</h6>
                     {% if chip %}
                         <ul class="list-group">
@@ -114,7 +123,8 @@
             </div>
 
             <div class="row g-3 mt-4">
-                <div class="col-md-6">
+                <!-- Esterilización -->
+                <div class="col-md-6 col-sm-12">
                     <h6>Esterilización:</h6>
                     {% if esterilizacion %}
                         <ul class="list-group">
@@ -131,6 +141,7 @@
     </div>
 </div>
 
+<!-- SweetAlert para confirmación -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function confirmarEliminacion(fichaId) {
@@ -151,5 +162,4 @@
         });
     }
 </script>
-
 {% endblock %}

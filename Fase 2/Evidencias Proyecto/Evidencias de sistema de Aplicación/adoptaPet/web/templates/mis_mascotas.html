@@ -6,73 +6,85 @@
 <div class="container py-5" style="min-height: 80vh;">
     <div class="shadow p-4 bg-body rounded mt-5">
         {% if mascotas %}
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                 <h3 class="mb-0">Mis mascotas</h3>
                 <a href="{% url 'registro_mascota' %}" class="btn btn-primary">Registrar mascota</a>
             </div>
 
+            <!-- Mensajes -->
             {% if messages %}
-                  <div>
-                    {% for message in messages %}
-                      {% if 'modificacion_mascota' in message.extra_tags %}
-                        <div class="alert alert-dismissible fade show" role="alert" style="background-color: #6cb44f; color: #ffffff;">
-                          {{ message }}
-                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        {% elif 'eliminar_formulario' in message.extra_tags %}
-                        <div class="alert alert-dismissible fade show" role="alert" style="background-color: #6cb44f; color: #ffffff;">
-                            {{ message }}
-                        </div>
-                        {% elif 'eliminar_ficha' in message.extra_tags %}
-                        <div class="alert alert-dismissible fade show" role="alert" style="background-color: #6cb44f; color: #ffffff;">
-                            {{ message }}
-                        </div>
-                      {% endif %}
-                    {% endfor %}
-                  </div>
+            <div>
+                {% for message in messages %}
+                    {% if 'modificacion_mascota' in message.extra_tags %}
+                    <div class="alert alert-dismissible fade show" role="alert" style="background-color: #6cb44f; color: #ffffff;">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% elif 'eliminar_formulario' in message.extra_tags %}
+                    <div class="alert alert-dismissible fade show" role="alert" style="background-color: #6cb44f; color: #ffffff;">
+                        {{ message }}
+                    </div>
+                    {% elif 'eliminar_ficha' in message.extra_tags %}
+                    <div class="alert alert-dismissible fade show" role="alert" style="background-color: #6cb44f; color: #ffffff;">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
             {% endif %}
 
-            <div style="overflow-x: auto;">
-                <table class="table table-striped table-bordered">
-                    <thead>
+            <!-- Tabla responsiva -->
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered text-center align-middle">
+                    <thead class="table-primary">
                         <tr>
-                            <th class="px-5">Nombre</th>
-                            <th class="px-5">Tipo</th>
-                            <th class="px-5">Edad</th>
-                            <th class="px-5">Raza</th>
-                            <th class="px-5">Acciones</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Edad</th>
+                            <th>Raza</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for mascota in mascotas %}
-                            <tr>
-                                <td>{{ mascota.nombre }} {{ mascota.apellido }}</td>
-                                <td>{{ mascota.tipo.get_descripcion_display }}</td>
-                                <td>{{ mascota.edad }} {{ mascota.tipo_edad }}</td>
-                                <td>{{ mascota.raza }}</td>
-                                <td class="d-flex justify-content-center ">
-                                    <!-- Botón para modificar mascota -->
-                                    <a href="{% url 'modificar_mascota' mascota.id %}" class="btn btn-primary btn-sm px-3 me-2"><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg></a>
-                                    <!-- Botón para ver los formularios de la mascota seleccionada -->
-                                    <a href="{% url 'formularios_mascota' mascota.id %}" class="btn btn-primary btn-sm px-3 me-2"><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2M7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7zm10 2h-6v-2h6zm0-4h-6v-2h6zm0-4h-6V7h6z"/></svg></a>
-                                    {% if mascota.tiene_ficha_medica %}
-                                        <!-- Botón para realizar otra acción -->
-                                        <a href="{% url 'detalle_ficha_medica' mascota.fichamedica_set.first.id %}" class="btn btn-primary btn-sm px-3 me-2"><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 384 512"><path fill="currentColor" d="M377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9m-153 31V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24m64 160v48c0 4.4-3.6 8-8 8h-56v56c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8v-56h-56c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h56v-56c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v56h56c4.4 0 8 3.6 8 8"/></svg></a>
-                                    {% else %}
-                                        <!-- Botón para crear ficha médica -->
-                                        <a href="{% url 'ficha_medica' mascota.id %}" class="btn btn-primary btn-sm px-3 me-2"><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M18 14h-4v4h-4v-4H6v-4h4V6h4v4h4"/></svg></a>
-                                    {% endif %}
-                                        <button class="btn btn-danger btn-sm px-3" onclick="confirmarEliminacion({{ mascota.id }})">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M7.616 20q-.691 0-1.153-.462T6 18.384V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zm2.192-3h1V8h-1zm3.384 0h1V8h-1z"/></svg>
-                                        </button>
-                                    
-                            </tr>
+                        <tr>
+                            <td>{{ mascota.nombre }} {{ mascota.apellido }}</td>
+                            <td>{{ mascota.tipo.get_descripcion_display }}</td>
+                            <td>{{ mascota.edad }} {{ mascota.tipo_edad }}</td>
+                            <td>{{ mascota.raza }}</td>
+                            <td class="d-flex flex-wrap justify-content-center gap-2">
+                                <!-- Modificar mascota -->
+                                <a href="{% url 'modificar_mascota' mascota.id %}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <!-- Ver formularios -->
+                                <a href="{% url 'formularios_mascota' mascota.id %}" class="btn btn-info btn-sm text-white">
+                                    <i class="fas fa-file-alt"></i>
+                                </a>
+                                {% if mascota.tiene_ficha_medica %}
+                                <!-- Ver ficha médica -->
+                                <a href="{% url 'detalle_ficha_medica' mascota.fichamedica_set.first.id %}" class="btn btn-success btn-sm">
+                                    <i class="fas fa-file-medical"></i>
+                                </a>
+                                {% else %}
+                                <!-- Crear ficha médica -->
+                                <a href="{% url 'ficha_medica' mascota.id %}" class="btn btn-warning btn-sm text-dark">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                                {% endif %}
+                                <!-- Eliminar mascota -->
+                                <button class="btn btn-danger btn-sm" onclick="confirmarEliminacion({{ mascota.id }})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         {% else %}
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <!-- Mensaje de no mascotas -->
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                 <h3 class="mb-0">Mis mascotas</h3>
                 <a href="{% url 'registro_mascota' %}" class="btn btn-primary">Registrar mascota</a>
             </div>
@@ -81,7 +93,7 @@
     </div>
 </div>
 
-
+<!-- Confirmación de eliminación -->
 <script>
     function confirmarEliminacion(mascotaId) {
         Swal.fire({
@@ -101,6 +113,5 @@
         });
     }
 </script>
-    
 
 {% endblock contenido %}
