@@ -17,7 +17,8 @@
   <link href="{% static "css/nucleo-icons.css" %}" rel="stylesheet" />
   <link href="{% static "css/nucleo-svg.css" %}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="{% static "css/nucleo-svg.css" %}" rel="stylesheet" />
   <!-- CSS Files -->
@@ -30,9 +31,21 @@
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
+
+    <a class="navbar-brand" href="#"></a>
+    <button id="toggleSidebar" class="btn btn-primary text-white">
+        <i class="fas fa-bars"></i>
+    </button>
+
+
+
+  
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
+  <div id="sidebarOverlay" class="d-none position-fixed top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
+
+      
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="/inicio/" target="_blank">
         <img src="{% static "img/logos/Adoptapet.png" %}" class="navbar-brand-img h-100" alt="main_logo">
@@ -150,7 +163,8 @@
     {% endblock contenido %}
 
     </div>
-  </main>
+  </main> 
+
 
   <!--   Core JS Files   -->
   <script src="{% static "js/core/popper.min.js" %}"></script>
@@ -159,88 +173,136 @@
   <script src="{% static "js/plugins/smooth-scrollbar.min.js" %}"></script>
   <script src="{% static "js/plugins/chartjs.min.js" %}"></script>
   <script>
-    var ctx1 = document.getElementById("chart-line").getContext("2d");
-
-    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-    new Chart(ctx1, {
-      type: "line",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Mobile apps",
-          tension: 0.4,
-          borderWidth: 0,
-          pointRadius: 0,
-          borderColor: "#5e72e4",
-          backgroundColor: gradientStroke1,
-          borderWidth: 3,
-          fill: true,
-          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-          maxBarThickness: 6
-
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5]
+    var chartLineElement = document.getElementById("chart-line");
+    if (chartLineElement) {
+        var ctx1 = chartLineElement.getContext("2d");
+  
+        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+  
+        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+  
+        new Chart(ctx1, {
+            type: "line",
+            data: {
+                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Mobile apps",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    pointRadius: 0,
+                    borderColor: "#5e72e4",
+                    backgroundColor: gradientStroke1,
+                    borderWidth: 3,
+                    fill: true,
+                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                    maxBarThickness: 6
+                }],
             },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: '#fbfbfb',
-              font: {
-                size: 11,
-                family: "Open Sans",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [5, 5]
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            padding: 10,
+                            color: '#fbfbfb',
+                            font: {
+                                size: 11,
+                                family: "Open Sans",
+                                style: 'normal',
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#ccc',
+                            padding: 20,
+                            font: {
+                                size: 11,
+                                family: "Open Sans",
+                                style: 'normal',
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
             },
-            ticks: {
-              display: true,
-              color: '#ccc',
-              padding: 20,
-              font: {
-                size: 11,
-                family: "Open Sans",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
-    });
+        });
+    } else {
+        console.error("Element with id 'chart-line' not found.");
+    }
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleSidebar = document.getElementById("toggleSidebar");
+        const sidebar = document.getElementById("sidenav-main");
+        const overlay = document.getElementById("sidebarOverlay");
+        const links = sidebar.querySelectorAll("a"); // Selecciona los enlaces dentro del sidebar
+
+        function openSidebar() {
+            sidebar.classList.add("active");
+            overlay.classList.add("active");
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+        }
+
+        // Abrir sidebar al hacer clic en el botón del menú
+        if (toggleSidebar) {
+            toggleSidebar.addEventListener("click", function (e) {
+                e.stopPropagation(); // Evita que el clic se propague
+                if (!sidebar.classList.contains("active")) {
+                    openSidebar();
+                } else {
+                    closeSidebar();
+                }
+            });
+        }
+
+        // Cerrar sidebar al hacer clic en el overlay
+        if (overlay) {
+            overlay.addEventListener("click", closeSidebar);
+        }
+
+        // Cerrar sidebar al hacer clic en cualquier enlace del menú
+        links.forEach((link) => {
+            link.addEventListener("click", closeSidebar);
+        });
+    });
+</script>
+  
+  
+  
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
