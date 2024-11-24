@@ -87,13 +87,13 @@ public class Mascotas_Adoptadas extends javax.swing.JFrame {
 
         TablaMascotasAdoptadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre Mascota", "Dueño", "Estado Mascota"
+                "ID", "Nombre Mascota", "Dueño", "Estado Mascota", "Raza", "Tipo"
             }
         ));
         jScrollPane2.setViewportView(TablaMascotasAdoptadas);
@@ -137,22 +137,17 @@ public class Mascotas_Adoptadas extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(47, 47, 47)
                         .addComponent(txtUsuario)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(0, 71, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BTEliminarMasAdop, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTModificarMasAdop, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(BTSeleccionarMasAdop)
+                                .addGap(48, 48, 48))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(BTEliminarMasAdop, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(BTModificarMasAdop, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(45, 45, 45))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(BTSeleccionarMasAdop)
-                                        .addGap(83, 83, 83))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(99, 99, 99)
+                                .addGap(10, 10, 10)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
@@ -162,8 +157,9 @@ public class Mascotas_Adoptadas extends javax.swing.JFrame {
                                     .addComponent(txtNombreMascota, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                                     .addComponent(txtUsername)
                                     .addComponent(txtEstadoMascota))
-                                .addGap(65, 65, 65)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(30, 30, 30)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -180,9 +176,9 @@ public class Mascotas_Adoptadas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(21, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 9, Short.MAX_VALUE)
                         .addComponent(BTSeleccionarMasAdop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -211,7 +207,9 @@ public class Mascotas_Adoptadas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,6 +239,8 @@ private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
 private void cargarDatosTabla() {
     String mascotasUrl = "http://127.0.0.1:8000/api/mascota/?format=json";
     String usuariosUrl = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
+    String razasUrl = "http://127.0.0.1:8000/api/razas/?format=json";  // Nueva API para razas
+    String tipoMascotaUrl = "http://127.0.0.1:8000/api/tipomascota/?format=json";  // Nueva API para tipo de mascota
     DefaultTableModel model = (DefaultTableModel) TablaMascotasAdoptadas.getModel();
     model.setRowCount(0);
 
@@ -251,6 +251,14 @@ private void cargarDatosTabla() {
         // Obtener y procesar datos de usuarios
         JSONArray usuariosArray = obtenerDatosDeApi(usuariosUrl);
         Map<Integer, String> usuariosMap = procesarUsuarios(usuariosArray);
+
+        // Obtener y procesar datos de razas
+        JSONArray razasArray = obtenerDatosDeApi(razasUrl);
+        Map<Integer, String> razasMap = procesarRazas(razasArray);
+
+        // Obtener y procesar datos de tipos de mascota
+        JSONArray tipoMascotaArray = obtenerDatosDeApi(tipoMascotaUrl);
+        Map<Integer, String> tipoMascotaMap = procesarTipoMascota(tipoMascotaArray);
 
         // Procesar datos de mascotas
         for (int i = 0; i < mascotasArray.length(); i++) {
@@ -269,8 +277,16 @@ private void cargarDatosTabla() {
             JSONObject estadoMascota = mascota.optJSONObject("estado_mascota");
             String estado = estadoMascota != null ? estadoMascota.optString("descripcion", "N/A") : "N/A";
 
+            // Obtener la raza de la mascota (ahora usamos el nombre de la raza)
+            JSONObject razaMascota = mascota.optJSONObject("raza");
+            String raza = razaMascota != null ? razasMap.getOrDefault(razaMascota.optInt("id", -1), "N/A") : "N/A";
+
+            // Obtener el tipo de la mascota
+            JSONObject tipoMascota = mascota.optJSONObject("tipo");
+            String tipo = tipoMascota != null ? tipoMascota.optString("descripcion", "N/A") : "N/A";
+
             if (estado.equals("adoptado")) {
-                model.addRow(new Object[]{idMascota, nombreMascota, nombreUsuario, estado});
+                model.addRow(new Object[]{idMascota, nombreMascota, nombreUsuario, estado, raza, tipo});
             }
         }
     } catch (Exception e) {
@@ -314,13 +330,8 @@ private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
 
             String username = usuarioDjango != null ? usuarioDjango.optString("username", "N/A") : "N/A";
 
-            // Concatenar el nombre completo
-
             // Almacenar en el mapa
             usuariosMap.put(id, username);
-
-            // Opcional: Mostrar en consola
-            System.out.println("ID: " + id + ", Nombre completo: " + username);
         }
     } catch (JSONException e) {
         e.printStackTrace();
@@ -328,6 +339,46 @@ private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
     }
     return usuariosMap;
 }
+
+private Map<Integer, String> procesarRazas(JSONArray razasArray) {
+    Map<Integer, String> razasMap = new HashMap<>();
+    try {
+        // Recorrer todas las razas en el JSONArray
+        for (int i = 0; i < razasArray.length(); i++) {
+            JSONObject raza = razasArray.getJSONObject(i);
+            int id = raza.optInt("id", -1);
+            String nombre = raza.optString("nombre", "N/A");  // Cambié 'descripcion' por 'nombre'
+
+            // Almacenar en el mapa
+            razasMap.put(id, nombre);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de razas.");
+    }
+    return razasMap;
+}
+
+private Map<Integer, String> procesarTipoMascota(JSONArray tipoMascotaArray) {
+    Map<Integer, String> tipoMascotaMap = new HashMap<>();
+    try {
+        // Recorrer todos los tipos de mascota en el JSONArray
+        for (int i = 0; i < tipoMascotaArray.length(); i++) {
+            JSONObject tipo = tipoMascotaArray.getJSONObject(i);
+            int id = tipo.optInt("id", -1);
+            String descripcion = tipo.optString("descripcion", "N/A");
+
+            // Almacenar en el mapa
+            tipoMascotaMap.put(id, descripcion);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de tipo de mascota.");
+    }
+    return tipoMascotaMap;
+}
+
+
 //-------------------------------------------------------FIN LISTAR DATOS---------------------------------------------------------------------
 
 //-------------------------------------------------------INICIO ELIMINAR MASCOTA ADOPTADA-----------------------------------------------------

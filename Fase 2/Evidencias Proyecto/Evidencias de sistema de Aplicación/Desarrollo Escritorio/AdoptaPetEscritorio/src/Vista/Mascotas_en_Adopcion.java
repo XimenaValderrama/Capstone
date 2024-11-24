@@ -88,13 +88,13 @@ public class Mascotas_en_Adopcion extends javax.swing.JFrame {
 
         TablaMascotasAdoptadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre Mascota", "Dueño", "Estado Mascota"
+                "ID", "Nombre Mascota", "Dueño", "Estado Mascota", "Raza", "Tipo"
             }
         ));
         jScrollPane2.setViewportView(TablaMascotasAdoptadas);
@@ -242,6 +242,8 @@ private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
 private void cargarDatosTabla() {
     String mascotasUrl = "http://127.0.0.1:8000/api/mascota/?format=json";
     String usuariosUrl = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
+    String razasUrl = "http://127.0.0.1:8000/api/razas/?format=json";  // Nueva API para razas
+    String tipoMascotaUrl = "http://127.0.0.1:8000/api/tipomascota/?format=json";  // Nueva API para tipo de mascota
     DefaultTableModel model = (DefaultTableModel) TablaMascotasAdoptadas.getModel();
     model.setRowCount(0);
 
@@ -252,6 +254,14 @@ private void cargarDatosTabla() {
         // Obtener y procesar datos de usuarios
         JSONArray usuariosArray = obtenerDatosDeApi(usuariosUrl);
         Map<Integer, String> usuariosMap = procesarUsuarios(usuariosArray);
+
+        // Obtener y procesar datos de razas
+        JSONArray razasArray = obtenerDatosDeApi(razasUrl);
+        Map<Integer, String> razasMap = procesarRazas(razasArray);
+
+        // Obtener y procesar datos de tipos de mascota
+        JSONArray tipoMascotaArray = obtenerDatosDeApi(tipoMascotaUrl);
+        Map<Integer, String> tipoMascotaMap = procesarTipoMascota(tipoMascotaArray);
 
         // Procesar datos de mascotas
         for (int i = 0; i < mascotasArray.length(); i++) {
@@ -270,8 +280,16 @@ private void cargarDatosTabla() {
             JSONObject estadoMascota = mascota.optJSONObject("estado_mascota");
             String estado = estadoMascota != null ? estadoMascota.optString("descripcion", "N/A") : "N/A";
 
+            // Obtener la raza de la mascota (ahora usamos el nombre de la raza)
+            JSONObject razaMascota = mascota.optJSONObject("raza");
+            String raza = razaMascota != null ? razasMap.getOrDefault(razaMascota.optInt("id", -1), "N/A") : "N/A";
+
+            // Obtener el tipo de la mascota
+            JSONObject tipoMascota = mascota.optJSONObject("tipo");
+            String tipo = tipoMascota != null ? tipoMascota.optString("descripcion", "N/A") : "N/A";
+
             if (estado.equals("en_adopcion")) {
-                model.addRow(new Object[]{idMascota, nombreMascota, nombreUsuario, estado});
+                model.addRow(new Object[]{idMascota, nombreMascota, nombreUsuario, estado, raza, tipo});
             }
         }
     } catch (Exception e) {
@@ -280,31 +298,28 @@ private void cargarDatosTabla() {
     }
 }
 
-
-
 // Método para obtener datos de la API
-    private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Authorization", "Token " + token);
-        connection.connect();
+private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
+    URL url = new URL(urlString);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("GET");
+    connection.setRequestProperty("Authorization", "Token " + token);
+    connection.connect();
 
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            return new JSONArray(response.toString());
-        } else {
-            throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
+    int responseCode = connection.getResponseCode();
+    if (responseCode == HttpURLConnection.HTTP_OK) {
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
         }
+        in.close();
+        return new JSONArray(response.toString());
+    } else {
+        throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
     }
-
+}
 
 private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
     Map<Integer, String> usuariosMap = new HashMap<>();
@@ -316,24 +331,54 @@ private Map<Integer, String> procesarUsuarios(JSONArray usuariosArray) {
             int id = usuario.optInt("id", -1);
             JSONObject usuarioDjango = usuario.optJSONObject("usuario_django");
 
-            // Obtener los campos first_name y last_name
-            String firstName = usuarioDjango != null ? usuarioDjango.optString("first_name", "N/A") : "N/A";
-            String lastName = usuarioDjango != null ? usuarioDjango.optString("last_name", "N/A") : "N/A";
+            String username = usuarioDjango != null ? usuarioDjango.optString("username", "N/A") : "N/A";
 
-            // Unir first_name y last_name
-            String fullName = firstName + " " + lastName;
-
-            // Almacenar el nombre completo en el mapa
-            usuariosMap.put(id, fullName);
-
-            // Opcional: Mostrar en consola
-            System.out.println("ID: " + id + ", Nombre Completo: " + fullName);
+            // Almacenar en el mapa
+            usuariosMap.put(id, username);
         }
     } catch (JSONException e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error al procesar datos del JSONArray.");
     }
     return usuariosMap;
+}
+
+private Map<Integer, String> procesarRazas(JSONArray razasArray) {
+    Map<Integer, String> razasMap = new HashMap<>();
+    try {
+        // Recorrer todas las razas en el JSONArray
+        for (int i = 0; i < razasArray.length(); i++) {
+            JSONObject raza = razasArray.getJSONObject(i);
+            int id = raza.optInt("id", -1);
+            String nombre = raza.optString("nombre", "N/A");  // Cambié 'descripcion' por 'nombre'
+
+            // Almacenar en el mapa
+            razasMap.put(id, nombre);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de razas.");
+    }
+    return razasMap;
+}
+
+private Map<Integer, String> procesarTipoMascota(JSONArray tipoMascotaArray) {
+    Map<Integer, String> tipoMascotaMap = new HashMap<>();
+    try {
+        // Recorrer todos los tipos de mascota en el JSONArray
+        for (int i = 0; i < tipoMascotaArray.length(); i++) {
+            JSONObject tipo = tipoMascotaArray.getJSONObject(i);
+            int id = tipo.optInt("id", -1);
+            String descripcion = tipo.optString("descripcion", "N/A");
+
+            // Almacenar en el mapa
+            tipoMascotaMap.put(id, descripcion);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de tipo de mascota.");
+    }
+    return tipoMascotaMap;
 }
 
 

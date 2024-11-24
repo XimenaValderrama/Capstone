@@ -315,6 +315,29 @@ class FichaMedicaSerializer(serializers.ModelSerializer):
         model = FichaMedica
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        # Actualizar mascota (relación con MascotaSerializer)
+        mascota_data = validated_data.pop('mascota', None)
+        if mascota_data:
+            for attr, value in mascota_data.items():
+                setattr(instance.mascota, attr, value)
+            instance.mascota.save()
+
+        # Actualizar tipo_alimento (relación con TipoAlimentoSerializer)
+        tipo_alimento_data = validated_data.pop('tipo_alimento', None)
+        if tipo_alimento_data:
+            for attr, value in tipo_alimento_data.items():
+                setattr(instance.tipo_alimento, attr, value)
+            instance.tipo_alimento.save()
+
+        # Actualizar los campos restantes de FichaMedica
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
+
+
 class VacunaSerializer(serializers.ModelSerializer):
 
     ficha_medica = FichaMedicaSerializer()
