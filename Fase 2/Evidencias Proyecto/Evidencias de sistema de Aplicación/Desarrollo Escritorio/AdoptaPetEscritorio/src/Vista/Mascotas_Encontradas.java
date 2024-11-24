@@ -477,7 +477,7 @@ private void modificarMascota(int mascotaId) {
         JSONObject jsonData = new JSONObject();
         jsonData.put("nombre", txtNombreMascota.getText()); // Nombre de la mascota
         jsonData.put("estado_mascota", new JSONObject().put("descripcion", txtEstadoMascota.getText())); // Estado de la mascota
-
+        jsonData.put("username", txtNombreMascota.getText()); // Nombre de la mascota
         // Enviar los datos a la API
         try (OutputStream os = connection.getOutputStream()) {
             byte[] input = jsonData.toString().getBytes("utf-8");

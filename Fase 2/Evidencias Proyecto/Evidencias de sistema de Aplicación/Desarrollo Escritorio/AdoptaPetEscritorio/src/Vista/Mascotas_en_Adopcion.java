@@ -591,15 +591,6 @@ private void seleccionarMascota(int mascotaId) {
                 txtUsername.setText(username);
                 txtEstadoMascota.setText(estadoMascota);
 
-                // Deshabilitar los campos que no deben ser modificados
-                txtNombreMascota.setEditable(false);
-                txtNombreMascota.setBackground(Color.GRAY);
-
-                txtUsername.setEditable(false);
-                txtUsername.setBackground(Color.GRAY);
-
-                txtEstadoMascota.setEditable(false);
-                txtEstadoMascota.setBackground(Color.GRAY);
             } else {
                 JOptionPane.showMessageDialog(null, "La mascota seleccionada no está adoptada.");
             }
