@@ -225,7 +225,7 @@ public class Mascotas_en_Adopcion extends javax.swing.JFrame {
     }//GEN-LAST:event_BTVolverActionPerformed
 
     private void BTModificarMasEnAdopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarMasEnAdopActionPerformed
-        // TODO add your handling code here:
+        manejarModificacionMascota();
     }//GEN-LAST:event_BTModificarMasEnAdopActionPerformed
 
     private void BTEliminarMasEnAdopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarMasEnAdopActionPerformed

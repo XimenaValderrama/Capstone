@@ -220,7 +220,7 @@ public class Mascotas_Perdidas extends javax.swing.JFrame {
     }//GEN-LAST:event_BTVolverActionPerformed
 
     private void BTModificarMasPerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarMasPerActionPerformed
-        // TODO add your handling code here:
+        manejarModificacionMascota();
     }//GEN-LAST:event_BTModificarMasPerActionPerformed
 
     private void BTEliminarMasPerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarMasPerActionPerformed
