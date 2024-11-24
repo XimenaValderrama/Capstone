@@ -461,12 +461,13 @@ def registro_mascota(request):
         comuna = get_object_or_404(ComunaMascota, id=comuna_id)
         usuario = get_object_or_404(PerfilUsuario, usuario_django=request.user)
 
+        # Si el tipo es "Otro", crear un tipo "Otro"
         if tipo_id == "otro":
             tipo = TipoMascota.objects.create(descripcion="Otro")  # Crear un nuevo registro
         else:
             tipo = TipoMascota.objects.get(id=tipo_id)
 
-
+        # Si la raza es "Otro", crear una raza "Otro"
         if raza_id == "otro":
             raza = Razas.objects.create(nombre="Otro", tipo=tipo)
         else:
@@ -479,7 +480,7 @@ def registro_mascota(request):
         direccion.comuna = comuna
         direccion.save()
 
-
+        # Crear la mascota
         mascota = Mascota()
         mascota.nombre = nombre
         mascota.apellido = apellido
@@ -512,6 +513,9 @@ def registro_mascota(request):
         'tipo_edades': Mascota.CHOICES
     }
     return render(request, 'registro_mascota.html', context)
+
+
+
 
 
 @login_required(login_url="inicio_sesion")
@@ -1195,6 +1199,12 @@ def get_razas(request, tipo_id):
     except TipoMascota.DoesNotExist:
         print("TipoMascota no encontrado.")  # Depurar errores
         return JsonResponse([], safe=False) 
+
+def obtener_razas(request, tipo_id):
+    
+    razas = Razas.objects.filter(tipo_id=tipo_id)
+    razas_data = [{"id": raza.id, "nombre": raza.nombre} for raza in razas]
+    return JsonResponse(razas_data, safe=False)
 
 @login_required(login_url="inicio_sesion")
 def detalle_ficha_medica_masc(request, ficha_id):

@@ -46,7 +46,7 @@
                         <select class="form-control form-control-lg" name="tipo_edad" required>
                           <option selected disabled>Tipo edad</option>
                           {% for tipo_edad in tipo_edades %}
-                            <option value="{{ tipo_edad.0 }}">{{ tipo_edad.1 }} </option>
+                            <option value="{{ tipo_edad.0 }}">{{ tipo_edad.1 }}</option>
                           {% endfor %}
                         </select>
                       </div>
@@ -57,7 +57,7 @@
                         <input type="text" class="form-control form-control-lg" placeholder="Número de calle" name="numero" required>
                       </div>
                     </div>
-                    <!-- Selects de datos relacionados -->
+
                     <div class="row">
                       <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" id="tipoMascotaSelect" name="tipo" required>
@@ -66,24 +66,17 @@
                             <option value="{{ tipo.id }}">{{ tipo.get_descripcion_display }}</option>
                           {% endfor %}
                         </select>
-                        
-                        
                       </div>
-                      <div class="form-group mb-3">
-                        <label for="raza"><strong>Raza</strong></label>
-                        <select name="raza" id="raza" class="form-control">
-                            <option value="">Seleccione una raza</option> <!-- Opción predeterminada -->
-                            {% for raza in razas %}
-                                <option value="{{ raza.id }}" data-tipo="{{ raza.tipo.id }}" 
-                                    {% if mascota.raza.id == raza.id %}selected{% endif %}>
-                                    {{ raza.nombre }}
-                                </option>
-                            {% endfor %}
+                    
+                      <!-- Select para Raza -->
+                      <div class="col-md-6 mb-3">
+                        <select class="form-control form-control-lg" id="razaSelect" name="raza" required>
+                          <option selected disabled>Seleccione una raza</option>
+                          <option value="otro">Otro</option> <!-- Opción para "Otro" -->
                         </select>
+                      </div>
                     </div>
-                      
-                      
-                    </div>
+
                     <div class="row">
                       <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" name="genero" required>
@@ -101,6 +94,9 @@
                           {% endfor %}
                         </select>
                       </div>
+                    </div>
+
+                    <div class="row">
                       <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" name="pais" required>
                           <option selected disabled>País</option>
@@ -118,6 +114,7 @@
                         </select>
                       </div>
                     </div>
+
                     <div class="row">
                       <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" id="provinciaSelect" name="provincia" required>
@@ -135,25 +132,30 @@
                           {% endfor %}
                         </select>
                       </div>
-                      <label>Imagen de la mascota</label>
-                      <div class="font-weight-bold mt-1">
-                        <input type="file" accept="image/jpeg, image/png" name="imagen" class="form-control bg-white py-2" required />
-                      </div>     
                     </div>
-                  <div class="row">
-                      <div class="col-md-12 mt-2">
+
+                    <div class="row">
+                      <div class="col-md-12 mb-3">
+                        <label>Imagen de la mascota</label>
+                        <input type="file" accept="image/jpeg, image/png" name="imagen" class="form-control bg-white py-2" required />
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12 mb-3">
                         <label for="desc_fisica" class="form-label">Descripción Física</label>
                         <textarea class="form-control form-control-lg" id="desc_fisica" name="desc_fisica" rows="3" required></textarea>
                       </div>
-                      <div class="col-md-12 mt-2">
+                      <div class="col-md-12 mb-3">
                         <label for="desc_personalidad" class="form-label">Descripción de la Personalidad</label>
                         <textarea class="form-control form-control-lg" id="desc_personalidad" name="desc_personalidad" rows="3" required></textarea>
                       </div>
-                      <div class="col-md-12 mt-2">
-                          <label for="desc_adicional" class="form-label">Descripción Adicional</label>
-                          <textarea class="form-control form-control-lg" id="desc_adicional" name="desc_adicional" rows="3"></textarea>
+                      <div class="col-md-12 mb-3">
+                        <label for="desc_adicional" class="form-label">Descripción Adicional</label>
+                        <textarea class="form-control form-control-lg" id="desc_adicional" name="desc_adicional" rows="3"></textarea>
                       </div>
-                  </div>
+                    </div>
+
                     <div class="row">
                       <div class="col-md-6 d-flex justify-content-start mt-2">
                         <a href="{% url 'inicio' %}" class="btn btn-lg btn-outline-warning w-100 mt-4 mb-5">Cancelar</a>
@@ -166,23 +168,17 @@
                 </div>
               </div>
             </div>
-            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('{% static "img/illustrations/registro_navidad.png" %}'); background-size: cover; background-position-x: center; background-position-y: center; background-size: 700px;  background-repeat: no-repeat;">
-              </div>
           </div>
-      </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Core JS Files -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
 
-
-  
   <script>
     document.getElementById('regionSelect').addEventListener('change', function() {
       const regionId = this.value;
@@ -195,7 +191,7 @@
                   provinciaSelect.innerHTML += `<option value="${provincia.id}">${provincia.nombre}</option>`;
               });
           });
-  });
+    });
   
     document.getElementById('provinciaSelect').addEventListener('change', function() {
       const provinciaId = this.value;
@@ -208,46 +204,43 @@
                   comunaSelect.innerHTML += `<option value="${comuna.id}">${comuna.nombre}</option>`;
               });
           });
-  });
+    });
   </script>
   <script>
-    document.getElementById('tipo').addEventListener('change', function() {
-        const tipoId = this.value; // ID del tipo seleccionado
-        const razaSelect = document.getElementById('raza'); // Select de razas
-        const opciones = razaSelect.options; // Todas las opciones actuales del select de razas
-    
-        // Reiniciar el select de razas
-        razaSelect.innerHTML = '';
-    
-        // Agregar la opción predeterminada "Seleccione una raza"
-        const opcionDefault = document.createElement('option');
-        opcionDefault.value = '';
-        opcionDefault.textContent = 'Seleccione una raza';
-        razaSelect.appendChild(opcionDefault);
-    
-        // Manejar el caso "Otro"
-        if (tipoId === 'otro') {
-            const opcionOtro = document.createElement('option');
-            opcionOtro.value = 'otro';
-            opcionOtro.textContent = 'Otro';
-            razaSelect.appendChild(opcionOtro);
-            return; // No continuar con las demás opciones
-        }
-    
-        // Mostrar solo las razas que coinciden con el tipo seleccionado
-        for (let i = 0; i < opciones.length; i++) {
-            const opcion = opciones[i];
-            const tipoRaza = opcion.getAttribute('data-tipo'); // Tipo al que pertenece la raza
-            if (tipoRaza === tipoId) {
-                razaSelect.appendChild(opcion.cloneNode(true)); // Clonar la opción válida
-            }
-        }
-    
-        // Reiniciar el valor seleccionado en el select de razas
-        razaSelect.value = '';
-    });
-    </script>
-    
+    document.getElementById('tipoMascotaSelect').addEventListener('change', function () {
+      const tipoId = this.value; // ID del tipo de mascota seleccionado
+      const razaSelect = document.getElementById('razaSelect');
   
+      // Si se selecciona "Otro", mostramos solo la opción "Otro" en razas
+      if (tipoId === "otro") {
+        razaSelect.innerHTML = '<option value="otro" selected>Otro</option>';
+        return;
+      }
+  
+      // Si no se selecciona "Otro", cargamos las razas para ese tipo
+      fetch(`/get_razas/${tipoId}/`)
+        .then(response => response.json())
+        .then(data => {
+          // Limpiamos el select de razas
+          razaSelect.innerHTML = '<option selected disabled>Seleccione una raza</option>';
+  
+          // Añadimos las razas al select
+          data.forEach(raza => {
+            razaSelect.innerHTML += `<option value="${raza.id}">${raza.nombre}</option>`;
+          });
+          
+          // También añadimos la opción "Otro" al final, si es necesario
+          razaSelect.innerHTML += '<option value="otro">Otro</option>';
+        })
+        .catch(error => {
+          console.error('Error al cargar las razas:', error);
+        });
+    });
+  </script>
+  
+  
+  
+
+
 </body>
 </html>

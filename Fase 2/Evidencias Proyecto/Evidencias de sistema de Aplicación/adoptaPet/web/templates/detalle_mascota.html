@@ -49,7 +49,6 @@
                         
                         {% if mascota.estado_mascota.descripcion == "en_adopcion" and not es_registrador %}
                         <div>
-                            
                             {% if formulario_existente %}
                                 <!-- Botón desactivado -->
                                 <button class="btn btn-secondary btn-lg" disabled>Ya has enviado un formulario</button>
@@ -70,9 +69,13 @@
                             {% endif %}
                         </div>
                         {% endif %}
-                        <a href="{% url 'detalle_ficha_medica_masc' mascota.fichamedica_set.first.id %}" class="btn btn-primary btn-lg">
-                            <i class="fa fa-paw"></i> Ver Ficha Médica
-                        </a>
+                        {% if mascota.fichamedica_set.exists %}
+                            <a href="{% url 'detalle_ficha_medica_masc' mascota.fichamedica_set.first.id %}" class="btn btn-primary btn-lg">
+                                <i class="fa fa-paw"></i> Ver Ficha Médica
+                            </a>
+                        {% else %}
+                            <p>No hay ficha médica registrada para esta mascota.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

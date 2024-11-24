@@ -61,32 +61,32 @@
                             </select>
                         </div>
                         <div class="row">
-                            <!-- Tipo de Mascota -->
                             <div class="col-md-6 mb-3">
-                              <label for="tipoMascotaSelect"><strong>Tipo de Mascota</strong></label>
-                              <select class="form-control form-control-lg" id="tipoMascotaSelect" name="tipo" required>
-                                <option selected disabled>Seleccione el tipo de mascota</option>
-                                {% for tipo in tipos %}
-                                  <option value="{{ tipo.id }}" {% if mascota.tipo.id == tipo.id %}selected{% endif %}>
-                                    {{ tipo.get_descripcion_display }}
-                                  </option>
-                                {% endfor %}
-                              </select>
-                            </div>
-                          
-                            <!-- Raza -->
-                            <div class="col-md-6 mb-3">
-                              <label for="razaSelect"><strong>Raza</strong></label>
-                              <select class="form-control form-control-lg" id="razaSelect" name="raza" required>
-                                <option value="">Seleccione una raza</option>
-                                {% for raza in razas %}
-                                  <option value="{{ raza.id }}" data-tipo="{{ raza.tipo.id }}" 
-                                          {% if mascota.raza.id == raza.id %}selected{% endif %}>
-                                    {{ raza.nombre }}
-                                  </option>
-                                {% endfor %}
-                              </select>
-                            </div>
+                                <label for="tipoMascotaSelect"><strong>Tipo de Mascota</strong></label>
+                                <select class="form-control form-control-lg" id="tipoMascotaSelect" name="tipo" required>
+                                  <option selected disabled>Seleccione el tipo de mascota</option>
+                                  {% for tipo in tipos %}
+                                    <option value="{{ tipo.id }}" {% if mascota.tipo.id == tipo.id %}selected{% endif %}>
+                                      {{ tipo.get_descripcion_display }}
+                                    </option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            
+                              <!-- Raza -->
+                              <div class="col-md-6 mb-3">
+                                <label for="razaSelect"><strong>Raza</strong></label>
+                                <select class="form-control form-control-lg" id="razaSelect" name="raza" required>
+                                  <option value="">Seleccione una raza</option>
+                                  <option value="otro">Otro</option> <!-- Opción para "Otro" -->
+                                  {% for raza in razas %}
+                                    <option value="{{ raza.id }}" data-tipo="{{ raza.tipo.id }}" 
+                                            {% if mascota.raza.id == raza.id %}selected{% endif %}>
+                                      {{ raza.nombre }}
+                                    </option>
+                                  {% endfor %}
+                                </select>
+                              </div>
                           </div>
                         
                         <div class="form-group mb-3">
@@ -210,37 +210,35 @@ function actualizarComunas() {
             });
     }
 }
+
+document.getElementById('tipoMascotaSelect').addEventListener('change', function() {
+    const tipoId = this.value;
+    const razaSelect = document.getElementById('razaSelect');
+    const opciones = razaSelect.querySelectorAll('option');
+    
+    // Reiniciar el select de razas
+    razaSelect.innerHTML = '<option value="">Seleccione una raza</option>';
+    
+    // Manejar el caso "Otro"
+    if (tipoId === 'otro') {
+        const opcionOtro = document.createElement('option');
+        opcionOtro.value = 'otro';
+        opcionOtro.textContent = 'Otro';
+        razaSelect.appendChild(opcionOtro);
+        return;
+    }
+    
+    // Mostrar solo las razas que coinciden con el tipo seleccionado
+    opciones.forEach(opcion => {
+        const tipoRaza = opcion.getAttribute('data-tipo');
+        if (tipoRaza === tipoId) {
+            razaSelect.appendChild(opcion.cloneNode(true));
+        }
+    });
+    
+    razaSelect.value = '';
+});
 </script>
 
-<script>
-    document.getElementById('tipoMascotaSelect').addEventListener('change', function() {
-        const tipoId = this.value; // Tipo seleccionado
-        const razaSelect = document.getElementById('razaSelect'); // Select de razas
-        const opciones = razaSelect.querySelectorAll('option'); // Opciones existentes
-    
-        // Reiniciar el select de razas
-        razaSelect.innerHTML = '<option value="">Seleccione una raza</option>';
-    
-        // Manejar el caso "Otro"
-        if (tipoId === 'otro') {
-            const opcionOtro = document.createElement('option');
-            opcionOtro.value = 'otro';
-            opcionOtro.textContent = 'Otro';
-            razaSelect.appendChild(opcionOtro);
-            return; // Finalizar si es "Otro"
-        }
-    
-        // Mostrar solo las razas que coinciden con el tipo seleccionado
-        opciones.forEach(opcion => {
-            const tipoRaza = opcion.getAttribute('data-tipo'); // Obtener el tipo asociado
-            if (tipoRaza === tipoId) {
-                razaSelect.appendChild(opcion.cloneNode(true)); // Agregar la opción
-            }
-        });
-    
-        // Reiniciar el valor del select
-        razaSelect.value = '';
-    });
-</script>
 
 {% endblock contenido %}

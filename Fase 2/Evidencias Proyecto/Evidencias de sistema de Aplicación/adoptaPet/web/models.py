@@ -146,14 +146,14 @@ class TipoMascota(models.Model):
     CHOICES = [
         ("gato", "Gato"),
         ("perro", "Perro"),
-        ("otro", "Otro"),
+        ("otro", "Otro")
     ]
 
     descripcion = models.CharField(max_length=50, choices=CHOICES)
 
     def get_descripcion_display(self):
-
-        return dict(self.CHOICES).get(self.descripcion, "Desconocido")
+            
+        return dict(self.CHOICES).get(self.descripcion, None) 
 
     def __str__(self):
         
