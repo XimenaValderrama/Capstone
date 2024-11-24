@@ -206,31 +206,29 @@
           });
     });
   </script>
+  
   <script>
     document.getElementById('tipoMascotaSelect').addEventListener('change', function () {
       const tipoId = this.value; // ID del tipo de mascota seleccionado
       const razaSelect = document.getElementById('razaSelect');
-  
+      
+      // Limpiamos el select de razas al cambiar el tipo de mascota
+      razaSelect.innerHTML = '<option selected disabled>Seleccione una raza</option>';
+    
       // Si se selecciona "Otro", mostramos solo la opción "Otro" en razas
       if (tipoId === "otro") {
         razaSelect.innerHTML = '<option value="otro" selected>Otro</option>';
-        return;
+        return;  // Finalizamos la ejecución si se selecciona "Otro"
       }
-  
+    
       // Si no se selecciona "Otro", cargamos las razas para ese tipo
       fetch(`/get_razas/${tipoId}/`)
         .then(response => response.json())
         .then(data => {
-          // Limpiamos el select de razas
-          razaSelect.innerHTML = '<option selected disabled>Seleccione una raza</option>';
-  
           // Añadimos las razas al select
           data.forEach(raza => {
             razaSelect.innerHTML += `<option value="${raza.id}">${raza.nombre}</option>`;
           });
-          
-          // También añadimos la opción "Otro" al final, si es necesario
-          razaSelect.innerHTML += '<option value="otro">Otro</option>';
         })
         .catch(error => {
           console.error('Error al cargar las razas:', error);
@@ -238,9 +236,5 @@
     });
   </script>
   
-  
-  
-
-
 </body>
 </html>
