@@ -464,18 +464,6 @@ def registro_mascota(request):
         comuna = get_object_or_404(ComunaMascota, id=comuna_id)
         usuario = get_object_or_404(PerfilUsuario, usuario_django=request.user)
 
-        # Si el tipo es "Otro", crear un tipo "Otro"
-        if tipo_id == "otro":
-            tipo = TipoMascota.objects.create(descripcion="Otro")  # Crear un nuevo registro
-        else:
-            tipo = TipoMascota.objects.get(id=tipo_id)
-
-        # Si la raza es "Otro", crear una raza "Otro"
-        if raza_id == "otro":
-            raza = Razas.objects.create(nombre="Otro", tipo=tipo)
-        else:
-            raza = get_object_or_404(Razas, id=raza_id)
-
         # Crear la dirección
         direccion = DireccionMascota()
         direccion.calle = calle
@@ -608,12 +596,6 @@ def modificar_mascota(request, mascota_id):
         desc_personalidad = request.POST.get('descripcion_personalidad', descripcion_mascota.desc_personalidad)
         desc_adicional = request.POST.get('descripcion_adicional', descripcion_mascota.desc_adicional)
 
-        # Manejo de raza (crear una nueva si es "Otro")
-        if raza_id == "otro":
-            raza = Razas.objects.create(nombre="Otro", tipo_id=tipo_id)
-        else:
-            raza = Razas.objects.get(id=raza_id)
-
         # Actualizar mascota
         mascota.nombre = nombre
         mascota.apellido = apellido
@@ -621,7 +603,7 @@ def modificar_mascota(request, mascota_id):
         mascota.tipo_edad = tipo_edad
         mascota.imagen = imagen
         mascota.estado_mascota = EstadoMascota.objects.get(id=estado_mascota_id)
-        mascota.raza = raza
+        mascota.raza = Razas.objects.get(id=raza_id)
         mascota.genero = GeneroMascota.objects.get(id=genero_id)
         mascota.tipo = TipoMascota.objects.get(id=tipo_id)
         mascota.save()

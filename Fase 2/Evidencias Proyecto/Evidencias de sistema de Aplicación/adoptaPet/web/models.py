@@ -146,7 +146,7 @@ class TipoMascota(models.Model):
     CHOICES = [
         ("gato", "Gato"),
         ("perro", "Perro"),
-        ("otro", "Otro")
+        
     ]
 
     descripcion = models.CharField(max_length=50, choices=CHOICES)
