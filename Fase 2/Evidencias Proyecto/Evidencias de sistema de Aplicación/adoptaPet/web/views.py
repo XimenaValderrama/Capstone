@@ -479,10 +479,10 @@ def registro_mascota(request):
         mascota.tipo_edad = tipo_edad
         mascota.imagen = imagen
         mascota.estado_mascota = estado_mascota
-        mascota.raza = raza
+        mascota.raza = Razas.objects.get(id=raza_id)
         mascota.genero = genero
         mascota.descripcion = descripcion
-        mascota.tipo = tipo
+        mascota.tipo = TipoMascota.objects.get(id=tipo_id)
         mascota.direccion = direccion
         mascota.usuario = usuario
         mascota.save()
