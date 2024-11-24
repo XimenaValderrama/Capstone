@@ -68,11 +68,11 @@
                         </select>
                       </div>
                     
-                      <!-- Select para Raza -->
+                      
                       <div class="col-md-6 mb-3">
                         <select class="form-control form-control-lg" id="razaSelect" name="raza" required>
                           <option selected disabled>Seleccione una raza</option>
-                          <option value="otro">Otro</option> <!-- Opción para "Otro" -->
+                          <option value="otro">Otro</option> 
                         </select>
                       </div>
                     </div>
@@ -214,13 +214,13 @@
       
       // Limpiamos el select de razas al cambiar el tipo de mascota
       razaSelect.innerHTML = '<option selected disabled>Seleccione una raza</option>';
-    
+      
       // Si se selecciona "Otro", mostramos solo la opción "Otro" en razas
       if (tipoId === "otro") {
         razaSelect.innerHTML = '<option value="otro" selected>Otro</option>';
         return;  // Finalizamos la ejecución si se selecciona "Otro"
       }
-    
+      
       // Si no se selecciona "Otro", cargamos las razas para ese tipo
       fetch(`/get_razas/${tipoId}/`)
         .then(response => response.json())
@@ -235,6 +235,7 @@
         });
     });
   </script>
+  
   
 </body>
 </html>
