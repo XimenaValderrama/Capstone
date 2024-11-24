@@ -222,7 +222,7 @@
       }
       
       // Si no se selecciona "Otro", cargamos las razas para ese tipo
-      fetch(`/get_razas/${tipoId}/`)
+      fetch(`/obtener_razas/${tipoId}/`)
         .then(response => response.json())
         .then(data => {
           // Añadimos las razas al select
