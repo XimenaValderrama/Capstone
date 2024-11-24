@@ -443,7 +443,7 @@ private void seleccionarImagen() {
 
 //-------------------------------------------------------------------INICIO ELIMINAR FUNDACIONES------------------------------------------------------------------    
 
-    // Método para eliminar una fundación a través de la API
+// Método para eliminar una fundación a través de la API
 private void eliminarFundacion(int fundacionId) {
     String urlString = "http://127.0.0.1:8000/api/fundacion/" + fundacionId + "/"; // URL de la API para eliminar la fundación
 

@@ -7,6 +7,7 @@ package Vista;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -60,6 +61,12 @@ public class Ficha_Medica extends javax.swing.JFrame {
         TablaFichaMedica = new javax.swing.JTable();
         BTModificarPA = new javax.swing.JButton();
         BTVolver = new javax.swing.JButton();
+        BTSeleccionarFicha = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtFechaMedica = new javax.swing.JTextField();
+        txtProximaConsulta = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,19 +76,24 @@ public class Ficha_Medica extends javax.swing.JFrame {
         jLabel1.setText("Bienvenido:");
 
         BTEliminarPA.setText("Eliminar Ficha Medica");
+        BTEliminarPA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTEliminarPAActionPerformed(evt);
+            }
+        });
 
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         txtUsuario.setText("@NOMBRE ADMIN o Usuario");
 
         TablaFichaMedica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Fecha Medica", "Proxima Consulta", "Mascota", "Tipo Alimento", "Confirmacion Chip", "Fecha Colocacion Chip", "Lugar de Colocacion", "Confirmacion Esterilizacion", "Fecha Esterilizacion", "Lugar Esterilizacion"
+                "ID", "Fecha Medica", "Proxima Consulta", "Mascota", "Tipo Alimento", "Chip", "Fecha Colocacion Chip", "Lugar de Colocacion", "Esterilizacion", "Fecha Esterilizacion", "Lugar Esterilizacion", "Desparasitado", "Fecha Desparasitacion", "Veterinaria", "Direccion veterinaria", "Nombre Vacuna", "Fecha Vacuna", "Cirugia", "Fecha Cirugia ", "Tipo Cirugia"
             }
         ));
         jScrollPane2.setViewportView(TablaFichaMedica);
@@ -91,6 +103,11 @@ public class Ficha_Medica extends javax.swing.JFrame {
         }
 
         BTModificarPA.setText("Modificar Ficha Medica");
+        BTModificarPA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTModificarPAActionPerformed(evt);
+            }
+        });
 
         BTVolver.setText("Volver");
         BTVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -99,25 +116,57 @@ public class Ficha_Medica extends javax.swing.JFrame {
             }
         });
 
+        BTSeleccionarFicha.setText("Seleccionar Ficha Medica");
+        BTSeleccionarFicha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTSeleccionarFichaActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Fecha Medica");
+
+        jLabel3.setText("Proxima Consulta");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(BTVolver)
-                .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BTModificarPA, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BTEliminarPA, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 942, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(BTVolver)
+                        .addGap(75, 75, 75)
                         .addComponent(jLabel1)
                         .addGap(47, 47, 47)
-                        .addComponent(txtUsuario)))
+                        .addComponent(txtUsuario)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(210, 210, 210)
+                .addComponent(BTModificarPA, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
+                .addComponent(BTSeleccionarFicha)
+                .addGap(282, 282, 282)
+                .addComponent(BTEliminarPA, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(390, 390, 390))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(36, 36, 36)
+                .addComponent(txtFechaMedica, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtProximaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,31 +178,39 @@ public class Ficha_Medica extends javax.swing.JFrame {
                             .addComponent(txtUsuario)
                             .addComponent(jLabel1)))
                     .addComponent(BTVolver))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(BTModificarPA)
+                        .addComponent(BTEliminarPA))
+                    .addComponent(BTSeleccionarFicha))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txtFechaMedica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtProximaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BTModificarPA, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BTEliminarPA, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
-                .addGap(24, 24, 24))
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel6)))
+                .addGap(57, 57, 57)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,61 +222,109 @@ public class Ficha_Medica extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BTVolverActionPerformed
 
+    private void BTSeleccionarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTSeleccionarFichaActionPerformed
+        manejarSeleccionFichaMedica();
+    }//GEN-LAST:event_BTSeleccionarFichaActionPerformed
+
+    private void BTEliminarPAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarPAActionPerformed
+        manejarEliminacionFichaMedica();
+    }//GEN-LAST:event_BTEliminarPAActionPerformed
+
+    private void BTModificarPAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarPAActionPerformed
+        manejarModificacionFichaMedica();
+    }//GEN-LAST:event_BTModificarPAActionPerformed
+
 private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
 
 //-------------------------------------------------------INICIO LISTAR DATOS FICHA MEDICA-------------------------------------------------------------------------------------    
     
 private void cargarDatosTabla() {
-    String fichamedicaUrl = "http://127.0.0.1:8000/api/fichamedica/?format=json"; // API para la ficha médica
-    String mascotasUrl = "http://127.0.0.1:8000/api/mascota/?format=json"; // API para las mascotas
-    String tipoAlimentoUrl = "http://127.0.0.1:8000/api/tipoalimento/?format=json"; // API para tipo de alimento
-    String chipUrl = "http://127.0.0.1:8000/api/chip/?format=json"; // API para chip
-    String esterilizacionUrl = "http://127.0.0.1:8000/api/esterilizacion/?format=json"; // API para esterilización
+    String fichamedicaUrl = "http://127.0.0.1:8000/api/fichamedica/?format=json";
+    String mascotasUrl = "http://127.0.0.1:8000/api/mascota/?format=json";
+    String tipoAlimentoUrl = "http://127.0.0.1:8000/api/tipoalimento/?format=json";
+    String chipUrl = "http://127.0.0.1:8000/api/chip/?format=json";
+    String esterilizacionUrl = "http://127.0.0.1:8000/api/esterilizacion/?format=json";
+    String veterinariaUrl = "http://127.0.0.1:8000/api/veterinaria/?format=json";
+    String desparasitacionUrl = "http://127.0.0.1:8000/api/desparasitacion/?format=json";
+    String vacunaUrl = "http://127.0.0.1:8000/api/vacuna/?format=json";
+    String cirugiaUrl = "http://127.0.0.1:8000/api/cirugia/?format=json";
+    String tipoCirugiaUrl = "http://127.0.0.1:8000/api/tipocirugia/?format=json";  // Nueva API para tipo de cirugía
+
     DefaultTableModel model = (DefaultTableModel) TablaFichaMedica.getModel();
-    model.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
+    model.setRowCount(0);
 
     try {
-        // Obtener datos de Ficha Médica
+        // Obtener datos de todas las APIs
         JSONArray fichamedicaArray = obtenerDatosDeApi(fichamedicaUrl);
-
-        // Obtener datos de mascotas
         JSONArray mascotasArray = obtenerDatosDeApi(mascotasUrl);
-
-        // Obtener datos de tipo de alimento
         JSONArray tipoAlimentoArray = obtenerDatosDeApi(tipoAlimentoUrl);
-
-        // Obtener datos de Chip
         JSONArray chipArray = obtenerDatosDeApi(chipUrl);
-
-        // Obtener datos de Esterilización
         JSONArray esterilizacionArray = obtenerDatosDeApi(esterilizacionUrl);
+        JSONArray veterinariaArray = obtenerDatosDeApi(veterinariaUrl);
+        JSONArray desparasitacionArray = obtenerDatosDeApi(desparasitacionUrl);
+        JSONArray vacunaArray = obtenerDatosDeApi(vacunaUrl);
+        JSONArray cirugiaArray = obtenerDatosDeApi(cirugiaUrl);
+        JSONArray tipoCirugiaArray = obtenerDatosDeApi(tipoCirugiaUrl);  // Datos de la nueva API
 
-        // Crear un mapa para los tipos de alimentos
+        // Crear mapas para los datos relacionados
         Map<Integer, String> tipoAlimentoMap = new HashMap<>();
         for (int k = 0; k < tipoAlimentoArray.length(); k++) {
             JSONObject tipoAlimento = tipoAlimentoArray.getJSONObject(k);
             int tipoAlimentoId = tipoAlimento.getInt("id");
-            String descripcionTipoAlimento = tipoAlimento.optString("descripcion", "N/A"); // Obtener la descripción
+            String descripcionTipoAlimento = tipoAlimento.optString("descripcion", "No disponible");
             tipoAlimentoMap.put(tipoAlimentoId, descripcionTipoAlimento);
         }
 
-        // Crear un mapa para relacionar ficha médica ID con su chip
+        Map<Integer, String> tipoCirugiaMap = new HashMap<>();
+        for (int k = 0; k < tipoCirugiaArray.length(); k++) {
+            JSONObject tipoCirugia = tipoCirugiaArray.getJSONObject(k);
+            int tipoCirugiaId = tipoCirugia.getInt("id");
+            String descripcionTipoCirugia = tipoCirugia.optString("descripcion", "No disponible");
+            tipoCirugiaMap.put(tipoCirugiaId, descripcionTipoCirugia);  // Llenar mapa de tipos de cirugía
+        }
+
         Map<Integer, JSONObject> fichaChipMap = new HashMap<>();
         for (int i = 0; i < chipArray.length(); i++) {
             JSONObject chipObj = chipArray.getJSONObject(i);
-            int fichaMedicaId = chipObj.getInt("id"); // Relacionar con ficha médica
+            int fichaMedicaId = chipObj.getInt("id");
             fichaChipMap.put(fichaMedicaId, chipObj);
         }
 
-        // Crear un mapa para relacionar ficha médica ID con su esterilización
-        Map<Integer, JSONObject> fichaEsterilizacionMap = new HashMap<>();
+        Map<Integer, JSONObject> esterilizacionFichaMedicaMap = new HashMap<>();
         for (int i = 0; i < esterilizacionArray.length(); i++) {
             JSONObject esterilizacionObj = esterilizacionArray.getJSONObject(i);
-            int fichaMedicaId = esterilizacionObj.getInt("id"); // Relacionar con ficha médica
-            fichaEsterilizacionMap.put(fichaMedicaId, esterilizacionObj);
+            int fichaMedicaId = esterilizacionObj.optJSONObject("ficha_medica").getInt("id");
+            esterilizacionFichaMedicaMap.put(fichaMedicaId, esterilizacionObj);
         }
 
-        // Crear un mapa para relacionar mascota ID con su ficha médica
+        Map<Integer, JSONObject> veterinariaFichaMedicaMap = new HashMap<>();
+        for (int i = 0; i < veterinariaArray.length(); i++) {
+            JSONObject veterinariaObj = veterinariaArray.getJSONObject(i);
+            int fichaMedicaId = veterinariaObj.optJSONObject("ficha_medica").getInt("id");
+            veterinariaFichaMedicaMap.put(fichaMedicaId, veterinariaObj);
+        }
+
+        Map<Integer, JSONObject> desparasitacionFichaMedicaMap = new HashMap<>();
+        for (int i = 0; i < desparasitacionArray.length(); i++) {
+            JSONObject desparasitacionObj = desparasitacionArray.getJSONObject(i);
+            int fichaMedicaId = desparasitacionObj.optJSONObject("ficha_medica").getInt("id");
+            desparasitacionFichaMedicaMap.put(fichaMedicaId, desparasitacionObj);
+        }
+
+        Map<Integer, JSONObject> vacunaFichaMedicaMap = new HashMap<>();
+        for (int i = 0; i < vacunaArray.length(); i++) {
+            JSONObject vacunaObj = vacunaArray.getJSONObject(i);
+            int fichaMedicaId = vacunaObj.optJSONObject("ficha_medica").getInt("id");
+            vacunaFichaMedicaMap.put(fichaMedicaId, vacunaObj);
+        }
+
+        Map<Integer, JSONObject> cirugiaFichaMedicaMap = new HashMap<>();
+        for (int i = 0; i < cirugiaArray.length(); i++) {
+            JSONObject cirugiaObj = cirugiaArray.getJSONObject(i);
+            int fichaMedicaId = cirugiaObj.optJSONObject("ficha_medica").getInt("id");
+            cirugiaFichaMedicaMap.put(fichaMedicaId, cirugiaObj);
+        }
+
         Map<Integer, JSONObject> mascotaFichamedicaMap = new HashMap<>();
         for (int j = 0; j < fichamedicaArray.length(); j++) {
             JSONObject fichamedica = fichamedicaArray.getJSONObject(j);
@@ -234,69 +339,114 @@ private void cargarDatosTabla() {
         for (int i = 0; i < mascotasArray.length(); i++) {
             JSONObject mascotaObj = mascotasArray.getJSONObject(i);
             int mascotaId = mascotaObj.getInt("id");
-
-            // Obtener los datos de la ficha médica relacionada
             JSONObject fichamedicaAsociada = mascotaFichamedicaMap.get(mascotaId);
+
             if (fichamedicaAsociada != null) {
-                // Obtener datos de la ficha médica
                 int fichamedicaId = fichamedicaAsociada.getInt("id");
                 String fechaMedica = fichamedicaAsociada.optString("fecha_medica", "N/A");
                 String proxConsulta = fichamedicaAsociada.optString("prox_consulta", "N/A");
 
-                // Obtener el tipo de alimento de la ficha médica
+                // Tipo de alimento
                 JSONObject tipoAlimentoObj = fichamedicaAsociada.optJSONObject("tipo_alimento");
-                String tipoAlimentoDescripcion = "Sin tipo de alimento"; // Valor por defecto
-                if (tipoAlimentoObj != null) {
-                    int tipoAlimentoId = tipoAlimentoObj.getInt("id"); // Obtener el ID del tipo de alimento
-                    tipoAlimentoDescripcion = tipoAlimentoMap.getOrDefault(tipoAlimentoId, "N/A");
-                }
+                String tipoAlimentoDescripcion = tipoAlimentoObj != null
+                        ? tipoAlimentoMap.getOrDefault(tipoAlimentoObj.getInt("id"), "N/A")
+                        : "Sin tipo de alimento";
 
-                // Obtener los datos del chip asociado a esta ficha médica
+                // Chip
                 JSONObject chipAsociado = fichaChipMap.get(fichamedicaId);
-                String confirmacionChip = "No Tiene Chip";  // Valor por defecto si no tiene chip
+                String confirmacionChip = "No Tiene Chip";
                 String fechaColocacion = "No disponible";
                 String lugarColocacion = "No disponible";
-
                 if (chipAsociado != null) {
-                    // Verificar si tiene chip (confirmacion_chip es true o false)
-                    boolean tieneChip = chipAsociado.optBoolean("confirmacion_chip", false);
-                    confirmacionChip = tieneChip ? "Tiene Chip" : "No Tiene Chip"; // Asignar según el valor de confirmacion_chip
-
-                    // Obtener otros datos relacionados con el chip
+                    confirmacionChip = chipAsociado.optBoolean("confirmacion_chip", false) ? "Tiene Chip" : "No Tiene Chip";
                     fechaColocacion = chipAsociado.optString("fecha_colocacion", "No disponible");
                     lugarColocacion = chipAsociado.optString("lugar_colocacion", "No disponible");
                 }
 
-                // Obtener los datos de esterilización asociados a esta ficha médica
-                JSONObject esterilizacionAsociada = fichaEsterilizacionMap.get(fichamedicaId);
-                String confirmacionEsterilizacion = "No Esterilizado";  // Valor por defecto si no tiene esterilización
-                String fecha_esterilizacion = "No disponible";
-                String lugar_esterilizacion = "No disponible";
-                System.out.println(fichaEsterilizacionMap);
+                // Esterilización
+                JSONObject esterilizacionAsociada = esterilizacionFichaMedicaMap.get(fichamedicaId);
+                String confirmacionEsterilizacion = "No Esterilizado";
+                String fechaEsterilizacion = "No disponible";
+                String lugarEsterilizacion = "No disponible";
                 if (esterilizacionAsociada != null) {
-                    // Verificar si está esterilizado (confirmacion_esterilizacion es true o false)
-                    boolean esterilizado = esterilizacionAsociada.optBoolean("confirmacion_esterilizacion", false);
-                    confirmacionEsterilizacion = esterilizado ? "Esterilizado" : "No Esterilizado"; // Asignar según el valor de confirmacion_esterilizacion
-                    
-                    // Obtener otros datos relacionados con el chip
-                    fecha_esterilizacion = esterilizacionAsociada.optString("fecha_esterilizacion", "No disponible");
-                    lugar_esterilizacion = chipAsociado.optString("lugar_esterilizacion", "No disponible");
+                    confirmacionEsterilizacion = esterilizacionAsociada.optBoolean("confirmacion_esterilizacion", false)
+                            ? "Está Esterilizado"
+                            : "No Esterilizado";
+                    fechaEsterilizacion = esterilizacionAsociada.optString("fecha_esterilizacion", "No disponible");
+                    lugarEsterilizacion = esterilizacionAsociada.optString("lugar_esterilizacion", "No disponible");
+                }
+
+                // Desparacitación
+                JSONObject desparasitacionAsociada = desparasitacionFichaMedicaMap.get(fichamedicaId);
+                String confirmacionDesparasitacion = "No Desparacitado";
+                String fechaDesparasitacion = "No disponible";
+                if (desparasitacionAsociada != null) {
+                    confirmacionDesparasitacion = desparasitacionAsociada.optBoolean("confirmacion_desparasitacion", false)
+                            ? "Está Desparacitado"
+                            : "No Desparacitado";
+                    fechaDesparasitacion = desparasitacionAsociada.optString("fecha_desparasitacion", "No disponible");
+                }
+
+                // Veterinaria
+                JSONObject veterinariaAsociada = veterinariaFichaMedicaMap.get(fichamedicaId);
+                String veterinariaNombre = "No disponible";
+                String veterinariaDescrip = "No disponible";
+                if (veterinariaAsociada != null) {
+                    veterinariaNombre = veterinariaAsociada.optString("nombre", "No disponible");
+                    veterinariaDescrip = veterinariaAsociada.optString("direccion", "No disponible");
+                }
+
+                // Vacunas
+                JSONObject vacunaAsociada = vacunaFichaMedicaMap.get(fichamedicaId);
+                String descripcionVacuna = "No disponible";
+                String fechaVacuna = "No disponible";
+                if (vacunaAsociada != null) {
+                    descripcionVacuna = vacunaAsociada.optString("nombre", "No disponible");
+                    fechaVacuna = vacunaAsociada.optString("fecha_vacuna", "No disponible");
+                }
+
+                // Cirugía
+                JSONObject cirugiaAsociada = cirugiaFichaMedicaMap.get(fichamedicaId);
+                String descripcionCirugia = "No disponible";
+                String fechaCirugia = "No disponible";
+                String tipoCirugia = "No disponible";
+
+                if (cirugiaAsociada != null) {
+                    descripcionCirugia = cirugiaAsociada.optString("descripcion", "No disponible");
+                    fechaCirugia = cirugiaAsociada.optString("fecha_cirugia", "No disponible");
+
+                    // Obtener el objeto tipo_cirugia
+                    JSONObject tipoCirugiaObj = cirugiaAsociada.optJSONObject("tipo_cirugia");
+
+                    // Obtener el nombre directamente del objeto tipo_cirugia
+                    tipoCirugia = tipoCirugiaObj != null
+                            ? tipoCirugiaObj.optString("nombre", "No disponible")
+                            : "No disponible";
                 }
 
                 // Añadir datos a la tabla
                 String nombreMascota = mascotaObj.optString("nombre", "N/A");
                 model.addRow(new Object[]{
-                    fichamedicaId,
-                    nombreMascota,
-                    fechaMedica,
-                    proxConsulta,
-                    tipoAlimentoDescripcion,
-                    confirmacionChip,
-                    fechaColocacion,
-                    lugarColocacion,
-                    confirmacionEsterilizacion,
-                    fecha_esterilizacion,
-                    lugar_esterilizacion
+                        fichamedicaId,
+                        fechaMedica,
+                        proxConsulta,
+                        nombreMascota,
+                        tipoAlimentoDescripcion,
+                        confirmacionChip,
+                        fechaColocacion,
+                        lugarColocacion,
+                        confirmacionEsterilizacion,
+                        fechaEsterilizacion,
+                        lugarEsterilizacion,
+                        confirmacionDesparasitacion,
+                        fechaDesparasitacion,
+                        veterinariaNombre,
+                        veterinariaDescrip,
+                        descripcionVacuna,
+                        fechaVacuna,
+                        descripcionCirugia,
+                        fechaCirugia,
+                        tipoCirugia
                 });
             }
         }
@@ -305,6 +455,7 @@ private void cargarDatosTabla() {
         JOptionPane.showMessageDialog(null, "Error al cargar datos de las APIs.");
     }
 }
+
 
 // Método para obtener datos de la API
 private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
@@ -329,13 +480,280 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     }
 }
 
-
-    
-    
-    
-    
 //------------------------------------------------------FIN LISTAR DATOS FICHA MEDICA-------------------------------------------------------------------
     
+//------------------------------------------------------INICIO MODIFICAR  FICHA MEDICA-------------------------------------------------------------------
+
+
+private void modificarFichaMedica(int fichaMedicaId) {
+    String urlString = "http://127.0.0.1:8000/ficha_medica/" + fichaMedicaId + "/"; // URL de la API para modificar datos de la ficha médica
+    HttpURLConnection connection = null;
+
+    try {
+        // 1. Obtener los datos actuales de la ficha médica
+        URL getUrl = new URL(urlString);
+        HttpURLConnection getConnection = (HttpURLConnection) getUrl.openConnection();
+        getConnection.setRequestMethod("PUT");
+        getConnection.setRequestProperty("Authorization", "Token " + token);
+        getConnection.setRequestProperty("Accept", "application/json");
+        getConnection.connect();
+
+        int getResponseCode = getConnection.getResponseCode();
+        if (getResponseCode != HttpURLConnection.HTTP_OK) {
+            JOptionPane.showMessageDialog(null, 
+                "Error al obtener los datos actuales de la ficha médica. Código de respuesta: " + getResponseCode, 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(getConnection.getInputStream(), "utf-8"));
+        StringBuilder currentDataBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            currentDataBuilder.append(line.trim());
+        }
+        reader.close();
+
+        JSONObject currentData = new JSONObject(currentDataBuilder.toString());
+        getConnection.disconnect();
+
+        // 2. Crear el objeto JSON con los datos nuevos de la ficha médica
+        JSONObject jsonData = new JSONObject();
+        jsonData.put("prox_consulta", txtProximaConsulta.getText()); // Campo para la próxima consulta
+        jsonData.put("fecha_medica", txtFechaMedica.getText()); // Campo para la fecha médica
+
+        // 3. Validar si al menos un campo ha cambiado
+        boolean hasChanges = false;
+        if (!txtProximaConsulta.getText().equals(currentData.getString("prox_consulta")) ||
+            !txtFechaMedica.getText().equals(currentData.getString("fecha_medica"))) {
+            hasChanges = true;
+        }
+
+        if (!hasChanges) {
+            JOptionPane.showMessageDialog(null, 
+                "No se realizaron cambios. Al menos un campo debe modificarse.", 
+                "Advertencia", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 4. Realizar la solicitud PUT
+        URL url = new URL(urlString);
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Authorization", "Token " + token);
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonData.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // 5. Leer la respuesta de la API
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+            JOptionPane.showMessageDialog(null, 
+                "Ficha médica modificada con éxito.", 
+                "Éxito", 
+                JOptionPane.INFORMATION_MESSAGE);
+                cargarDatosTabla();
+        } else {
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
+            StringBuilder errorResponse = new StringBuilder();
+            while ((line = errorReader.readLine()) != null) {
+                errorResponse.append(line.trim());
+            }
+            JOptionPane.showMessageDialog(null, 
+                "Error al modificar la ficha médica. Código de respuesta: " + responseCode + "\nDetalles del error: " + errorResponse.toString(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, 
+            "Ocurrió un error", 
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+ 
+        e.printStackTrace();
+    } finally {
+        if (connection != null) {
+            connection.disconnect();
+        }
+    }
+}
+
+private void manejarModificacionFichaMedica() {
+    int filaSeleccionada = TablaFichaMedica.getSelectedRow();
+
+    if (filaSeleccionada != -1) {
+        int fichaMedicaId = (int) TablaFichaMedica.getValueAt(filaSeleccionada, 0);
+
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+            "¿Está seguro de que desea modificar los datos de esta ficha médica?",
+            "Confirmar modificación",
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            modificarFichaMedica(fichaMedicaId);
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione una ficha médica de la tabla.");
+    }
+}
+
+
+
+
+//------------------------------------------------------FIN MODIFICAR  FICHA MEDICA-------------------------------------------------------------------
+
+
+
+//------------------------------------------------------INICIO ELIMINAR FICHA MEDICA----------------------------------------------------------------------------
+
+
+// Método para eliminar una ficha médica a través de la API
+private void eliminarFichaMedica(int fichaMedicaId) {
+    String urlString = "http://127.0.0.1:8000/api/fichamedica/" + fichaMedicaId + "/"; // URL de la API para eliminar la ficha médica
+
+    try {
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Configurar el método DELETE y los encabezados
+        connection.setRequestMethod("DELETE");  // Cambiar a DELETE para eliminar
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Accept", "application/json");
+
+        // Conectar y obtener la respuesta
+        connection.connect();
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+            JOptionPane.showMessageDialog(null, "Ficha médica eliminada correctamente.");
+            // Aquí puedes actualizar la tabla o hacer otras acciones
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la ficha médica. Código de respuesta: " + responseCode);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al eliminar la ficha médica.");
+    }
+}
+
+// Método común para manejar la eliminación de una ficha médica
+private void manejarEliminacionFichaMedica() {
+    // Obtener la fila seleccionada
+    int filaSeleccionada = TablaFichaMedica.getSelectedRow();  // Cambiar TablaFichasMedicas por el nombre de la tabla donde se listan las fichas médicas
+
+    if (filaSeleccionada != -1) {
+        // Obtener el ID de la ficha médica en la primera columna (suponiendo que el ID está en la columna 0)
+        int fichaMedicaId = (int) TablaFichaMedica.getValueAt(filaSeleccionada, 0);
+
+        // Mostrar un cuadro de confirmación para eliminar la ficha médica
+        int confirmacion = JOptionPane.showConfirmDialog(null, 
+            "¿Está seguro de que desea eliminar esta ficha médica?", 
+            "Confirmar eliminación", 
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            eliminarFichaMedica(fichaMedicaId); // Llamar al método de eliminación
+            cargarDatosTabla();  // Recargar la tabla para reflejar la eliminación
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione una ficha médica de la tabla.");
+    }
+}
+
+
+
+
+
+//------------------------------------------------------FIN ELIMINAR FICHA MEDICA----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+//--------------------------------------------------INICIO SELECCIONAR FICHA MEDICA------------------------------------------------------
+    
+private void seleccionarFichaMedica(int fichaMedicaId) {
+    String urlString = "http://127.0.0.1:8000/api/fichamedica/" + fichaMedicaId + "/"; // URL de la API para obtener datos
+
+    try {
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        // Configurar el método GET y los encabezados
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Accept", "application/json");
+
+        // Conectar y obtener la respuesta
+        connection.connect();
+        int responseCode = connection.getResponseCode();
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            // Leer la respuesta de la API
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+
+            // Convertir la respuesta en un JSONObject
+            JSONObject jsonResponse = new JSONObject(response.toString());
+
+            // Obtener los datos de la ficha médica
+            String proximaConsulta = jsonResponse.optString("prox_consulta", "N/A");
+            String fechaMedica = jsonResponse.optString("fecha_medica", "N/A");
+
+            // Mostrar los datos en los campos correspondientes
+            txtProximaConsulta.setText(proximaConsulta);
+            txtFechaMedica.setText(fechaMedica);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al obtener datos de la ficha médica.");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al seleccionar ficha médica.");
+    }
+}
+
+
+private void manejarSeleccionFichaMedica() {
+    // Obtener la fila seleccionada
+    int filaSeleccionada = TablaFichaMedica.getSelectedRow();
+
+    if (filaSeleccionada != -1) {
+        // Obtener el ID de la ficha médica en la primera columna (suponiendo que el ID está en la columna 0)
+        int fichaMedicaId = (int) TablaFichaMedica.getValueAt(filaSeleccionada, 0);
+
+        // Confirmación de selección
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+            "¿Está seguro de que desea cargar los datos de esta ficha médica?",
+            "Confirmar selección",
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            seleccionarFichaMedica(fichaMedicaId); // Llamar al método para cargar los datos
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione una ficha médica de la tabla.");
+    }
+}
+
+//--------------------------------------------------FIN SELECCIONAR FICHA MEDICA------------------------------------------------------
+
+
     
     /**
      * @param args the command line arguments
@@ -376,11 +794,17 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTEliminarPA;
     private javax.swing.JButton BTModificarPA;
+    private javax.swing.JButton BTSeleccionarFicha;
     private javax.swing.JButton BTVolver;
     private javax.swing.JTable TablaFichaMedica;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField txtFechaMedica;
+    private javax.swing.JTextField txtProximaConsulta;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

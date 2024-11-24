@@ -725,8 +725,7 @@ private void manejarModificacionUsuario() {
 
     
 //-----------------------------------------------------INICIO SELECCIONAR USUARIO-----------------------------------------------------------
-    
-// Método para seleccionar un usuario y cargar sus datos desde la API
+   
 // Método para cargar los datos del usuario seleccionado
 private void seleccionarUsuario(int usuarioId) {
     String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para obtener datos
@@ -847,17 +846,8 @@ private void manejarSeleccionUsuario() {
         JOptionPane.showMessageDialog(null, "Por favor, seleccione un usuario de la tabla.");
     }
 }
-
-
-
-
-
-
-    
         
 
-
-   
 //-----------------------------------------------------FIN SELECCIONAR USUARIO--------------------------------------------------------------
 
 
