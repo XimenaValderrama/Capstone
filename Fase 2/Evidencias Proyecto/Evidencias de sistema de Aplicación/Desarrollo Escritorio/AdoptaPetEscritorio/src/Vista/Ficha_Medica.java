@@ -187,11 +187,11 @@ public class Ficha_Medica extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(txtProximaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(txtFechaMedica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtProximaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtFechaMedica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jLabel6)))
@@ -235,6 +235,8 @@ public class Ficha_Medica extends javax.swing.JFrame {
     }//GEN-LAST:event_BTModificarPAActionPerformed
 
 private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
+private String token2 = "a635c77de3de8cf58fa3e631b4e197b048670150";
+
 
 //-------------------------------------------------------INICIO LISTAR DATOS FICHA MEDICA-------------------------------------------------------------------------------------    
     
@@ -463,6 +465,7 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
     connection.setRequestProperty("Authorization", "Token " + token);
+    connection.setRequestProperty("Authorization", "Token " + token2);
     connection.connect();
 
     int responseCode = connection.getResponseCode();
@@ -495,6 +498,7 @@ private void modificarFichaMedica(int fichaMedicaId) {
         HttpURLConnection getConnection = (HttpURLConnection) getUrl.openConnection();
         getConnection.setRequestMethod("PUT");
         getConnection.setRequestProperty("Authorization", "Token " + token);
+        getConnection.setRequestProperty("Authorization", "Token " + token2);
         getConnection.setRequestProperty("Accept", "application/json");
         getConnection.connect();
 
@@ -543,6 +547,7 @@ private void modificarFichaMedica(int fichaMedicaId) {
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("PUT");
         connection.setRequestProperty("Authorization", "Token " + token);
+        connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Content-Type", "application/json; utf-8");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -626,6 +631,7 @@ private void eliminarFichaMedica(int fichaMedicaId) {
         // Configurar el método DELETE y los encabezados
         connection.setRequestMethod("DELETE");  // Cambiar a DELETE para eliminar
         connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
@@ -693,6 +699,7 @@ private void seleccionarFichaMedica(int fichaMedicaId) {
         // Configurar el método GET y los encabezados
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
