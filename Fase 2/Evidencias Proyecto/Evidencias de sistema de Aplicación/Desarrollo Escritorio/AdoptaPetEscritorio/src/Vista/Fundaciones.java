@@ -297,7 +297,7 @@ public class Fundaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_BTModificarPActionPerformed
 
     
-private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
+private String token = "8ffeb3f8e3edc9915795f7c57fb11b39b1dd96a2";
 private String token2 = "a635c77de3de8cf58fa3e631b4e197b048670150";
 
 
@@ -340,7 +340,7 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    connection.setRequestProperty("Authorization", "Token " + token); // Asumiendo que se usa un token de autenticación
+    //connection.setRequestProperty("Authorization", "Token " + token); // Asumiendo que se usa un token de autenticación
     connection.setRequestProperty("Authorization", "Token " + token2);
     connection.connect();
 
@@ -394,7 +394,7 @@ private void agregarFundacion() {
         Request request = new Request.Builder()
             .url(urlAPI)
             .post(requestBody) // Método POST
-            .addHeader("Authorization", "Token " + token) // Si se requiere autenticación
+            //.addHeader("Authorization", "Token " + token) // Si se requiere autenticación
             .addHeader("Authorization", "Token " + token2)
             .build();
 
@@ -457,7 +457,7 @@ private void eliminarFundacion(int fundacionId) {
 
         // Configurar el método DELETE y los encabezados
         connection.setRequestMethod("DELETE");  // Cambiar a DELETE para eliminar
-        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
         connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Accept", "application/json");
 
@@ -541,7 +541,7 @@ private void modificarFundacion(int fundacionId) {
         Request request = new Request.Builder()
             .url(urlString)
             .put(requestBodyBuilder.build()) // Método PUT
-            .addHeader("Authorization", "Token " + token) // Si se requiere autenticación
+            //.addHeader("Authorization", "Token " + token) // Si se requiere autenticación
             .addHeader("Authorization", "Token " + token2)
             .build();
 
@@ -664,7 +664,7 @@ private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSON
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
     connection.setRequestProperty("Authorization", "Token " + token); // Autenticación con token
-    connection.setRequestProperty("Authorization", "Token " + token2);
+    //connection.setRequestProperty("Authorization", "Token " + token2);
     connection.setRequestProperty("Accept", "application/json");
     connection.connect();
 

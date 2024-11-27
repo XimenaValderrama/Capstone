@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -62,10 +63,10 @@ public class Mascotas_Encontradas extends javax.swing.JFrame {
         BTModificarMasEnCo = new javax.swing.JButton();
         BTVolver = new javax.swing.JButton();
         txtNombreMascota = new javax.swing.JTextField();
-        txtEstadoMascota = new javax.swing.JTextField();
         BTSeleccionarMasEnCo = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        ComboBoxEsMa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,6 +123,12 @@ public class Mascotas_Encontradas extends javax.swing.JFrame {
 
         jLabel4.setText("Estado Mascota");
 
+        ComboBoxEsMa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxEsMaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -154,9 +161,9 @@ public class Mascotas_Encontradas extends javax.swing.JFrame {
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtNombreMascota, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                    .addComponent(txtEstadoMascota))
+                                    .addComponent(ComboBoxEsMa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(65, 65, 65)))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -177,7 +184,7 @@ public class Mascotas_Encontradas extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(21, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 1, Short.MAX_VALUE)
+                        .addGap(0, 4, Short.MAX_VALUE)
                         .addComponent(BTSeleccionarMasEnCo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -185,9 +192,9 @@ public class Mascotas_Encontradas extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEstadoMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(49, 49, 49)
+                            .addComponent(jLabel4)
+                            .addComponent(ComboBoxEsMa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46)
                         .addComponent(BTModificarMasEnCo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(64, 64, 64)
                         .addComponent(BTEliminarMasEnCo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,7 +222,7 @@ public class Mascotas_Encontradas extends javax.swing.JFrame {
     }//GEN-LAST:event_BTVolverActionPerformed
 
     private void BTModificarMasEnCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarMasEnCoActionPerformed
-      manejarModificacionMascota();
+      
     }//GEN-LAST:event_BTModificarMasEnCoActionPerformed
 
     private void BTEliminarMasEnCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarMasEnCoActionPerformed
@@ -225,16 +232,23 @@ public class Mascotas_Encontradas extends javax.swing.JFrame {
     private void BTSeleccionarMasEnCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTSeleccionarMasEnCoActionPerformed
         manejarSeleccionMascota(); // Llama al método para manejar la selección del usuario
     }//GEN-LAST:event_BTSeleccionarMasEnCoActionPerformed
+
+    private void ComboBoxEsMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxEsMaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxEsMaActionPerformed
   
-private String token = "847c45faa3fe195e77a83ac0229e88494461e3aa";
+private String token = "8ffeb3f8e3edc9915795f7c57fb11b39b1dd96a2";
 private String token2 = "a635c77de3de8cf58fa3e631b4e197b048670150";
+private Map<Integer, String> estadosMap = new HashMap<>();
 
 //--------------------------------------------------------INICIO LISTAR DATOS MASCOTA ENCONTRADA-------------------------------------------------------------------------
 private void cargarDatosTabla() {
     String mascotasUrl = "http://127.0.0.1:8000/api/mascota/?format=json";
     String usuariosUrl = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
-    String razasUrl = "http://127.0.0.1:8000/api/razas/?format=json";  // Nueva API para razas
-    String tipoMascotaUrl = "http://127.0.0.1:8000/api/tipomascota/?format=json";  // Nueva API para tipo de mascota
+    String razasUrl = "http://127.0.0.1:8000/api/razas/?format=json";
+    String tipoMascotaUrl = "http://127.0.0.1:8000/api/tipomascota/?format=json";
+    String estadosUrl = "http://127.0.0.1:8000/api/estadomascota/?format=json"; // Nueva API para estados
+
     DefaultTableModel model = (DefaultTableModel) TablaMascotasAdoptadas.getModel();
     model.setRowCount(0);
 
@@ -254,6 +268,10 @@ private void cargarDatosTabla() {
         JSONArray tipoMascotaArray = obtenerDatosDeApi(tipoMascotaUrl);
         Map<Integer, String> tipoMascotaMap = procesarTipoMascota(tipoMascotaArray);
 
+        // Obtener y procesar datos de estados
+        JSONArray estadosArray = obtenerDatosDeApi(estadosUrl);
+        estadosMap = procesarEstados(estadosArray);  // Aquí actualizamos estadosMap
+
         // Procesar datos de mascotas
         for (int i = 0; i < mascotasArray.length(); i++) {
             JSONObject mascota = mascotasArray.getJSONObject(i);
@@ -268,8 +286,9 @@ private void cargarDatosTabla() {
             // Obtener el nombre completo del usuario usando el mapa de usuarios
             String nombreUsuario = usuariosMap.getOrDefault(idUsuario, "N/A");
 
+            // Obtener el estado de la mascota
             JSONObject estadoMascota = mascota.optJSONObject("estado_mascota");
-            String estado = estadoMascota != null ? estadoMascota.optString("descripcion", "N/A") : "N/A";
+            String estado = estadoMascota != null ? estadosMap.getOrDefault(estadoMascota.optInt("id", -1), "N/A") : "N/A";
 
             // Obtener la raza de la mascota (ahora usamos el nombre de la raza)
             JSONObject razaMascota = mascota.optJSONObject("raza");
@@ -289,12 +308,14 @@ private void cargarDatosTabla() {
     }
 }
 
+
+
 // Método para obtener datos de la API
 private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    connection.setRequestProperty("Authorization", "Token " + token);
+    //connection.setRequestProperty("Authorization", "Token " + token);
     connection.setRequestProperty("Authorization", "Token " + token2);
     connection.connect();
 
@@ -374,7 +395,47 @@ private Map<Integer, String> procesarTipoMascota(JSONArray tipoMascotaArray) {
 }
 
 
+private void cargarEstadosEnComboBox(JComboBox<String> ComboBoxEsMa) {
+    String estadosUrl = "http://127.0.0.1:8000/api/estadomascota/?format=json";
+    
+    try {
+        // Obtener datos de estados desde la API
+        JSONArray estadosArray = obtenerDatosDeApi(estadosUrl);
 
+        // Vaciar el ComboBox antes de llenarlo
+        ComboBoxEsMa.removeAllItems();
+
+        // Llenar el ComboBox con los nombres de los estados
+        for (int i = 0; i < estadosArray.length(); i++) {
+            JSONObject estado = estadosArray.getJSONObject(i);
+            String descripcion = estado.optString("descripcion", "N/A");
+            ComboBoxEsMa.addItem(descripcion);  // Agregar cada estado al ComboBox
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al cargar los estados en el ComboBox.");
+    }
+}
+
+
+private Map<Integer, String> procesarEstados(JSONArray estadosArray) {
+    Map<Integer, String> estadosMap = new HashMap<>();
+    try {
+        // Recorrer todos los estados en el JSONArray
+        for (int i = 0; i < estadosArray.length(); i++) {
+            JSONObject estado = estadosArray.getJSONObject(i);
+            int id = estado.optInt("id", -1);
+            String descripcion = estado.optString("descripcion", "N/A");
+
+            // Almacenar en el mapa
+            estadosMap.put(id, descripcion);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de estados.");
+    }
+    return estadosMap;
+}
 
 
 //-------------------------------------------------------FIN LISTAR DATOS MASCOTA ENCONTRADA---------------------------------------------------------------------
@@ -391,7 +452,7 @@ private void eliminarMascota(int mascotaId) {
 
         // Configurar el método DELETE y los encabezados
         connection.setRequestMethod("DELETE");
-        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
         connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Accept", "application/json");
 
@@ -445,88 +506,12 @@ private void agregarListenerTabla() {
 
 //-------------------------------------------------------FIN ELIMINAR MASCOTA ENCONTRADA--------------------------------------------------------
 
-
 //-----------------------------------------------------INICIO MODIFICAR MASCOTA ENCONTRADA---------------------------------------------------
-private void modificarMascota(int mascotaId) {
-    String urlString = "http://127.0.0.1:8000/mascotas/" + mascotaId + "/";
-
-    try {
-        // Crear la URL y la conexión
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        // Configurar el método PUT
-        connection.setRequestMethod("PUT");
-        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
-        connection.setRequestProperty("Content-Type", "application/json; utf-8");
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setDoOutput(true);
-
-        // Crear el objeto JSON con los datos nuevos
-        JSONObject jsonData = new JSONObject();
-        jsonData.put("nombre", txtNombreMascota.getText()); // Nombre de la mascota
-        jsonData.put("estado_mascota", new JSONObject().put("descripcion", txtEstadoMascota.getText())); // Estado de la mascota
-        jsonData.put("username", txtNombreMascota.getText()); // Nombre de la mascota
-        // Enviar los datos a la API
-        try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = jsonData.toString().getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
-
-        // Leer la respuesta de la API
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
-            System.out.println("Mascota modificada con éxito.");
-        } else {
-            // Leer y mostrar el error desde la API
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
-            StringBuilder errorResponse = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                errorResponse.append(line.trim());
-            }
-            System.err.println("Error al modificar la mascota. Código de respuesta: " + responseCode);
-            System.err.println("Detalles del error: " + errorResponse.toString());
-        }
-    } catch (Exception e) {
-        e.printStackTrace(); // Mostrar el error completo en la consola
-    }
-}
 
 
-private void manejarModificacionMascota() {
-    int filaSeleccionada = TablaMascotasAdoptadas.getSelectedRow(); // Obtener la fila seleccionada en la tabla
 
-    if (filaSeleccionada != -1) {
-        int mascotaId = (int) TablaMascotasAdoptadas.getValueAt(filaSeleccionada, 0); // Obtener el ID de la mascota
-
-        // Confirmar la modificación
-        int confirmacion = JOptionPane.showConfirmDialog(
-            null,
-            "¿Está seguro de que desea modificar los datos de esta mascota?",
-            "Confirmar modificación",
-            JOptionPane.YES_NO_OPTION
-        );
-
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            // Llamar al método modificarMascota pasando el ID de la mascota seleccionada
-            modificarMascota(mascotaId);
-            cargarDatosTabla();
-        }
-    } else {
-        JOptionPane.showMessageDialog(null, "Por favor, seleccione una mascota de la tabla.");
-    }
-}
 
 //-----------------------------------------------------FIN MODIFICAR MASCOTA ENCONTRADA---------------------------------------------------
-
-
-
-
-
-
-
 
 
 
@@ -534,62 +519,90 @@ private void manejarModificacionMascota() {
 //--------------------------------------------------------INICIO SELECCION MASCOTA ENCONTRADA-------------------------------------------------------------
 // Método para seleccionar una mascota y cargar sus datos desde la API
 private void seleccionarMascota(int mascotaId) {
-    String urlString = "http://127.0.0.1:8000/api/mascota/" + mascotaId + "/"; // URL de la API para obtener datos de la mascota
+    String urlMascota = "http://127.0.0.1:8000/api/mascota/" + mascotaId + "/"; // URL de la API para obtener datos de la mascota
+    String urlEstados = "http://127.0.0.1:8000/api/estadomascota/?format=json"; // URL para obtener estados de mascota
 
     try {
-        // Crear la URL y la conexión
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        // Obtener los datos de la mascota
+        JSONObject jsonResponse = obtenerObjetoDeApi(urlMascota);
 
-        // Configurar el método GET y los encabezados
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
-        connection.setRequestProperty("Accept", "application/json");
+        // Obtener el estado actual de la mascota como objeto JSON
+        String estadoMascota = "N/A";
+        JSONObject estadoMascotaObj = jsonResponse.optJSONObject("estado_mascota");
+        if (estadoMascotaObj != null) {
+            estadoMascota = estadoMascotaObj.optString("descripcion", "N/A");
+        }
 
-        // Conectar y obtener la respuesta
-        connection.connect();
-        int responseCode = connection.getResponseCode();
+        // Cargar el estado actual en el ComboBox
+        cargarEstadosMascota(urlEstados, estadoMascota);
 
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            // Leer la respuesta de la API
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
+        // Filtrar solo si el estado de la mascota es "adoptado"
+        if (estadoMascota.equals("adoptado")) {
+            // Obtener los datos básicos de la mascota
+            String nombreMascota = jsonResponse.optString("nombre", "N/A");
 
-            // Convertir la respuesta en un JSONObject
-            JSONObject jsonResponse = new JSONObject(response.toString());
+            // Mostrar los datos en los campos correspondientes
+            txtNombreMascota.setText(nombreMascota);
 
-            // Procesar estado de la mascota como objeto JSON
-            String estadoMascota = "N/A";
-            JSONObject estadoMascotaObj = jsonResponse.optJSONObject("estado_mascota");
-            if (estadoMascotaObj != null) {
-                estadoMascota = estadoMascotaObj.optString("descripcion", "N/A");
-            }
-
-            // Filtrar solo si el estado de la mascota es "encontrado"
-            if (estadoMascota.equals("encontrado")) {
-                // Obtener los datos básicos de la mascota
-                String nombreMascota = jsonResponse.optString("nombre", "N/A");
-                String username = jsonResponse.optString("username", "N/A");
-
-                // Mostrar los datos en los campos correspondientes
-                txtNombreMascota.setText(nombreMascota);
-                txtEstadoMascota.setText(estadoMascota);
-
-
-            } else {
-                JOptionPane.showMessageDialog(null, "La mascota seleccionada no está adoptada.");
-            }
         } else {
-            JOptionPane.showMessageDialog(null, "Error al obtener datos de la mascota.");
+            JOptionPane.showMessageDialog(null, "La mascota seleccionada no está adoptada.");
         }
     } catch (Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error al seleccionar mascota.");
+    }
+}
+
+// Método para cargar los estados en el ComboBox
+private void cargarEstadosMascota(String urlEstados, String estadoActual) {
+    try {
+        // Obtener los estados desde la API
+        JSONArray estadosArray = obtenerDatosDeApi(urlEstados);
+
+        // Limpiar el ComboBox antes de agregar los estados
+        ComboBoxEsMa.removeAllItems();
+
+        // Agregar los estados al ComboBox
+        for (int i = 0; i < estadosArray.length(); i++) {
+            JSONObject estado = estadosArray.getJSONObject(i);
+            String descripcion = estado.optString("descripcion", "N/A");
+
+            ComboBoxEsMa.addItem(descripcion);
+
+            // Si el estado es el actual, seleccionarlo
+            if (descripcion.equals(estadoActual)) {
+                ComboBoxEsMa.setSelectedItem(descripcion);
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al cargar los estados de la mascota.");
+    }
+}
+
+
+// Método para obtener un objeto JSON desde una API
+private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSONException {
+    URL url = new URL(urlString);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("GET");
+    //connection.setRequestProperty("Authorization", "Token " + token);
+    connection.setRequestProperty("Authorization", "Token " + token2);
+    connection.setRequestProperty("Accept", "application/json");
+    connection.connect();
+
+    int responseCode = connection.getResponseCode();
+    if (responseCode == HttpURLConnection.HTTP_OK) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
+        }
+        reader.close();
+        return new JSONObject(response.toString());
+    } else {
+        throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
     }
 }
 
@@ -603,13 +616,21 @@ private void manejarSeleccionMascota() {
         int mascotaId = (int) TablaMascotasAdoptadas.getValueAt(filaSeleccionada, 0);
 
         // Confirmación de selección
-        int confirmacion = JOptionPane.showConfirmDialog(null,
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null,
             "¿Está seguro de que desea cargar los datos de esta mascota?",
             "Confirmar selección",
-            JOptionPane.YES_NO_OPTION);
+            JOptionPane.YES_NO_OPTION
+        );
 
         if (confirmacion == JOptionPane.YES_OPTION) {
-            seleccionarMascota(mascotaId); // Llamar al método para cargar los datos
+            try {
+                // Llamar al método para cargar los datos de la mascota
+                seleccionarMascota(mascotaId);
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al manejar la selección de la mascota.");
+            }
         }
     } else {
         JOptionPane.showMessageDialog(null, "Por favor, seleccione una mascota de la tabla.");
@@ -658,13 +679,13 @@ private void manejarSeleccionMascota() {
     private javax.swing.JButton BTModificarMasEnCo;
     private javax.swing.JButton BTSeleccionarMasEnCo;
     private javax.swing.JButton BTVolver;
+    private javax.swing.JComboBox<String> ComboBoxEsMa;
     private javax.swing.JTable TablaMascotasAdoptadas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField txtEstadoMascota;
     private javax.swing.JTextField txtNombreMascota;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables

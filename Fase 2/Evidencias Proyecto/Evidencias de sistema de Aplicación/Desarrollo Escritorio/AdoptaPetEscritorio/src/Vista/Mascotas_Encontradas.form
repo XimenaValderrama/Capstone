@@ -78,9 +78,9 @@
                                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="txtNombreMascota" pref="100" max="32767" attributes="0"/>
-                                      <Component id="txtEstadoMascota" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="ComboBoxEsMa" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                               </Group>
@@ -112,7 +112,7 @@
                           <EmptySpace pref="21" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
                           <Component id="BTSeleccionarMasEnCo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -121,10 +121,10 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtEstadoMascota" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ComboBoxEsMa" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                           <Component id="BTModificarMasEnCo" min="-2" pref="79" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                           <Component id="BTEliminarMasEnCo" min="-2" pref="79" max="-2" attributes="0"/>
@@ -238,8 +238,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombreMascota">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtEstadoMascota">
-        </Component>
         <Component class="javax.swing.JButton" name="BTSeleccionarMasEnCo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Seleccionar Mascota Encontrada"/>
@@ -257,6 +255,19 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Estado Mascota"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="ComboBoxEsMa">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboBoxEsMaActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
