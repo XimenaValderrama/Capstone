@@ -187,6 +187,37 @@ def modificar_eliminar_formulario(request, formulario_id):
         return Response({"message": "Formulario eliminado correctamente."}, status=status.HTTP_204_NO_CONTENT)
 
 
+@csrf_exempt
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def actualizar_estado_formulario(request, formulario_id):
+    try:
+        # Obtener el formulario por su ID
+        formulario = FormularioAdopcion.objects.get(id=formulario_id)  # Usar FormularioAdopcion aquí
+    except FormularioAdopcion.DoesNotExist:  # Cambiar aquí también
+        return Response({"error": "Formulario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+    
+    # Verificar si el campo 'estado_formulario' está en la solicitud
+    estado_formulario_id = request.data.get('estado_formulario')
+    if not estado_formulario_id:
+        return Response({"error": "El campo 'estado_formulario' es obligatorio."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        # Obtener el nuevo estado del formulario por su ID
+        nuevo_estado = EstadoFormulario.objects.get(id=estado_formulario_id)
+    except EstadoFormulario.DoesNotExist:
+        return Response({"error": "Estado de formulario no encontrado."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Actualizar el estado del formulario
+    formulario.estado_formulario = nuevo_estado
+    formulario.save()
+
+    # Devolver los datos del formulario con el estado actualizado
+    formulario_serializer = FormularioAdopcionSerializer(formulario)  # Usar el serializador correcto
+    return Response(formulario_serializer.data, status=status.HTTP_200_OK)
+
+
+
 
 @csrf_exempt
 @api_view(['GET', 'PUT', 'DELETE'])

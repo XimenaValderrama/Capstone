@@ -282,8 +282,9 @@ class FormularioAdopcionSerializer(serializers.ModelSerializer):
         # Actualizar estado_formulario
         estado_formulario_data = validated_data.pop('estado_formulario', None)
         if estado_formulario_data:
-            for attr, value in estado_formulario_data.items():
-                setattr(instance.estado_formulario, attr, value)
+            # Obtener el nuevo estado por su ID
+            nuevo_estado_formulario = EstadoFormulario.objects.get(id=estado_formulario_data['id'])
+            instance.estado_formulario = nuevo_estado_formulario  # Actualizar la relación con el estado_formulario
             instance.estado_formulario.save()
 
         # Actualizar mascota (relación con MascotaSerializer)

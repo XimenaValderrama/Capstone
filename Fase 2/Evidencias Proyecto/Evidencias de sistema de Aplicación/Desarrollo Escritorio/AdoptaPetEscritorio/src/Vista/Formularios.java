@@ -14,6 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -62,9 +64,9 @@ public class Formularios extends javax.swing.JFrame {
         BTVolver = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtEstadoFor = new javax.swing.JTextField();
         txtComentarios = new javax.swing.JTextField();
         BTSeleccionarForm = new javax.swing.JButton();
+        ComboBoxEsFor = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,10 +148,13 @@ public class Formularios extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel2)
                                             .addComponent(jLabel3))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtEstadoFor, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                            .addComponent(txtComentarios))))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(ComboBoxEsFor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                                 .addGap(45, 45, 45))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(BTSeleccionarForm)
@@ -176,7 +181,7 @@ public class Formularios extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtEstadoFor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboBoxEsFor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -209,7 +214,11 @@ public class Formularios extends javax.swing.JFrame {
     }//GEN-LAST:event_BTVolverActionPerformed
 
     private void BTModificarFormuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarFormuActionPerformed
-       manejarModificacionFormulario();
+        try {
+            manejarModificacionFormulario();
+        } catch (IOException ex) {
+            Logger.getLogger(Formularios.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BTModificarFormuActionPerformed
 
     private void BTEliminarFormuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarFormuActionPerformed
@@ -222,10 +231,39 @@ public class Formularios extends javax.swing.JFrame {
 
 private String token = "8ffeb3f8e3edc9915795f7c57fb11b39b1dd96a2";
 private String token2 = "a635c77de3de8cf58fa3e631b4e197b048670150";
+private Map<Integer, String> estadosMap = new HashMap<>();
 
 
-//-------------------------------------------------LISTAR DATOS FORMULARIOS----------------------------------------------------------    
+//-------------------------------------------------LISTAR DATOS FORMULARIOS---------------------------------------------------------- 
+private void cargarEstadosFormulario() {
+    String estadoFormularioUrl = "http://127.0.0.1:8000/api/estadoformulario/?format=json";
+    
+    try {
+        // Obtener datos de los estados de formulario
+        JSONArray estadoFormularioArray = obtenerDatosDeApi(estadoFormularioUrl);
+        
+        // Limpiar el ComboBox antes de agregar nuevos datos
+        ComboBoxEsFor.removeAllItems();
+        
+        // Agregar los estados al ComboBox
+        for (int i = 0; i < estadoFormularioArray.length(); i++) {
+            JSONObject estadoFormularioObj = estadoFormularioArray.getJSONObject(i);
+            String descripcionEstado = estadoFormularioObj.optString("descripcion", "N/A");
+            ComboBoxEsFor.addItem(descripcionEstado);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al cargar los estados del formulario.");
+    }
+}
+
+
+
+
 private void cargarDatosTabla() {
+    // Cargar los estados en el ComboBox
+    cargarEstadosFormulario();
+    
     String formularioUrl = "http://127.0.0.1:8000/api/formulario/?format=json";
     String usuariosUrl = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
     String mascotasUrl = "http://127.0.0.1:8000/api/mascota/?format=json"; // URL para las mascotas
@@ -298,8 +336,8 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    //connection.setRequestProperty("Authorization", "Token " + token);
-    connection.setRequestProperty("Authorization", "Token " + token2);
+    connection.setRequestProperty("Authorization", "Token " + token);
+    //connection.setRequestProperty("Authorization", "Token " + token2);
     connection.connect();
 
     int responseCode = connection.getResponseCode();
@@ -397,77 +435,224 @@ private Map<Integer, String> procesarDirecciones(JSONArray direccionesArray) {
     
 
 //-------------------------------------------------INICIO MODIFICAR FORMULARIO-----------------------------------------------------
+// Método para modificar el comentario del formulario utilizando los datos seleccionados
+private void modificarComentarioFormularioSeleccionado(int formularioId) throws IOException {
+    // Obtener el nuevo comentario desde el campo de texto
+    String nuevoComentario = txtComentarios.getText();  // Suponiendo que tienes un campo de texto para el comentario
 
-private void modificarFormulario(int formularioId) {
-    String urlString = "http://127.0.0.1:8000/formulario/" + formularioId + "/";
+    // Verificar si el comentario está vacío
+    if (nuevoComentario.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El comentario no puede estar vacío.");
+        return;
+    }
 
+    // URL para actualizar solo el comentario del formulario
+    String urlComentarioFormulario = "http://127.0.0.1:8000/formulario/" + formularioId + "/";
+
+    // Crear el JSON para la actualización
+    JSONObject datosActualizados = new JSONObject();
+    datosActualizados.put("comentarios", nuevoComentario);  // Enviar solo el nuevo comentario
+
+    // Imprimir por consola cómo quedarán los datos antes de enviarlos
+    System.out.println("Datos a enviar para modificar el comentario del formulario:");
+    System.out.println(datosActualizados.toString(4));  // Usar el formato 'pretty print' con 4 espacios de indentación
+
+    // Realizar la actualización
     try {
-        // Crear la URL y la conexión
-        URL url = new URL(urlString);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        // Configurar el método PUT
+        HttpURLConnection connection = (HttpURLConnection) new URL(urlComentarioFormulario).openConnection();
         connection.setRequestMethod("PUT");
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
-        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Authorization", "Token " + token);  // Usar tu token de autorización
+        connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
 
-        // Crear el objeto JSON con los datos nuevos
-        JSONObject jsonData = new JSONObject();
-        jsonData.put("estado_formulario", new JSONObject().put("descripcion", txtEstadoFor.getText())); // Estado del formulario
-        jsonData.put("comentarios", txtComentarios.getText()); // Comentarios del formulario
-
-        // Enviar los datos a la API
+        // Enviar los datos
         try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = jsonData.toString().getBytes("utf-8");
+            byte[] input = datosActualizados.toString().getBytes("utf-8");
             os.write(input, 0, input.length);
         }
 
-        // Leer la respuesta de la API
+        // Obtener el código de respuesta y verificar la respuesta
         int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
-            System.out.println("Formulario modificado con éxito.");
-        } else {
-            // Leer y mostrar el error desde la API
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
-            StringBuilder errorResponse = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                errorResponse.append(line.trim());
+        System.out.println("Código de respuesta HTTP: " + responseCode);
+
+        // Leer la respuesta
+        StringBuilder responseMessage = new StringBuilder();
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                responseMessage.append(inputLine);
             }
-            System.err.println("Error al modificar el formulario. Código de respuesta: " + responseCode);
-            System.err.println("Detalles del error: " + errorResponse.toString());
+        }
+
+        // Imprimir el cuerpo de la respuesta para ver detalles
+        System.out.println("Respuesta de la API: " + responseMessage.toString());
+
+        // Verificar si la respuesta es exitosa
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            System.out.println("Comentario del formulario modificado correctamente.");
+            JOptionPane.showMessageDialog(null, "Comentario del formulario modificado correctamente.");
+            cargarDatosTabla();  // Recargar la tabla para reflejar los cambios
+        } else {
+            System.err.println("Error al modificar comentario del formulario. Código de respuesta: " + responseCode);
+            JOptionPane.showMessageDialog(null, "Error al modificar comentario del formulario.");
         }
     } catch (Exception e) {
-        e.printStackTrace(); // Mostrar el error completo en la consola
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al modificar comentario del formulario.");
     }
 }
 
-private void manejarModificacionFormulario() {
-    int filaSeleccionada = TableFormulario.getSelectedRow(); // Obtener la fila seleccionada en la tabla
+
+
+// Método para modificar el estado del formulario utilizando los datos seleccionados
+private void modificarEstadoFormularioSeleccionado(int formularioId) throws IOException {
+    // Obtener el estado seleccionado en el ComboBox
+    String estadoSeleccionado = (String) ComboBoxEsFor.getSelectedItem();
+    System.out.println(estadoSeleccionado);
+    int estadoId = obtenerIdEstadoDesdeDescripcion(estadoSeleccionado);  // Método para obtener el ID del estado seleccionado
+    System.out.println(estadoId);
+    if (estadoId == -1) {
+        JOptionPane.showMessageDialog(null, "Estado seleccionado no válido.");
+        return;
+    }
+
+    // URL para actualizar solo el estado del formulario
+    String urlEstadoFormulario = "http://127.0.0.1:8000/formularios/" + formularioId + "/estado/";
+
+    // Crear el JSON para la actualización
+    JSONObject datosActualizados = new JSONObject();
+    datosActualizados.put("estado_formulario", estadoId);  // Enviar solo el ID del estado
+
+    // Imprimir por consola cómo quedarán los datos antes de enviarlos
+    System.out.println("Datos a enviar para modificar el estado del formulario:");
+    System.out.println(datosActualizados.toString(4));  // Usar el formato 'pretty print' con 4 espacios de indentación
+
+    // Realizar la actualización
+    try {
+        HttpURLConnection connection = (HttpURLConnection) new URL(urlEstadoFormulario).openConnection();
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Authorization", "Token " + token);  // Usar tu token de autorización
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        // Enviar los datos
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = datosActualizados.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Obtener el código de respuesta y verificar la respuesta
+        int responseCode = connection.getResponseCode();
+        System.out.println("Código de respuesta HTTP: " + responseCode);
+
+        // Leer la respuesta
+        StringBuilder responseMessage = new StringBuilder();
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                responseMessage.append(inputLine);
+            }
+        }
+
+        // Imprimir el cuerpo de la respuesta para ver detalles
+        System.out.println("Respuesta de la API: " + responseMessage.toString());
+
+        // Verificar si la respuesta es exitosa
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            System.out.println("Estado del formulario modificado correctamente.");
+            JOptionPane.showMessageDialog(null, "Estado del formulario modificado correctamente.");
+            cargarDatosTabla();  // Recargar la tabla para reflejar los cambios
+        } else {
+            System.err.println("Error al modificar estado del formulario. Código de respuesta: " + responseCode);
+            JOptionPane.showMessageDialog(null, "Error al modificar estado del formulario.");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al modificar estado del formulario.");
+    }
+}
+
+
+
+
+// Método para manejar la modificación del formulario desde la tabla
+private void manejarModificacionFormulario() throws IOException {
+    // Obtener la fila seleccionada de la tabla
+    int filaSeleccionada = TableFormulario.getSelectedRow();
 
     if (filaSeleccionada != -1) {
-        int formularioId = (int) TableFormulario.getValueAt(filaSeleccionada, 0); // Obtener el ID del formulario
+        // Obtener el ID del formulario desde la tabla (suponiendo que el ID está en la columna 0)
+        int formularioId = (int) TableFormulario.getValueAt(filaSeleccionada, 0);
 
-        // Confirmar la modificación
+        // Confirmación de modificación
         int confirmacion = JOptionPane.showConfirmDialog(
             null,
-            "¿Está seguro de que desea modificar los datos de este formulario?",
+            "¿Está seguro de que desea modificar este formulario?",
             "Confirmar modificación",
             JOptionPane.YES_NO_OPTION
         );
 
         if (confirmacion == JOptionPane.YES_OPTION) {
-            // Llamar al método modificarFormulario pasando el ID del formulario seleccionado
-            modificarFormulario(formularioId);
-            cargarDatosTabla(); // Recargar los datos de la tabla
+            // Confirmación para modificar solo el estado
+            int estadoConfirmacion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Desea modificar solo el estado del formulario?",
+                "Modificar estado",
+                JOptionPane.YES_NO_OPTION
+            );
+            if (estadoConfirmacion == JOptionPane.YES_OPTION) {
+                modificarEstadoFormularioSeleccionado(formularioId);
+            }
+
+            // Confirmación para modificar el comentario
+            int comentarioConfirmacion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Desea modificar el comentario del formulario?",
+                "Modificar comentario",
+                JOptionPane.YES_NO_OPTION
+            );
+            if (comentarioConfirmacion == JOptionPane.YES_OPTION) {
+                modificarComentarioFormularioSeleccionado(formularioId);
+            }
         }
     } else {
         JOptionPane.showMessageDialog(null, "Por favor, seleccione un formulario de la tabla.");
     }
 }
+
+
+
+
+
+// Método para obtener el ID del estado a partir de la descripción
+private int obtenerIdEstadoDesdeDescripcion(String descripcionEstado) throws IOException {
+    String estadoFormularioUrl = "http://127.0.0.1:8000/api/estadoformulario/?format=json";
+    // Suponiendo que los estados provienen de una respuesta JSON
+    JSONArray estadosArray = obtenerDatosDeApi(estadoFormularioUrl);  // Método ficticio para obtener datos
+
+    // Llenamos el mapa con los datos
+    for (int i = 0; i < estadosArray.length(); i++) {
+        JSONObject estado = estadosArray.getJSONObject(i);
+        int id = estado.getInt("id");
+        String descripcion = estado.getString("descripcion");
+        estadosMap.put(id, descripcion);  // Agregamos al mapa
+    }
+
+    
+    // Realizar la búsqueda en el mapa de estados (debe estar cargado previamente)
+    for (Map.Entry<Integer, String> entry : estadosMap.entrySet()) {
+        if (entry.getValue().equals(descripcionEstado)) {
+            
+            return entry.getKey();
+        }
+    }
+    System.out.println("Contenido del mapa de estados: " + estadosMap);
+
+    return -1;  // Retorna -1 si no se encuentra el estado
+}
+
 
 
 //-------------------------------------------------FIN MODIFICAR FORMULARIO 
@@ -476,8 +661,8 @@ private void manejarModificacionFormulario() {
 
 
 // Método para eliminar un Formulario a través de la API
-private void eliminarFormulario(int FormularioId) {
-    String urlString = "http://127.0.0.1:8000/api/formulario/" + FormularioId + "/"; // URL de la API para eliminar
+private void eliminarFormulario(int formularioId) {
+    String urlString = "http://127.0.0.1:8000/api/formulario/" + formularioId + "/"; // URL de la API para eliminar
 
     try {
         // Crear la URL y la conexión
@@ -486,8 +671,8 @@ private void eliminarFormulario(int FormularioId) {
 
         // Configurar el método DELETE y los encabezados
         connection.setRequestMethod("DELETE");
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        //connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
@@ -551,28 +736,61 @@ private void agregarListenerTabla() {
 // Método para seleccionar un formulario y cargar sus datos desde la API
 private void seleccionarFormulario(int formularioId) {
     String urlFormulario = "http://127.0.0.1:8000/api/formulario/" + formularioId + "/"; // URL de la API para obtener datos del formulario
+    String urlEstadosFormulario = "http://127.0.0.1:8000/api/estadoformulario/?format=json"; // URL para obtener estados de formulario
 
     try {
         // Obtener los datos del formulario
         JSONObject jsonResponse = obtenerObjetoDeApi(urlFormulario);
 
-        // Procesar estado del formulario como objeto JSON
+        // Obtener el estado actual del formulario como objeto JSON
         String estadoFormulario = "N/A";
         JSONObject estadoFormularioObj = jsonResponse.optJSONObject("estado_formulario");
         if (estadoFormularioObj != null) {
             estadoFormulario = estadoFormularioObj.optString("descripcion", "N/A");
         }
 
+        // Cargar el estado actual en el ComboBox
+        cargarEstadosFormulario(urlEstadosFormulario, estadoFormulario);
+
         // Obtener los comentarios del formulario
         String comentarios = jsonResponse.optString("comentarios", "N/A");
 
         // Mostrar los datos en los campos correspondientes
-        txtEstadoFor.setText(estadoFormulario);
+        ComboBoxEsFor.setSelectedItem(estadoFormulario);
         txtComentarios.setText(comentarios);
+        System.out.println(estadoFormulario);
+        System.out.println(comentarios);
 
     } catch (Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error al seleccionar formulario.");
+    }
+}
+
+// Método para cargar los estados en el ComboBox
+private void cargarEstadosFormulario(String urlEstados, String estadoActual) {
+    try {
+        // Obtener los estados desde la API
+        JSONArray estadosArray = obtenerDatosDeApi(urlEstados);
+
+        // Limpiar el ComboBox antes de agregar los estados
+        ComboBoxEsFor.removeAllItems();
+
+        // Agregar los estados al ComboBox
+        for (int i = 0; i < estadosArray.length(); i++) {
+            JSONObject estado = estadosArray.getJSONObject(i);
+            String descripcion = estado.optString("descripcion", "N/A");
+
+            ComboBoxEsFor.addItem(descripcion);
+
+            // Si el estado es el actual, seleccionarlo
+            if (descripcion.equals(estadoActual)) {
+                ComboBoxEsFor.setSelectedItem(descripcion);
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al cargar los estados del formulario.");
     }
 }
 
@@ -607,13 +825,12 @@ private void manejarSeleccionFormulario() {
     }
 }
 
-// Método para obtener un objeto JSON desde una API (mismo que el original)
+// Método para obtener un objeto JSON desde una API
 private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSONException {
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    //connection.setRequestProperty("Authorization", "Token " + token);
-    connection.setRequestProperty("Authorization", "Token " + token2);
+    connection.setRequestProperty("Authorization", "Token " + token);
     connection.setRequestProperty("Accept", "application/json");
     connection.connect();
 
@@ -631,6 +848,7 @@ private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSON
         throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
     }
 }
+
 
 
 
@@ -681,6 +899,7 @@ private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSON
     private javax.swing.JButton BTModificarFormu;
     private javax.swing.JButton BTSeleccionarForm;
     private javax.swing.JButton BTVolver;
+    private javax.swing.JComboBox<String> ComboBoxEsFor;
     private javax.swing.JTable TableFormulario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -688,7 +907,6 @@ private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSON
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField txtComentarios;
-    private javax.swing.JTextField txtEstadoFor;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
