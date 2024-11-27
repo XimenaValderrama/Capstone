@@ -27,8 +27,7 @@
                     <h4 class="font-weight-bolder">Crear Ficha Médica</h4>
                     <p class="mb-2">Completa los datos para la ficha médica de {{ mascota.nombre }} {{ mascota.apellido }}</p>
                 </div>
-                </div>
-                <div class="card-body rounded">
+                <div class="card-body" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 10px;">
                   <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <!-- Datos Básicos de la Ficha -->
@@ -155,11 +154,11 @@
                     <!-- Botones -->
                     <div class="row">
                       <div class="col-md-6 d-flex justify-content-start mt-2 mb-2">
-                        <a href="{% url 'mascotas' %}" class="btn btn-lg btn-outline-warning w-100 mt-4 mb-5">Cancelar</a>
+                        <a href="{% url 'mascotas' %}" class="btn btn-lg btn-outline-warning w-100 mt-4 mb-2">Cancelar</a>
                       </div>
 
                       <div class="col-md-6 d-flex justify-content-end mt-2 mb-2">
-                        <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-5">Guardar</button>
+                        <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-2">Guardar</button>
                       </div>
                     </div>
 

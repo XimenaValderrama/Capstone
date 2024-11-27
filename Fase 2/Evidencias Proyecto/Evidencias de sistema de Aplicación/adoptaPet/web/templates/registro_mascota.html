@@ -20,14 +20,16 @@
     <section>
       <div class="page-header min-vh-100">
         <div class="container">
+
           <div class="row">
             <div class="col-xl-5 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
-              <div class="card card-plain mt-5 mb-5">
+              <div class="card card-plain  ">
+                <img class="w-50 mb-3 mt-5" src="{% static "img/logos/AdoptaPet.png" %}" alt="sidebar_illustration">
                 <div class="pb-0 text-start">
-                  <h4 class="font-weight-bolder">Registra a tu mascota</h4>
-                  <p class="mb-2">Ingresa los datos de la mascota</p>
+                  <h4 class="font-weight-bolder mb-0">Registra a tu mascota</h4>
+                  <p class="mb-4 mt-3">Ingresa sus datos</p>
                 </div>
-                <div class="card-body">
+                <div class="card-body mb-2" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 10px;">
                   <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
@@ -157,14 +159,17 @@
 
                     <div class="row">
                       <div class="col-md-6 d-flex justify-content-start mt-2">
-                        <a href="{% url 'inicio' %}" class="btn btn-lg btn-outline-warning w-100 mt-4 mb-5">Cancelar</a>
+                        <a href="{% url 'inicio' %}" class="btn btn-lg btn-outline-warning w-100 mt-4 mb-2">Cancelar</a>
                       </div>
                       <div class="col-md-6 d-flex justify-content-end mt-2">
-                        <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-5">Registrar</button>
-                      </div>
+                        <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-2">Registrar</button>
+                      </div>            
                     </div>
                   </form>
                 </div>
+              </div>
+              <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+                <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('{% static "img/illustrations/amigos.png" %}'); background-size: cover; background-position-x: center; background-position-y: center; background-size: 700px;  background-repeat: no-repeat;">
               </div>
             </div>
           </div>

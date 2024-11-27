@@ -10,7 +10,7 @@ class Command(BaseCommand):
         dog_api_url = "https://api.thedogapi.com/v1/breeds"
         cat_api_url = "https://api.thecatapi.com/v1/breeds"
 
-        # Obtén o crea los tipos de mascota
+        # obtener o crear los tipos de mascota
         tipo_perro, _ = TipoMascota.objects.get_or_create(descripcion="perro")
         tipo_gato, _ = TipoMascota.objects.get_or_create(descripcion="gato")
 

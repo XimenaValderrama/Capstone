@@ -56,7 +56,10 @@
                             <label for="estado_mascota"><strong>Estado</strong></label>
                             <select name="estado_mascota" class="form-control">
                                 {% for estado in estados %}
-                                    <option value="{{ estado.id }}" {% if mascota.estado_mascota.id. == estado.id %}selected{% endif %}>{{ estado.get_descripcion_display }}</option>
+                                    <!-- Mostrar el estado actual como seleccionado -->
+                                    <option value="{{ estado.id }}" {% if mascota.estado_mascota.id == estado.id %}selected{% endif %}>
+                                        {{ estado.get_descripcion_display }}
+                                    </option>
                                 {% endfor %}
                             </select>
                         </div>
