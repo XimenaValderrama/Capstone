@@ -106,6 +106,12 @@ def modificar_eliminar_mascota(request, mascota_id):
     elif request.method == 'PUT':
         # Modificar los datos de la mascota
         mascota_data = request.data
+        
+        # Si el campo de estado_mascota está presente, asegurarse de que se pase como ID
+        if 'estado_mascota' in mascota_data:
+            estado_mascota_id = mascota_data['estado_mascota']
+            mascota_data['estado_mascota'] = {'id': estado_mascota_id}  # Enviar solo el ID del estado
+
         mascota_serializer = MascotaSerializer(mascota, data=mascota_data, partial=True)
         
         if mascota_serializer.is_valid():
@@ -118,6 +124,36 @@ def modificar_eliminar_mascota(request, mascota_id):
         # Eliminar la mascota
         mascota.delete()
         return Response({"message": "Mascota eliminada correctamente."}, status=status.HTTP_204_NO_CONTENT)
+
+@csrf_exempt
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def actualizar_estado_mascota(request, mascota_id):
+    try:
+        # Obtener la mascota por su ID
+        mascota = Mascota.objects.get(id=mascota_id)
+    except Mascota.DoesNotExist:
+        return Response({"error": "Mascota no encontrada."}, status=status.HTTP_404_NOT_FOUND)
+    
+    # Verificar si el campo 'estado_mascota' está en la solicitud
+    estado_mascota_id = request.data.get('estado_mascota')
+    if not estado_mascota_id:
+        return Response({"error": "El campo 'estado_mascota' es obligatorio."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        # Obtener el nuevo estado de la mascota por su ID
+        nuevo_estado = EstadoMascota.objects.get(id=estado_mascota_id)
+    except EstadoMascota.DoesNotExist:
+        return Response({"error": "Estado de mascota no encontrado."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Actualizar el estado de la mascota
+    mascota.estado_mascota = nuevo_estado
+    mascota.save()
+
+    # Devolver los datos de la mascota con el estado actualizado
+    mascota_serializer = MascotaSerializer(mascota)
+    return Response(mascota_serializer.data, status=status.HTTP_200_OK)
+
 
 @csrf_exempt
 @api_view(['GET', 'PUT', 'DELETE'])
