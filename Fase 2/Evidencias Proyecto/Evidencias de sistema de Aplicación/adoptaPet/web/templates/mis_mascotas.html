@@ -40,6 +40,7 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Tipo</th>
+                            <th>Estado</th>
                             <th>Edad</th>
                             <th>Raza</th>
                             <th>Acciones</th>
@@ -50,6 +51,7 @@
                         <tr>
                             <td>{{ mascota.nombre }} {{ mascota.apellido }}</td>
                             <td>{{ mascota.tipo.get_descripcion_display }}</td>
+                            <td>{{ mascota.estado_mascota.get_descripcion_display }}</td>
                             <td>{{ mascota.edad }} {{ mascota.tipo_edad }}</td>
                             <td>{{ mascota.raza }}</td>
                             <td class="d-flex flex-wrap justify-content-center gap-2">
