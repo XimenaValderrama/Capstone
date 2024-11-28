@@ -192,13 +192,20 @@ class MascotaSerializer(serializers.ModelSerializer):
         model = Mascota
         fields = '__all__'
         
-    def update(self, instance, validated_data): 
-        # Actualizar estado_mascota
+    def update(self, instance, validated_data):
+        # Extraer los datos relacionados de `estado_mascota`
         estado_mascota_data = validated_data.pop('estado_mascota', None)
         if estado_mascota_data:
-            for attr, value in estado_mascota_data.items():
-                setattr(instance.estado_mascota, attr, value)
-            instance.estado_mascota.save()
+            # Obtener el nuevo estado por su ID
+            nuevo_estado = EstadoMascota.objects.get(id=estado_mascota_data['id'])
+            instance.estado_mascota = nuevo_estado  # Actualizar la relación
+
+        # Continuar con la actualización de los demás campos
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+
 
         # Actualizar raza
         raza_data = validated_data.pop('raza', None)
@@ -275,8 +282,9 @@ class FormularioAdopcionSerializer(serializers.ModelSerializer):
         # Actualizar estado_formulario
         estado_formulario_data = validated_data.pop('estado_formulario', None)
         if estado_formulario_data:
-            for attr, value in estado_formulario_data.items():
-                setattr(instance.estado_formulario, attr, value)
+            # Obtener el nuevo estado por su ID
+            nuevo_estado_formulario = EstadoFormulario.objects.get(id=estado_formulario_data['id'])
+            instance.estado_formulario = nuevo_estado_formulario  # Actualizar la relación con el estado_formulario
             instance.estado_formulario.save()
 
         # Actualizar mascota (relación con MascotaSerializer)

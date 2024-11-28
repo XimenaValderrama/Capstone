@@ -220,7 +220,7 @@ public class Mascotas_Adoptadas extends javax.swing.JFrame {
     }//GEN-LAST:event_BTVolverActionPerformed
 
     private void BTModificarMasAdopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTModificarMasAdopActionPerformed
-     
+     manejarModificacionMascota();
     }//GEN-LAST:event_BTModificarMasAdopActionPerformed
 
     private void BTEliminarMasAdopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTEliminarMasAdopActionPerformed
@@ -313,8 +313,8 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    //connection.setRequestProperty("Authorization", "Token " + token);
-    connection.setRequestProperty("Authorization", "Token " + token2);
+    connection.setRequestProperty("Authorization", "Token " + token);
+    //connection.setRequestProperty("Authorization", "Token " + token2);
     connection.connect();
 
     int responseCode = connection.getResponseCode();
@@ -450,8 +450,8 @@ private void eliminarMascota(int mascotaId) {
 
         // Configurar el método DELETE y los encabezados
         connection.setRequestMethod("DELETE");
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        //connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
@@ -506,6 +506,177 @@ private void agregarListenerTabla() {
 
 //-----------------------------------------------------INICIO MODIFICAR MASCOTA ADOPTADA---------------------------------------------------
 
+// Método para modificar el nombre de la mascota utilizando los datos seleccionados
+private void modificarNombreMascotaSeleccionada(int mascotaId) {
+    // Obtener el nuevo nombre de la mascota desde el campo de texto
+    String nuevoNombre = txtNombreMascota.getText();
+
+    // URL para actualizar el nombre de la mascota
+    String urlMascota = "http://127.0.0.1:8000/mascotas/" + mascotaId + "/";
+
+    // Crear el JSON para la actualización
+    JSONObject datosActualizados = new JSONObject();
+    datosActualizados.put("nombre", nuevoNombre);
+
+    // Imprimir por consola cómo quedarán los datos antes de enviarlos
+    System.out.println("Datos a enviar para modificar el nombre de la mascota:");
+    System.out.println(datosActualizados.toString(4));  // Usar el formato 'pretty print' con 4 espacios de indentación
+
+    // Realizar la actualización
+    try {
+        HttpURLConnection connection = (HttpURLConnection) new URL(urlMascota).openConnection();
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Authorization", "Token " + token);
+        //connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        // Enviar los datos
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = datosActualizados.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Obtener el código de respuesta y verificar la respuesta
+        int responseCode = connection.getResponseCode();
+        System.out.println("Código de respuesta HTTP: " + responseCode);
+
+        // Leer la respuesta
+        StringBuilder responseMessage = new StringBuilder();
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                responseMessage.append(inputLine);
+            }
+        }
+
+        // Imprimir el cuerpo de la respuesta para ver detalles
+        System.out.println("Respuesta de la API: " + responseMessage.toString());
+
+        // Verificar si la respuesta es exitosa
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            System.out.println("Nombre de la mascota modificado correctamente.");
+            JOptionPane.showMessageDialog(null, "Nombre de la mascota modificado correctamente.");
+            cargarDatosTabla();  // Recargar la tabla para reflejar los cambios
+        } else {
+            System.err.println("Error al modificar nombre de la mascota. Código de respuesta: " + responseCode);
+            JOptionPane.showMessageDialog(null, "Error al modificar nombre de la mascota.");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al modificar nombre de la mascota.");
+    }
+}
+
+// Método para obtener el ID del estado a partir de la descripción
+private int obtenerIdEstadoDesdeDescripcion(String descripcionEstado) {
+    // Realizar la búsqueda en el mapa de estados (debe estar cargado previamente)
+    for (Map.Entry<Integer, String> entry : estadosMap.entrySet()) {
+        if (entry.getValue().equals(descripcionEstado)) {
+            return entry.getKey();
+        }
+    }
+    return -1;  // Retorna -1 si no se encuentra el estado
+}
+
+
+// Método para modificar el estado de la mascota utilizando los datos seleccionados
+private void modificarEstadoMascotaSeleccionada(int mascotaId) {
+    // Obtener el estado seleccionado en el ComboBox
+    String estadoSeleccionado = (String) ComboBoxEsMa.getSelectedItem();
+    int estadoId = obtenerIdEstadoDesdeDescripcion(estadoSeleccionado);  // Método para obtener el ID del estado seleccionado
+
+    if (estadoId == -1) {
+        JOptionPane.showMessageDialog(null, "Estado seleccionado no válido.");
+        return;
+    }
+
+    // URL para actualizar solo el estado de la mascota
+    String urlEstadoMascota = "http://127.0.0.1:8000/mascotas/" + mascotaId + "/estado/";
+
+    // Crear el JSON para la actualización
+    JSONObject datosActualizados = new JSONObject();
+    datosActualizados.put("estado_mascota", estadoId);  // Enviar solo el ID del estado
+
+    // Imprimir por consola cómo quedarán los datos antes de enviarlos
+    System.out.println("Datos a enviar para modificar el estado de la mascota:");
+    System.out.println(datosActualizados.toString(4));  // Usar el formato 'pretty print' con 4 espacios de indentación
+
+    // Realizar la actualización
+    try {
+        HttpURLConnection connection = (HttpURLConnection) new URL(urlEstadoMascota).openConnection();
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Authorization", "Token " + token);
+        //connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        // Enviar los datos
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = datosActualizados.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Obtener el código de respuesta y verificar la respuesta
+        int responseCode = connection.getResponseCode();
+        System.out.println("Código de respuesta HTTP: " + responseCode);
+
+        // Leer la respuesta
+        StringBuilder responseMessage = new StringBuilder();
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                responseMessage.append(inputLine);
+            }
+        }
+
+        // Imprimir el cuerpo de la respuesta para ver detalles
+        System.out.println("Respuesta de la API: " + responseMessage.toString());
+
+        // Verificar si la respuesta es exitosa
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            System.out.println("Estado de la mascota modificado correctamente.");
+            JOptionPane.showMessageDialog(null, "Estado de la mascota modificado correctamente.");
+            cargarDatosTabla();  // Recargar la tabla para reflejar los cambios
+        } else {
+            System.err.println("Error al modificar estado de la mascota. Código de respuesta: " + responseCode);
+            JOptionPane.showMessageDialog(null, "Error al modificar estado de la mascota.");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al modificar estado de la mascota.");
+    }
+}
+
+
+// Método para manejar la modificación de la mascota desde la tabla
+private void manejarModificacionMascota() {
+    // Obtener la fila seleccionada de la tabla
+    int filaSeleccionada = TablaMascotasAdoptadas.getSelectedRow();
+
+    if (filaSeleccionada != -1) {
+        // Obtener el ID de la mascota desde la tabla
+        int mascotaId = (int) TablaMascotasAdoptadas.getValueAt(filaSeleccionada, 0);
+
+        // Confirmación de modificación
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null,
+            "¿Está seguro de que desea modificar esta mascota?",
+            "Confirmar modificación",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Llamar al método para modificar la mascota usando los datos de la interfaz
+            modificarNombreMascotaSeleccionada(mascotaId);
+            modificarEstadoMascotaSeleccionada(mascotaId);
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione una mascota de la tabla.");
+    }
+}
 
 
 
@@ -584,8 +755,8 @@ private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSON
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    //connection.setRequestProperty("Authorization", "Token " + token);
-    connection.setRequestProperty("Authorization", "Token " + token2);
+    connection.setRequestProperty("Authorization", "Token " + token);
+    //connection.setRequestProperty("Authorization", "Token " + token2);
     connection.setRequestProperty("Accept", "application/json");
     connection.connect();
 
