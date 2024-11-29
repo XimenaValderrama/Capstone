@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -39,6 +40,7 @@ public class Mascotas_Perdidas extends javax.swing.JFrame {
         txtUsuario.setText(login.TipoUsuario);
         cargarDatosTabla(); // Llamamos al método para cargar datos de la API en la tabla
         cargarEstadosEnComboBox(ComboBoxEsMa);
+        setIconImage(new ImageIcon("src/Img/Icono.png").getImage());
     }
 
     /**
@@ -564,10 +566,19 @@ private int obtenerIdEstadoDesdeDescripcion(String descripcionEstado) {
         if (entry.getValue().equals(descripcionEstado)) {
             return entry.getKey();
         }
+     
     }
+
     return -1;  // Retorna -1 si no se encuentra el estado
 }
-
+// Método para imprimir el mapa de géneros
+private void imprimirMapaGeneros() {
+    // Imprimir todas las claves y valores del mapa
+    System.out.println("Mapa de géneros:");
+    for (Map.Entry<Integer, String> entry : estadosMap.entrySet()) {
+        System.out.println("Género: " + entry.getKey() + ", ID: " + entry.getValue());
+    }
+}
 
 // Método para modificar el estado de la mascota utilizando los datos seleccionados
 private void modificarEstadoMascotaSeleccionada(int mascotaId) {
@@ -660,6 +671,7 @@ private void manejarModificacionMascota() {
             // Llamar al método para modificar la mascota usando los datos de la interfaz
             modificarNombreMascotaSeleccionada(mascotaId);
             modificarEstadoMascotaSeleccionada(mascotaId);
+            imprimirMapaGeneros();
         }
     } else {
         JOptionPane.showMessageDialog(null, "Por favor, seleccione una mascota de la tabla.");

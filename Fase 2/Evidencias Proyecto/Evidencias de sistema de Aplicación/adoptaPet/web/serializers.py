@@ -39,19 +39,19 @@ class PerfilUsuarioSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def update(self, instance, validated_data):
-        # Actualizar estado_economico
+        # Extraer los datos relacionados de `estado_economico`
         estado_economico_data = validated_data.pop('estado_economico', None)
         if estado_economico_data:
-            for attr, value in estado_economico_data.items():
-                setattr(instance.estado_economico, attr, value)
-            instance.estado_economico.save()
+            # Obtener el nuevo estado económico por su ID
+            nuevo_estado_economico = EstadoEconomico.objects.get(id=estado_economico_data['id'])
+            instance.estado_economico = nuevo_estado_economico  # Actualizar la relación
 
-        # Actualizar genero
+        # Extraer los datos relacionados de `genero`
         genero_data = validated_data.pop('genero', None)
         if genero_data:
-            for attr, value in genero_data.items():
-                setattr(instance.genero, attr, value)
-            instance.genero.save()
+            # Obtener el nuevo género por su ID
+            nuevo_genero = Genero.objects.get(id=genero_data['id'])
+            instance.genero = nuevo_genero  # Actualizar la relación
 
         # Actualizar usuario_django
         usuario_django_data = validated_data.pop('usuario_django', None)

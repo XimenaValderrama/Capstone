@@ -21,11 +21,9 @@ from django.views.decorators.csrf import csrf_exempt
 @permission_classes([IsAuthenticated, IsAdminUser])
 def modificar_eliminar_usuario(request, user_id):
     try:
-
+        # Obtener el perfil y el usuario relacionados
         perfil_usuario = PerfilUsuario.objects.get(id=user_id)
         usuario = perfil_usuario.usuario_django
-        
-
     except User.DoesNotExist:
         return Response({"error": "Usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
     except PerfilUsuario.DoesNotExist:
@@ -45,13 +43,17 @@ def modificar_eliminar_usuario(request, user_id):
         usuario_data = request.data.get('usuario', {})
         perfil_data = request.data.get('perfil', {})
 
+        # Serializadores con datos del usuario y perfil
         usuario_serializer = UserSerializer(usuario, data=usuario_data, partial=True)
         perfil_serializer = PerfilUsuarioSerializer(perfil_usuario, data=perfil_data, partial=True)
         
         # Verificar que ambos serializers son válidos antes de guardar
-        if usuario_serializer.is_valid() and perfil_serializer.is_valid():
+        if usuario_serializer.is_valid(raise_exception=True) and perfil_serializer.is_valid(raise_exception=True):
+            # Guardar los cambios en la base de datos
             usuario_serializer.save()
             perfil_serializer.save()
+            
+            # Devolver los datos actualizados
             return Response({
                 "usuario": usuario_serializer.data,
                 "perfil": perfil_serializer.data
@@ -59,8 +61,8 @@ def modificar_eliminar_usuario(request, user_id):
         else:
             # Retornar errores de validación
             errors = {
-                "usuario_errors": usuario_serializer.errors if not usuario_serializer.is_valid() else {},
-                "perfil_errors": perfil_serializer.errors if not perfil_serializer.is_valid() else {}
+                "usuario_errors": usuario_serializer.errors,
+                "perfil_errors": perfil_serializer.errors
             }
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -70,7 +72,9 @@ def modificar_eliminar_usuario(request, user_id):
         perfil_usuario.delete()
         
         return Response({"message": "Usuario y perfil eliminados correctamente."}, status=status.HTTP_204_NO_CONTENT)
-    
+
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def eliminar_usuario(request, user_profile_id):
@@ -87,6 +91,78 @@ def eliminar_usuario(request, user_profile_id):
     usuario.delete()
     perfil_usuario.delete()
     return Response({"message": "Usuario y perfil eliminados correctamente."}, status=status.HTTP_204_NO_CONTENT)
+
+@csrf_exempt
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def actualizar_estado_economico(request, perfil_id):
+    try:
+        # Obtener el perfil por su ID
+        perfil = PerfilUsuario.objects.get(id=perfil_id)
+    except PerfilUsuario.DoesNotExist:
+        return Response({"error": "Perfil no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+    
+    # Obtener el ID del estado económico desde la solicitud
+    estado_economico_id = request.data.get('estado_economico')
+
+    # Validar que el campo requerido esté presente
+    if not estado_economico_id:
+        return Response(
+            {"error": "El campo 'estado_economico' es obligatorio."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    try:
+        # Obtener el nuevo estado económico por su ID
+        nuevo_estado_economico = EstadoEconomico.objects.get(id=estado_economico_id)
+    except EstadoEconomico.DoesNotExist:
+        return Response({"error": "Estado económico no encontrado."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Actualizar el estado económico del perfil
+    perfil.estado_economico = nuevo_estado_economico
+    perfil.save()
+
+    # Devolver los datos del perfil actualizado
+    perfil_serializer = PerfilUsuarioSerializer(perfil)
+    return Response(perfil_serializer.data, status=status.HTTP_200_OK)
+
+
+@csrf_exempt
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def actualizar_genero(request, perfil_id):
+    try:
+        # Obtener el perfil por su ID
+        perfil = PerfilUsuario.objects.get(id=perfil_id)
+    except PerfilUsuario.DoesNotExist:
+        return Response({"error": "Perfil no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+    
+    # Obtener el ID del género desde la solicitud
+    genero_id = request.data.get('genero')
+
+    # Validar que el campo requerido esté presente
+    if not genero_id:
+        return Response(
+            {"error": "El campo 'genero' es obligatorio."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    try:
+        # Obtener el nuevo género por su ID
+        nuevo_genero = Genero.objects.get(id=genero_id)
+    except Genero.DoesNotExist:
+        return Response({"error": "Género no encontrado."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Actualizar el género del perfil
+    perfil.genero = nuevo_genero
+    perfil.save()
+
+    # Devolver los datos del perfil actualizado
+    perfil_serializer = PerfilUsuarioSerializer(perfil)
+    return Response(perfil_serializer.data, status=status.HTTP_200_OK)
+
+    
+
 
 @csrf_exempt
 @api_view(['GET', 'PUT', 'DELETE'])

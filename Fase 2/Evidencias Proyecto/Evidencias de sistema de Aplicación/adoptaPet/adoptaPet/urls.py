@@ -71,7 +71,6 @@ urlpatterns = [
     path('get_provincias/<int:region_id>/', obtener_provincias_perfil, name='get_provincias'),
     path('get_comunas/<int:provincia_id>/', obtener_comunas_perfil, name='get_comunas'),
     path('formulario_adopcion/<int:mascota_id>/', formulario_adopcion, name='formulario_adopcion'),
-
     path('eliminar_usuario/<int:user_profile_id>/', eliminar_usuario, name='eliminar_usuario'),
     path('mis_formularios/', mis_formularios, name="mis_formularios"),
     path('detalle_formulario/<int:formulario_id>/', detalle_formulario, name="detalle_formulario"),
@@ -95,6 +94,8 @@ urlpatterns = [
     path('detalle_ficha_medica_masc/<int:ficha_id>/', detalle_ficha_medica_masc, name='detalle_ficha_medica_masc'),
     path('obtener_razas/<int:tipo_id>/', obtener_razas, name='obtener_razas'),
     path('ficha_medica/<int:ficha_medica_id>/', modificar_eliminar_ficha_medica, name='modificar_eliminar_ficha_medica'),
+    path('perfiles/<int:perfil_id>/estado-economico/', actualizar_estado_economico, name='actualizar_estado_economico'),
+    path('perfiles/<int:perfil_id>/genero/', actualizar_genero, name='actualizar_genero'),
 
 
  

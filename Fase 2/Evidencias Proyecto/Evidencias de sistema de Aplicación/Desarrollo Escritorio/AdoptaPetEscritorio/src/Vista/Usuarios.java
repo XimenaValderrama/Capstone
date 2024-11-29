@@ -27,6 +27,7 @@ import org.json.Cookie;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import org.json.JSONException;
 
@@ -47,9 +48,9 @@ public class Usuarios extends javax.swing.JFrame {
         
         Login login = new Login();
         txtUsuario.setText(login.TipoUsuario);
-        
+        cargarGeneros(ComboBoxEsGe);
+        cargarEstadosEconomicos(ComboBoxEsEc);
         cargarDatosTabla(); // Llamamos al método para cargar datos de la API en la tabla
-        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon("src/Img/Icono.png").getImage());
     }
@@ -80,14 +81,14 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         BTModificarUS1 = new javax.swing.JButton();
-        txtEC = new javax.swing.JTextField();
-        txtG = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        ComboBoxEsEc = new javax.swing.JComboBox<>();
+        ComboBoxEsGe = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,6 +195,18 @@ public class Usuarios extends javax.swing.JFrame {
 
         jLabel9.setText("Email");
 
+        ComboBoxEsEc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxEsEcActionPerformed(evt);
+            }
+        });
+
+        ComboBoxEsGe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxEsGeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -236,10 +249,10 @@ public class Usuarios extends javax.swing.JFrame {
                                         .addGap(62, 62, 62)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtEmail)
-                                            .addComponent(txtEC, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtG)
-                                            .addComponent(txtRut))))
+                                            .addComponent(txtRut)
+                                            .addComponent(ComboBoxEsEc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(ComboBoxEsGe, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(72, 72, 72)
@@ -291,13 +304,13 @@ public class Usuarios extends javax.swing.JFrame {
                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(txtEC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ComboBoxEsEc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txtG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ComboBoxEsGe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addComponent(BTModificarUS1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
@@ -355,25 +368,29 @@ public class Usuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
 
+    private void ComboBoxEsEcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxEsEcActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxEsEcActionPerformed
+
+    private void ComboBoxEsGeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxEsGeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxEsGeActionPerformed
+
 private int usuarioId; // Variable para almacenar la ID seleccionada
 private String token = "8ffeb3f8e3edc9915795f7c57fb11b39b1dd96a2";
 private String token2 = "a635c77de3de8cf58fa3e631b4e197b048670150";
+private Map<Integer, String> generosMap = new HashMap<>();
+private Map<Integer, String> estadosEconomicosMap = new HashMap<>();
 
 
-
-
-public void inicializarComponentes() {
-
-    
-    // Cargar los datos en la tabla
-    cargarDatosTabla(); // Llama al método para cargar los datos al inicio
-}
 
 
 //--------------------------------------------------------INICIO LISTAR DATOS-------------------------------------------------------------------------
 private void cargarDatosTabla() {
     String usuariosUrl = "http://127.0.0.1:8000/api/perfilusuario/?format=json";
     String direccionesUrl = "http://127.0.0.1:8000/api/direccionusuario/?format=json";
+    String estadosEconomicosUrl= "http://127.0.0.1:8000/api/estadoeconomico/?format=json";
+    String generosUrl = "http://127.0.0.1:8000/api/genero/?format=json";
     DefaultTableModel model = (DefaultTableModel) TableUsuarios.getModel();
     model.setRowCount(0); // Limpiar la tabla antes de cargar nuevos datos
 
@@ -386,6 +403,14 @@ private void cargarDatosTabla() {
 
         // Crear un mapa para relacionar usuario ID con su dirección
         Map<Integer, String> direccionesMap = procesarDirecciones(direccionesArray);
+
+        // Obtener y procesar datos de géneros
+        JSONArray generosArray = obtenerDatosDeApi(generosUrl);
+        generosMap = procesarGeneros(generosArray);
+
+        // Obtener y procesar datos de estados económicos
+        JSONArray estadosEconomicosArray = obtenerDatosDeApi(estadosEconomicosUrl);
+        estadosEconomicosMap = procesarEstadosEconomicos(estadosEconomicosArray);
 
         // Procesar datos de usuarios
         for (int i = 0; i < usuariosArray.length(); i++) {
@@ -437,13 +462,99 @@ private void cargarDatosTabla() {
     }
 }
 
+// Método para cargar géneros en ComboBoxEsGe
+public void cargarGeneros(JComboBox<String> comboBoxEsGe) {
+    String apiUrl = "http://127.0.0.1:8000/api/genero/?format=json";
+    
+    try {
+        // Obtener los datos de la API
+        JSONArray generos = obtenerDatosDeApi(apiUrl);
+        
+        // Procesar los géneros y almacenarlos en un Map
+        Map<Integer, String> generosMap = procesarGeneros(generos);
+
+        // Limpiar y rellenar el ComboBox
+        comboBoxEsGe.removeAllItems();
+        for (String genero : generosMap.values()) {
+            comboBoxEsGe.addItem(genero); // Añadir los géneros al ComboBox
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al cargar géneros: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+// Método para procesar los géneros
+private Map<Integer, String> procesarGeneros(JSONArray generosArray) {
+    Map<Integer, String> generosMap = new HashMap<>();
+    try {
+        // Recorrer todos los géneros en el JSONArray
+        for (int i = 0; i < generosArray.length(); i++) {
+            JSONObject genero = generosArray.getJSONObject(i);
+            int id = genero.optInt("id", -1);
+            String descripcion = genero.optString("descripcion", "N/A");
+
+            // Almacenar en el mapa
+            generosMap.put(id, descripcion);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de géneros.");
+    }
+    return generosMap;
+}
+
+
+// Método para cargar estados económicos en ComboBoxEsEc
+public void cargarEstadosEconomicos(JComboBox<String> comboBoxEsEc) {
+    String apiUrl = "http://127.0.0.1:8000/api/estadoeconomico/?format=json";
+    
+    try {
+        // Obtener los datos de la API
+        JSONArray estadosEconomicos = obtenerDatosDeApi(apiUrl);
+        
+        // Procesar los estados económicos y almacenarlos en un Map
+        Map<Integer, String> estadosEconomicosMap = procesarEstadosEconomicos(estadosEconomicos);
+
+        // Limpiar y rellenar el ComboBox
+        comboBoxEsEc.removeAllItems();
+        for (String estado : estadosEconomicosMap.values()) {
+            comboBoxEsEc.addItem(estado); // Añadir los estados económicos al ComboBox
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al cargar estados económicos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+// Método para procesar los estados económicos
+private Map<Integer, String> procesarEstadosEconomicos(JSONArray estadosArray) {
+    Map<Integer, String> estadosEconomicosMap = new HashMap<>();
+    try {
+        // Recorrer todos los estados económicos en el JSONArray
+        for (int i = 0; i < estadosArray.length(); i++) {
+            JSONObject estado = estadosArray.getJSONObject(i);
+            int id = estado.optInt("id", -1);
+            String descripcion = estado.optString("descripcion", "N/A");
+
+            // Almacenar en el mapa
+            estadosEconomicosMap.put(id, descripcion);
+        }
+    } catch (JSONException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al procesar datos de estados económicos.");
+    }
+    return estadosEconomicosMap;
+}
+
+
+
+
 // Método para obtener datos de la API
 private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONException {
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    //connection.setRequestProperty("Authorization", "Token " + token);
-    connection.setRequestProperty("Authorization", "Token " + token2);
+    connection.setRequestProperty("Authorization", "Token " + token);
+    //connection.setRequestProperty("Authorization", "Token " + token2);
     connection.connect();
 
     int responseCode = connection.getResponseCode();
@@ -522,122 +633,240 @@ private Map<Integer, String> procesarDirecciones(JSONArray direccionesArray) {
 //-------------------------------------------------------INICIO MODIFICAR------------------------------------------------//
 
 private void modificarUsuario(int usuarioId) {
-    String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para modificar datos
-    HttpURLConnection connection = null;
+    String urlString = "http://127.0.0.1:8000/usuario/" + usuarioId + "/"; // URL de la API para modificar datos
 
     try {
-        // 1. Obtener los datos actuales del usuario
-        URL getUrl = new URL(urlString);
-        HttpURLConnection getConnection = (HttpURLConnection) getUrl.openConnection();
-        getConnection.setRequestMethod("GET");
-        //getConnection.setRequestProperty("Authorization", "Token " + token);
-        getConnection.setRequestProperty("Authorization", "Token " + token2);
-        getConnection.setRequestProperty("Accept", "application/json");
-        getConnection.connect();
+        // Crear la URL y la conexión
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        int getResponseCode = getConnection.getResponseCode();
-        if (getResponseCode != HttpURLConnection.HTTP_OK) {
-            JOptionPane.showMessageDialog(null, 
-                "Error al obtener los datos actuales del usuario. Código de respuesta: " + getResponseCode, 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        // Configurar el método PUT y los encabezados
+        connection.setRequestMethod("PUT"); // Cambiar a "PATCH" si solo deseas actualizar algunos campos
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(getConnection.getInputStream(), "utf-8"));
-        StringBuilder currentDataBuilder = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            currentDataBuilder.append(line.trim());
-        }
-        reader.close();
 
-        JSONObject currentData = new JSONObject(currentDataBuilder.toString());
-        getConnection.disconnect();
 
-        // 2. Crear el objeto JSON con los datos nuevos
+        // Crear el objeto JSON con los datos modificados
         JSONObject jsonData = new JSONObject();
-        jsonData.put("usuario_django", new JSONObject()
+        jsonData.put("usuario", new JSONObject()
                 .put("first_name", txtNombre.getText())
                 .put("last_name", txtApellido.getText())
                 .put("username", txtUsername.getText())
                 .put("email", txtEmail.getText()));
         jsonData.put("rut", txtRut.getText());
         jsonData.put("telefono", txtTelefono.getText());
-        jsonData.put("genero", new JSONObject().put("descripcion", txtG.getText()));
-        jsonData.put("estado_economico", new JSONObject().put("descripcion", txtEC.getText()));
 
-        // 3. Validar si al menos un campo ha cambiado
-        boolean hasChanges = false;
-        if (!txtNombre.getText().equals(currentData.getJSONObject("usuario_django").getString("first_name")) ||
-            !txtApellido.getText().equals(currentData.getJSONObject("usuario_django").getString("last_name")) ||
-            !txtUsername.getText().equals(currentData.getJSONObject("usuario_django").getString("username")) ||
-            !txtEmail.getText().equals(currentData.getJSONObject("usuario_django").getString("email")) ||
-            !txtRut.getText().equals(currentData.getString("rut")) ||
-            !txtTelefono.getText().equals(currentData.getString("telefono")) ||
-            !txtG.getText().equals(currentData.getJSONObject("genero").getString("descripcion")) ||
-            !txtEC.getText().equals(currentData.getJSONObject("estado_economico").getString("descripcion"))) {
-            hasChanges = true;
-        }
 
-        if (!hasChanges) {
-            JOptionPane.showMessageDialog(null, 
-                "No se realizaron cambios. Al menos un campo debe modificarse.", 
-                "Advertencia", 
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        // Imprimir los datos antes de enviarlos
+        System.out.println("Datos a enviar para modificar el usuario:");
+        System.out.println(jsonData.toString(4));  // Usar el formato 'pretty print' con 4 espacios de indentación
 
-        // 4. Realizar la solicitud PUT
-        URL url = new URL(urlString);
-        connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("PUT");
-        connection.setRequestProperty("Authorization", "Token " + token);
-        //connection.setRequestProperty("Authorization", "Token " + token2);
-        connection.setRequestProperty("Content-Type", "application/json; utf-8");
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setDoOutput(true);
-
+        // Enviar los datos a la API
         try (OutputStream os = connection.getOutputStream()) {
             byte[] input = jsonData.toString().getBytes("utf-8");
             os.write(input, 0, input.length);
         }
 
-        // 5. Leer la respuesta de la API
+        // Leer la respuesta de la API
         int responseCode = connection.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
-            JOptionPane.showMessageDialog(null, 
-                "Usuario modificado con éxito.", 
-                "Éxito", 
-                JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Usuario modificado con éxito.");
+            JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.");
         } else {
-            BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
+            // Leer y mostrar el error desde la API
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
             StringBuilder errorResponse = new StringBuilder();
-            while ((line = errorReader.readLine()) != null) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 errorResponse.append(line.trim());
             }
-            JOptionPane.showMessageDialog(null, 
-                "Error al modificar el usuario. Código de respuesta: " + responseCode + "\nDetalles del error: " + errorResponse.toString(), 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE);
+            System.err.println("Error al modificar el usuario. Código de respuesta: " + responseCode);
+            System.err.println("Detalles del error: " + errorResponse.toString());
+            JOptionPane.showMessageDialog(null, "Error al modificar el usuario.");
         }
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, 
-            "Ocurrió un error", 
-            "Error", 
-            JOptionPane.ERROR_MESSAGE);
- 
-        e.printStackTrace();
-    } finally {
-        if (connection != null) {
-            connection.disconnect();
-        }
+        e.printStackTrace(); // Mostrar el error completo en la consola
+        JOptionPane.showMessageDialog(null, "Error al modificar el usuario.");
     }
 }
 
 
+// Método para obtener el ID del estado a partir de la descripción
+private int obtenerIdEstadoDesdeDescripcion(String descripcionEstado) {
+    // Realizar la búsqueda en el mapa de estados (debe estar cargado previamente)
+    for (Map.Entry<Integer, String> entry : estadosEconomicosMap.entrySet()) {
+        if (entry.getValue().equals(descripcionEstado)) {
+            return entry.getKey();
+            
+        }
+        
+    }
+    return -1;  // Retorna -1 si no se encuentra el estado
+}
+
+// Método para obtener el ID del género a partir de la descripción
+private int obtenerIdGeneroDesdeDescripcion(String descripcionGenero) {
+    // Realizar la búsqueda en el mapa de géneros (debe estar cargado previamente)
+    for (Map.Entry<Integer, String> entry : generosMap.entrySet()) {
+        if (entry.getValue().equals(descripcionGenero)) {
+            return entry.getKey();
+        }
+        
+        
+    }
+    
+    return -1;  // Retorna -1 si no se encuentra el género
+}
+// Método para imprimir el mapa de géneros
+private void imprimirMapaGeneros() {
+    // Imprimir todas las claves y valores del mapa
+    System.out.println("Mapa de géneros:");
+    for (Map.Entry<Integer, String> entry : generosMap.entrySet()) {
+        System.out.println("Género: " + entry.getKey() + ", ID: " + entry.getValue());
+    }
+}
+// Método para modificar el género del usuario utilizando los datos seleccionados
+private void modificarGeneroUsuarioSeleccionado(int usuarioId) {
+    // Obtener el género seleccionado en el ComboBox
+    String generoSeleccionado = (String) ComboBoxEsGe.getSelectedItem();
+    int generoId = obtenerIdGeneroDesdeDescripcion(generoSeleccionado);  // Método para obtener el ID del género seleccionado
+    System.out.println("NOMBRE "+ generoSeleccionado);
+    System.out.println("ID: " + generoId);
+    if (generoId == -1) {
+        JOptionPane.showMessageDialog(null, "Género seleccionado no válido.");
+        return;
+    }
+
+    // URL para actualizar solo el género del usuario
+    String urlGeneroUsuario = "http://127.0.0.1:8000/perfiles/" + usuarioId + "/genero/";
+
+    // Crear el JSON para la actualización
+    JSONObject datosActualizados = new JSONObject();
+    datosActualizados.put("genero", generoId);  // Enviar solo el ID del género
+
+    // Imprimir por consola cómo quedarán los datos antes de enviarlos
+    System.out.println("Datos a enviar para modificar el género del usuario:");
+    System.out.println(datosActualizados.toString(4));  // Usar el formato 'pretty print' con 4 espacios de indentación
+
+    // Realizar la actualización
+    try {
+        HttpURLConnection connection = (HttpURLConnection) new URL(urlGeneroUsuario).openConnection();
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Authorization", "Token " + token);
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        // Enviar los datos
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = datosActualizados.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Obtener el código de respuesta y verificar la respuesta
+        int responseCode = connection.getResponseCode();
+        System.out.println("Código de respuesta HTTP: " + responseCode);
+
+        // Leer la respuesta
+        StringBuilder responseMessage = new StringBuilder();
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                responseMessage.append(inputLine);
+            }
+        }
+
+        // Imprimir el cuerpo de la respuesta para ver detalles
+        System.out.println("Respuesta de la API: " + responseMessage.toString());
+
+        // Verificar si la respuesta es exitosa
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            System.out.println("Género del usuario modificado correctamente.");
+            JOptionPane.showMessageDialog(null, "Género del usuario modificado correctamente.");
+            cargarDatosTabla();  // Recargar la tabla para reflejar los cambios
+        } else {
+            System.err.println("Error al modificar género del usuario. Código de respuesta: " + responseCode);
+            JOptionPane.showMessageDialog(null, "Error al modificar género del usuario.");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al modificar género del usuario.");
+    }
+}
+
+// Método para modificar el estado económico del usuario utilizando los datos seleccionados
+private void modificarEstadoEconomicoUsuarioSeleccionado(int usuarioId) {
+    // Obtener el estado económico seleccionado en el ComboBox
+    String estadoEconomicoSeleccionado = (String) ComboBoxEsEc.getSelectedItem();
+    int estadoEconomicoId = obtenerIdEstadoDesdeDescripcion(estadoEconomicoSeleccionado);  // Método para obtener el ID del estado económico seleccionado
+    System.out.println("NOMBRE "+ estadoEconomicoSeleccionado);
+    System.out.println("ID: " + estadoEconomicoId);
+    if (estadoEconomicoId == -1) {
+        JOptionPane.showMessageDialog(null, "Estado económico seleccionado no válido.");
+        return;
+    }
+
+    // URL para actualizar solo el estado económico del usuario
+    String urlEstadoEconomicoUsuario = "http://127.0.0.1:8000/perfiles/" + usuarioId + "/estado-economico/";
+
+    // Crear el JSON para la actualización
+    JSONObject datosActualizados = new JSONObject();
+    datosActualizados.put("estado_economico", estadoEconomicoId);  // Enviar solo el ID del estado económico
+    // Imprimir por consola cómo quedarán los datos antes de enviarlos
+    System.out.println("Datos a enviar para modificar el estado económico del usuario:");
+    System.out.println(datosActualizados.toString(4));  // Usar el formato 'pretty print' con 4 espacios de indentación
+
+    // Realizar la actualización
+    try {
+        HttpURLConnection connection = (HttpURLConnection) new URL(urlEstadoEconomicoUsuario).openConnection();
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Authorization", "Token " + token);
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoOutput(true);
+
+        // Enviar los datos
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = datosActualizados.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // Obtener el código de respuesta y verificar la respuesta
+        int responseCode = connection.getResponseCode();
+        System.out.println("Código de respuesta HTTP: " + responseCode);
+
+        // Leer la respuesta
+        StringBuilder responseMessage = new StringBuilder();
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                responseMessage.append(inputLine);
+            }
+        }
+
+        // Imprimir el cuerpo de la respuesta para ver detalles
+        System.out.println("Respuesta de la API: " + responseMessage.toString());
+
+        // Verificar si la respuesta es exitosa
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            System.out.println("Estado económico del usuario modificado correctamente.");
+            JOptionPane.showMessageDialog(null, "Estado económico del usuario modificado correctamente.");
+            cargarDatosTabla();  // Recargar la tabla para reflejar los cambios
+        } else {
+            System.err.println("Error al modificar estado económico del usuario. Código de respuesta: " + responseCode);
+            JOptionPane.showMessageDialog(null, "Error al modificar estado económico del usuario.");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al modificar estado económico del usuario.");
+    }
+}
 
 
+// Método para manejar la modificación de usuario
 private void manejarModificacionUsuario() {
     int filaSeleccionada = TableUsuarios.getSelectedRow();
 
@@ -650,12 +879,17 @@ private void manejarModificacionUsuario() {
             JOptionPane.YES_NO_OPTION);
 
         if (confirmacion == JOptionPane.YES_OPTION) {
-            modificarUsuario(usuarioId);
+                modificarUsuario(usuarioId);
+                modificarGeneroUsuarioSeleccionado(usuarioId);
+                modificarEstadoEconomicoUsuarioSeleccionado(usuarioId);
+                imprimirMapaGeneros();
+            
         }
     } else {
         JOptionPane.showMessageDialog(null, "Por favor, seleccione un usuario de la tabla.");
     }
 }
+
 
  
 //-----------------------------------------------------FIN MODIFICAR------------------------------------------------------------------------
@@ -673,8 +907,8 @@ private void manejarModificacionUsuario() {
 
             // Configurar el método GET y los encabezados
             connection.setRequestMethod("GET");
-            //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-            connection.setRequestProperty("Authorization", "Token " + token2);
+            connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+            //connection.setRequestProperty("Authorization", "Token " + token2);
             connection.setRequestProperty("Accept", "application/json");
 
             // Conectar y obtener la respuesta
@@ -691,6 +925,7 @@ private void manejarModificacionUsuario() {
             JOptionPane.showMessageDialog(null, "Error al eliminar usuario.");
         }
     }
+    
 
     // Método común para manejar la eliminación del usuario
     private void manejarEliminacionUsuario() {
@@ -730,8 +965,7 @@ private void manejarModificacionUsuario() {
 
     
 //-----------------------------------------------------INICIO SELECCIONAR USUARIO-----------------------------------------------------------
-   
-// Método para cargar los datos del usuario seleccionado
+   // Método para cargar los datos del usuario seleccionado
 private void seleccionarUsuario(int usuarioId) {
     String urlString = "http://127.0.0.1:8000/api/perfilusuario/" + usuarioId + "/"; // URL de la API para obtener datos
 
@@ -742,8 +976,7 @@ private void seleccionarUsuario(int usuarioId) {
 
         // Configurar el método GET y los encabezados
         connection.setRequestMethod("GET");
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
@@ -804,21 +1037,25 @@ private void seleccionarUsuario(int usuarioId) {
             txtUsername.setText(username);  // Asumiendo que tienes un campo para mostrar el username
             txtEmail.setText(email);  // Asumiendo que tienes un campo para mostrar el email
 
-            // Mostrar valores procesados para estado económico y genero
-            txtEC.setText(estadoEconomico);
-            txtG.setText(genero);
+            // Asignar el valor del género al ComboBox correspondiente
+            for (int i = 0; i < ComboBoxEsGe.getItemCount(); i++) {
+                if (ComboBoxEsGe.getItemAt(i).equals(genero)) {
+                    ComboBoxEsGe.setSelectedIndex(i);  // Seleccionar el género
+                    break;
+                }
+            }
+
+            // Asignar el valor del estado económico al ComboBox correspondiente
+            for (int i = 0; i < ComboBoxEsEc.getItemCount(); i++) {
+                if (ComboBoxEsEc.getItemAt(i).equals(estadoEconomico)) {
+                    ComboBoxEsEc.setSelectedIndex(i);  // Seleccionar el estado económico
+                    break;
+                }
+            }
 
             // Deshabilitar los campos que no deben ser modificados
-            txtNombre.setEditable(false);
-            txtNombre.setBackground(Color.GRAY);
-
-            txtApellido.setEditable(false);
-            txtApellido.setBackground(Color.GRAY);
-
             txtRut.setEditable(false);
             txtRut.setBackground(Color.GRAY);
-
-
 
         } else {
             JOptionPane.showMessageDialog(null, "Error al obtener datos del usuario.");
@@ -828,6 +1065,7 @@ private void seleccionarUsuario(int usuarioId) {
         JOptionPane.showMessageDialog(null, "Error al seleccionar usuario.");
     }
 }
+
 
 
 // Método para manejar la selección del usuario en la tabla y cargar datos
@@ -887,6 +1125,8 @@ private void manejarSeleccionUsuario() {
     private javax.swing.JButton BTModificarUS1;
     private javax.swing.JButton BTSeleccionarUS;
     private javax.swing.JButton BTVolver;
+    private javax.swing.JComboBox<String> ComboBoxEsEc;
+    private javax.swing.JComboBox<String> ComboBoxEsGe;
     private javax.swing.JTable TableUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -900,9 +1140,7 @@ private void manejarSeleccionUsuario() {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtEC;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtG;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRut;
     private javax.swing.JTextField txtTelefono;
