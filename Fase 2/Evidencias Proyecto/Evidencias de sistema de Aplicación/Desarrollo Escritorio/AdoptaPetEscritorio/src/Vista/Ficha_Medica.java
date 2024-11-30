@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -471,8 +473,8 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    //connection.setRequestProperty("Authorization", "Token " + token);
-    connection.setRequestProperty("Authorization", "Token " + token2);
+    connection.setRequestProperty("Authorization", "Token " + token);
+    //connection.setRequestProperty("Authorization", "Token " + token2);
     connection.connect();
 
     int responseCode = connection.getResponseCode();
@@ -503,9 +505,8 @@ private void modificarFichaMedica(int fichaMedicaId) {
         // 1. Obtener los datos actuales de la ficha médica
         URL getUrl = new URL(urlString);
         HttpURLConnection getConnection = (HttpURLConnection) getUrl.openConnection();
-        getConnection.setRequestMethod("PUT");
-        //getConnection.setRequestProperty("Authorization", "Token " + token);
-        getConnection.setRequestProperty("Authorization", "Token " + token2);
+        getConnection.setRequestMethod("GET");
+        getConnection.setRequestProperty("Authorization", "Token " + token);
         getConnection.setRequestProperty("Accept", "application/json");
         getConnection.connect();
 
@@ -530,14 +531,30 @@ private void modificarFichaMedica(int fichaMedicaId) {
         getConnection.disconnect();
 
         // 2. Crear el objeto JSON con los datos nuevos de la ficha médica
+        String proxConsultaText = txtProximaConsulta.getText(); // Campo para la próxima consulta
+        String fechaMedicaText = txtFechaMedica.getText(); // Campo para la fecha médica
+
+        // Validar formato de fechas y lógica de negocio
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date proxConsultaDate = dateFormat.parse(proxConsultaText);
+        Date fechaMedicaDate = dateFormat.parse(fechaMedicaText);
+
+        if (proxConsultaDate.before(fechaMedicaDate)) {
+            JOptionPane.showMessageDialog(null, 
+                "La fecha de la próxima consulta no puede ser menor que la fecha médica.", 
+                "Error de validación", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         JSONObject jsonData = new JSONObject();
-        jsonData.put("prox_consulta", txtProximaConsulta.getText()); // Campo para la próxima consulta
-        jsonData.put("fecha_medica", txtFechaMedica.getText()); // Campo para la fecha médica
+        jsonData.put("prox_consulta", proxConsultaText);
+        jsonData.put("fecha_medica", fechaMedicaText);
 
         // 3. Validar si al menos un campo ha cambiado
         boolean hasChanges = false;
-        if (!txtProximaConsulta.getText().equals(currentData.getString("prox_consulta")) ||
-            !txtFechaMedica.getText().equals(currentData.getString("fecha_medica"))) {
+        if (!proxConsultaText.equals(currentData.getString("prox_consulta")) ||
+            !fechaMedicaText.equals(currentData.getString("fecha_medica"))) {
             hasChanges = true;
         }
 
@@ -554,7 +571,6 @@ private void modificarFichaMedica(int fichaMedicaId) {
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("PUT");
         connection.setRequestProperty("Authorization", "Token " + token);
-        //connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Content-Type", "application/json; utf-8");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -571,7 +587,7 @@ private void modificarFichaMedica(int fichaMedicaId) {
                 "Ficha médica modificada con éxito.", 
                 "Éxito", 
                 JOptionPane.INFORMATION_MESSAGE);
-                cargarDatosTabla();
+            cargarDatosTabla();
         } else {
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "utf-8"));
             StringBuilder errorResponse = new StringBuilder();
@@ -588,7 +604,6 @@ private void modificarFichaMedica(int fichaMedicaId) {
             "Ocurrió un error", 
             "Error", 
             JOptionPane.ERROR_MESSAGE);
- 
         e.printStackTrace();
     } finally {
         if (connection != null) {
@@ -596,6 +611,7 @@ private void modificarFichaMedica(int fichaMedicaId) {
         }
     }
 }
+
 
 private void manejarModificacionFichaMedica() {
     int filaSeleccionada = TablaFichaMedica.getSelectedRow();
@@ -637,8 +653,8 @@ private void eliminarFichaMedica(int fichaMedicaId) {
 
         // Configurar el método DELETE y los encabezados
         connection.setRequestMethod("DELETE");  // Cambiar a DELETE para eliminar
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        //connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
@@ -705,8 +721,8 @@ private void seleccionarFichaMedica(int fichaMedicaId) {
 
         // Configurar el método GET y los encabezados
         connection.setRequestMethod("GET");
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        //connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
