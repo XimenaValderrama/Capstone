@@ -33,12 +33,21 @@
                     <!-- Datos Básicos de la Ficha -->
                     <div class="row">
                       <div class="col-md-6 mb-3">
-                        <label>Fecha Médica</label>
-                        <input type="date" class="form-control form-control-lg" name="fecha_medica" required>
+                        <label>Ultima atención médica</label>
+                        <input 
+                          type="date" 
+                          class="form-control form-control-lg" 
+                          name="fecha_medica" 
+                          max="{{ date.today }}" 
+                          required>
                       </div>
                       <div class="col-md-6 mb-3">
                         <label>Próxima Consulta</label>
-                        <input type="date" class="form-control form-control-lg" name="prox_consulta">
+                        <input 
+                          type="date" 
+                          class="form-control form-control-lg" 
+                          name="prox_consulta" 
+                          min="{{ date.today }}">
                       </div>
                     </div>
                     <div class="row">
@@ -238,6 +247,16 @@
     document.addEventListener('DOMContentLoaded', function () {
         addRemoveFunctionality();
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const fechaMedica = document.querySelector('input[name="fecha_medica"]');
+      const proxConsulta = document.querySelector('input[name="prox_consulta"]');
+    
+      fechaMedica.setAttribute('max', new Date().toISOString().split('T')[0]);
+      proxConsulta.setAttribute('min', new Date().toISOString().split('T')[0]);
+    });
+    
+
 </script>
 </body>
 </html>

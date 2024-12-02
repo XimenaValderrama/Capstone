@@ -15,6 +15,8 @@ from web.cargar_datos_fundaciones import consumir_y_guardar_fundaciones
 from django.http import JsonResponse
 from django.utils.timezone import now
 from django.views.decorators.csrf import csrf_exempt
+from datetime import date
+
 
 #Funciones para la API
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -1016,10 +1018,22 @@ def ficha_medica(request, mascota_id):
 
     if request.method == 'POST':
         # Ficha Médica
-        fecha_medica = request.POST.get('fecha_medica', now().date())
-        prox_consulta = request.POST.get('prox_consulta', None)
+        fecha_medica = request.POST.get('fecha_medica')
+        prox_consulta = request.POST.get('prox_consulta')
         tipo_alimento_id = request.POST.get('tipo_alimento')
         tipo_alimento = get_object_or_404(TipoAlimento, pk=tipo_alimento_id)
+
+        if fecha_medica:
+            fecha_medica = date.fromisoformat(fecha_medica)
+            if fecha_medica > date.today():
+                messages.error(request, "La fecha de consulta médica no puede ser una fecha futura.")
+                return redirect('ficha_medica', mascota_id=mascota.id)
+
+        if prox_consulta:
+            prox_consulta = date.fromisoformat(prox_consulta)
+            if prox_consulta < date.today():
+                messages.error(request, "La próxima consulta debe ser igual o posterior a la fecha actual.")
+                return redirect('ficha_medica', mascota_id=mascota.id)
 
         ficha_medica = FichaMedica()
         ficha_medica.fecha_medica = fecha_medica
@@ -1215,8 +1229,23 @@ def modificar_ficha_medica(request, ficha_medica_id):
 
     if request.method == 'POST':
         # Actualizar información básica de la ficha médica
-        ficha_medica.fecha_medica = request.POST.get('fecha_medica', ficha_medica.fecha_medica)
-        ficha_medica.prox_consulta = request.POST.get('prox_consulta', ficha_medica.prox_consulta)
+        fecha_medica = request.POST.get('fecha_medica', ficha_medica.fecha_medica)
+        prox_consulta = request.POST.get('prox_consulta', ficha_medica.prox_consulta)
+        fecha_actual = now().date()
+
+        if fecha_medica:
+            if fecha_medica > str(fecha_actual):  # Convertir fecha a string para comparación
+                messages.error(request, "La fecha médica no puede ser una fecha futura.")
+                return redirect('modificar_ficha_medica', ficha_medica_id=ficha_medica_id)
+
+        if prox_consulta:
+            if prox_consulta < str(fecha_actual):
+                messages.error(request, "La próxima consulta debe ser igual o posterior a la fecha actual.")
+                return redirect('modificar_ficha_medica', ficha_medica_id=ficha_medica_id)
+            
+        # Actualizar información básica de la ficha médica
+        ficha_medica.fecha_medica = fecha_medica
+        ficha_medica.prox_consulta = prox_consulta
 
         tipo_alimento_id = request.POST.get('tipo_alimento')
         if tipo_alimento_id:
@@ -1314,6 +1343,7 @@ def modificar_ficha_medica(request, ficha_medica_id):
         'esterilizacion': ficha_medica.esterilizacion_set.first(),
         'tipos_alimento': TipoAlimento.objects.all(),
         'tipos_cirugia': TipoCirugia.objects.all(),
+        'now': now(),  # Agregar fecha actual
     }
     return render(request, 'modificar_ficha_medica.html', context)
 

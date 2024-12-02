@@ -15,13 +15,18 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <h6>Fecha última consulta médica:</h6>
-                        <input type="date" class="form-control" name="fecha_medica" value="{{ ficha_medica.fecha_medica|date:'Y-m-d' }}" required>
+                        <input type="date" class="form-control" name="fecha_medica" 
+                               value="{{ ficha_medica.fecha_medica|date:'Y-m-d' }}" 
+                               max="{{ now|date:'Y-m-d' }}" required>
                     </div>
                     <div class="col-md-6">
                         <h6>Próxima consulta:</h6>
-                        <input type="date" class="form-control" name="prox_consulta" value="{{ ficha_medica.prox_consulta|date:'Y-m-d' }}">
+                        <input type="date" class="form-control" name="prox_consulta" 
+                               value="{{ ficha_medica.prox_consulta|date:'Y-m-d' }}" 
+                               min="{{ now|date:'Y-m-d' }}">
                     </div>
                 </div>
+                
 
                 <div class="row mb-3">
                     <div class="col-md-6">
