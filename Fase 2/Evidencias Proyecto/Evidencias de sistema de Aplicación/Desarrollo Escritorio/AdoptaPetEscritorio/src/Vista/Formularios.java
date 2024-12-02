@@ -239,8 +239,7 @@ public class Formularios extends javax.swing.JFrame {
         manejarSeleccionFormulario(); // Llama al método para manejar la selección del usuario
     }//GEN-LAST:event_BTSeleccionarFormActionPerformed
 
-private String token = "8ffeb3f8e3edc9915795f7c57fb11b39b1dd96a2";
-private String token2 = "a635c77de3de8cf58fa3e631b4e197b048670150";
+private String token = "a635c77de3de8cf58fa3e631b4e197b048670150";
 private Map<Integer, String> estadosMap = new HashMap<>();
 
 
@@ -346,8 +345,7 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    //connection.setRequestProperty("Authorization", "Token " + token);
-    connection.setRequestProperty("Authorization", "Token " + token2);
+    connection.setRequestProperty("Authorization", "Token " + token);
     connection.connect();
 
     int responseCode = connection.getResponseCode();
@@ -471,8 +469,7 @@ private void modificarComentarioFormularioSeleccionado(int formularioId) throws 
     try {
         HttpURLConnection connection = (HttpURLConnection) new URL(urlComentarioFormulario).openConnection();
         connection.setRequestMethod("PUT");
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Usar tu token de autorización
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);  // Usar tu token de autorización
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -543,8 +540,7 @@ private void modificarEstadoFormularioSeleccionado(int formularioId) throws IOEx
     try {
         HttpURLConnection connection = (HttpURLConnection) new URL(urlEstadoFormulario).openConnection();
         connection.setRequestMethod("PUT");
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Usar tu token de autorización
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);  // Usar tu token de autorización
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -683,8 +679,7 @@ private void eliminarFormulario(int formularioId) {
 
         // Configurar el método DELETE y los encabezados
         connection.setRequestMethod("DELETE");
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
@@ -842,8 +837,7 @@ private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSON
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    //connection.setRequestProperty("Authorization", "Token " + token);
-    connection.setRequestProperty("Authorization", "Token " + token2);
+    connection.setRequestProperty("Authorization", "Token " + token);
     connection.setRequestProperty("Accept", "application/json");
     connection.connect();
 

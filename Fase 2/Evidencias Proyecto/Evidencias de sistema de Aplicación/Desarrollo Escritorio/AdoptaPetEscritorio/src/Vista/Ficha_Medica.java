@@ -243,8 +243,7 @@ public class Ficha_Medica extends javax.swing.JFrame {
         manejarModificacionFichaMedica();
     }//GEN-LAST:event_BTModificarPAActionPerformed
 
-private String token = "8ffeb3f8e3edc9915795f7c57fb11b39b1dd96a2";
-private String token2 = "a635c77de3de8cf58fa3e631b4e197b048670150";
+private String token = "a635c77de3de8cf58fa3e631b4e197b048670150";
 
 
 //-------------------------------------------------------INICIO LISTAR DATOS FICHA MEDICA-------------------------------------------------------------------------------------    
@@ -473,8 +472,7 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    //connection.setRequestProperty("Authorization", "Token " + token);
-    connection.setRequestProperty("Authorization", "Token " + token2);
+    connection.setRequestProperty("Authorization", "Token " + token);
     connection.connect();
 
     int responseCode = connection.getResponseCode();
@@ -506,8 +504,7 @@ private void modificarFichaMedica(int fichaMedicaId) {
         URL getUrl = new URL(urlString);
         HttpURLConnection getConnection = (HttpURLConnection) getUrl.openConnection();
         getConnection.setRequestMethod("GET");
-        //getConnection.setRequestProperty("Authorization", "Token " + token);
-        getConnection.setRequestProperty("Authorization", "Token " + token2);
+        getConnection.setRequestProperty("Authorization", "Token " + token);
         getConnection.setRequestProperty("Accept", "application/json");
         getConnection.connect();
 
@@ -571,8 +568,7 @@ private void modificarFichaMedica(int fichaMedicaId) {
         URL url = new URL(urlString);
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("PUT");
-        //connection.setRequestProperty("Authorization", "Token " + token);
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);
         connection.setRequestProperty("Content-Type", "application/json; utf-8");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -655,8 +651,7 @@ private void eliminarFichaMedica(int fichaMedicaId) {
 
         // Configurar el método DELETE y los encabezados
         connection.setRequestMethod("DELETE");  // Cambiar a DELETE para eliminar
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
@@ -723,8 +718,7 @@ private void seleccionarFichaMedica(int fichaMedicaId) {
 
         // Configurar el método GET y los encabezados
         connection.setRequestMethod("GET");
-        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        connection.setRequestProperty("Authorization", "Token " + token2);
+        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
