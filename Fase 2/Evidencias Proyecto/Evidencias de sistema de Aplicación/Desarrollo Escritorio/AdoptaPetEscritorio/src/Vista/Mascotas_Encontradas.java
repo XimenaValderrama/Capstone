@@ -328,8 +328,8 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    connection.setRequestProperty("Authorization", "Token " + token);
-    //connection.setRequestProperty("Authorization", "Token " + token2);
+    //connection.setRequestProperty("Authorization", "Token " + token);
+    connection.setRequestProperty("Authorization", "Token " + token2);
     connection.connect();
 
     int responseCode = connection.getResponseCode();
@@ -465,8 +465,8 @@ private void eliminarMascota(int mascotaId) {
 
         // Configurar el método DELETE y los encabezados
         connection.setRequestMethod("DELETE");
-        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-        //connection.setRequestProperty("Authorization", "Token " + token2);
+        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
@@ -541,8 +541,8 @@ private void modificarNombreMascotaSeleccionada(int mascotaId) {
     try {
         HttpURLConnection connection = (HttpURLConnection) new URL(urlMascota).openConnection();
         connection.setRequestMethod("PUT");
-        connection.setRequestProperty("Authorization", "Token " + token);
-        //connection.setRequestProperty("Authorization", "Token " + token2);
+        //connection.setRequestProperty("Authorization", "Token " + token);
+        connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -622,8 +622,8 @@ private void modificarEstadoMascotaSeleccionada(int mascotaId) {
     try {
         HttpURLConnection connection = (HttpURLConnection) new URL(urlEstadoMascota).openConnection();
         connection.setRequestMethod("PUT");
-        connection.setRequestProperty("Authorization", "Token " + token);
-        //connection.setRequestProperty("Authorization", "Token " + token2);
+        //connection.setRequestProperty("Authorization", "Token " + token);
+        connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -769,8 +769,8 @@ private JSONObject obtenerObjetoDeApi(String urlString) throws IOException, JSON
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    connection.setRequestProperty("Authorization", "Token " + token);
-    //connection.setRequestProperty("Authorization", "Token " + token2);
+    //connection.setRequestProperty("Authorization", "Token " + token);
+    connection.setRequestProperty("Authorization", "Token " + token2);
     connection.setRequestProperty("Accept", "application/json");
     connection.connect();
 

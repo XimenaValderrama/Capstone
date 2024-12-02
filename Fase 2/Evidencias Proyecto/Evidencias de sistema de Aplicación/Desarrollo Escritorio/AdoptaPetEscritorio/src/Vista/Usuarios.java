@@ -553,8 +553,8 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
     URL url = new URL(urlString);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
-    connection.setRequestProperty("Authorization", "Token " + token);
-    //connection.setRequestProperty("Authorization", "Token " + token2);
+    //connection.setRequestProperty("Authorization", "Token " + token);
+    connection.setRequestProperty("Authorization", "Token " + token2);
     connection.connect();
 
     int responseCode = connection.getResponseCode();
@@ -642,7 +642,8 @@ private void modificarUsuario(int usuarioId) {
 
         // Configurar el método PUT y los encabezados
         connection.setRequestMethod("PUT"); // Cambiar a "PATCH" si solo deseas actualizar algunos campos
-        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Content-Type", "application/json; utf-8");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -755,7 +756,8 @@ private void modificarGeneroUsuarioSeleccionado(int usuarioId) {
     try {
         HttpURLConnection connection = (HttpURLConnection) new URL(urlGeneroUsuario).openConnection();
         connection.setRequestMethod("PUT");
-        connection.setRequestProperty("Authorization", "Token " + token);
+        //connection.setRequestProperty("Authorization", "Token " + token);
+        connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -823,7 +825,8 @@ private void modificarEstadoEconomicoUsuarioSeleccionado(int usuarioId) {
     try {
         HttpURLConnection connection = (HttpURLConnection) new URL(urlEstadoEconomicoUsuario).openConnection();
         connection.setRequestMethod("PUT");
-        connection.setRequestProperty("Authorization", "Token " + token);
+        //connection.setRequestProperty("Authorization", "Token " + token);
+        connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setDoOutput(true);
@@ -907,8 +910,8 @@ private void manejarModificacionUsuario() {
 
             // Configurar el método GET y los encabezados
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
-            //connection.setRequestProperty("Authorization", "Token " + token2);
+            //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+            connection.setRequestProperty("Authorization", "Token " + token2);
             connection.setRequestProperty("Accept", "application/json");
 
             // Conectar y obtener la respuesta
@@ -976,7 +979,8 @@ private void seleccionarUsuario(int usuarioId) {
 
         // Configurar el método GET y los encabezados
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        //connection.setRequestProperty("Authorization", "Token " + token);  // Token de autenticación
+        connection.setRequestProperty("Authorization", "Token " + token2);
         connection.setRequestProperty("Accept", "application/json");
 
         // Conectar y obtener la respuesta
