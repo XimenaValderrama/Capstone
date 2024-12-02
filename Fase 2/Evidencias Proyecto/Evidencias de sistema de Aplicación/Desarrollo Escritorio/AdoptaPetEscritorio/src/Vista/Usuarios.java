@@ -164,7 +164,7 @@ public class Usuarios extends javax.swing.JFrame {
 
         jLabel6.setText("Genero");
 
-        BTModificarUS1.setText("Modificar Usuarios");
+        BTModificarUS1.setText("Modificar Usuario");
         BTModificarUS1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BTModificarUS1ActionPerformed(evt);
