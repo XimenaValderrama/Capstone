@@ -472,6 +472,32 @@ def encontrados(request):
 
     return render(request, 'encontrados.html', {'mascotas': mascotas})
 
+def validar_rut(rut):
+    """
+    Valida el RUT chileno.
+    """
+    rut = rut.upper()
+    rut = rut.replace(".", "").replace("-", "")
+    cuerpo = rut[:-1]
+    dv = rut[-1]
+
+    # Validar largo mínimo y máximo
+    if not cuerpo.isdigit() or len(cuerpo) < 7 or len(cuerpo) > 8:
+        return False
+
+    # Calcular el dígito verificador
+    suma = 0
+    multiplo = 2
+
+    for digito in reversed(cuerpo):
+        suma += int(digito) * multiplo
+        multiplo = multiplo + 1 if multiplo < 7 else 2
+
+    dv_calculado = 11 - (suma % 11)
+    dv_calculado = "K" if dv_calculado == 10 else "0" if dv_calculado == 11 else str(dv_calculado)
+
+    return dv == dv_calculado
+
 def registro(request):
 
     if request.method == 'POST':
@@ -493,6 +519,11 @@ def registro(request):
 
         rut_numerico = re.sub(r'[\.\-]', '', rut)
 
+         # Validar RUT
+        if not validar_rut(rut):
+            messages.error(request, 'El RUT ingresado no es válido.', extra_tags='rut_invalido')
+            return redirect('registro')
+        
         # 2. Validar que las contraseñas coincidan
         if password1 != password2:
             messages.error(request, 'Las contraseñas no coinciden.',  extra_tags='coincidencia_contraseñas')

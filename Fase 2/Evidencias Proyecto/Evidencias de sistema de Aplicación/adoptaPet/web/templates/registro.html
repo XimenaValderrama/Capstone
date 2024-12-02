@@ -45,6 +45,10 @@
                           <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
                               {{ message }}
                           </div>
+                      {% elif 'rut_invalido' in message.extra_tags %}
+                          <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
+                              {{ message }}
+                          </div>
                       {% elif 'correo_duplicado' in message.extra_tags %}
                           <div class="alert alert-dismissible fade show" role="alert" style="background-color: #fe5757; color: #ffffff;">
                               {{ message }}
