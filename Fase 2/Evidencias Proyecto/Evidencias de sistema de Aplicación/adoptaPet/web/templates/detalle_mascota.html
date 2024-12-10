@@ -32,6 +32,7 @@
                             <li class="list-group-item"><strong>Tipo Mascota:</strong> {{ mascota.tipo.get_descripcion_display }}</li>
                             <li class="list-group-item"><strong>Estado Mascota:</strong> {{ mascota.estado_mascota.get_descripcion_display }}</li>
                             <li class="list-group-item"><strong>Edad:</strong> {{ mascota.edad }} {{ mascota.tipo_edad }}</li>
+                            <li class="list-group-item"><strong>Género:</strong> {{ mascota.genero.get_descripcion_display }}</li>
                             <li class="list-group-item"><strong>Raza:</strong> {{ mascota.raza }}</li>
                             <li class="list-group-item"><strong>Dueño:</strong> {{ usuario_registrador.usuario_django.first_name }} {{ usuario_registrador.usuario_django.last_name }}</li>
                             <li class="list-group-item"><strong>Contacto:</strong> {{ usuario_registrador.usuario_django.username }} </li>
