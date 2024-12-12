@@ -232,7 +232,7 @@ public class Mascotas_Perdidas extends javax.swing.JFrame {
         manejarSeleccionMascota(); // Llama al método para manejar la selección del usuario
     }//GEN-LAST:event_BTSeleccionarMasPerActionPerformed
   
-private String token = "a635c77de3de8cf58fa3e631b4e197b048670150";
+private String token = "8ffeb3f8e3edc9915795f7c57fb11b39b1dd96a2";
 private Map<Integer, String> estadosMap = new HashMap<>();
 
 //--------------------------------------------------------INICIO LISTAR DATOS MASCOTA PERDIDA-------------------------------------------------------------------------

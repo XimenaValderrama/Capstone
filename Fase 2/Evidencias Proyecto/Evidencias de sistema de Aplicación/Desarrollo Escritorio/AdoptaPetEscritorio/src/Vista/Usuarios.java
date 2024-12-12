@@ -377,7 +377,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboBoxEsGeActionPerformed
 
 private int usuarioId; // Variable para almacenar la ID seleccionada
-private String token = "a635c77de3de8cf58fa3e631b4e197b048670150";
+private String token = "8ffeb3f8e3edc9915795f7c57fb11b39b1dd96a2";
 
 private Map<Integer, String> generosMap = new HashMap<>();
 private Map<Integer, String> estadosEconomicosMap = new HashMap<>();
@@ -567,7 +567,7 @@ private JSONArray obtenerDatosDeApi(String urlString) throws IOException, JSONEx
         in.close();
         return new JSONArray(response.toString());
     } else {
-        throw new IOException("Error en la conexión. Código de respuesta: " + responseCode);
+        throw new IOException("");
     }
 }
 
